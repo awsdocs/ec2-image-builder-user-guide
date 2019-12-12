@@ -98,7 +98,7 @@ phases:
                     [Parameter(Mandatory=$true)]
                     [ValidateNotNullOrEmpty()]
                     [string]$threshHold
-                 )
+                )
                 $disk = Get-PSDrive $driveLetter | Select-Object Used,Free
                 $percentage_free = [Math]::round($disk.free/($disk.free+$disk.used) * 100,2)
                 if($percentage_free -ge $threshHold) {
@@ -144,11 +144,9 @@ This example assumes we have a file named `create-component.json`\.
     "semanticVersion": "2019.12.02",
     "description": "An example component that builds, validates and tests an image",
     "changeDescription": "Initial version.",
-    "category": "Other",
     "platform": "Windows",
     "uri": "s3://my-s3-bucket/my-path/component.yaml",
     "kmsKeyId": "arn:aws:kms:us-west-2:123456789012:key/60763706-b131-418b-8f85-3420912f020c",
-    "encrypted": true,
     "tags": {
         "MyTagKey": "Some Value"
     }
@@ -165,7 +163,7 @@ aws imagebuilder create-component --cli-input-json file://create-component.json
 
 For some scenarios, it might be easier to start with a pre\-existing script\. For this scenario, you can do the following\.
 
-This example assumes that you have a file called `import-component.json` \(as shown\)\. Note that the file directly references a PowerShell script called `AdminConfig.ps1` that is already uploaded to `my-s3-bucket`\. Currently, `SHELL` is supported for the component `type`\.
+This example assumes that you have a file called `import-component.json` \(as shown\)\. Note that the file directly references a PowerShell script called `AdminConfig.ps1` that is already uploaded to `my-s3-bucket`\. Currently, `SHELL` is supported for the component `format`\. The `type` of the component denotes whether the component is used to build the image or only to test it.
 
 ```
 {
@@ -173,8 +171,9 @@ This example assumes that you have a file called `import-component.json` \(as sh
     "semanticVersion": "1.0.0",
     "description": "An example of how to import a component",
     "changeDescription": "First commit message.",
-    "type": "SHELL",
+    "format": "SHELL",
     "platform": "Windows",
+    "type": "BUILD",
     "uri": "s3://my-s3-bucket/AdminConfig.ps1",
     "kmsKeyId": "arn:aws:kms:us-west-2:123456789012:key/60763706-b131-418b-8f85-3420912f020c"
 }
@@ -192,7 +191,7 @@ After you have the components in place, you can create an image recipe\. An imag
 
 This image recipe references the two components that you created in the preceding steps\. You must replace the ARNs shown in the example with the ARNs that you received when you created the components\. The AWS Region and account ID will also be different for your configuration\.
 
-This example references the Windows Server 2016 English Full Base image\. This ARN references the latest image in the SKU based on the semantic version filters that you have specified\. In this example, the image ARN is `arn:aws:imagebuilder:us-west-2:aws:image/windows-server-2016-english-full-base/2019.*.*`\. The ARN ends with `/2019.*.*`, which communicates to EC2 Image Builder that you want to use the latest AMI created in 2019\. You can provide the specific version that you want to use, or you can use a wildcard in all of the fields\.
+This example references the Windows Server 2016 English Full Base image\. This ARN references the latest image in the SKU based on the semantic version filters that you have specified\. In this example, the image ARN is `arn:aws:imagebuilder:us-west-2:aws:image/windows-server-2016-english-full-base-x86/2019.*.*`\. The ARN ends with `/2019.*.*`, which communicates to EC2 Image Builder that you want to use the latest AMI created in 2019\. You can provide the specific version that you want to use, or you can use a wildcard in all of the fields\.
 
 ```
 {
@@ -207,7 +206,7 @@ This example references the Windows Server 2016 English Full Base image\. This A
             "componentArn": "arn:aws:imagebuilder:us-west-2:123456789012:component/my-imported-component/1.0.0/1"
         }
     ],
-    "parentImage": "arn:aws:imagebuilder:us-west-2:aws:image/windows-server-2016-english-full-base/2019.x.x"
+    "parentImage": "arn:aws:imagebuilder:us-west-2:aws:image/windows-server-2016-english-full-base-x86/2019.x.x"
 }
 ```
 
@@ -235,24 +234,24 @@ aws imagebuilder get-image --image-build-version-arn arn:aws:imagebuilder:us-wes
 
 ## Create a Distribution Configuration<a name="image-builder-cli-create-distribution-configuration"></a>
 
-A distribution configuration allows you to specify the name and description of your output AMI, authorize other AWS accounts to launch the AMI, and replicate the AMI to other AWS Regions\. It also allows you to export the AMI to Amazon S3 as a virtual machine image\.
+A distribution configuration allows you to specify the name and description of your output AMI, authorize other AWS accounts to launch the AMI, and replicate the AMI to other AWS Regions\.
 
 The contents of the `create-distribution-configuration.json` are as follows\.
 
 ```
 {
     "name": "MyExampleDistribution",
-    "description": "Copies AMI to eu-west-1 and exports to S3",
+    "description": "Copies AMI to eu-west-1",
     "distributions": [
-      {
+        {
             "region": "us-west-2",
             "amiDistributionConfiguration": {
                 "name": "Name {{imagebuilder:buildDate}}",
                 "description": "An example image name with parameter references",
-                "tags": {
+                "amiTags": {
                     "KeyName": "{{ssm:parameter_name}}"
                 },
-                "launchPermissions": {
+                "launchPermission": {
                     "userIds": [
                         "987654321012"
                     ]
@@ -262,21 +261,15 @@ The contents of the `create-distribution-configuration.json` are as follows\.
         {
             "region": "eu-west-1",
             "amiDistributionConfiguration": {
-                "name": "My {{imagebuilder:region}} image {{imagebuilder:BuildDate}}",
-                "tags": {
+                "name": "My {{imagebuilder:region}} image {{imagebuilder:buildDate}}",
+                "amiTags": {
                     "KeyName": "Some value"
                 },
-                "launchPermissions": {
+                "launchPermission": {
                     "userIds": [
-                        "10000000001"
+                        "100000000001"
                     ]
                 }
-            },
-            "s3ExportConfiguration": {
-                "roleName": "MyExportRole",
-                "diskImageFormat": "VMDK",
-                "s3Bucket": "my-eu-west-1-bucket",
-                "s3Prefix": "my-path"
             }
         }
     ]
@@ -311,7 +304,7 @@ Infrastructure configurations allow you to specify the infrastructure within whi
             "s3KeyPrefix": "my-path"
         }
     },
-    "keyName": "myKeyPairName",
+    "keyPair": "myKeyPairName",
     "terminateInstanceOnFailure": false,
     "snsTopicArn": "arn:aws:sns:us-west-2:123456789012:MyTopic"
 }
@@ -323,11 +316,19 @@ The example configuration specifies two instance types, `m5.large` and `m5.xlarg
 
 The instance profile name is used to provide the instance with the permissions that are required to perform customization activities\. For example, if you have a component that retrieves resources from Amazon S3, the instance profile requires permissions to access those files\. This instance profile also requires a minimal set of permissions for EC2 Image Builder to successfully communicate with the instance\. For more information, see [Setting Up](getting-started-image-builder.md#image-builder-setting-up)\.
 
+Use the JSON file to create the infrastructure configuration\.
+
+```
+aws imagebuilder create-infrastructure-configuration --cli-input-json file://create-infrastructure-configuration.json
+```
+
 ## Create an Image Pipeline<a name="image-builder-cli-create-image-pipeline"></a>
 
 An image pipeline automates the creation of golden images\. This command is similar to the create\-image step that we performed in the preceding steps\. However, in this case, a pipeline enables you to configure EC2 Image Builder to periodically build new images for you\.
 
 The build cadence depends on the schedule that you have configured in your pipeline\. A schedule has two attributes: a `scheduleExpression` and a `pipelineExecutionStartCondition`\. The `scheduleExpression` determines how often EC2 Image Builder evaluates your `pipelineExecutionStartCondition`\. When the `pipelineExecutionStartCondition` is set to `EXPRESSION_MATCH_AND_DEPENDENCY_UPDATES_AVAILABLE`, EC2 Image Builder will build a new image only when there are known changes pending\. When it is set to `EXPRESSION_MATCH_ONLY`, it will build a new image every time the CRON expression matches the current time\.
+
+The contents of the `create-image-pipeline.json` are as follows\.
 
 ```
 {
@@ -348,6 +349,12 @@ The build cadence depends on the schedule that you have configured in your pipel
 }
 ```
 
+Use the JSON file to create the image pipeline\.
+
+```
+aws imagebuilder create-image-pipeline --cli-input-json file://create-image-pipeline.json
+```
+
 ## Cancel an Image Creation<a name="image-builder-cli-cancel-image-creation"></a>
 
 You can use the `cancel-image-creation` API when you want to cancel an image that is in the process of being built\.
@@ -361,7 +368,7 @@ aws imagebuilder cancel-image-creation --image-build-version-arn arn:aws:imagebu
 You can apply a resource policy to a build component to enable cross\-account sharing of build components\. This command gives other accounts permission to use your build component in their image recipes\. For the command to be successful, you must ensure that the account with which you are sharing has permission to access any resources referenced by the shared build component, such as files hosted on private repositories\.
 
 ```
-aws imagebuilder put-component-policy --component-arn arn:aws:imagebuilder:us-west-2:123456789012:component/my-example-component/2019.12.03 --policy '{ "Version": "2012-10-17", "Statement": [ { "Effect": "Allow", "Principal": { "AWS": [ "arn:aws:iam::account-id:user/Alice", "account-id-2" ] }, "Action": "imagebuilder:GetComponent", "Resource": [ "arn:aws:imagebuilder:us-west-2:123456789012:component/my-example-component/2019.12.02" ] } ] }'
+aws imagebuilder put-component-policy --component-arn arn:aws:imagebuilder:us-west-2:123456789012:component/my-example-component/2019.12.03/1 --policy '{ "Version": "2012-10-17", "Statement": [ { "Effect": "Allow", "Principal": { "AWS": [ "arn:aws:iam::account-id:user/Alice", "account-id-2" ] }, "Action": [ "imagebuilder:GetComponent", "imagebuilder:ListComponents" ], "Resource": [ "arn:aws:imagebuilder:us-west-2:123456789012:component/my-example-component/2019.12.03/1" ] } ] }'
 ```
 
 ## Apply a Resource Policy to an Image Recipe<a name="image-builder-cli-apply-resource-policy-recipe"></a>
@@ -369,7 +376,7 @@ aws imagebuilder put-component-policy --component-arn arn:aws:imagebuilder:us-we
 You can apply a resource policy to a component to enable cross\-account sharing of image recipes\. This command gives other accounts permission to use your image recipes to create images in their accounts\. For the command to be successful, you must ensure that the account with which you are sharing has permission to access any images or components referenced by the image recipe\.
 
 ```
-aws imagebuilder put-image-recipe-policy --image-recipe-arn arn:aws:imagebuilder:us-west-2:123456789012:image-recipe/my-example-image-recipe/2019.12.03 --policy '{ "Version": "2012-10-17", "Statement": [ { "Effect": "Allow", "Principal": { "AWS": [ "arn:aws:iam::account-id:user/Alice", "account-id-2" ] }, "Action": "imagebuilder:GetComponent", "Resource": [ "arn:aws:imagebuilder:us-west-2:123456789012:image-recipe/my-example-image-recipe/2019.12.03" ] } ] }'
+aws imagebuilder put-image-recipe-policy --image-recipe-arn arn:aws:imagebuilder:us-west-2:123456789012:image-recipe/my-example-image-recipe/2019.12.03 --policy '{ "Version": "2012-10-17", "Statement": [ { "Effect": "Allow", "Principal": { "AWS": [ "arn:aws:iam::account-id:user/Alice", "account-id-2" ] }, "Action": [ "imagebuilder:GetImageRecipe", "imagebuilder:ListImageRecipes" ], "Resource": [ "arn:aws:imagebuilder:us-west-2:123456789012:image-recipe/my-example-image-recipe/2019.12.03" ] } ] }'
 ```
 
 ## Apply a Resource Policy to an Image<a name="image-builder-cli-apply-resource-policy-image"></a>
@@ -377,7 +384,7 @@ aws imagebuilder put-image-recipe-policy --image-recipe-arn arn:aws:imagebuilder
 You can apply a resource policy to an image to allow other users to use the image in their image recipes\. For the command to be successful, you must ensure that the account with which you are sharing has permission to access the underlying resource \(for example, the Amazon EC2 AMI\)\.
 
 ```
-aws imagebuilder put-image-policy --image-arn arn:aws:imagebuilder:us-west-2:123456789012:image/my-example-image/2019.12.03 --policy '{ "Version": "2012-10-17", "Statement": [ { "Effect": "Allow", "Principal": { "AWS": [ "arn:aws:iam::account-id:user/Alice", "account-id-2" ] }, "Action": "imagebuilder:GetComponent", "Resource": [ "arn:aws:imagebuilder:us-west-2:123456789012:image/my-example-image/2019.12.03" ] } ] }'
+aws imagebuilder put-image-policy --image-arn arn:aws:imagebuilder:us-west-2:123456789012:image/my-example-image/2019.12.03/1 --policy '{ "Version": "2012-10-17", "Statement": [ { "Effect": "Allow", "Principal": { "AWS": [ "arn:aws:iam::account-id:user/Alice", "account-id-2" ] }, "Action": [ "imagebuilder:GetImage", "imagebuilder:ListImages", "Resource": [ "arn:aws:imagebuilder:us-west-2:123456789012:image/my-example-image/2019.12.03/1" ] } ] }'
 ```
 
 ## Update a Distribution Configuration<a name="image-builder-cli-update-distribution-configuration"></a>
@@ -389,12 +396,12 @@ The example `update-distribution-configuration.json` contents are as follows\.
 ```
 {
     "distributionConfigurationArn": "arn:aws:imagebuilder:us-west-2:123456789012:distribution-configuration/my-example-distribution-configuration",
-    "description": "Copies AMI to eu-west-2 and exports to S3",
+    "description": "Copies AMI to eu-west-2",
     "distributions": [
       {
             "region": "us-west-2",
             "amiDistributionConfiguration": {
-                "name": "Name {{if:timestamp}}",
+                "name": "Name {{imagebuilder:buildDate}}",
                 "description": "An example image name with parameter references",
                 "tags": {
                     "KeyName": "{{ssm:parameter_name}}"
@@ -409,21 +416,15 @@ The example `update-distribution-configuration.json` contents are as follows\.
         {
             "region": "eu-west-2",
             "amiDistributionConfiguration": {
-                "name": "My {{if:region}} image {{if:timestamp}}",
+                "name": "My {{imagebuilder:region}} image {{imagebuilder:buildDate}}",
                 "tags": {
                     "KeyName": "Some value"
                 },
                 "launchPermissions": {
                     "userIds": [
-                        "10000000001"
+                        "100000000001"
                     ]
                 }
-            },
-            "s3ExportConfiguration": {
-                "roleName": "MyExportRole",
-                "diskImageFormat": "VMDK",
-                "s3Bucket": "my-eu-west-2-bucket",
-                "s3Prefix": "my-path"
             }
         }
     ]
@@ -473,14 +474,13 @@ aws imagebuilder update-infrastructure-configuration --cli-input-json file://upd
 
 ## Update an Image Pipeline<a name="image-builder-cli-update-image-pipeline"></a>
 
-The following example shows an `update-image-recipe.json` followed by the CLI command that allows you to update an image pipeline that references the JSON file\.
+The following example shows an `update-image-pipeline.json` followed by the CLI command that allows you to update an image pipeline that references the JSON file\.
 
-The example `update-image-recipe.json` contents are as follows\.
+The example `update-image-pipeline.json` contents are as follows\.
 
 ```
     {
     "imagePipelineArn": "arn:aws:imagebuilder:us-west-2:123456789012:image-pipeline/my-example-pipeline",
-    "description": "Builds Windows 2016 Images",
     "imageRecipeArn": "arn:aws:imagebuilder:us-west-2:123456789012:image-recipe/my-example-recipe/2019.12.08",
     "infrastructureConfigurationArn": "arn:aws:imagebuilder:us-west-2:123456789012:infrastructure-configuration/my-example-infrastructure-configuration",
     "distributionConfigurationArn": "arn:aws:imagebuilder:us-west-2:123456789012:distribution-configuration/my-example-distribution-configuration",
@@ -496,10 +496,10 @@ The example `update-image-recipe.json` contents are as follows\.
 }
 ```
 
-Run the following command, which references the preceding `update-image-recipe.json` file\.
+Run the following command, which references the preceding `update-image-pipeline.json` file\.
 
 ```
-aws imagebuilder update-image-recipe --cli-input-json file://update-image-recipe.json
+aws imagebuilder update-image-pipeline --cli-input-json file://update-image-pipeline.json
 ```
 
 ## Start an Image Pipeline Manually<a name="image-builder-cli-start-image-pipeline"></a>
@@ -540,7 +540,7 @@ The example `untag-resource.json` contents are as follows\.
 ```
 {
     "resourceArn": "arn:aws:imagebuilder:us-west-2:123456789012:image-pipeline/my-example-pipeline",
-    "tagsKeys": [
+    "tagKeys": [
         "KeyName"
     ]
 }
