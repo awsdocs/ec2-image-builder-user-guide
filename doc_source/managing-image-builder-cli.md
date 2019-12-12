@@ -62,7 +62,7 @@ This example assumes that we have named this document `component.yaml`\.
 ```
 name: 'An_Example_Document'
 description: 'This document has a build, validate and test phase'
-schemaVersion: 2019-01-01
+schemaVersion: 1.0
 phases:
   - name: build
     steps:
@@ -163,7 +163,7 @@ aws imagebuilder create-component --cli-input-json file://create-component.json
 
 For some scenarios, it might be easier to start with a pre\-existing script\. For this scenario, you can do the following\.
 
-This example assumes that you have a file called `import-component.json` \(as shown\)\. Note that the file directly references a PowerShell script called `AdminConfig.ps1` that is already uploaded to `my-s3-bucket`\. Currently, `SHELL` is supported for the component `format`\. The `type` of the component denotes whether the component is used to build the image or only to test it.
+This example assumes that you have a file called `import-component.json` \(as shown\)\. Note that the file directly references a PowerShell script called `AdminConfig.ps1` that is already uploaded to `my-s3-bucket`\. Currently, `SHELL` is supported for the component `format`\. The `type` of the component denotes whether the component is used to build the image or only to test it\.
 
 ```
 {
