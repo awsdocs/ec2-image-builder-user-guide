@@ -163,7 +163,7 @@ aws imagebuilder create-component --cli-input-json file://create-component.json
 
 For some scenarios, it might be easier to start with a pre\-existing script\. For this scenario, you can do the following\. 
 
-This example assumes that you have a file called `import-component.json` \(as shown\)\. Note that the file directly references a PowerShell script called `AdminConfig.ps1` that is already uploaded to `my-s3-bucket`\. Currently, `SHELL` is supported for the component `type`\. 
+This example assumes that you have a file called `import-component.json` \(as shown\)\. Note that the file directly references a PowerShell script called `AdminConfig.ps1` that is already uploaded to `my-s3-bucket`\. Currently, `SHELL` is supported for the component `format`\. 
 
 ```
 {
@@ -273,12 +273,6 @@ The contents of the `create-distribution-configuration.json` are as follows\.
                         "100000000001"
                     ]
                 }
-            },
-            "s3ExportConfiguration": {
-                "roleName": "MyExportRole",
-                "diskImageFormat": "AMI",
-                "s3Bucket": "my-eu-west-1-bucket",
-                "s3Prefix": "my-path"
             }
         }
     ]
@@ -369,7 +363,7 @@ aws imagebuilder create-image-pipeline --cli-input-json file://create-image-pipe
 You can use the `cancel-image-creation` API when you want to cancel an image that is in the process of being built\.
 
 ```
-aws imagebuilder cancel-image-creation —image-build-version-arn arn:aws:imagebuilder:us-west-2:123456789012:image/my-example-recipe/2019.12.03/1
+aws imagebuilder cancel-image-creation --image-build-version-arn arn:aws:imagebuilder:us-west-2:123456789012:image/my-example-recipe/2019.12.03/1
 ```
 
 ## Apply a Resource Policy to a Component<a name="image-builder-cli-apply-resource-policy-component"></a>
@@ -434,12 +428,6 @@ The example `update-distribution-configuration.json` contents are as follows\.
                         "100000000001"
                     ]
                 }
-            },
-            "s3ExportConfiguration": {
-                "roleName": "MyExportRole",
-                "diskImageFormat": "AMI",
-                "s3Bucket": "my-eu-west-2-bucket",
-                "s3Prefix": "my-path"
             }
         }
     ]
@@ -784,5 +772,5 @@ aws imagebuilder list-infrastructure-configurations
 The following example shows how to list all the tags for a specific resource\.
 
 ```
-aws imagebuilder list-tags-for-resource —resource-arn arn:aws:imagebuilder:us-west-2:123456789012:image-pipeline/my-example-pipeline
+aws imagebuilder list-tags-for-resource --resource-arn arn:aws:imagebuilder:us-west-2:123456789012:image-pipeline/my-example-pipeline
 ```
