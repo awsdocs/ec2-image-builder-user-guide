@@ -1,6 +1,6 @@
 # Resource Sharing in EC2 Image Builder<a name="image-builder-resource-sharing"></a>
 
-Amazon Elastic Compute Cloud Image Builder integrates with AWS Resource Access Manager \(AWS RAM\) to allow you to share certain resources with any AWS account or through AWS Organizations\. EC2 Image Builder resources that can be shared are:
+EC2 Image Builder integrates with AWS Resource Access Manager \(AWS RAM\) to allow you to share certain resources with any AWS account or through AWS Organizations\. EC2 Image Builder resources that can be shared are:
 + Components
 + Images
 + Image recipes
@@ -71,23 +71,23 @@ To unshare a shared component, image, or image recipe that you own, you must rem
 To unshare a component, image, or image recipe, the consumer cannot have any dependencies on them\. The consumer must remove any dependencies on the shared resources before the owner can unshare them\.
 
 **To unshare a shared component, image, or image recipe that you own using the AWS Resource Access Manager console**  
-See [Updating a Resource Share](url-doc-domain;ram/latest/userguide/working-with-sharing.html#working-with-sharing-update) in the AWS Resource Access Manager User Guide\.
+See [Updating a Resource Share](https://docs.aws.amazon.com/ram/latest/userguide/working-with-sharing.html#working-with-sharing-update) in the AWS Resource Access Manager User Guide\.
 
 **To unshare a shared component, image, or image recipe that you own using the AWS CLI**  
-Use the [url-doc-domain;cli/latest/reference/ram/disassociate-resource-share.html](url-doc-domain;cli/latest/reference/ram/disassociate-resource-share.html) command\.
+Use the [https://docs.aws.amazon.com/cli/latest/reference/ram/disassociate-resource-share.html](https://docs.aws.amazon.com/cli/latest/reference/ram/disassociate-resource-share.html) command\.
 
 ## Identifying a Shared Component, Image, or Image Recipe<a name="image-builder-shared-resources-identifying"></a>
 
 Owners and consumers can identify shared components, images, and image recipes using the AWS CLI\.
 
 **Identify a Shared Component**  
-Use the `list-components` command\. The command returns the components that you own and the components that are shared with you\. `get-component` shows the AWS account ID of the component owner\. 
+Use the [https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_ListComponents.html](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_ListComponents.html) command\. The command returns the components that you own and the components that are shared with you\. [https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_GetComponent.html](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_GetComponent.html) shows the AWS account ID of the component owner\. 
 
 **Identify a Shared Image**  
-Use the `list-images` command\. The command returns the images that you own and images that are shared with you\. `get-image `shows the AWS account ID of the image owner\. 
+Use the [ `list-images`](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_ListImages.html) command\. The command returns the images that you own and images that are shared with you\. [https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_GetImage.html](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_GetImage.html) shows the AWS account ID of the image owner\. 
 
 **Identify a Shared Image Recipe**  
-Use the `list-image-recipes` command\. The command returns the image recipes that you own and image recipes that are shared with you\. `get-image-recipe` shows the AWS account ID of the image recipe owner\. 
+Use the [https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_ListImageRecipes.html](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_ListImageRecipes.html) command\. The command returns the image recipes that you own and image recipes that are shared with you\. [https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_GetImageRecipe.html](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_GetImageRecipe.html) shows the AWS account ID of the image recipe owner\. 
 
 ## Shared Component, Image, and Image Recipe Permissions<a name="image-builder-shared-resources-permissions"></a>
 
