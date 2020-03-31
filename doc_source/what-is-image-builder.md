@@ -1,6 +1,6 @@
-# What Is Amazon Elastic Compute Cloud Image Builder?<a name="what-is-image-builder"></a>
+# What Is EC2 Image Builder?<a name="what-is-image-builder"></a>
 
-Amazon Elastic Compute Cloud Image Builder is a fully managed AWS service that makes it easier to automate the creation, management, and deployment of customized, secure, and up\-to\-date “golden” server images that are pre\-installed and pre\-configured with software and settings to meet specific IT standards\. 
+EC2 Image Builder is a fully managed AWS service that makes it easier to automate the creation, management, and deployment of customized, secure, and up\-to\-date “golden” server images that are pre\-installed and pre\-configured with software and settings to meet specific IT standards\. 
 
 You can use the AWS Management Console, AWS CLI, or APIs to create “golden” images in your AWS account\. When you use the AWS Management Console, the Image Builder wizard guides you through steps to:
 + Provide starting artifacts
@@ -37,7 +37,7 @@ Image Builder allows you to test your images before deployment with both AWS\-pr
 
 **Raise the security bar for deployments**
 
-Image Builder allows you to create images that remove unnecessary exposure to component security vulnerabilities\. You can apply AWS security settings to create secure, out\-of\-the\-box images that meet industry and internal security criteria\. Image Builder also provides collections of settings for companies in regulated industries\. You can use these settings to help you quickly and easily build compliant images for STIG standards\.
+Image Builder allows you to create images that remove unnecessary exposure to component security vulnerabilities\. You can apply AWS security settings to create secure, out\-of\-the\-box images that meet industry and internal security criteria\. Image Builder also provides collections of settings for companies in regulated industries\. You can use these settings to help you quickly and easily build compliant images for STIG standards\. For a complete list of STIG components available through Image Builder, see [EC2 Image Builder STIG Components](image-builder-stig.md)\.
 
 **Centralized enforcement and lineage tracking**
 
@@ -51,9 +51,7 @@ Image Builder supports the following operating systems:
 
 ## Supported Image Formats<a name="image-builder-image-formats"></a>
 
-You can choose from the following formats as a starting point to build your images:
-+ An existing AWS AMI
-+ An EBS snapshot
+You can choose an existing AMI as a starting point to build your images\.
 
 ## Concepts<a name="image-builder-concepts"></a>
 
@@ -82,14 +80,14 @@ A declarative document that uses the YAML format to list the execution steps for
 
 ## Pricing<a name="image-builder-pricing"></a>
 
-There is no cost to use EC2 Image Builder\. There may be costs associated with launching an Amazon EC2 instance and storing logs on Amazon S3, for validating images with Amazon Inspector, and for AMI storage for Amazon EBS Snapshots, depending on the configuration of your image\.
+There is no cost to use EC2 Image Builder\. There may be costs associated with launching an Amazon EC2 instance and storing logs on Amazon S3, for validating images with Amazon Inspector, and for AMI storage for Amazon EBS Snapshots, depending on the configuration of your image\. If you enable Systems Manager Advanced Tier and run EC2 instances with on\-premises activation, you may be charged for resources through Systems Manager\. 
 
 ## Related AWS Services<a name="image-builder-related-services"></a>
 
 EC2 Image Builder uses other AWS services to build images\. Depending on your Image Builder image recipe configuration, the following services may be used\.
 
 **AWS License Manager**  
-AWS License Manager allows you to create and apply license configurations from an account license configuration store\. For each AMI, you can use Image Builder to attach to a preexisting license configuration that your AWS account has access to as part of the Image Builder workflow\. License configurations can be applied only to AMIs and not to on\-premises VM images\. Image Builder can use only preexisting license configurations and cannot directly create or modify license configurations\.
+AWS License Manager allows you to create and apply license configurations from an account license configuration store\. For each AMI, you can use Image Builder to attach to a preexisting license configuration that your AWS account has access to as part of the Image Builder workflow\. License configurations can be applied only to AMIs\. Image Builder can use only preexisting license configurations and cannot directly create or modify license configurations\. License Manager settings will not replicate across AWS Regions that must be enabled in your account, for example, between the `ap-east-1` \(HKG\) and the `me-south-1` \(BAH\) Regions\. 
 
 **AWS Organizations**  
 AWS Organizations allows you to apply Service Control Policies \(SCP\) on accounts in your organization\. You can create, manage, enable, and disable individual policies\. Similar to all other AWS artifacts and services, Image Builder honors the policies defined in AWS Organizations\. AWS provides template SCPs for common scenarios, such as enforcing constraints on member accounts to launch instances with only approved AMIs\.
