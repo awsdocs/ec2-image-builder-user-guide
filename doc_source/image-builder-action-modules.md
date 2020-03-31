@@ -1,6 +1,6 @@
-# Supported Action Modules<a name="image-builder-action-modules"></a>
+# Component Manager Supported Action Modules<a name="image-builder-action-modules"></a>
 
-This section contains the list of action modules that are supported by the configuration management application used by Amazon Elastic Compute Cloud Image Builder to configure the instance that builds your image\. Also included are the corresponding functionality details and input/output values of the action modules\.
+This section contains the list of action modules that are supported by the component management application used by EC2 Image Builder to configure the instance that builds your image\. Also included are the corresponding functionality details and input/output values of the action modules\.
 
 **Topics**
 + [ExecuteBinary](#image-builder-action-modules-executebinary)
@@ -122,11 +122,13 @@ inputs:
 }
 ```
 
+If you execute a reboot and return exit code 194 as part of the action module, the build will resume at the same action module step that initiated the reboot\. If you execute a reboot without the exit code, the build process may fail\.
+
 ## ExecutePowerShell<a name="image-builder-action-modules-executepowershell"></a>
 
-The **ExecutePowerShell **module allows you to run PowerShell scripts with inline shell code/commands\. This module supports Windows platforms and Windows PowerShell\.
+The **ExecutePowerShell **module allows you to run PowerShell scripts with inline shell code/commands\. This module supports the Windows platform and Windows PowerShell\.
 
-All of the commands/instructions specified in the commands block are converted into a script file based on shell type \(for example, `input.ps1`\) and executed using Windows PowerShell\. The result of the shell file execution is the exit code\.
+All of the commands/instructions specified in the commands block are converted into a script file \(for example, `input.ps1`\) and executed using Windows PowerShell\. The result of the shell file execution is the exit code\.
 
 The **ExecutePowerShell** module handles system restarts if the shell command exits with an exit code of `3010`\. When triggered, the application performs one of the following actions: 
 + Hands the exit code to the caller if executed by the SSM Agent\. The SSM Agent handles the system reboot and re\-invokes the execution as described in [Rebooting Managed Instance from Scripts](https://docs.aws.amazon.com/systems-manager/latest/userguide/send-commands-reboot.html)\.
@@ -139,17 +141,23 @@ After system restart, the application executes the same step that triggered the 
 
 | Primitive | Description | Type | Required | 
 | --- | --- | --- | --- | 
-| commands | Contains a list of instructions or commands to execute as per bash syntax\. Multi\-line YAML is allowed\. | String List | Yes | 
+| commands | Contains a list of instructions or commands to execute as per PowerShell syntax\. Multi\-line YAML is allowed\. | String List | Yes Must specify `commands` or `file`, not both\. | 
+| file | Contains the path to a PowerShell script file\. PowerShell will execute against this file using the \-file command line argument\. The path must point to a \.ps1 file\. | String | Yes Must specify `commands` or `file`, not both\. | 
 
 **Input Example**
 
 ```
-name: "InstallMySoftware"
+name: InstallMySoftware
 action: ExecutePowerShell
 inputs:
   commands: 
       - Set-SomeConfiguration -Value 10
-      - Write-Host "Successfully set the configuration."
+      - Write-Host 'Successfully set the configuration.'
+      
+name: ExecuteMyScript
+action: ExecutePowerShell
+inputs:
+  file: 'C:\PathTo\MyScript.ps1'
 ```
 
 
@@ -166,6 +174,8 @@ inputs:
     “stdout”: “This is the standard output from the shell execution\n"
 }
 ```
+
+If you execute a reboot and return exit code 3010 as part of the action module, the build will resume at the same action module step that initiated the reboot\. If you execute a reboot without the exit code, the build process may fail\.
 
 ## Reboot<a name="image-builder-action-modules-reboot"></a>
 
@@ -208,6 +218,8 @@ inputs:
 **Output **
 
 None\.
+
+When the **Reboot** module completes, Image Builder continues to the next step in the build\.
 
 ## UpdateOS<a name="image-builder-action-modules-updateos"></a>
 
