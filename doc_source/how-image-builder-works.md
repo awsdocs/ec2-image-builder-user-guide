@@ -1,10 +1,10 @@
 # How EC2 Image Builder Works<a name="how-image-builder-works"></a>
 
-When you use the Amazon Elastic Compute Cloud Image Builder console to create a golden image, a wizard guides you through the following steps\.
+When you use the EC2 Image Builder console to create a golden image, a wizard guides you through the following steps\.
 
-1. **Select source image\.** You select a source OS image, for example, an existing AMI or an Amazon EBS snapshot\. 
+1. **Select source image\.** You select a source OS image, for example, an existing AMI\. 
 
-1. **Create image recipe\.** You add components to create an image recipe for your image pipeline\. Components are the building blocks that are consumed by an image recipe, for example, packages for installation, security hardening steps, and tests\. The selected OS and components make up an image recipe\. 
+1. **Create image recipe\.** You add components to create an image recipe for your image pipeline\. Components are the building blocks that are consumed by an image recipe, for example, packages for installation, security hardening steps, and tests\. The selected OS and components make up an image recipe\. Components are installed in the order in which they are specified and cannot be reordered after selection\. 
 
 1. **Output\.** Image Builder creates an OS image in the selected output format\.
 
@@ -17,7 +17,7 @@ The images that you build from the golden image are in your AWS account\. You ca
 + [Default Quotas](#image-builder-default-limits)
 + [AWS Regions and Endpoints](#image-builder-regions)
 + [Logs](#image-builder-logs)
-+ [Configuration Management](#image-builder-configuration-management)
++ [Component Manager](#image-builder-component-management)
 
 ## Components<a name="image-builder-components"></a>
 
@@ -58,19 +58,19 @@ The following AWS Regions and endpoints are currently supported by EC2 Image Bui
 | Asia Pacific \(Hong Kong\) | ap\-east\-1 | imagebuilder\.ap\-east\-1\.amazonaws\.com  | HTTPS | 
 | Asia Pacific \(Tokyo\)  | ap\-northeast\-1  | imagebuilder\.ap\-northeast\-1\.amazonaws\.com | HTTPS | 
 | Asia Pacific \(Seoul\) | ap\-northeast\-2 | imagebuilder\.ap\-northeast\-2\.amazonaws\.com | HTTPS | 
-| Asia Pacific \(Mumbai\) | ap\-south\-1 | imagebuilder\.ap\-south\-1\.amazonaws\.com  | HTTPS | 
+| Asia Pacific \(Mumbai\) | ap\-south\-1 | imagebuilder\.ap\-south\-1\.amazonaws\.com | HTTPS | 
 | Asia Pacific \(Singapore\)  | ap\-southeast\-1  | imagebuilder\.ap\-southeast\-1\.amazonaws\.com  | HTTPS | 
 | Asia Pacific \(Sydney\)  | ap\-southeast\-2  | imagebuilder\.ap\-southeast\-2\.amazonaws\.com  | HTTPS | 
-| Canada \(Central\)  | ca\-central\-1  | imagebuilder\.ca\-central\-1\.amazonaws\.com  | HTTPS | 
-| EU \(Frankfurt\) | eu\-central\-1 | imagebuilder\.eu\-central\-1\.amazonaws\.com  | HTTPS | 
+| Canada \(Central\)  | ca\-central\-1  | imagebuilder\.ca\-central\-1\.amazonaws\.com | HTTPS | 
+| EU \(Frankfurt\) | eu\-central\-1 | imagebuilder\.eu\-central\-1\.amazonaws\.com | HTTPS | 
 | EU \(Ireland\) | eu\-west\-1 | imagebuilder\.eu\-west\-1\.amazonaws\.com  | HTTPS | 
 | EU \(London\) | eu\-west\-2 | imagebuilder\.eu\-west\-2\.amazonaws\.com | HTTPS | 
 | EU \(Paris\) | eu\-west\-3 | imagebuilder\.eu\-west\-3\.amazonaws\.com  | HTTPS | 
 | EU \(Stockholm\)  | eu\-north\-1 | imagebuilder\.eu\-north\-1\.amazonaws\.com  | HTTPS | 
 | Middle East \(Bahrain\)  | me\-south\-1 | imagebuilder\.me\-south\-1\.amazonaws\.com | HTTPS | 
-| South America \(Sao Paulo\) | sa\-east\-1 | imagebuilder\.sa\-east\-1\.amazonaws\.com  | HTTPS | 
+| South America \(Sao Paulo\) | sa\-east\-1 | imagebuilder\.sa\-east\-1\.amazonaws\.com | HTTPS | 
 | US East \(N\. Virginia\) | us\-east\-1 | imagebuilder\.us\-east\-1\.amazonaws\.com  | HTTPS | 
-| US East \(Ohio\) | us\-east\-2 | imagebuilder\.us\-east\-2\.amazonaws\.com  | HTTPS | 
+| US East \(Ohio\) | us\-east\-2 | imagebuilder\.us\-east\-2\.amazonaws\.com | HTTPS | 
 | US West \(N\. California\)  | us\-west\-1  | imagebuilder\.us\-west\-1\.amazonaws\.com  | HTTPS | 
 | US West \(Oregon\)  | us\-west\-2  | imagebuilder\.us\-west\-2\.amazonaws\.com  | HTTPS | 
 | AWS GovCloud \(US\-East\) | us\-gov\-east\-1  | imagebuilder\.us\-gov\-east\-1\.amazonaws\.com | HTTPS | 
@@ -80,18 +80,20 @@ The following AWS Regions and endpoints are currently supported by EC2 Image Bui
 
 For common failure modes, you can use predefined AWS Systems Manager troubleshooting scripts\. These scripts can help you troubleshoot the inability to connect to the VM, source image not booting, installed software not being listed, and customization steps only partially executing\. For more information, see [AWS Systems Manager Run Command](https://docs.aws.amazon.com/systems-manager/latest/userguide/execute-remote-commands.html)\.
 
-## Configuration Management<a name="image-builder-configuration-management"></a>
+## Component Manager<a name="image-builder-component-management"></a>
 
-Image Builder uses a configuration management application that helps you orchestrate complex workflows, modify system configurations, and test your systems without writing code\. This application uses a declarative document schema\. Because it is a standalone application, it does not require additional server setup\. It can run on any cloud infrastructure and on premises\. 
+Image Builder uses a component management application that helps you orchestrate complex workflows, modify system configurations, and test your systems without writing code\. This application uses a declarative document schema\. Because it is a standalone application, it does not require additional server setup\. It can run on any cloud infrastructure and on premises\. 
 
 EC2 Image Builder uses this application to perform all on\-instance activities, such as build, validation, and test\. You define a document that describes how to build, validate, and test your image\. EC2 Image Builder sends the component to your instance and the application interprets and applies it to your instance by executing the defined phases, steps, and actions\. When complete, the application sends a summary to EC2 Image Builder\. It also sends detailed execution outputs to Amazon S3 if you specified an S3 bucket in your pipeline configuration\. EC2 Image Builder then cleans up the application and removes it from the instance using [AWS best practices for hardening and cleaning the image](https://aws.amazon.com/articles/public-ami-publishing-hardening-and-clean-up-requirements)\. 
 + **Build phase**\. The image is modified\. For example, you can configure your image to install an application or to modify the operating system firewall settings\. The validate phase is executed as part of the build phase, prior to the creation of the image\. 
 + **Test phase**\. Tests are executed against your new image after it is created\.
 
-EC2 Image Builder uses the configuration management application as follows\.
+EC2 Image Builder uses the component management application as follows\.
 
 1. You define an EC2 Image Builder component, which is a document that describes how to build, validate, and test your image\.
 
 1. EC2 Image Builder dispatches the work to be performed by copying the document and application to your instance\.
 
 1. The application executes the phases, steps, and actions defined in the document\. 
+
+For more information about the Component Manager used by Image Builder to orchestrate workflows, including information about documents, supported action modules, and STIGs, see [EC2 Image Builder Component Manager](image-builder-component-manager.md)\.
