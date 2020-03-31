@@ -14,7 +14,7 @@ Windows STIG components are designed for standalone servers and apply Local Grou
 
 ### STIG\-Build\-Windows\-Low Version 1\.0\.1<a name="ib-windows-stig-low"></a>
 
-The following STIG settings have *not* been applied due to organization\-specific policies and/or technical limitations\. All other applicable STIGs have been applied\. For a complete list, see [2019](https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Windows_Server_2019_V1R3_STIG.zip), [2016](https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Windows_Server_2016_V1R12_STIG_SCAP_1-2_Benchmark.zip), and [2012](https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Windows_2012_and_2012_R2_MS_V2R18_STIG_SCAP_1-2_Benchmark.zip)\. For instructions on how to view the complete list, see [How to View SRGs and STIGs ](https://dl.dod.cyber.mil/wp-content/uploads/stigs/doc/HOW_TO_VIEW_SRGs_and_STIGs.doc)\.
+The following STIG settings have *not* been applied due to organization\-specific policies and/or technical limitations\. All other applicable STIGs have been applied\. For a complete list, see the [STIGs Document Library](https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=windows)\. For instructions on how to view the complete list, see [How to View SRGs and STIGs ](https://dl.dod.cyber.mil/wp-content/uploads/stigs/doc/HOW_TO_VIEW_SRGs_and_STIGs.doc)\.
 + **Windows Server 2019 STIG V1 Release 3:**
 
    V\-93149, V\-93187, V\-93229, and V\-93231 
@@ -36,7 +36,7 @@ The following STIG settings have *not* been applied due to organization\-specifi
 
 ### STIG\-Build\-Windows\-Medium Version 1\.0\.1<a name="ib-windows-stig-medium"></a>
 
-The following STIG settings have *not* been applied due to organization\-specific policies and/or technical limitations\. All other applicable STIGs have been applied\. For a complete list, see [2019](https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Windows_Server_2019_V1R3_STIG.zip), [2016](https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Windows_Server_2016_V1R12_STIG_SCAP_1-2_Benchmark.zip), and [2012](https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Windows_2012_and_2012_R2_MS_V2R18_STIG_SCAP_1-2_Benchmark.zip)\. For instructions on how to view the complete list, see [How to View SRGs and STIGs ](https://dl.dod.cyber.mil/wp-content/uploads/stigs/doc/HOW_TO_VIEW_SRGs_and_STIGs.doc)\.
+The following STIG settings have *not* been applied due to organization\-specific policies and/or technical limitations\. All other applicable STIGs have been applied\. For a complete list, see the [STIGs Document Library](https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=windows)\. For instructions on how to view the complete list, see [How to View SRGs and STIGs ](https://dl.dod.cyber.mil/wp-content/uploads/stigs/doc/HOW_TO_VIEW_SRGs_and_STIGs.doc)\.
 + **Windows Server 2019 STIG V1 Release 3**
 
   V\-92975, V\-92977, V\-93047, V\-93049, V\-93061, V\-93077, V\-93147, V\-93149, V\-93183, V\-93185, V\-93187, V\-93203, V\-93209, V\-93219, V\-93221, V\-93227, V\-93229, V\-93231, V\-93281, V\-93283, V\-93339, V\-93379, V\-93381, V\-93437, V\-93439, V\-93457, V\-93461, V\-93473, V\-93475, V\-93511, V\-93515, V\-93543, V\-93567, and V\-93571
@@ -58,7 +58,7 @@ The following STIG settings have *not* been applied due to organization\-specifi
 
 ### STIG\-Build\-Windows\-High Version 1\.0\.1<a name="ib-windows-stig-high"></a>
 
-The following STIG settings have *not* been applied due to organization\-specific policies and/or technical limitations\. All other applicable STIGs have been applied\. For a complete list, see [2019](https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Windows_Server_2019_V1R3_STIG.zip), [2016](https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Windows_Server_2016_V1R12_STIG_SCAP_1-2_Benchmark.zip), and [2012](https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Windows_2012_and_2012_R2_MS_V2R18_STIG_SCAP_1-2_Benchmark.zip)\. For instructions on how to view the complete list, see [How to View SRGs and STIGs ](https://dl.dod.cyber.mil/wp-content/uploads/stigs/doc/HOW_TO_VIEW_SRGs_and_STIGs.doc)\.
+The following STIG settings have *not* been applied due to organization\-specific policies and/or technical limitations\. All other applicable STIGs have been applied\. For a complete list, see the [STIGs Document Library](https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=windows)\. For instructions on how to view the complete list, see [How to View SRGs and STIGs ](https://dl.dod.cyber.mil/wp-content/uploads/stigs/doc/HOW_TO_VIEW_SRGs_and_STIGs.doc)\.
 + **Windows Server 2019 STIG V1 Release 3**
 
   V\-92975, V\-92977, V\-93047, V\-93049, V\-93051, V\-93057, V\-93061, V\-93077, V\-93147, V\-93149, V\-93183, V\-93185, V\-93187, V\-93203, V\-93205, V\-93209, V\-93217, V\-93219, V\-93221, V\-93227, V\-93229, V\-93231, V\-93281, V\-93283, V\-93339, V\-93369, V\-93379, V\-93381, V\-93437, V\-93439, V\-93457, V\-93461, V\-93473, V\-93475, V\-93511, V\-93515, V\-93543, V\-93567, and V\-93571
@@ -84,7 +84,7 @@ The following sections contain information about Linux STIG components\.
 
 ### STIG\-Build\-Linux\-Low Version 2\.6\.0<a name="ib-linux-stig-low"></a>
 
-The following STIG settings have *not* been applied due to organization\-specific policies and/or technical limitations\. All other applicable STIGs have been applied\. For complete list, see [ Red Hat Enterprise Linux 7 STIG Benchmark \- Ver 2, Rel 6](https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_Red_Hat_Enterprise_Linux_7_V2R6_STIG_SCAP_1-2_Benchmark.zip)\. For instructions on how to view the complete list, see [How to View SRGs and STIGs ](https://dl.dod.cyber.mil/wp-content/uploads/stigs/doc/HOW_TO_VIEW_SRGs_and_STIGs.doc)\. 
+The following STIG settings have *not* been applied due to organization\-specific policies and/or technical limitations\. All other applicable STIGs have been applied\. For complete list, see the [ STIGs Document Library](https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=operating-systems%2Cunix-linux)\. For instructions on how to view the complete list, see [How to View SRGs and STIGs ](https://dl.dod.cyber.mil/wp-content/uploads/stigs/doc/HOW_TO_VIEW_SRGs_and_STIGs.doc)\. 
 
 **RHEL STIG V2 Release 6**
 
@@ -92,7 +92,7 @@ V\-72003, V\-72059, V\-72061, V\-72063, V\-72069, V\-72071, V\-72275, V\-72281, 
 
 ### STIG\-Build\-Linux\-Medium Version 2\.6\.0<a name="ib-linux-stig-medium"></a>
 
-The following STIG settings have *not* been applied due to organization\-specific policies and/or technical limitations\. All other applicable STIGs have been applied\. For complete list, see [ Red Hat Enterprise Linux 7 STIG Benchmark \- Ver 2, Rel 6](https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_Red_Hat_Enterprise_Linux_7_V2R6_STIG_SCAP_1-2_Benchmark.zip)\. For instructions on how to view the complete list, see [How to View SRGs and STIGs ](https://dl.dod.cyber.mil/wp-content/uploads/stigs/doc/HOW_TO_VIEW_SRGs_and_STIGs.doc)\.
+The following STIG settings have *not* been applied due to organization\-specific policies and/or technical limitations\. All other applicable STIGs have been applied\. For complete list, see the [ STIGs Document Library](https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=operating-systems%2Cunix-linux)\. For instructions on how to view the complete list, see [How to View SRGs and STIGs ](https://dl.dod.cyber.mil/wp-content/uploads/stigs/doc/HOW_TO_VIEW_SRGs_and_STIGs.doc)\.
 
 **RHEL STIG V2 Release 6**
 
@@ -100,7 +100,7 @@ V\-71863, V\-71897, V\-71927, V\-71931, V\-71933, V\-71947, V\-71957, V\-71965, 
 
 ### STIG\-Build\-Linux\-High Version 2\.6\.0<a name="ib-linux-stig-high"></a>
 
-The following STIG settings have *not* been applied due to organization\-specific policies and/or technical limitations\. All other applicable STIGs have been applied\. For complete list, see [ Red Hat Enterprise Linux 7 STIG Benchmark \- Ver 2, Rel 6](https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_Red_Hat_Enterprise_Linux_7_V2R6_STIG_SCAP_1-2_Benchmark.zip)\. For instructions on how to view the complete list, see [How to View SRGs and STIGs ](https://dl.dod.cyber.mil/wp-content/uploads/stigs/doc/HOW_TO_VIEW_SRGs_and_STIGs.doc)\.
+The following STIG settings have *not* been applied due to organization\-specific policies and/or technical limitations\. All other applicable STIGs have been applied\. For complete list, see the [ STIGs Document Library](https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=operating-systems%2Cunix-linux)\. For instructions on how to view the complete list, see [How to View SRGs and STIGs ](https://dl.dod.cyber.mil/wp-content/uploads/stigs/doc/HOW_TO_VIEW_SRGs_and_STIGs.doc)\.
 
 **RHEL STIG V2 Release 6**
 
