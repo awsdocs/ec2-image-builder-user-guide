@@ -27,4 +27,4 @@ By default, the Amazon EC2 instance that is used for build and test activity is 
   +  **Resolution**: Specify a specific VPC in your pipeline's infrastructure settings\. 
 + **Build fails with "status = 'TimedOut'" and "failure message = 'Step timed out while step is verifying the SSM Agent availability on the target instance\(s\)'"**
   + **Issue**: The instance launched to perform the build operations and execute components was not able to access the Systems Manager endpoint\. 
-  + **Resolutions**: Ensure that the subnet used for your image build has access to and routes to the Systems Manager endpoint\. 
+  + **Resolutions**: Ensure that the subnet used for your image build has access to and routes to the Systems Manager endpoint\. Ensure that the instance profile has the **AmazonSSMManagedInstanceCore** role policy associated with it\.
