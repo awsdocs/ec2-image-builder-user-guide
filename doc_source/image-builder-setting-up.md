@@ -13,7 +13,7 @@ EC2 Image Builder uses Auto Scaling groups to launch instances during the build 
 ## Configuration Requirements<a name="image-builder-config"></a>
 + EC2 Image Builder does not support encrypted AMIs as the source for or output image of a pipeline\.
 + You must specify a VPC in the infrastructure configuration\. Image Builder does not support EC2\-Classic\. 
-+ Image Builder does not support Amazon VPC endpoints \(PrivateLink\)\.
++ Image Builder can be [configured](vpc-interface-endpoints.md) to use Amazon VPC endpoints \(PrivateLink\)\.
 + Instances used to build images and run tests using Image Builder must have access to the Systems Manager service\. All build activity is orchestrated by SSM Automation\. The SSM Agent will be installed on the source image if it is not already present, and it will be removed before the image is created\.
 
 ## IAM<a name="image-builder-IAM-prereq"></a>
