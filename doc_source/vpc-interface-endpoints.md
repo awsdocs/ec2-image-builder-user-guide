@@ -40,26 +40,26 @@ The following is an example of an endpoint policy for Image Builder that denies 
 
 ```
 {
-    "Version": "2012-10-17",
-    "Statement": [
-    {
-        "Action": "imagebuilder:*",
-        "Effect": "Allow",
-        "Resource": "*"
-    },
-    {
-        "Action": [
-            "imagebuilder: DeleteImage"
-        ],
-        "Effect": "Deny",
-        "Resource": "*",
-    },
-    {
-        "Action": [
-            "imagebuilder: DeleteComponent"
-        ],
-        "Effect": "Deny",
-        "Resource": "*",
-    }]
+    "Version": "2012-10-17",
+    "Statement": [
+    {
+        "Action": "imagebuilder:*",
+        "Effect": "Allow",
+        "Resource": "*"
+    },
+    {
+        "Action": [
+            "imagebuilder: DeleteImage"
+        ],
+        "Effect": "Deny",
+        "Resource": "*",
+    },
+    {
+        "Action": [
+            "imagebuilder: DeleteComponent"
+        ],
+        "Effect": "Deny",
+        "Resource": "*",
+    }]
 }
 ```

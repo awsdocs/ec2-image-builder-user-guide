@@ -1,12 +1,16 @@
 # Security Best Practices for EC2 Image Builder<a name="security-best-practices"></a>
 
 EC2 Image Builder provides a number of security features to consider as you develop and implement your own security policies\. The following best practices are general guidelines and don’t represent a complete security solution\. Because these best practices might not be appropriate or sufficient for your environment, treat them as helpful considerations rather than prescriptions\.
++ Do not use overly\-permissive security groups in Image Builder recipes\.
++ Do not share images with accounts that you do not trust\.
++ Do not make images public that have private or sensitive data\.
++ Apply all available Windows or Linux security patches during image builds\.
 
 **Script Execution**
 
 When building Linux images using EC2 Image Builder, AWS will enforce the execution of a script that will run at the end of the image building process\. Similarly, EC2 Image Builder will run Microsoft’s [Sysprep](https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/sysprep--generalize--a-windows-installation) utility after customizing Windows images\. These actions follow [AWS best practices for hardening and cleaning the image](https://aws.amazon.com/articles/public-ami-publishing-hardening-and-clean-up-requirements/)\. However, because additional customizations can be made during image customization, AWS does not guarantee the images produced to be compliant with any specific regulatory criteria\.
 
-AWS recommends that you test your images to validate the security posture and applicable security compliance levels\. Solutions such as [Amazon Inspector](https://aws.amazon.com/inspector) can help validate the security and compliance posture of images\.
+AWS recommends that you test your images to validate the security posture and applicable security compliance levels\. 
 
 The following script is run as a mandatory step when Amazon Linux 2 images are customized with EC2 Image Builder\.
 
@@ -182,9 +186,3 @@ if [[ $( sudo ls /var/log/journal/ | sudo wc -l ) -gt 0 ]]; then
         exit 1
 fi
 ```
-
-**Additional Best Practices for EC2 Image Builder**
-+ Do not use overly\-permissive security groups in Image Builder recipes\.
-+ Do not share images with accounts that you do not trust\.
-+ Do not make images public that have private or sensitive data\.
-+ Apply all available Windows or Linux security patches during image builds\.

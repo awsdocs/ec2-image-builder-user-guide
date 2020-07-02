@@ -2,6 +2,9 @@
 
 This section contains the list of action modules that are supported by the component management application used by EC2 Image Builder to configure the instance that builds your image\. Also included are the corresponding functionality details and input/output values of the action modules\.
 
+**Note**  
+All action modules are executed using the same account as the SSM agent, which is `root` on Linux and `NT Authority\SYSTEM` on Windows\.
+
 **Topics**
 + [ExecuteBinary](#image-builder-action-modules-executebinary)
 + [ExecuteBash](#image-builder-action-modules-executebash)
@@ -261,13 +264,16 @@ The **S3Upload** action module allows you to upload a file from a source file/fo
 
 If the recursive **S3Upload** action fails, Amazon S3 files that have already been uploaded will remain\.
 
-Supported use cases:
+**Supported use cases:**
 
 • Local file to S3 object\.
 
 • Local files in folder \(with wildcard\) to S3 `KeyPrefix`\.
 
 • Copy local folder \(must have `recurse` set to `true`\) to S3 `KeyPrefix`\.
+
+**IAM Requirements**  
+The IAM role that you associate with your instance profile must have permissions to run the **S3Upload** action module\. The following IAM role policy must be attached to the IAM role that is associated with the instance profile: `s3:PutObject` against the bucket/object \(for example, `arn:aws:s3:::BucketName/*`\)\.
 
 
 **Input**  
@@ -334,6 +340,12 @@ If the **S3Download** action for **S3KeyPrefix** fails, the state of the destina
 **Supported use cases:**
 + S3 object to local file\.
 + S3 objects \(with **KeyPrefix** in S3 file path\) to local folder, which recursively copies all S3 files in a **KeyPrefix** to the local folder\.
+
+**IAM Requirements**
+
+The IAM role that you associate with your instance profile must have permissions to run the **S3Download** action module\. The following IAM role policies must be attached to the IAM role that is associated with the instance profile: 
++ **Single file**: `s3:GetObject` against the bucket/object \(for example, `arn:aws:s3:::BucketName/*`\)\.
++ **Multiple files**: `s3:ListBucket` against the bucket/object \(for example, `arn:aws:s3:::BucketName`\) and `s3:GetObject` against the bucket/object \(for example, `arn:aws:s3:::BucketName/*`\)\.
 
 
 **Input**  

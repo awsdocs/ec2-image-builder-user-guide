@@ -33,17 +33,15 @@ A component, image, or image recipe owner can share these resources with:
 ## Prerequisites for Sharing Components, Images, and Image Recipes<a name="image-builder-shared-resources-prereqs"></a>
 
 To share a component, image, or image recipe:
-+ You must own it in your AWS account\. You cannot share resources that have been shared with you\. 
-+ It must not be encrypted\. 
-+ You must enable sharing with AWS Organizations to share these resources with your organization or an organizational unit in AWS Organizations\. For more information, see [Enable Sharing with AWS Organizations ](https://docs.aws.amazon.com/ram/latest/userguide/getting-started-sharing.html) in the *AWS Resource Access Manager User Guide*\.
-+ You are responsible for ensuring that dependencies external to these resources, or underlying resources that are managed outside of AWS, are also shared with consumers\. EC2 Image Builder does not manage dependencies external to EC2 Image Builder\.
++ You must own the component, image, or image recipe in your AWS account\. You cannot share resources that have been shared with you\. 
++ The AWS Key Management Service CMK associated with encrypted resources must be explicitly shared with the target accounts\.
++ You must enable sharing with AWS Organizations to share these resources with your organization or an organizational unit in AWS Organizations\. 
++ You are responsible for ensuring that dependencies external to these resources, or underlying resources that are managed outside of AWS, are also shared with consumers\. EC2 Image Builder does not manage dependencies external to EC2 Image Builder\. This includes the Amazon EC2 AMIs associated with EC2 Image Builder images, which require account\-level sharing\. This can be configured in the distribution configuration associated with your Image Builder workflows\.
 
 ## Related Services<a name="image-builder-shared-resources-related-services"></a>
 
 **AWS Resource Access Manager**  
 Component, image, and image recipe sharing integrates with AWS Resource Access Manager \(AWS RAM\)\. AWS RAM is a service that enables you to share your AWS resources with any AWS account or through AWS Organizations\. With AWS RAM, you share resources that you own by creating a resource share\. A resource share specifies the resources to share and the consumers with whom to share them\. Consumers can be individual AWS accounts, organizational units, or an entire organization in AWS Organizations\.
-
-For more information about AWS RAM, see the [https://docs.aws.amazon.com/ram/latest/userguide/what-is.html](https://docs.aws.amazon.com/ram/latest/userguide/what-is.html)\.
 
 ## Sharing Across Regions<a name="image-builder-shared-resources-regions"></a>
 
@@ -62,6 +60,9 @@ See [Creating a Resource Share in the AWS Resource Access Manager User Guide](ht
 
 **To share a component, image, or image recipe that you own using the AWS CLI**  
 Use the [https://docs.aws.amazon.com/cli/latest/reference/ram/create-resource-share.html](https://docs.aws.amazon.com/cli/latest/reference/ram/create-resource-share.html) command\.
+
+**Using resource\-based policies to share a component, image, or image recipe**  
+The `PutImagePolicy`, `PutComponentPolicy`, and `PutImageRecipePolicy` APIs provided by the Image Builder service allow you to define resource policies for images, components, and image recipes, respectively\. AWS RAM leverages these APIs to define the correct resource policies to allow the consumer with whom a resource is shared to make API calls involving the shared resource\. In order for AWS RAM to set the correct policies to share and unshare a resource , the resource owner must have `imagebuilder:put*` permissions\. 
 
 ## Unsharing a Shared Component, Image, or Image Recipe<a name="image-builder-shared-resources-unsharing"></a>
 

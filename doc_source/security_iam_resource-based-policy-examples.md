@@ -1,8 +1,8 @@
-# EC2 Image Builder Resource\-Based Policy Examples<a name="security_iam_resource-based-policy-examples"></a>
+# EC2 Image Builder resource\-based policy examples<a name="security_iam_resource-based-policy-examples"></a>
 
 To learn how to create a component, see [Create New Component](managing-image-builder-console.md#image-builder-create-component)\.
 
-## Restricting Image Builder Component Access to Specific IP Addresses<a name="security_iam_resource-based-policy-examples-restrict-component-by-ip"></a>
+## Restricting Image Builder component access to specific IP addresses<a name="security_iam_resource-based-policy-examples-restrict-component-by-ip"></a>
 
 The following example grants permissions to any user to perform any Image Builder operations on components\. However, the request must originate from the range of IP addresses specified in the condition\.
 
@@ -13,7 +13,7 @@ The `Condition` block uses the `IpAddress` and `NotIpAddress` conditions and the
 ```
 {
   "Version": "2012-10-17",
-  "Id": "S3PolicyId1",
+  "Id": "IBPolicyId1",
   "Statement": [
     {
       "Sid": "IPAllow",

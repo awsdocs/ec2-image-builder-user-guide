@@ -9,9 +9,10 @@ Security is a shared responsibility between AWS and you\. The [shared responsibi
 This documentation helps you understand how to apply the shared responsibility model when using Image Builder\. The following topics show you how to configure Image Builder to meet your security and compliance objectives\. You also learn how to use other AWS services that help you to monitor and secure your Image Builder resources\. 
 
 **Topics**
++ [EC2 Image Builder and interface VPC endpoints \(AWS PrivateLink\)](vpc-interface-endpoints.md)
 + [Data Protection in EC2 Image Builder](data-protection.md)
-+ [Identity and Access Management for Amazon Elastic Compute Cloud Image Builder](security-iam.md)
-+ [Compliance Validation for EC2 Image Builder](SERVICENAME-compliance.md)
++ [Identity and Access Management for EC2 Image Builder](security-iam.md)
++ [Compliance Validation for EC2 Image Builder](compliance.md)
 + [Resilience in EC2 Image Builder](disaster-recovery-resiliency.md)
 + [Infrastructure Security in EC2 Image Builder](infrastructure-security.md)
 + [Patch Management in EC2 Image Builder](vulnerability-analysis-and-management.md)

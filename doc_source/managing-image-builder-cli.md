@@ -1,4 +1,4 @@
-# Setting Up and Managing an EC2 Image Builder Image Pipeline Using the AWS CLI<a name="managing-image-builder-cli"></a>
+# Setting up and managing an EC2 Image Builder image pipeline using the AWS CLI<a name="managing-image-builder-cli"></a>
 
 You can set up, configure, and manage image pipelines using the AWS CLI\. The following example CLI commands show common operations and sample file configurations to help you create and manage image pipelines\. 
 
@@ -14,53 +14,53 @@ Image Builder supports the following dynamic tags:
   Resolves to a build version, which is a number that is located at the end of an Image Builder ARN\. For example, `"arn:aws:imagebuilder:us-west-2:123456789012:component/myexample-component/2019.12.02/1"` shows the build version as `1`\.
 
 **Topics**
-+ [Create a Component Document](#image-builder-cli-create-component)
-+ [Upload Document to Amazon S3](#image-builder-cli-upload-document)
-+ [Upload Any Resources Referenced by Document](#image-builder-cli-upload-resources)
-+ [Create a Component](#image-builder-cli-create-component)
-+ [Import a Component](#image-builder-cli-import-component)
-+ [Delete a Component](#image-builder-cli-delete-component)
-+ [Create a Basic Image Recipe](#image-builder-cli-create-recipe)
-+ [Delete an Image Recipe](#image-builder-cli-delete-image-recipe)
-+ [Create a Distribution Configuration](#image-builder-cli-create-distribution-configuration)
-+ [Update a Distribution Configuration](#image-builder-cli-update-distribution-configuration)
-+ [Delete a Distribution Configuration](#image-builder-cli-delete-distribution-configuration)
-+ [Create an Infrastructure Configuration](#image-builder-cli-create-infrastructure-configuration)
-+ [Update an Infrastructure Configuration](#image-builder-cli-update-infrastructure-configuration)
-+ [Delete an Infrastructure Configuration](#image-builder-cli-delete-infrastructure-configuration)
-+ [Create an Image](#image-builder-cli-create-image)
-+ [Cancel an Image Creation](#image-builder-cli-cancel-image-creation)
-+ [Delete an Image](#image-builder-cli-delete-image)
-+ [Create an Image Pipeline](#image-builder-cli-create-image-pipeline)
-+ [Update an Image Pipeline](#image-builder-cli-update-image-pipeline)
-+ [Delete an Image Pipeline](#image-builder-cli-delete-image-pipeline)
-+ [Apply a Resource Policy to a Component](#image-builder-cli-apply-resource-policy-component)
-+ [Apply a Resource Policy to an Image Recipe](#image-builder-cli-apply-resource-policy-recipe)
-+ [Apply a Resource Policy to an Image](#image-builder-cli-apply-resource-policy-image)
-+ [Start an Image Pipeline Manually](#image-builder-cli-start-image-pipeline)
-+ [Tag a Resource](#image-builder-cli-tag-resource)
-+ [Untag a Resource](#image-builder-cli-untag-resource)
-+ [Get Component Details](#image-builder-cli-get-component-details)
-+ [Get Component Policy Details](#image-builder-cli-get-component-policy-details)
-+ [Get Distribution Configuration Details](#image-builder-cli-get-distribution-configuration-details)
-+ [Get an Image](#image-builder-cli-get-image)
-+ [Get Image Pipeline Details](#image-builder-cli-get-image-pipeline-details)
-+ [Get Image Policy Details](#image-builder-cli-get-image-policy-details)
-+ [Get Image Recipe Details](#image-builder-cli-get-image-recipe-details)
-+ [Get Image Recipe Policy Details](#image-builder-cli-get-image-recipe-policy-details)
-+ [Get an Infrastructure Configuration Details](#image-builder-cli-get-infrastructure-configuration-details)
-+ [List Components](#image-builder-cli-list-components)
-+ [List Component Build Versions](#image-builder-cli-list-component-versions)
-+ [List Distributions](#image-builder-cli-list-distributions)
-+ [List Images](#image-builder-cli-list-images)
-+ [List Image Build Versions](#image-builder-cli-list-image-build-versions)
-+ [List Image Pipeline Images](#image-builder-cli-list-image-pipeline-images)
-+ [List Image Pipelines](#image-builder-cli-list-image-pipelines)
-+ [List Image Recipes](#image-builder-cli-list-image-pipeline-recipes)
-+ [List Infrastructure Configurations](#image-builder-cli-list-infrastructure-configurations)
-+ [List All of the Tags for a Specific Resource](#image-builder-cli-list-all-tags-resource)
++ [Create a component document](#image-builder-cli-create-component)
++ [Upload document to Amazon S3](#image-builder-cli-upload-document)
++ [Upload any resources referenced by the document](#image-builder-cli-upload-resources)
++ [Create a component](#image-builder-cli-create-component)
++ [Import a component](#image-builder-cli-import-component)
++ [Delete a component](#image-builder-cli-delete-component)
++ [Create a basic image recipe](#image-builder-cli-create-recipe)
++ [Delete an image recipe](#image-builder-cli-delete-image-recipe)
++ [Create a distribution configuration](#image-builder-cli-create-distribution-configuration)
++ [Update a distribution configuration](#image-builder-cli-update-distribution-configuration)
++ [Delete a distribution configuration](#image-builder-cli-delete-distribution-configuration)
++ [Create an infrastructure configuration](#image-builder-cli-create-infrastructure-configuration)
++ [Update an infrastructure configuration](#image-builder-cli-update-infrastructure-configuration)
++ [Delete an infrastructure configuration](#image-builder-cli-delete-infrastructure-configuration)
++ [Create an image](#image-builder-cli-create-image)
++ [Cancel an image creation](#image-builder-cli-cancel-image-creation)
++ [Delete an image](#image-builder-cli-delete-image)
++ [Create an image pipeline](#image-builder-cli-create-image-pipeline)
++ [Update an image pipeline](#image-builder-cli-update-image-pipeline)
++ [Delete an image pipeline](#image-builder-cli-delete-image-pipeline)
++ [Apply a resource policy to a component](#image-builder-cli-apply-resource-policy-component)
++ [Apply a resource policy to an image recipe](#image-builder-cli-apply-resource-policy-recipe)
++ [Apply a resource policy to an image](#image-builder-cli-apply-resource-policy-image)
++ [Start an image pipeline manually](#image-builder-cli-start-image-pipeline)
++ [Tag a resource](#image-builder-cli-tag-resource)
++ [Untag a resource](#image-builder-cli-untag-resource)
++ [Get component details](#image-builder-cli-get-component-details)
++ [Get component policy details](#image-builder-cli-get-component-policy-details)
++ [Get distribution configuration details](#image-builder-cli-get-distribution-configuration-details)
++ [Get an image](#image-builder-cli-get-image)
++ [Get image pipeline details](#image-builder-cli-get-image-pipeline-details)
++ [Get image policy details](#image-builder-cli-get-image-policy-details)
++ [Get image recipe details](#image-builder-cli-get-image-recipe-details)
++ [Get image recipe policy details](#image-builder-cli-get-image-recipe-policy-details)
++ [Get an infrastructure configuration details](#image-builder-cli-get-infrastructure-configuration-details)
++ [List components](#image-builder-cli-list-components)
++ [List component build versions](#image-builder-cli-list-component-versions)
++ [List distributions](#image-builder-cli-list-distributions)
++ [List images](#image-builder-cli-list-images)
++ [List image build versions](#image-builder-cli-list-image-build-versions)
++ [List image pipeline images](#image-builder-cli-list-image-pipeline-images)
++ [List image pipelines](#image-builder-cli-list-image-pipelines)
++ [List image recipes](#image-builder-cli-list-image-pipeline-recipes)
++ [List infrastructure configurations](#image-builder-cli-list-infrastructure-configurations)
++ [List all of the tags for a specific resource](#image-builder-cli-list-all-tags-resource)
 
-## Create a Component Document<a name="image-builder-cli-create-component"></a>
+## Create a component document<a name="image-builder-cli-create-component"></a>
 
 The first step in setting up your pipeline is to define a document that will perform the AMI customizations\. The document can contain build, validate, and test phases\. For more information, see [Document Schema and Definitions](image-builder-application-documents.md#document-schema)\.
 
@@ -123,7 +123,7 @@ phases:
             - c:\ec2amibuild\scripts\windows\TestAMI.ps1
 ```
 
-## Upload Document to Amazon S3<a name="image-builder-cli-upload-document"></a>
+## Upload document to Amazon S3<a name="image-builder-cli-upload-document"></a>
 
 This step is required only if your document exceeds 64 KB\. Smaller documents can be provided inline when you create the EC2 Image Builder component\. Documents over 64 KB must be stored in Amazon S3\. 
 
@@ -131,7 +131,7 @@ This step is required only if your document exceeds 64 KB\. Smaller documents ca
 aws s3 cp component.yaml s3://my-s3-bucket/my-path/component.yaml
 ```
 
-## Upload Any Resources Referenced by Document<a name="image-builder-cli-upload-resources"></a>
+## Upload any resources referenced by the document<a name="image-builder-cli-upload-resources"></a>
 
 You must upload any resources referenced by your document or your document execution will fail at runtime\. 
 
@@ -139,7 +139,7 @@ You must upload any resources referenced by your document or your document execu
 aws s3 cp my_zip_archive.zip s3://my-s3-bucket/my-path/my_zip_archive.zip
 ```
 
-## Create a Component<a name="image-builder-cli-create-component"></a>
+## Create a component<a name="image-builder-cli-create-component"></a>
 
 Next, create a component that references the document that you created as described in the preceding steps\. You will reference this component later in an image recipe used to customize your image\. 
 
@@ -166,7 +166,7 @@ To create the component, use the following command\.
 aws imagebuilder create-component --cli-input-json file://create-component.json
 ```
 
-## Import a Component<a name="image-builder-cli-import-component"></a>
+## Import a component<a name="image-builder-cli-import-component"></a>
 
 For some scenarios, it might be easier to start with a pre\-existing script\. For this scenario, you can do the following\. 
 
@@ -192,7 +192,7 @@ To import the component, run the following command\.
 aws imagebuilder import-component --cli-input-json file://import-component.json
 ```
 
-## Delete a Component<a name="image-builder-cli-delete-component"></a>
+## Delete a component<a name="image-builder-cli-delete-component"></a>
 
 The following example shows how to delete a component build version by specifying its ARN\.
 
@@ -206,7 +206,7 @@ Infrastructure configuration/Distribution configuration/Image recipe
 Component
 Image
 
-## Create a Basic Image Recipe<a name="image-builder-cli-create-recipe"></a>
+## Create a basic image recipe<a name="image-builder-cli-create-recipe"></a>
 
 After you have the components in place, you can create an image recipe\. An image recipe defines the image to use as your starting point, along with the set of components that customize the image\. The image recipe defines the contents of your output image\. This example shows the use of a basic image recipe, which is the minimal configuration requirement to get started\. 
 
@@ -240,7 +240,7 @@ Assuming that you have an image recipe definition stored in `create-image-recipe
 aws imagebuilder create-image-recipe --cli-input-json file://create-image-recipe.json
 ```
 
-## Delete an Image Recipe<a name="image-builder-cli-delete-image-recipe"></a>
+## Delete an image recipe<a name="image-builder-cli-delete-image-recipe"></a>
 
 The following example shows how to delete an image recipe by specifying its ARN\.
 
@@ -254,9 +254,9 @@ Infrastructure configuration/Distribution configuration/Image recipe
 Component
 Image
 
-## Create a Distribution Configuration<a name="image-builder-cli-create-distribution-configuration"></a>
+## Create a distribution configuration<a name="image-builder-cli-create-distribution-configuration"></a>
 
-A distribution configuration allows you to specify the name and description of your output AMI, authorize other AWS accounts to launch the AMI, and replicate the AMI to other AWS Regions\. It also allows you to export the AMI to Amazon S3\. 
+A distribution configuration allows you to specify the name and description of your output AMI, authorize other AWS accounts to launch the AMI, and replicate the AMI to other AWS Regions\. It also allows you to export the AMI to Amazon S3\. To make an AMI public, set the launch permission authorized accounts to `all`\. See the examples for making an AMI public at [EC2 ModifyImageAttribute](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_ModifyImageAttribute.html)\. 
 
 The contents of the `create-distribution-configuration.json` are as follows\.
 
@@ -271,7 +271,7 @@ The contents of the `create-distribution-configuration.json` are as follows\.
                 "name": "Name {{imagebuilder:buildDate}}",
                 "description": "An example image name with parameter references",
                 "amiTags": {
-                    "KeyName": "{{ssm:parameter_name}}"
+                    "KeyName": "Some Value"
                 },
                 "launchPermission": {
                     "userIds": [
@@ -304,7 +304,7 @@ Use the JSON file to create the distribution configuration\.
 aws imagebuilder create-distribution-configuration --cli-input-json file://create-distribution-configuration.json
 ```
 
-## Update a Distribution Configuration<a name="image-builder-cli-update-distribution-configuration"></a>
+## Update a distribution configuration<a name="image-builder-cli-update-distribution-configuration"></a>
 
 The following example shows an `update-distribution-configuration.json` followed by the CLI command that allows you to update a distribution configuration that references the JSON file\. 
 
@@ -351,7 +351,7 @@ Run the following command, which references the preceding `update-distribution-c
 aws imagebuilder update-distribution-configuration --cli-input-json file://update-distribution-configuration.json
 ```
 
-## Delete a Distribution Configuration<a name="image-builder-cli-delete-distribution-configuration"></a>
+## Delete a distribution configuration<a name="image-builder-cli-delete-distribution-configuration"></a>
 
 The following example shows how to delete a distribution configuration by specifying its ARN\.
 
@@ -365,9 +365,9 @@ Infrastructure configuration/Distribution configuration/Image recipe
 Component
 Image
 
-## Create an Infrastructure Configuration<a name="image-builder-cli-create-infrastructure-configuration"></a>
+## Create an infrastructure configuration<a name="image-builder-cli-create-infrastructure-configuration"></a>
 
-Infrastructure configurations allow you to specify the infrastructure within which to build and test your image\. In the infrastructure configuration, you can specify instance types, subnets, and security groups to associate with your instance\. You can also associate an Amazon EC2 key pair with the instance used to build your image\. This allows you to log on to your instance to troubleshoot if your build fails and you set `terminateInstanceOnFailure` to `false`\. 
+Infrastructure configurations allow you to specify the infrastructure within which to build and test your image\. In the infrastructure configuration, you can specify instance types, subnets, and security groups to associate with your instance\. You can also associate an Amazon EC2 key pair with the instance used to build your image\. This allows you to log on to your instance to troubleshoot if your build fails and you set `terminateInstanceOnFailure` to `false`\. If you configure logging, the instance profile specified in your infrastructure configuration must have `s3:PutObject` permissions for the target bucket \(`arn:aws:s3:::BucketName/*`\)\. 
 
 ```
 {
@@ -405,7 +405,7 @@ Use the JSON file to create the infrastructure configuration\.
 aws imagebuilder create-infrastructure-configuration --cli-input-json file://create-infrastructure-configuration.json
 ```
 
-## Update an Infrastructure Configuration<a name="image-builder-cli-update-infrastructure-configuration"></a>
+## Update an infrastructure configuration<a name="image-builder-cli-update-infrastructure-configuration"></a>
 
 The following example shows an `update-infrastructure-configuration.json` followed by the CLI command that allows you to update an infrastructure configuration that references the JSON file\. 
 
@@ -440,7 +440,7 @@ Run the following command, which references the preceding update\-infrastructure
 aws imagebuilder update-infrastructure-configuration --cli-input-json file://update-infrastructure-configuration.json
 ```
 
-## Delete an Infrastructure Configuration<a name="image-builder-cli-delete-infrastructure-configuration"></a>
+## Delete an infrastructure configuration<a name="image-builder-cli-delete-infrastructure-configuration"></a>
 
 The following example shows how to delete a distribution configuration by specifying its ARN\.
 
@@ -454,7 +454,7 @@ Infrastructure configuration/Distribution configuration/Image recipe
 Component
 Image
 
-## Create an Image<a name="image-builder-cli-create-image"></a>
+## Create an image<a name="image-builder-cli-create-image"></a>
 
 When you have a basic recipe and an infrastructure configuration, you can create an image\. 
 
@@ -462,7 +462,9 @@ When you have a basic recipe and an infrastructure configuration, you can create
 aws imagebuilder create-image --image-recipe-arn arn:aws:imagebuilder:us-west-2:123456789012:image-recipe/my-example-recipe/2019.12.03 --infrastructure-configuration-arn arn:aws:imagebuilder:us-west-2123456789012:infrastructure-configuration/myexampleinfrastructure
 ```
 
-## Cancel an Image Creation<a name="image-builder-cli-cancel-image-creation"></a>
+To see what resources are created when you create an image, see [Resources created](how-image-builder-works.md#image-builder-resources)\.
+
+## Cancel an image creation<a name="image-builder-cli-cancel-image-creation"></a>
 
 You can use the `cancel-image-creation` API when you want to cancel an image that is in the process of being built\.
 
@@ -470,7 +472,7 @@ You can use the `cancel-image-creation` API when you want to cancel an image tha
 aws imagebuilder cancel-image-creation --image-build-version-arn arn:aws:imagebuilder:us-west-2:123456789012:image/my-example-recipe/2019.12.03/1
 ```
 
-## Delete an Image<a name="image-builder-cli-delete-image"></a>
+## Delete an image<a name="image-builder-cli-delete-image"></a>
 
 The following example shows how to delete an image build version by specifying its ARN\.
 
@@ -484,7 +486,7 @@ Infrastructure configuration/Distribution configuration/Image recipe
 Component
 Image
 
-## Create an Image Pipeline<a name="image-builder-cli-create-image-pipeline"></a>
+## Create an image pipeline<a name="image-builder-cli-create-image-pipeline"></a>
 
 An image pipeline automates the creation of golden images\. This command is similar to the `create-image` step that we performed in the preceding steps\. However, in this case, a pipeline enables you to configure EC2 Image Builder to periodically build new images for you\. 
 
@@ -517,7 +519,7 @@ Use the JSON file to create the image pipeline\.
 aws imagebuilder create-image-pipeline --cli-input-json file://create-image-pipeline.json
 ```
 
-## Update an Image Pipeline<a name="image-builder-cli-update-image-pipeline"></a>
+## Update an image pipeline<a name="image-builder-cli-update-image-pipeline"></a>
 
 The following example shows an `update-image-pipeline.json` followed by the CLI command that allows you to update an image pipeline that references the JSON file\. 
 
@@ -547,7 +549,7 @@ Run the following command, which references the preceding `update-image-pipeline
 aws imagebuilder update-image-pipeline --cli-input-json file://update-image-pipeline.json
 ```
 
-## Delete an Image Pipeline<a name="image-builder-cli-delete-image-pipeline"></a>
+## Delete an image pipeline<a name="image-builder-cli-delete-image-pipeline"></a>
 
 The following example shows how to delete an image pipeline by specifying its ARN\.
 
@@ -561,7 +563,7 @@ Infrastructure configuration/Distribution configuration/Image recipe
 Component
 Image
 
-## Apply a Resource Policy to a Component<a name="image-builder-cli-apply-resource-policy-component"></a>
+## Apply a resource policy to a component<a name="image-builder-cli-apply-resource-policy-component"></a>
 
 You can apply a resource policy to a build component to enable cross\-account sharing of build components\. This command gives other accounts permission to use your build component in their image recipes\. For the command to be successful, you must ensure that the account with which you are sharing has permission to access any resources referenced by the shared build component, such as files hosted on private repositories\. We recommend that you use the RAM CLI command [create\-resource\-share](https://docs.aws.amazon.com/cli/latest/reference/ram/create-resource-share.html) to share resources\. If you use the EC2 Image Builder CLI command [put\-component\-policy](https://docs.aws.amazon.com/cli/latest/reference/imagebuilder/put-component-policy.html), you must also use the RAM CLI command [promote\-resource\-share\-created\-from\-policy](https://docs.aws.amazon.com/cli/latest/reference/ram/promote-resource-share-created-from-policy.html) in order for the resource to be visible to all principals with whom the resource is shared\. For more information, see [Resource Sharing in EC2 Image Builder](image-builder-resource-sharing.md)\.
 
@@ -569,7 +571,7 @@ You can apply a resource policy to a build component to enable cross\-account sh
 aws imagebuilder put-component-policy --component-arn arn:aws:imagebuilder:us-west-2:123456789012:component/my-example-component/2019.12.03/1 --policy '{ "Version": "2012-10-17", "Statement": [ { "Effect": "Allow", "Principal": { "AWS": [ "arn:aws:iam::account-id:user/Alice", "account-id-2" ] }, "Action": [ "imagebuilder:GetComponent", "imagebuilder:ListComponents" ], "Resource": [ "arn:aws:imagebuilder:us-west-2:123456789012:component/my-example-component/2019.12.03/1" ] } ] }'
 ```
 
-## Apply a Resource Policy to an Image Recipe<a name="image-builder-cli-apply-resource-policy-recipe"></a>
+## Apply a resource policy to an image recipe<a name="image-builder-cli-apply-resource-policy-recipe"></a>
 
 You can apply a resource policy to an image recipe to enable cross\-account sharing of image recipes\. This command gives other accounts permission to use your image recipes to create images in their accounts\. For the command to be successful, you must ensure that the account with which you are sharing has permission to access any images or components referenced by the image recipe\. We recommend that you use the RAM CLI command [create\-resource\-share](https://docs.aws.amazon.com/cli/latest/reference/ram/create-resource-share.html) to share resources\. If you use the EC2 Image Builder CLI command [put\-image\-recipe\-policy](https://docs.aws.amazon.com/cli/latest/reference/imagebuilder/put-image-recipe-policy.html), you must also use the RAM CLI command [promote\-resource\-share\-created\-from\-policy](https://docs.aws.amazon.com/cli/latest/reference/ram/promote-resource-share-created-from-policy.html) in order for the resource to be visible to all principals with whom the resource is shared\. For more information, see [Resource Sharing in EC2 Image Builder](image-builder-resource-sharing.md)\.
 
@@ -577,7 +579,7 @@ You can apply a resource policy to an image recipe to enable cross\-account shar
 aws imagebuilder put-image-recipe-policy --image-recipe-arn arn:aws:imagebuilder:us-west-2:123456789012:image-recipe/my-example-image-recipe/2019.12.03 --policy '{ "Version": "2012-10-17", "Statement": [ { "Effect": "Allow", "Principal": { "AWS": [ "arn:aws:iam::account-id:user/Alice", "account-id-2" ] }, "Action": [ "imagebuilder:GetImageRecipe", "imagebuilder:ListImageRecipes" ], "Resource": [ "arn:aws:imagebuilder:us-west-2:123456789012:image-recipe/my-example-image-recipe/2019.12.03" ] } ] }'
 ```
 
-## Apply a Resource Policy to an Image<a name="image-builder-cli-apply-resource-policy-image"></a>
+## Apply a resource policy to an image<a name="image-builder-cli-apply-resource-policy-image"></a>
 
 You can apply a resource policy to an image to allow other users to use the image in their image recipes\. For the command to be successful, you must ensure that the account with which you are sharing has permission to access the underlying resource \(for example, the Amazon EC2 AMI\)\. We recommend that you use the RAM CLI command [create\-resource\-share](https://docs.aws.amazon.com/cli/latest/reference/ram/create-resource-share.html) to share resources\. If you use the EC2 Image Builder CLI command [put\-image\-policy](https://docs.aws.amazon.com/cli/latest/reference/imagebuilder/put-image-policy.html), you must also use the RAM CLI command [promote\-resource\-share\-created\-from\-policy](https://docs.aws.amazon.com/cli/latest/reference/ram/promote-resource-share-created-from-policy.html) in order for the resource to be visible to all principals with whom the resource is shared\. For more information, see [Resource Sharing in EC2 Image Builder](image-builder-resource-sharing.md)\.
 
@@ -585,7 +587,7 @@ You can apply a resource policy to an image to allow other users to use the imag
 aws imagebuilder put-image-policy --image-arn arn:aws:imagebuilder:us-west-2:123456789012:image/my-example-image/2019.12.03/1 --policy '{ "Version": "2012-10-17", "Statement": [ { "Effect": "Allow", "Principal": { "AWS": [ "arn:aws:iam::account-id:user/Alice", "account-id-2" ] }, "Action": ["imagebuilder:GetImage", "imagebuilder:ListImages"] "Resource": [ "arn:aws:imagebuilder:us-west-2:123456789012:image/my-example-image/2019.12.03/1" ] } ] }
 ```
 
-## Start an Image Pipeline Manually<a name="image-builder-cli-start-image-pipeline"></a>
+## Start an image pipeline manually<a name="image-builder-cli-start-image-pipeline"></a>
 
 The following CLI example command shows how to manually start an image pipeline\. Running this command results in the pipeline creating a new image on demand\.
 
@@ -593,7 +595,9 @@ The following CLI example command shows how to manually start an image pipeline\
 aws imagebuilder start-image-pipeline-execution --image-pipeline-arn arn:aws:imagebuilder:us-west-2:123456789012:image-pipeline/my-example-pipeline
 ```
 
-## Tag a Resource<a name="image-builder-cli-tag-resource"></a>
+To see what resources are created when the build pipeline runs, see [Resources created](how-image-builder-works.md#image-builder-resources)\.
+
+## Tag a resource<a name="image-builder-cli-tag-resource"></a>
 
 The following example CLI command shows how to add and tag a resource in EC2 Image Builder\. You must provide the `resourceArn` and the tags to apply to it\.
 
@@ -614,7 +618,7 @@ Run the following command, which references the preceding `tag-resource.json` fi
 aws imagebuilder tag-resource --cli-input-json file://tag-resource.json
 ```
 
-## Untag a Resource<a name="image-builder-cli-untag-resource"></a>
+## Untag a resource<a name="image-builder-cli-untag-resource"></a>
 
 The following example CLI command shows how to remove a tag from a resource\. You must provide the `resourceArn` and the keys to remove the tag\.
 
@@ -635,7 +639,7 @@ Run the following command, which references the preceding `untag-resource.json` 
 aws imagebuilder untag-resource --cli-input-json file://untag-resource.json
 ```
 
-## Get Component Details<a name="image-builder-cli-get-component-details"></a>
+## Get component details<a name="image-builder-cli-get-component-details"></a>
 
 The following example shows how to get the details of a component by specifying its ARN\.
 
@@ -643,7 +647,7 @@ The following example shows how to get the details of a component by specifying 
 aws imagebuilder get-component --component-build-version-arn arn:aws:imagebuilder:us-west-2:123456789012:component/my-example-component/2019.12.02/1
 ```
 
-## Get Component Policy Details<a name="image-builder-cli-get-component-policy-details"></a>
+## Get component policy details<a name="image-builder-cli-get-component-policy-details"></a>
 
 The following example shows how to get the details of a component policy by specifying its ARN\.
 
@@ -651,7 +655,7 @@ The following example shows how to get the details of a component policy by spec
 aws imagebuilder get-component-policy --component-arn arn:aws:imagebuilder:us-west-2:123456789012:component/my-example-component/2019.12.02
 ```
 
-## Get Distribution Configuration Details<a name="image-builder-cli-get-distribution-configuration-details"></a>
+## Get distribution configuration details<a name="image-builder-cli-get-distribution-configuration-details"></a>
 
 The following example shows how to get the details of a distribution configuration by specifying its ARN\.
 
@@ -659,7 +663,7 @@ The following example shows how to get the details of a distribution configurati
 aws imagebuilder get-distribution-configuration --distribution-configuration-arn arn:aws:imagebuilder:us-west-2:123456789012:distribution-configuration/my-example-distribution-configuration
 ```
 
-## Get an Image<a name="image-builder-cli-get-image"></a>
+## Get an image<a name="image-builder-cli-get-image"></a>
 
 To check the progress of your image, use the `get-image` operation\. `get-image` returns details about the image, metadata, current state, and output resources when they are available\. 
 
@@ -667,7 +671,7 @@ To check the progress of your image, use the `get-image` operation\. `get-image`
 aws imagebuilder get-image --image-build-version-arn arn:aws:imagebuilder:us-west-2:123456789012:image/my-example-recipe/2019.12.03/1
 ```
 
-## Get Image Pipeline Details<a name="image-builder-cli-get-image-pipeline-details"></a>
+## Get image pipeline details<a name="image-builder-cli-get-image-pipeline-details"></a>
 
 The following example shows how to get the details of an image pipeline by specifying its ARN\.
 
@@ -675,7 +679,7 @@ The following example shows how to get the details of an image pipeline by speci
 aws imagebuilder get-image-pipeline --image-pipeline-arn arn:aws:imagebuilder:us-west-2:123456789012:image-pipeline/my-example-pipeline
 ```
 
-## Get Image Policy Details<a name="image-builder-cli-get-image-policy-details"></a>
+## Get image policy details<a name="image-builder-cli-get-image-policy-details"></a>
 
 The following example shows how to get the details of an image policy by specifying its ARN\.
 
@@ -683,7 +687,7 @@ The following example shows how to get the details of an image policy by specify
 aws imagebuilder get-image-policy --image-arn arn:aws:imagebuilder:us-west-2:123456789012:image/my-example-image/2019.12.02
 ```
 
-## Get Image Recipe Details<a name="image-builder-cli-get-image-recipe-details"></a>
+## Get image recipe details<a name="image-builder-cli-get-image-recipe-details"></a>
 
 The following example shows how to get the details of an image recipe by specifying its ARN\.
 
@@ -691,7 +695,7 @@ The following example shows how to get the details of an image recipe by specify
 aws imagebuilder get-image-recipe --image-recipe-arn arn:aws:imagebuilder:us-west-2:123456789012:image-recipe/my-example-recipe/2019.12.03
 ```
 
-## Get Image Recipe Policy Details<a name="image-builder-cli-get-image-recipe-policy-details"></a>
+## Get image recipe policy details<a name="image-builder-cli-get-image-recipe-policy-details"></a>
 
 The following example shows how to get the details of an image recipe policy by specifying its ARN\.
 
@@ -699,7 +703,7 @@ The following example shows how to get the details of an image recipe policy by 
 aws imagebuilder get-image-recipe-policy --image-recipe-arn arn:aws:imagebuilder:us-west-2:123456789012:image-recipe/my-example-recipe/2019.12.03
 ```
 
-## Get an Infrastructure Configuration Details<a name="image-builder-cli-get-infrastructure-configuration-details"></a>
+## Get an infrastructure configuration details<a name="image-builder-cli-get-infrastructure-configuration-details"></a>
 
 The following example shows how to get the details of an infrastructure configuration by specifying its ARN\.
 
@@ -707,7 +711,7 @@ The following example shows how to get the details of an infrastructure configur
 aws imagebuilder get-infrastructure-configuration --infrastructure-configuration-arn arn:aws:imagebuilder:us-west-2:123456789012:infrastructure-configuration/my-example-infrastructure-configuration
 ```
 
-## List Components<a name="image-builder-cli-list-components"></a>
+## List components<a name="image-builder-cli-list-components"></a>
 
 The following example shows how to list all of the component semantic versions that you have access to\.
 
@@ -729,7 +733,7 @@ aws imagebuilder list-components --owner Amazon
 aws imagebuilder list-components --owner Shared
 ```
 
-## List Component Build Versions<a name="image-builder-cli-list-component-versions"></a>
+## List component build versions<a name="image-builder-cli-list-component-versions"></a>
 
 The following example shows how to list component build versions with a specific semantic version\.
 
@@ -737,7 +741,7 @@ The following example shows how to list component build versions with a specific
 aws imagebuilder list-component-build-versions --component-version-arn arn:aws:imagebuilder:us-west-2:123456789012:component/my-example-component/2019.12.03
 ```
 
-## List Distributions<a name="image-builder-cli-list-distributions"></a>
+## List distributions<a name="image-builder-cli-list-distributions"></a>
 
 The following example shows how to list all of your distributions\.
 
@@ -745,7 +749,7 @@ The following example shows how to list all of your distributions\.
 aws imagebuilder list-distribution-configurations
 ```
 
-## List Images<a name="image-builder-cli-list-images"></a>
+## List images<a name="image-builder-cli-list-images"></a>
 
 The following example shows how to list all of the image semantic versions that you have access to\.
 
@@ -753,7 +757,7 @@ The following example shows how to list all of the image semantic versions that 
 aws imagebuilder list-images
 ```
 
-## List Image Build Versions<a name="image-builder-cli-list-image-build-versions"></a>
+## List image build versions<a name="image-builder-cli-list-image-build-versions"></a>
 
 The following example shows how to list image build versions with a specific semantic version\.
 
@@ -761,7 +765,7 @@ The following example shows how to list image build versions with a specific sem
 aws imagebuilder list-image-build-versions --image-version-arn arn:aws:imagebuilder:us-west-2:123456789012:image/my-example-image/2019.12.03
 ```
 
-## List Image Pipeline Images<a name="image-builder-cli-list-image-pipeline-images"></a>
+## List image pipeline images<a name="image-builder-cli-list-image-pipeline-images"></a>
 
 The following example shows how to list all images created by a specific image pipeline\.
 
@@ -769,7 +773,7 @@ The following example shows how to list all images created by a specific image p
 aws imagebuilder list-image-pipeline-images --image-pipeline-arn arn:aws:imagebuilder:us-west-2:123456789012:image-pipeline/my-example-pipeline
 ```
 
-## List Image Pipelines<a name="image-builder-cli-list-image-pipelines"></a>
+## List image pipelines<a name="image-builder-cli-list-image-pipelines"></a>
 
 The following example shows how to list all of your image pipelines\.
 
@@ -777,7 +781,7 @@ The following example shows how to list all of your image pipelines\.
 aws imagebuilder list-image-pipelines
 ```
 
-## List Image Recipes<a name="image-builder-cli-list-image-pipeline-recipes"></a>
+## List image recipes<a name="image-builder-cli-list-image-pipeline-recipes"></a>
 
 The following example shows how to list all of your image recipes\.
 
@@ -785,7 +789,7 @@ The following example shows how to list all of your image recipes\.
 aws imagebuilder list-image-recipes
 ```
 
-## List Infrastructure Configurations<a name="image-builder-cli-list-infrastructure-configurations"></a>
+## List infrastructure configurations<a name="image-builder-cli-list-infrastructure-configurations"></a>
 
 The following example shows how to list of all of your infrastructure configurations\.
 
@@ -793,7 +797,7 @@ The following example shows how to list of all of your infrastructure configurat
 aws imagebuilder list-infrastructure-configurations
 ```
 
-## List All of the Tags for a Specific Resource<a name="image-builder-cli-list-all-tags-resource"></a>
+## List all of the tags for a specific resource<a name="image-builder-cli-list-all-tags-resource"></a>
 
 The following example shows how to list all the tags for a specific resource\.
 

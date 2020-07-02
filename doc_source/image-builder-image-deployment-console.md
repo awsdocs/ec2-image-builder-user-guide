@@ -1,4 +1,4 @@
-# Build and Automate an OS Image Deployment Using the EC2 Image Builder Console<a name="image-builder-image-deployment-console"></a>
+# Build and automate an operating system image deployment using the EC2 Image Builder console<a name="image-builder-image-deployment-console"></a>
 
 The following steps guide you through an image deployment with Image Builder from the EC2 Image Builder console\.
 
@@ -7,7 +7,7 @@ The following steps guide you through an image deployment with Image Builder fro
 1. The following tabs contain information about each of the pages for which you must provide input to create your image pipeline\.
 
 ------
-#### [ Define Recipe ]
+#### [ Define recipe ]
 
    1. On the **Define Recipe** page, create an image recipe, which includes your source image and components\. 
 
@@ -32,7 +32,7 @@ Components are installed in the order they are selected\. You cannot reorder com
          After you have entered your source image and components, select **Next**\. 
 
 ------
-#### [ Configure Pipeline ]
+#### [ Configure pipeline ]
 
    1. From the **Configure Pipeline** page, define the image pipeline infrastructure and build schedule\. 
 
@@ -53,6 +53,8 @@ Make sure that your role has permissions to run the build and test components in
          1. If you select **Schedule builder**, you can set the build pipeline to run automatically using the job scheduler\. Enter the cadence after **Run pipeline every**\. You can select to run the pipeline daily, weekly, or monthly\. In order to set the build pipeline to build from the latest image version, you must select the checkbox **Always build latest version** under **Define Recipe**\. 
 
          1. If you select **CRON expression**, you can set the build pipeline to run using a syntax that specifies the time and intervals to run it\. Enter the expression in the text box\. 
+
+            To see what resources are created when the build pipeline runs, see [Resources created](how-image-builder-works.md#image-builder-resources)\.
 
       1. Optionally, enter the **Infrastructure** specifications to define the infrastructure for your image\. These settings are associated with the EC2 instance that is launched in your account for the purpose of building the image\. 
 
@@ -80,7 +82,7 @@ This is the only chance for you to save the private key file, so be sure to down
 **Note**  
 If the option to terminate your instance upon failure is not selected, the Auto Scaling group and launch template used to launch the instance are not removed from your account when the build fails\. You must remove the Auto Scaling group and launch template resources manually\.
 
-            1. Under **S3 Logs**, select the **S3 bucket** to which you want to send your instance log files\. To browse and select your Amazon S3 bucket locations, select **Browse S3**\. 
+            1. Under **S3 Logs**, select the **S3 bucket** to which you want to send your instance log files\. To browse and select your Amazon S3 bucket locations, select **Browse S3**\. The logs show steps and error messages for activity on the EC2 instance during the image build process\.
 
             1. Under **Advanced Settings**, provide the following information if you want to select a VPC to launch your instance\.
 

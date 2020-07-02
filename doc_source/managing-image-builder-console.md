@@ -90,7 +90,7 @@ Image
 
 ### Create a New Image Recipe Version<a name="create-recipe-version"></a>
 
-To create a new image recipe version, select the check box next to the image recipe and, under the **Actions** dropdown, select **Create new version**\. This takes you to the **Create Recipe **page, where you can create a new image recipe version\. For instructions for creating an image recipe, see the steps under [Build and Automate an OS Image Deployment Using the EC2 Image Builder Console](image-builder-image-deployment-console.md)\.
+To create a new image recipe version, select the check box next to the image recipe and, under the **Actions** dropdown, select **Create new version**\. This takes you to the **Create Recipe **page, where you can create a new image recipe version\. For instructions for creating an image recipe, see the steps under [Build and automate an operating system image deployment using the EC2 Image Builder console](image-builder-image-deployment-console.md)\.
 
 ## Testing<a name="image-builder-testing"></a>
 
@@ -102,8 +102,6 @@ To update the tests in an image recipe using the EC2 Image Builder console, foll
 
 EC2 Image Builder can distribute AMIs to any AWS Region\. The AMI is copied to each Region that you specify in the account used to build the image\. You can define AMI launch permissions to control which AWS accounts are permitted to launch EC2 instances with the created AMI\. For example, you can make the image private, public, or share with specific accounts\. If you both distribute the AMI to other Regions and define launch permissions for other accounts, the launch permissions are propagated to the AMIs in all of the Regions in which the AMI is distributed\. 
 
-You can also use your AWS Organizations master account to enforce limitations on member accounts to launch instances only with approved and compliant AMIs\. For more information, see [Managing the AWS Accounts in Your Organization](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts.html)\.
-
 To update your distribution settings using the EC2 Image Builder console, follow the steps to [create a new recipe version](#create-recipe-version), and on the **Configure additional settings** page, update the **AWS Regions** and/or **Launch permissions** under **AMI Distribution settings**\. 
 
 ## Sharing Resources<a name="image-builder-distribution"></a>
@@ -112,4 +110,4 @@ To share components, image recipes, or images with other accounts or within AWS 
 
 ## Compliance<a name="image-builder-compliance"></a>
 
-For CIS, EC2 Image Builder uses Amazon Inspector to perform automatic assessments for exposure, vulnerabilities, and deviations from best practices and compliance standards\. For example, it assesses unintended network accessibility, unpatched CVEs, public internet connectivity, and remote root login enablement\. Amazon Inspector is offered as a test component that you can choose to add to your image recipe\. For more information about Amazon Inspector, see the [Amazon Inspector](https://docs.aws.amazon.com/inspector/latest/userguide/inspector_introduction.html) User Guide\. For hardening, EC2 Image Builder validates using STIG\. For a complete list of STIG components available through Image Builder, see [EC2 Image Builder STIG Components](image-builder-stig.md)\. For more information, see [Center for Internet Security \(CIS\) Benchmarks](https://docs.aws.amazon.com/inspector/latest/userguide/inspector_cis.html) and [Amazon EC2 Windows Server AMIs for STIG Compliance](https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/ami-windows-stig.html)\.
+For CIS, EC2 Image Builder uses Amazon Inspector to perform automatic assessments for exposure, vulnerabilities, and deviations from best practices and compliance standards\. For example, it assesses unintended network accessibility, unpatched CVEs, public internet connectivity, and remote root login enablement\. Amazon Inspector is offered as a test component that you can choose to add to your image recipe\. \. For hardening, EC2 Image Builder validates using STIG\. For a complete list of STIG components available through Image Builder, see [EC2 Image Builder STIG Components](image-builder-stig.md)\. For more information, see [Center for Internet Security \(CIS\) Benchmarks](https://docs.aws.amazon.com/inspector/latest/userguide/inspector_cis.html) and [Amazon EC2 Windows Server AMIs for STIG Compliance](https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/ami-windows-stig.html)\.
