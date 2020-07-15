@@ -52,6 +52,59 @@ The role permissions policy allows the Image Builder service to complete the fol
 
 You must configure permissions to allow an IAM entity \(such as a user, group, or role\) to create, edit, or delete a service\-linked role\. For more information, see [Service\-Linked Role Permissions in the IAM User Guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html#service-linked-role-permissions)\.
 
+## Using AWS Key Management Service \(KMS\) with EC2 Image Builder EBS Encryption<a name="image-builder-slr-kms"></a>
+
+You must allow the Image Builder service-linked role to access the KMS key that you use to encrypt Image Builder EBS volumes. Encrypting EBS volumes explicitly or via EBS Default Encryption will cause your EC2 Image Builder instances to immediately terminate when they are unable to decrypt the root EBS volume.
+
+The below is an example KMS Key Policy for a Customer Managed Key, ensure you replace `$ACCOUNT` with your AWS Account Id.
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "Enable IAM User Permissions",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::$ACCOUNT:root"
+            },
+            "Action": "kms:*",
+            "Resource": "*"
+        },
+        {
+            "Sid": "Allow service-linked role use of the CMK",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::$ACCOUNT:role/aws-service-role/imagebuilder.amazonaws.com/AWSServiceRoleForImageBuilder"
+            },
+            "Action": [
+                "kms:ReEncrypt*",
+                "kms:GenerateDataKey*",
+                "kms:Encrypt",
+                "kms:DescribeKey",
+                "kms:Decrypt"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "Allow attachment of persistent resources",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::$ACCOUNT:role/aws-service-role/imagebuilder.amazonaws.com/AWSServiceRoleForImageBuilder"
+            },
+            "Action": "kms:CreateGrant",
+            "Resource": "*",
+            "Condition": {
+                "Bool": {
+                    "kms:GrantIsForAWSResource": "true"
+                }
+            }
+        }
+    ]
+}
+
+```
+
 ## Creating a service\-linked role for EC2 Image Builder<a name="image-builder-slr-creating"></a>
 
 You don't need to manually create a service\-linked role\. When you create your first Image Builder resource in the AWS Management Console, the AWS CLI, or the AWS API, Image Builder creates the service\-linked role for you\.
