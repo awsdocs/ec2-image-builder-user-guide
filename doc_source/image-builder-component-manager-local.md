@@ -154,7 +154,7 @@ Run all phases in a single document
    Run all phases in a single document, and display all logs on console
 
    ```
-   #awstoe run --documents documentName.yaml --trace
+   awstoe run --documents documentName.yaml --trace
    ```
 
    Example command
