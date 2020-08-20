@@ -7,10 +7,10 @@ Cron expressions for EC2 Image Builder have five required fields: Minutes, hours
 
 | Minutes | Hours | Day of the month | Month | Day of the week | Meaning | 
 | --- | --- | --- | --- | --- | --- | 
-| 0 | 10 | \* | \* | ? | Run at 10:00 am \(UTC\) every day | 
-| 15 | 12 | \* | \* | ? | Run at 12:15 PM \(UTC\) every day | 
+| 0 | 10 | \* | \* | * | Run at 10:00 am \(UTC\) every day | 
+| 15 | 12 | \* | \* | * | Run at 12:15 PM \(UTC\) every day | 
 | 0 | 18 | ? | \* | MON\-FRI | Run at 6:00 PM \(UTC\) every Monday through Friday | 
-| 0 | 8 | 1 | \* | ? | Run at 8:00 AM \(UTC\) every 1st day of the month | 
+| 0 | 8 | 1 | \* | * | Run at 8:00 AM \(UTC\) every 1st day of the month | 
 | 0 | 10 | \* | \* | TUE\#2 | Runs the second Tuesday of every month at 10:00am \(UTC\)\. | 
 
 **Supported Values**  
