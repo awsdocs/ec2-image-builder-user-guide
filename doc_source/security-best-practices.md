@@ -12,7 +12,7 @@ When building Linux images using EC2 Image Builder, AWS will enforce the executi
 
 AWS recommends that you test your images to validate the security posture and applicable security compliance levels\. 
 
-The following script is run as a mandatory step when Amazon Linux 2 images are customized with EC2 Image Builder\.
+The following script is run as a mandatory step when Linux images are customized with EC2 Image Builder\.
 
 ```
 #!/bin/bash
