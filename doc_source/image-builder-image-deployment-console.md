@@ -84,15 +84,13 @@ If the option to terminate your instance upon failure is not selected, the Auto 
 
             1. Under **S3 Logs**, select the **S3 bucket** to which you want to send your instance log files\. To browse and select your Amazon S3 bucket locations, select **Browse S3**\. The logs show steps and error messages for activity on the EC2 instance during the image build process\.
 
-            1. Under **Advanced Settings**, provide the following information if you want to select a VPC to launch your instance\.
+            1. Under **Advanced Settings**, provide the following information if you want to select a VPC to launch your instance\. If you do not select a VPC, the instance will be launched into your default VPC using your default security group\. For more information about default behavior, see the rules listed in the [RunInstances](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html) API documentation\.
 
                1. Select a Virtual Private Cloud into which to launch your instance\. For more information about VPCs, see the [VPC User Guide](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html)\. You can also choose to **Create a new VPC**\. If you select to do this, you will be taken to the **VPC console**\. In order to allow communication between your VPC and the internet, you must enable this connectivity with an internet gateway\. To add an internet gateway to your VPC, follow the steps in [Creating and Attaching an Internet Gateway](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html#Add_IGW_Attach_Gateway) in the *Amazon VPC User Guide*\.
 
                1. If you select a VPC, choose the **Public subnet ID** associated with your selected VPC or select **Create new subnet**\. For more information, see [VPCs and Subnets](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html)\. 
 
                1. If you select a VPC, select the **Security groups** that are associated with your VPC, or select **Create a new security group**\. For help with security groups, see [Security Groups for Your VPC](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html)\. 
-**Note**  
-EC2 Image Builder does not support EC2\-Classic\. If you build an image in an AWS Region where your account uses EC2\-Classic or does not have a default VPC, you must select a VPC configuration\. For more information, see [Default VPC and Default Subnets](https://docs.aws.amazon.com/vpc/latest/userguide/default-vpc.html) in the Amazon VPC User Guide\.
 
             After you have entered all of your infrastructure specifications, choose **Next**\. 
 

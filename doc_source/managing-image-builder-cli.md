@@ -1,9 +1,6 @@
-# Setting up and managing an EC2 Image Builder image pipeline using the AWS CLI<a name="managing-image-builder-cli"></a>
+# Manage an Image Builder image pipeline using the AWS CLI<a name="managing-image-builder-cli"></a>
 
 You can set up, configure, and manage image pipelines using the AWS CLI\. The following example CLI commands show common operations and sample file configurations to help you create and manage image pipelines\. 
-
-**Note**  
-Creating images, recipes, or pipelines with tags may fail when using Amazon\-provided or shared resources not owned by your account\. To avoid this failure, create the resources without tags, and then add tags after the resources are created\.
 
 Image Builder supports the following dynamic tags:
 + `- {{imagebuilder:buildDate}}`
@@ -62,7 +59,7 @@ Image Builder supports the following dynamic tags:
 
 ## Create a component document<a name="image-builder-cli-create-component"></a>
 
-The first step in setting up your pipeline is to define a document that will perform the AMI customizations\. The document can contain build, validate, and test phases\. For more information, see [Document Schema and Definitions](image-builder-application-documents.md#document-schema)\.
+The first step in setting up your pipeline is to define a document that will perform the AMI customizations\. The document can contain build, validate, and test phases\. For more information, see [Document schema and definitions](image-builder-application-documents.md#document-schema)\.
 
 This example assumes that we have named this document `component.yaml`\.
 
@@ -215,7 +212,7 @@ This image recipe references the two components that you created in the precedin
 **Important**  
 Components are installed in the order in which they are specified\.
 
-This example references the Windows Server 2016 English Full Base image\. This ARN references the latest image in the SKU based on the semantic version filters that you have specified\. In this example, the image ARN is `arn:aws:imagebuilder:us-west-2:aws:image/windows-server-2016-english-full-base-x86/2019.x.x`\. The ARN ends with `/2019.x.x`, which communicates to EC2 Image Builder that you want to use the latest AMI created in 2019\. You can provide the specific version that you want to use, or you can use a wildcard in all of the fields\. 
+This example references the Windows Server 2016 English Full Base image\. This ARN references the latest image in the SKU based on the semantic version filters that you have specified\. In this example, the image ARN is `arn:aws:imagebuilder:us-west-2:aws:image/windows-server-2016-english-full-base-x86/xxxx.x.x`\. You can provide the specific version that you want to use, or you can use a wildcard in all of the fields\. 
 
 ```
 {
@@ -230,7 +227,7 @@ This example references the Windows Server 2016 English Full Base image\. This A
             "componentArn": "arn:aws:imagebuilder:us-west-2:123456789012:component/my-imported-component/1.0.0/1"
         }
     ],
-    "parentImage": "arn:aws:imagebuilder:us-west-2:aws:image/windows-server-2016-english-full-base-x86/2019.x.x"
+    "parentImage": "arn:aws:imagebuilder:us-west-2:aws:image/windows-server-2016-english-full-base-x86/xxxx.x.x"
 }
 ```
 
@@ -256,7 +253,7 @@ Image
 
 ## Create a distribution configuration<a name="image-builder-cli-create-distribution-configuration"></a>
 
-A distribution configuration allows you to specify the name and description of your output AMI, authorize other AWS accounts to launch the AMI, and replicate the AMI to other AWS Regions\. It also allows you to export the AMI to Amazon S3\. To make an AMI public, set the launch permission authorized accounts to `all`\. See the examples for making an AMI public at [EC2 ModifyImageAttribute](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_ModifyImageAttribute.html)\. 
+A distribution configuration allows you to specify the name and description of your output AMI, authorize other AWS accounts to launch the AMI, copy the AMI to other accounts, and replicate the AMI to other AWS Regions\. It also allows you to export the AMI to Amazon S3\. To make an AMI public, set the launch permission authorized accounts to `all`\. See the examples for making an AMI public at [EC2 ModifyImageAttribute](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_ModifyImageAttribute.html)\. 
 
 The contents of the `create-distribution-configuration.json` are as follows\.
 
@@ -303,6 +300,47 @@ Use the JSON file to create the distribution configuration\.
 ```
 aws imagebuilder create-distribution-configuration --cli-input-json file://create-distribution-configuration.json
 ```
+
+**Copy an AMI created with Image Builder to other accounts**  
+You can copy an AMI created with an Image Builder pipeline to other accounts that you specify\. When you run cross\-account distribution, the AMI created with an Image Builder image build is copied from the source account to the destination account using the Amazon EC2 [CopyImage](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CopyImage.html) API\. The destination account can then launch or modify the AMI as needed\. 
+
+In order to copy an AMI to other accounts, the following AWS Identity and Access Management prerequisite must be met:
+
+1. Create a new IAM role in all of the destination accounts called `EC2ImageBuilderDistributionCrossAccountRole`\. 
+
+1. Attach the managed policy called `Ec2ImageBuilderCrossAccountDistributionAccess` to the role\. For more information about managed policies, see [Managed Policies and Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-vs-inline.html#aws-managed-policies)\.
+
+1. Verify that the source account ID is added to the trust policy attached to the IAM role of the destination account\. For more information about trust policies, see [Resource\-Based Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_resource-based) in the *AWS Identity and Access Management User Guide*\.
+
+To copy an image created by Image Builder to another account, create a `DistributionConfiguration` JSON that specifies the `targetAccountIds` in the `AmiDistributionConfiguration` settings\. You must specify at least one `AmiDistributionConfiguration` in the source Region\.
+
+Attach an image recipe, an infrastructure configuration, and a distribution configuration to a [create\-image](#image-builder-cli-create-image) request to create an image or image pipeline resource\.
+
+The contents of the `create-distribution-configuration.json` configured for cross\-account image distribution are as follows\.
+
+```
+{
+    "name": "cross-account-distribution-example",
+    "description": "Cross Account Distribution Configuration Example",
+    "distributions": [
+        {
+            "amiDistributionConfiguration": {
+                "targetAccountIds": ["123456789012", "987654321098"],
+                "name": "Name {{ imagebuilder:buildDate }}", 
+                "description": "ImageCopy Ami Copy Configuration"
+            }, 
+            "region": "us-west-2"
+        }
+    ]
+}
+```
+
+**Limits for cross\-account distribution**
++ The destination account is limited to 50 concurrent AMI copies per destination Region\.
++ You cannot copy a paravirtual \(PV\) AMI to a Region that does not support PV AMIs\. For more information, see [Linux AMI virtualization types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/virtualization_types.html)\.
++ You cannot create an unencrypted copy of an encrypted snapshot\. The default CMK for EBS is used unless you specify a non\-default AWS Key Management Service \(AWS KMS\) CMK using `KmsKeyId`\. For more information, see [Amazon EBS Encryption](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html) in the *Amazon Elastic Compute Cloud User Guide*\.
+
+For more information, see [CreateDistributionConfiguration](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_CreateDistributionConfiguration.html) in the *EC2 Image Builder API Reference*\.
 
 ## Update a distribution configuration<a name="image-builder-cli-update-distribution-configuration"></a>
 
@@ -490,7 +528,9 @@ Image
 
 An image pipeline automates the creation of golden images\. This command is similar to the `create-image` step that we performed in the preceding steps\. However, in this case, a pipeline enables you to configure EC2 Image Builder to periodically build new images for you\. 
 
-The build cadence depends on the schedule that you have configured in your pipeline\. A schedule has two attributes: a `scheduleExpression` and a `pipelineExecutionStartCondition`\. The `scheduleExpression` determines how often EC2 Image Builder evaluates your `pipelineExecutionStartCondition`\. When the `pipelineExecutionStartCondition` is set to `EXPRESSION_MATCH_AND_DEPENDENCY_UPDATES_AVAILABLE`, EC2 Image Builder will build a new image only when there are known changes pending\. When it is set to `EXPRESSION_MATCH_ONLY`, it will build a new image every time the CRON expression matches the current time\.
+The build cadence depends on the schedule that you have configured in your pipeline\. A schedule has two attributes: a `scheduleExpression` and a `pipelineExecutionStartCondition`\. The `scheduleExpression` determines how often EC2 Image Builder evaluates your `pipelineExecutionStartCondition`\. When the `pipelineExecutionStartCondition` is set to `EXPRESSION_MATCH_AND_DEPENDENCY_UPDATES_AVAILABLE`, EC2 Image Builder will build a new image only when there are known changes pending\. When it is set to `EXPRESSION_MATCH_ONLY`, it will build a new image every time the cron expression matches the current time\.
+
+For information on how to format a cron expression in Image Builder, see [Use cron expressions in EC2 Image Builder](image-builder-cron.md)\.
 
 The contents of the `create-image-pipeline.json` are as follows\.
 
@@ -565,26 +605,26 @@ Image
 
 ## Apply a resource policy to a component<a name="image-builder-cli-apply-resource-policy-component"></a>
 
-You can apply a resource policy to a build component to enable cross\-account sharing of build components\. This command gives other accounts permission to use your build component in their image recipes\. For the command to be successful, you must ensure that the account with which you are sharing has permission to access any resources referenced by the shared build component, such as files hosted on private repositories\. We recommend that you use the RAM CLI command [create\-resource\-share](https://docs.aws.amazon.com/cli/latest/reference/ram/create-resource-share.html) to share resources\. If you use the EC2 Image Builder CLI command [put\-component\-policy](https://docs.aws.amazon.com/cli/latest/reference/imagebuilder/put-component-policy.html), you must also use the RAM CLI command [promote\-resource\-share\-created\-from\-policy](https://docs.aws.amazon.com/cli/latest/reference/ram/promote-resource-share-created-from-policy.html) in order for the resource to be visible to all principals with whom the resource is shared\. For more information, see [Resource Sharing in EC2 Image Builder](image-builder-resource-sharing.md)\.
+You can apply a resource policy to a build component to enable cross\-account sharing of build components\. This command gives other accounts permission to use your build component in their image recipes\. For the command to be successful, you must ensure that the account with which you are sharing has permission to access any resources referenced by the shared build component, such as files hosted on private repositories\. We recommend that you use the RAM CLI command [create\-resource\-share](https://docs.aws.amazon.com/cli/latest/reference/ram/create-resource-share.html) to share resources\. If you use the EC2 Image Builder CLI command [put\-component\-policy](https://docs.aws.amazon.com/cli/latest/reference/imagebuilder/put-component-policy.html), you must also use the RAM CLI command [promote\-resource\-share\-created\-from\-policy](https://docs.aws.amazon.com/cli/latest/reference/ram/promote-resource-share-created-from-policy.html) in order for the resource to be visible to all principals with whom the resource is shared\. For more information, see [Share EC2 Image Builder resources](image-builder-resource-sharing.md)\.
 
 ```
-aws imagebuilder put-component-policy --component-arn arn:aws:imagebuilder:us-west-2:123456789012:component/my-example-component/2019.12.03/1 --policy '{ "Version": "2012-10-17", "Statement": [ { "Effect": "Allow", "Principal": { "AWS": [ "arn:aws:iam::account-id:user/Alice", "account-id-2" ] }, "Action": [ "imagebuilder:GetComponent", "imagebuilder:ListComponents" ], "Resource": [ "arn:aws:imagebuilder:us-west-2:123456789012:component/my-example-component/2019.12.03/1" ] } ] }'
+aws imagebuilder put-component-policy --component-arn arn:aws:imagebuilder:us-west-2:123456789012:component/my-example-component/2019.12.03/1 --policy '{ "Version": "2012-10-17", "Statement": [ { "Effect": "Allow", "Principal": { "AWS": [ "123456789012" ] }, "Action": [ "imagebuilder:GetComponent", "imagebuilder:ListComponents" ], "Resource": [ "arn:aws:imagebuilder:us-west-2:123456789012:component/my-example-component/2019.12.03/1" ] } ] }'
 ```
 
 ## Apply a resource policy to an image recipe<a name="image-builder-cli-apply-resource-policy-recipe"></a>
 
-You can apply a resource policy to an image recipe to enable cross\-account sharing of image recipes\. This command gives other accounts permission to use your image recipes to create images in their accounts\. For the command to be successful, you must ensure that the account with which you are sharing has permission to access any images or components referenced by the image recipe\. We recommend that you use the RAM CLI command [create\-resource\-share](https://docs.aws.amazon.com/cli/latest/reference/ram/create-resource-share.html) to share resources\. If you use the EC2 Image Builder CLI command [put\-image\-recipe\-policy](https://docs.aws.amazon.com/cli/latest/reference/imagebuilder/put-image-recipe-policy.html), you must also use the RAM CLI command [promote\-resource\-share\-created\-from\-policy](https://docs.aws.amazon.com/cli/latest/reference/ram/promote-resource-share-created-from-policy.html) in order for the resource to be visible to all principals with whom the resource is shared\. For more information, see [Resource Sharing in EC2 Image Builder](image-builder-resource-sharing.md)\.
+You can apply a resource policy to an image recipe to enable cross\-account sharing of image recipes\. This command gives other accounts permission to use your image recipes to create images in their accounts\. For the command to be successful, you must ensure that the account with which you are sharing has permission to access any images or components referenced by the image recipe\. We recommend that you use the RAM CLI command [create\-resource\-share](https://docs.aws.amazon.com/cli/latest/reference/ram/create-resource-share.html) to share resources\. If you use the EC2 Image Builder CLI command [put\-image\-recipe\-policy](https://docs.aws.amazon.com/cli/latest/reference/imagebuilder/put-image-recipe-policy.html), you must also use the RAM CLI command [promote\-resource\-share\-created\-from\-policy](https://docs.aws.amazon.com/cli/latest/reference/ram/promote-resource-share-created-from-policy.html) in order for the resource to be visible to all principals with whom the resource is shared\. For more information, see [Share EC2 Image Builder resources](image-builder-resource-sharing.md)\.
 
 ```
-aws imagebuilder put-image-recipe-policy --image-recipe-arn arn:aws:imagebuilder:us-west-2:123456789012:image-recipe/my-example-image-recipe/2019.12.03 --policy '{ "Version": "2012-10-17", "Statement": [ { "Effect": "Allow", "Principal": { "AWS": [ "arn:aws:iam::account-id:user/Alice", "account-id-2" ] }, "Action": [ "imagebuilder:GetImageRecipe", "imagebuilder:ListImageRecipes" ], "Resource": [ "arn:aws:imagebuilder:us-west-2:123456789012:image-recipe/my-example-image-recipe/2019.12.03" ] } ] }'
+aws imagebuilder put-image-recipe-policy --image-recipe-arn arn:aws:imagebuilder:us-west-2:123456789012:image-recipe/my-example-image-recipe/2019.12.03 --policy '{ "Version": "2012-10-17", "Statement": [ { "Effect": "Allow", "Principal": { "AWS": [ "123456789012" ] }, "Action": [ "imagebuilder:GetImageRecipe", "imagebuilder:ListImageRecipes" ], "Resource": [ "arn:aws:imagebuilder:us-west-2:123456789012:image-recipe/my-example-image-recipe/2019.12.03" ] } ] }'
 ```
 
 ## Apply a resource policy to an image<a name="image-builder-cli-apply-resource-policy-image"></a>
 
-You can apply a resource policy to an image to allow other users to use the image in their image recipes\. For the command to be successful, you must ensure that the account with which you are sharing has permission to access the underlying resource \(for example, the Amazon EC2 AMI\)\. We recommend that you use the RAM CLI command [create\-resource\-share](https://docs.aws.amazon.com/cli/latest/reference/ram/create-resource-share.html) to share resources\. If you use the EC2 Image Builder CLI command [put\-image\-policy](https://docs.aws.amazon.com/cli/latest/reference/imagebuilder/put-image-policy.html), you must also use the RAM CLI command [promote\-resource\-share\-created\-from\-policy](https://docs.aws.amazon.com/cli/latest/reference/ram/promote-resource-share-created-from-policy.html) in order for the resource to be visible to all principals with whom the resource is shared\. For more information, see [Resource Sharing in EC2 Image Builder](image-builder-resource-sharing.md)\.
+You can apply a resource policy to an image to allow other users to use the image in their image recipes\. For the command to be successful, you must ensure that the account with which you are sharing has permission to access the underlying resource \(for example, the Amazon EC2 AMI\)\. We recommend that you use the RAM CLI command [create\-resource\-share](https://docs.aws.amazon.com/cli/latest/reference/ram/create-resource-share.html) to share resources\. If you use the EC2 Image Builder CLI command [put\-image\-policy](https://docs.aws.amazon.com/cli/latest/reference/imagebuilder/put-image-policy.html), you must also use the RAM CLI command [promote\-resource\-share\-created\-from\-policy](https://docs.aws.amazon.com/cli/latest/reference/ram/promote-resource-share-created-from-policy.html) in order for the resource to be visible to all principals with whom the resource is shared\. For more information, see [Share EC2 Image Builder resources](image-builder-resource-sharing.md)\.
 
 ```
-aws imagebuilder put-image-policy --image-arn arn:aws:imagebuilder:us-west-2:123456789012:image/my-example-image/2019.12.03/1 --policy '{ "Version": "2012-10-17", "Statement": [ { "Effect": "Allow", "Principal": { "AWS": [ "arn:aws:iam::account-id:user/Alice", "account-id-2" ] }, "Action": ["imagebuilder:GetImage", "imagebuilder:ListImages"] "Resource": [ "arn:aws:imagebuilder:us-west-2:123456789012:image/my-example-image/2019.12.03/1" ] } ] }
+aws imagebuilder put-image-policy --image-arn arn:aws:imagebuilder:us-west-2:123456789012:image/my-example-image/2019.12.03/1 --policy '{ "Version": "2012-10-17", "Statement": [ { "Effect": "Allow", "Principal": { "AWS": [ "123456789012" ] }, "Action": ["imagebuilder:GetImage", "imagebuilder:ListImages"] "Resource": [ "arn:aws:imagebuilder:us-west-2:123456789012:image/my-example-image/2019.12.03/1" ] } ] }'
 ```
 
 ## Start an image pipeline manually<a name="image-builder-cli-start-image-pipeline"></a>

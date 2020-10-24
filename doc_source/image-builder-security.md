@@ -10,10 +10,10 @@ This documentation helps you understand how to apply the shared responsibility m
 
 **Topics**
 + [EC2 Image Builder and interface VPC endpoints \(AWS PrivateLink\)](vpc-interface-endpoints.md)
-+ [Data Protection in EC2 Image Builder](data-protection.md)
++ [Data protection in EC2 Image Builder](data-protection.md)
 + [Identity and Access Management for EC2 Image Builder](security-iam.md)
-+ [Compliance Validation for EC2 Image Builder](compliance.md)
++ [Compliance validation for EC2 Image Builder](compliance.md)
 + [Resilience in EC2 Image Builder](disaster-recovery-resiliency.md)
-+ [Infrastructure Security in EC2 Image Builder](infrastructure-security.md)
++ [Infrastructure security in EC2 Image Builder](infrastructure-security.md)
 + [Patch Management in EC2 Image Builder](vulnerability-analysis-and-management.md)
-+ [Security Best Practices for EC2 Image Builder](security-best-practices.md)
++ [Security best practices for EC2 Image Builder](security-best-practices.md)

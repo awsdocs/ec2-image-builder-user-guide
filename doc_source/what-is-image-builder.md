@@ -37,7 +37,7 @@ Image Builder allows you to test your images before deployment with both AWS\-pr
 
 **Raise the security bar for deployments**
 
-Image Builder allows you to create images that remove unnecessary exposure to component security vulnerabilities\. You can apply AWS security settings to create secure, out\-of\-the\-box images that meet industry and internal security criteria\. Image Builder also provides collections of settings for companies in regulated industries\. You can use these settings to help you quickly and easily build compliant images for STIG standards\. For a complete list of STIG components available through Image Builder, see [EC2 Image Builder STIG Components](image-builder-stig.md)\.
+Image Builder allows you to create images that remove unnecessary exposure to component security vulnerabilities\. You can apply AWS security settings to create secure, out\-of\-the\-box images that meet industry and internal security criteria\. Image Builder also provides collections of settings for companies in regulated industries\. You can use these settings to help you quickly and easily build compliant images for STIG standards\. For a complete list of STIG components available through Image Builder, see [EC2 Image Builder STIG components](image-builder-stig.md)\.
 
 **Centralized enforcement and lineage tracking**
 
@@ -50,7 +50,7 @@ EC2 Image Builder integrates with AWS Resource Access Manager \(AWS RAM\) to all
 + Images
 + Image recipes
 
-For more information, see [Resource Sharing in EC2 Image Builder](image-builder-resource-sharing.md)\.
+For more information, see [Share EC2 Image Builder resources](image-builder-resource-sharing.md)\.
 
 ## Supported operating systems<a name="image-builder-os"></a>
 
@@ -59,7 +59,7 @@ Image Builder supports the following operating systems:
 + Windows Server 2019/2016/2012 R2
 + Windows Server version 1909
 + Red Hat Enterprise Linux \(RHEL\) 8 and 7
-+ CentOS 8 and 7 \(CentOS 8 is not available as a public AMI from the AWS Marketplace\. You can bring your own CentOS 8 AMI using VMIE\)
++ CentOS 8 and 7
 + Ubuntu 18 and 16
 + SUSE Linux Enterprise Server \(SUSE\) 15
 
@@ -77,6 +77,9 @@ An Amazon Machine Image \(AMI\) is the basic unit of deployment in Amazon EC2\. 
 **Image pipeline**  
 An image pipeline is the automation configuration for building secure OS images on AWS\. The Image Builder image pipeline is associated with an image recipe that defines the build, validation, and test phases for an image build lifecycle\. An image pipeline can be associated with an infrastructure configuration that defines where your image is built\. You can define attributes, such as instance type, subnets, security groups, logging, and other infrastructure\-related configurations\. You can also associate your image pipeline with a distribution configuration to define how you would like to deploy your image\. 
 
+**Managed image**  
+A managed image is a resource in Image Builder that consists of an AMI plus metadata, such as version and platform\. The managed image is used by Image Builder pipelines to determine which AMI to use as a source for the build\. In this guide, managed images are sometimes referred to as "images", however, this is not the same as an AMI\.
+
 **Image recipe**  
 An Image Builder image recipe is a document that defines the source image and the components to be applied to the source image to produce the desired configuration for the output image\. You can use an image recipe to duplicate builds\. Image Builder image recipes can be shared, branched, and edited using the console wizard, the AWS CLI, or the API\. You can use image recipes with your version control software to maintain shareable versioned image recipes\.
 
@@ -84,7 +87,7 @@ An Image Builder image recipe is a document that defines the source image and th
 The source image is the selected image and OS used in your image recipe document along with the components\. The source image and the component definitions combined produce the desired configuration for the output image\. 
 
 **Components**  
-A component defines the sequence of steps required to either mutate an instance prior to image creation \(a **build component**\), or to test an instance that was launched from the created image \(a **test component**\)\. A component is a declarative, plain\-text YAML document that describes a series of steps to perform\. Components are executed on the instance using a component management application\. The component management application parses the documents and executes the desired steps\. After they are created, one or more components are grouped together using an image recipe to define the execution plan for building and testing a virtual machine image\. You can use public components that are owned and managed by AWS, or you can create your own\. For more details about components, see [EC2 Image Builder Component Manager](image-builder-component-manager.md)\.
+A component defines the sequence of steps required to either mutate an instance prior to image creation \(a **build component**\), or to test an instance that was launched from the created image \(a **test component**\)\. A component is a declarative, plain\-text YAML document that describes a series of steps to perform\. Components are executed on the instance using a component management application\. The component management application parses the documents and executes the desired steps\. After they are created, one or more components are grouped together using an image recipe to define the execution plan for building and testing a virtual machine image\. You can use public components that are owned and managed by AWS, or you can create your own\. For more details about components, see [EC2 Image Builder component manager](image-builder-component-manager.md)\.
 
 **Document**  
 A declarative document that uses the YAML format to list the execution steps for build, validation, and test of an AMI on an instance\. The document is input to a configuration management application, which runs locally on an Amazon EC2 instance to execute the document steps\. 

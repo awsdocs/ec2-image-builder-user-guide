@@ -1,4 +1,4 @@
-# Managing and Running Images Using the EC2 Image Builder Console<a name="managing-image-builder-console"></a>
+# Manage an Image Builder image pipeline using the console<a name="managing-image-builder-console"></a>
 
 This section contains information to help you manage and run images with EC2 Image Builder using the Image Builder console\.
 
@@ -7,14 +7,12 @@ This section contains information to help you manage and run images with EC2 Ima
 + [Delete Pipeline](#image-builder-delete-pipeline)
 + [Create New Component](#image-builder-create-component)
 + [Working with Image Recipes](#image-builder-recipes)
-+ [Testing](#image-builder-testing)
-+ [Distribution](#image-builder-distribution)
-+ [Sharing Resources](#image-builder-distribution)
-+ [Compliance](#image-builder-compliance)
 
 ## Edit Configuration Details and Additional Settings<a name="image-builder-configuration-details"></a>
 
 After you have created an image pipeline, you can edit its configuration details and additional settings\. To edit the configuration details and additional settings, use the following steps\. 
+
+To update an image pipeline with a new image recipe, you must use the AWS CLI\. See [Update an image pipeline](managing-image-builder-cli.md#image-builder-cli-update-image-pipeline) for more information\.
 
 1. To edit configuration details, including description, build schedule, or infrastructure details, navigate to the **Image pipelines** page and select the check box next to the name of the pipeline that you want to edit\. Then select the **View details** button\. 
 
@@ -26,7 +24,7 @@ After you have created an image pipeline, you can edit its configuration details
 
 1. To edit additional settings, including associated licenses, AMI distribution settings, image export settings, and SNS notification settings, navigate to the **Image pipelines** page and select the check box next to the name of the pipeline that you want to edit\. Select **View details**\. 
 **Note**  
-License Manager settings will not replicate across AWS Regions that must be enabled in your account, for example, between the `ap-east-1` \(HKG\) and the `me-south-1` \(BAH\) Regions\. 
+License Manager settings will not replicate across AWS Regions that must be enabled in your account, for example, between the `ap-east-1` \(Hong Kong\) and the `me-south-1` \(Bahrain\) Regions\. 
 
 1. On the **Image pipeline detail** page, under the **Configuration** tab, select **Edit** next to **Additional settings**\. 
 
@@ -91,23 +89,3 @@ Image
 ### Create a New Image Recipe Version<a name="create-recipe-version"></a>
 
 To create a new image recipe version, select the check box next to the image recipe and, under the **Actions** dropdown, select **Create new version**\. This takes you to the **Create Recipe **page, where you can create a new image recipe version\. For instructions for creating an image recipe, see the steps under [Build and automate an operating system image deployment using the EC2 Image Builder console](image-builder-image-deployment-console.md)\.
-
-## Testing<a name="image-builder-testing"></a>
-
-Generally, each test consists of a test script, a test binary, and test metadata\. The test script contains the orchestration commands to start the test binary, which can be written in any language supported by the OS\. Exit status codes indicate the test outcome\. Test metadata describes the test and its behavior \(for example, the name, description, paths to test binary, and expected duration\)\.
-
-To update the tests in an image recipe using the EC2 Image Builder console, follow the steps to [create a new recipe version](#create-recipe-version), and then update the **Test Components **under **Components**\. 
-
-## Distribution<a name="image-builder-distribution"></a>
-
-EC2 Image Builder can distribute AMIs to any AWS Region\. The AMI is copied to each Region that you specify in the account used to build the image\. You can define AMI launch permissions to control which AWS accounts are permitted to launch EC2 instances with the created AMI\. For example, you can make the image private, public, or share with specific accounts\. If you both distribute the AMI to other Regions and define launch permissions for other accounts, the launch permissions are propagated to the AMIs in all of the Regions in which the AMI is distributed\. 
-
-To update your distribution settings using the EC2 Image Builder console, follow the steps to [create a new recipe version](#create-recipe-version), and on the **Configure additional settings** page, update the **AWS Regions** and/or **Launch permissions** under **AMI Distribution settings**\. 
-
-## Sharing Resources<a name="image-builder-distribution"></a>
-
-To share components, image recipes, or images with other accounts or within AWS Organizations, see [Resource Sharing in EC2 Image Builder](image-builder-resource-sharing.md)\.
-
-## Compliance<a name="image-builder-compliance"></a>
-
-For CIS, EC2 Image Builder uses Amazon Inspector to perform automatic assessments for exposure, vulnerabilities, and deviations from best practices and compliance standards\. For example, it assesses unintended network accessibility, unpatched CVEs, public internet connectivity, and remote root login enablement\. Amazon Inspector is offered as a test component that you can choose to add to your image recipe\. \. For hardening, EC2 Image Builder validates using STIG\. For a complete list of STIG components available through Image Builder, see [EC2 Image Builder STIG Components](image-builder-stig.md)\. For more information, see [Center for Internet Security \(CIS\) Benchmarks](https://docs.aws.amazon.com/inspector/latest/userguide/inspector_cis.html) and [Amazon EC2 Windows Server AMIs for STIG Compliance](https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/ami-windows-stig.html)\.

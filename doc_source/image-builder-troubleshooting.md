@@ -1,8 +1,8 @@
-# Troubleshooting EC2 Image Builder<a name="image-builder-troubleshooting"></a>
+# Troubleshoot EC2 Image Builder<a name="image-builder-troubleshooting"></a>
 
 EC2 Image Builder integrates with AWS services for monitoring and troubleshooting to help you troubleshoot image build issues\. EC2 Image Builder tracks and displays the progress for each step in the image building process\. Logs can be exported to an Amazon S3 location that you provide\. For advanced troubleshooting, you can run predefined commands and scripts using [AWS Systems Manager \(SSM\) Run Command](https://docs.aws.amazon.com/systems-manager/latest/userguide/execute-remote-commands.html)\.
 
-## General Troubleshooting<a name="image-builder-general-troubleshooting"></a>
+## General troubleshooting<a name="image-builder-general-troubleshooting"></a>
 
 If an Image Builder pipeline fails, Image Builder will return an error message that describes the failure\. Image Builder will also return an SSM execution ID in the failure message, such as the one in the following example\.
 
@@ -18,7 +18,7 @@ By default, the Amazon EC2 instance that is used for build and test activity is 
 
 The logs that you send to your S3 bucket show the steps and error messages for activity on the EC2 instance during the image build process\. The logs include log outputs from the component manager, the definitions of the components that were executed, and the detailed output \(in JSON\) of all of the steps taken on the instance\. If you encounter an issue, you should review these files, starting with the `application.log`, to diagnose the cause of the problem on the instance\. 
 
-## Troubleshooting Scenarios<a name="image-builder-troubleshooting-scenarios"></a>
+## Troubleshooting scenarios<a name="image-builder-troubleshooting-scenarios"></a>
 + **Build fails with "AccessDenied: Access Denied status code: 403"**
   + **Possible cause**: The instance profile role does not have the required permissions to access APIs or resources used by components, or for logging to S3\. Most commonly, this occurs when the instance profile role does not have **PutObject** permissions for your S3 buckets, or when the instance profile does not have the following role policies associated with it: **EC2InstanceProfileForImageBuilder** and **AmazonSSMManagedInstanceCore**\.
   +  **Resolution**: Add a policy to your instance profile role that grants permission to access APIs and resources used in the recipe, or attach the **EC2InstanceProfileForImageBuilder** and **AmazonSSMManagedInstanceCore** IAM role policies to the instance profile\. 
@@ -29,3 +29,6 @@ The logs that you send to your S3 bucket show the steps and error messages for a
   + **Resolutions**: If you are building in a private subnet, make sure you have set up PrivateLink endpoints for SSM, Image Builder, and, if you want logging, Amazon S3/CloudWatch\. For more information about setting up PrivateLink endpoints, see [VPC endpoint services \(AWS PrivateLink\)](https://docs.aws.amazon.com/vpc/latest/userguide/endpoint-service.htm)\.
   + **Possible cause**: The instance profile does not have the required [permissions](image-builder-setting-up.md#image-builder-IAM-prereq)\. 
   + **Resolutions**: Add the following managed policies to your IAM role: : **EC2InstanceProfileForImageBuilder** and **AmazonSSMManagedInstanceCore**\.
++ **You are using a CIS hardened base image and the build fails**
+  + **Possible cause**: The `/tmp` directory is classified as `noexec`, which can cause Image Builder to fail\. 
+  + **Resolution**: Choose a different location to use as the working directory in the `workingDirectory` field of the image recipe\. For more information, see the [ImageRecipe](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_ImageRecipe.html) data type description\.

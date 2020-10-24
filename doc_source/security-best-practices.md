@@ -1,4 +1,4 @@
-# Security Best Practices for EC2 Image Builder<a name="security-best-practices"></a>
+# Security best practices for EC2 Image Builder<a name="security-best-practices"></a>
 
 EC2 Image Builder provides a number of security features to consider as you develop and implement your own security policies\. The following best practices are general guidelines and don’t represent a complete security solution\. Because these best practices might not be appropriate or sufficient for your environment, treat them as helpful considerations rather than prescriptions\.
 + Do not use overly\-permissive security groups in Image Builder recipes\.
@@ -85,104 +85,124 @@ FILES=(
         # Secure removal of history of Bash commands
         "/home/ec2-user/.bash_history"
 
-        # Secure removal of file which relabels all files in the next boot
-        "/.autorelabel"
 )
 
 for FILE in "${FILES[@]}"; do
-        echo "Deleting $FILE"
-        sudo shred -zuf $FILE
-        if [[ -f $FILE ]]; then
-                echo "Failed to delete '$FILE'. Failing."
-                exit 1
-        fi
+      if [[ -f $FILE ]]; then
+              echo "Deleting $FILE"
+              sudo shred -zuf $FILE
+      fi
+      if [[ -f $FILE ]]; then
+              echo "Failed to delete '$FILE'. Failing."
+              exit 1
+      fi
 done
 
 # Secure removal of TOE's log directories
-echo "Deleting {{workingDirectory}}/TOE_*"
-sudo find {{workingDirectory}}/TOE_* -type f -exec shred -zuf {} \;
 if [[ $( sudo find {{workingDirectory}}/TOE_* -type f | sudo wc -l) -gt 0 ]]; then
-        echo "Failed to delete {{workingDirectory}}/TOE_*"
-        exit 1
+      echo "Deleting files within {{workingDirectory}}/TOE_*"
+      sudo find {{workingDirectory}}/TOE_* -type f -exec shred -zuf {} \;
 fi
-sudo rm -rf {{workingDirectory}}/TOE_*
+if [[ $( sudo find {{workingDirectory}}/TOE_* -type f | sudo wc -l) -gt 0 ]]; then
+      echo "Failed to delete {{workingDirectory}}/TOE_*"
+      exit 1
+fi
 if [[ $( sudo find {{workingDirectory}}/TOE_* -type d | sudo wc -l) -gt 0 ]]; then
-        echo "Failed to delete {{workingDirectory}}/TOE_*"
-        exit 1
+      echo "Deleting {{workingDirectory}}/TOE_*"
+      sudo rm -rf {{workingDirectory}}/TOE_*
+fi
+if [[ $( sudo find {{workingDirectory}}/TOE_* -type d | sudo wc -l) -gt 0 ]]; then
+      echo "Failed to delete {{workingDirectory}}/TOE_*"
+      exit 1
 fi
 
 # Secure removal of system activity reports/logs
-echo "Deleting /var/log/sa/sa*"
-sudo shred -zuf /var/log/sa/sa*
 if [[ $( sudo find /var/log/sa/sa* -type f | sudo wc -l ) -gt 0 ]]; then
-        echo "Failed to delete /var/log/sa/sa*"
-        exit 1
+      echo "Deleting /var/log/sa/sa*"
+      sudo shred -zuf /var/log/sa/sa*
+fi
+if [[ $( sudo find /var/log/sa/sa* -type f | sudo wc -l ) -gt 0 ]]; then
+      echo "Failed to delete /var/log/sa/sa*"
+      exit 1
 fi
 
 # Secure removal of SSM logs
-echo "Deleting /var/log/amazon/ssm/*"
-sudo find /var/log/amazon/ssm -type f -exec shred -zuf {} \;
 if [[ $( sudo find /var/log/amazon/ssm -type f | sudo wc -l) -gt 0 ]]; then
-        echo "Failed to delete /var/log/amazon/ssm"
-        exit 1
+      echo "Deleting files within /var/log/amazon/ssm/*"
+      sudo find /var/log/amazon/ssm -type f -exec shred -zuf {} \;
 fi
-sudo rm -rf /var/log/amazon/ssm
+if [[ $( sudo find /var/log/amazon/ssm -type f | sudo wc -l) -gt 0 ]]; then
+      echo "Failed to delete /var/log/amazon/ssm"
+      exit 1
+fi
 if [[ -d "/var/log/amazon/ssm" ]]; then
-        echo "Failed to delete /var/log/amazon/ssm"
-        exit 1
+      echo "Deleting /var/log/amazon/ssm/*"
+      sudo rm -rf /var/log/amazon/ssm
+fi
+if [[ -d "/var/log/amazon/ssm" ]]; then
+      echo "Failed to delete /var/log/amazon/ssm"
+      exit 1
 fi
 
 # Secure removal of DHCP client leases that have been acquired
-echo "Deleting /var/lib/dhclient/dhclient*.lease"
-sudo shred -zuf /var/lib/dhclient/dhclient*.lease
 if [[ $( sudo find /var/lib/dhclient/dhclient*.lease -type f | sudo wc -l ) -gt 0 ]]; then
-        echo "Failed to delete /var/lib/dhclient/dhclient*.lease"
-        exit 1
+      echo "Deleting /var/lib/dhclient/dhclient*.lease"
+      sudo shred -zuf /var/lib/dhclient/dhclient*.lease
+fi
+if [[ $( sudo find /var/lib/dhclient/dhclient*.lease -type f | sudo wc -l ) -gt 0 ]]; then
+      echo "Failed to delete /var/lib/dhclient/dhclient*.lease"
+      exit 1
 fi
 
 # Secure removal of cloud-init files
-echo "Deleting /var/lib/cloud/*"
-sudo find /var/lib/cloud -type f -exec shred -zuf {} \;
 if [[ $( sudo find /var/lib/cloud -type f | sudo wc -l ) -gt 0 ]]; then
-        echo "Failed to delete /var/lib/cloud"
-        exit 1
+      echo "Deleting files within /var/lib/cloud/*"
+      sudo find /var/lib/cloud -type f -exec shred -zuf {} \;
 fi
-sudo rm -rf /var/lib/cloud/*
+if [[ $( sudo find /var/lib/cloud -type f | sudo wc -l ) -gt 0 ]]; then
+      echo "Failed to delete /var/lib/cloud"
+      exit 1
+fi
 if [[ $( sudo ls /var/lib/cloud | sudo wc -l ) -gt 0 ]]; then
-        echo "Failed to delete /var/lib/cloud/*"
-        exit 1
+      echo "Deleting /var/lib/cloud/*"
+      sudo rm -rf /var/lib/cloud/*
+fi
+if [[ $( sudo ls /var/lib/cloud | sudo wc -l ) -gt 0 ]]; then
+      echo "Failed to delete /var/lib/cloud/*"
+      exit 1
 fi
 
 # Secure removal of temporary files
-echo "Deleting /var/tmp/*"
-sudo find /var/tmp -type f -exec shred -zuf {} \;
 if [[ $( sudo find /var/tmp -type f | sudo wc -l) -gt 0 ]]; then
-        echo "Failed to delete /var/tmp"
-        exit 1
+      echo "Deleting files within /var/tmp/*"
+      sudo find /var/tmp -type f -exec shred -zuf {} \;
 fi
-sudo rm -rf /var/tmp/*
+if [[ $( sudo find /var/tmp -type f | sudo wc -l) -gt 0 ]]; then
+      echo "Failed to delete /var/tmp"
+      exit 1
+fi
 if [[ $( sudo ls /var/tmp | sudo wc -l ) -gt 0 ]]; then
-        echo "Failed to delete /var/tmp/*"
-        exit 1
+      echo "Deleting /var/tmp/*"
+      sudo rm -rf /var/tmp/*
 fi
 
 # Shredding is not guaranteed to work well on rolling logs
 
 # Removal of system logs
-echo "Deleting /var/lib/rsyslog/imjournal.state"
-sudo shred -zuf /var/lib/rsyslog/imjournal.state
-sudo rm -f /var/lib/rsyslog/imjournal.state
 if [[ -f "/var/lib/rsyslog/imjournal.state" ]]; then
-        echo "Failed to delete /var/lib/rsyslog/imjournal.state"
-        exit 1
+      echo "Deleting /var/lib/rsyslog/imjournal.state"
+      sudo shred -zuf /var/lib/rsyslog/imjournal.state
+      sudo rm -f /var/lib/rsyslog/imjournal.state
+fi
+if [[ -f "/var/lib/rsyslog/imjournal.state" ]]; then
+      echo "Failed to delete /var/lib/rsyslog/imjournal.state"
+      exit 1
 fi
 
 # Removal of journal logs
-echo "Deleting /var/log/journal/*"
-sudo find /var/log/journal/ -type f -exec shred -zuf {} \;
-sudo rm -rf /var/log/journal/*
 if [[ $( sudo ls /var/log/journal/ | sudo wc -l ) -gt 0 ]]; then
-        echo "Failed to delete /var/log/journal/*"
-        exit 1
+      echo "Deleting /var/log/journal/*"
+      sudo find /var/log/journal/ -type f -exec shred -zuf {} \;
+      sudo rm -rf /var/log/journal/*
 fi
 ```

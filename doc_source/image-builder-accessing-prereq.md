@@ -1,4 +1,4 @@
-# Accessing EC2 Image Builder<a name="image-builder-accessing-prereq"></a>
+# Access EC2 Image Builder<a name="image-builder-accessing-prereq"></a>
 
 You can manage EC2 Image Builder from one of the following interfaces\.
 + **EC2 Image Builder console landing page**\. From the [EC2 Image Builder landing page](https://console.aws.amazon.com/imagebuilder/home)\.
