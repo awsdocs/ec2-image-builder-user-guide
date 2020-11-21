@@ -8,7 +8,7 @@ EC2 Image Builder uses a service\-linked role to grant permissions to other AWS 
 
 ## Configuration requirements<a name="image-builder-config"></a>
 + Image Builder supports [AWS PrivateLink](https://docs.aws.amazon.com/vpc/latest/userguide/endpoint-service.html)\.
-+ Image Builder supports EC2\-Classic\. 
++ Image Builder supports EC2\-Classic\.
 + Instances used to build images and run tests using Image Builder must have access to the Systems Manager service\. All build activity is orchestrated by SSM Automation\. The SSM Agent will be installed on the source image if it is not already present, and it will be removed before the image is created\.
 
 ## AWS Identity and Access Management \(IAM\)<a name="image-builder-IAM-prereq"></a>

@@ -103,13 +103,13 @@ After the AMI has been created, all of the resources are deleted except for the 
 
 Generally, each test consists of a test script, a test binary, and test metadata\. The test script contains the orchestration commands to start the test binary, which can be written in any language supported by the OS\. Exit status codes indicate the test outcome\. Test metadata describes the test and its behavior \(for example, the name, description, paths to test binary, and expected duration\)\.
 
-To update the tests in an image recipe using the EC2 Image Builder console, follow the steps to [create a new recipe version](managing-image-builder-console.md#create-recipe-version), and then update the **Test Components **under **Components**\. 
+To update the tests in an image recipe using the EC2 Image Builder console, follow the steps to [create a new recipe version](image-builder-recipes.md#create-recipe-version), and then update the **Test Components **under **Components**\. 
 
 ## Distribution<a name="image-builder-distribution"></a>
 
 EC2 Image Builder can distribute AMIs to any AWS Region\. The AMI is copied to each Region that you specify in the account used to build the image\. You can define AMI launch permissions to control which AWS accounts are permitted to launch EC2 instances with the created AMI\. For example, you can make the image private, public, or share with specific accounts\. If you both distribute the AMI to other Regions and define launch permissions for other accounts, the launch permissions are propagated to the AMIs in all of the Regions in which the AMI is distributed\. 
 
-To update your distribution settings using the EC2 Image Builder console, follow the steps to [create a new recipe version](managing-image-builder-console.md#create-recipe-version), and on the **Configure additional settings** page, update the **AWS Regions** and/or **Launch permissions** under **AMI Distribution settings**\. 
+To update your distribution settings using the EC2 Image Builder console, follow the steps to [create a new recipe version](image-builder-recipes.md#create-recipe-version), and on the **Configure additional settings** page, update the **AWS Regions** and/or **Launch permissions** under **AMI Distribution settings**\. 
 
 ## Sharing Resources<a name="image-builder-distribution"></a>
 

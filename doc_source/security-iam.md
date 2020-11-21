@@ -12,7 +12,7 @@
 
 ## Audience<a name="security_iam_audience"></a>
 
-How you use AWS Identity and Access Management \(IAM\) differs, depending on the work you do in EC2 Image Builder\.
+How you use AWS Identity and Access Management \(IAM\) differs, depending on the work that you do in EC2 Image Builder\.
 
 **Service user** – If you use the EC2 Image Builder service to do your job, then your administrator provides you with the credentials and permissions that you need\. As you use more EC2 Image Builder features to do your work, you might need additional permissions\. Understanding how access is managed can help you request the right permissions from your administrator\. If you cannot access a feature in EC2 Image Builder, see [Troubleshooting EC2 Image Builder identity and access](security_iam_troubleshoot.md)\.
 

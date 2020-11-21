@@ -1,6 +1,6 @@
-# Manage an Image Builder image pipeline using the AWS CLI<a name="managing-image-builder-cli"></a>
+# Manage Image Builder image pipelines using the AWS CLI<a name="managing-image-builder-cli"></a>
 
-You can set up, configure, and manage image pipelines using the AWS CLI\. The following example CLI commands show common operations and sample file configurations to help you create and manage image pipelines\. 
+You can set up, configure, and manage image pipelines using the AWS CLI\. The following example AWS CLI commands show common operations and sample file configurations to help you create and manage image pipelines\. 
 
 Image Builder supports the following dynamic tags:
 + `- {{imagebuilder:buildDate}}`
@@ -212,7 +212,9 @@ This image recipe references the two components that you created in the precedin
 **Important**  
 Components are installed in the order in which they are specified\.
 
-This example references the Windows Server 2016 English Full Base image\. This ARN references the latest image in the SKU based on the semantic version filters that you have specified\. In this example, the image ARN is `arn:aws:imagebuilder:us-west-2:aws:image/windows-server-2016-english-full-base-x86/xxxx.x.x`\. You can provide the specific version that you want to use, or you can use a wildcard in all of the fields\. 
+This example references the latest version of the Windows Server 2016 English Full Base image\. To target the latest version of the image, you can specify semantic versioning \(x\.x\.x\)\. The "x" wildcards represent the major, minor, and patch positions of the version number\.
+
+The ARN in this example references the latest image in the SKU based on the semantic version filters that you have specified: `arn:aws:imagebuilder:us-west-2:aws:image/windows-server-2016-english-full-base-x86/x.x.x`\. You can provide the specific version that you want to use, or you can use a wildcard in all of the fields\.
 
 ```
 {
@@ -227,7 +229,7 @@ This example references the Windows Server 2016 English Full Base image\. This A
             "componentArn": "arn:aws:imagebuilder:us-west-2:123456789012:component/my-imported-component/1.0.0/1"
         }
     ],
-    "parentImage": "arn:aws:imagebuilder:us-west-2:aws:image/windows-server-2016-english-full-base-x86/xxxx.x.x"
+    "parentImage": "arn:aws:imagebuilder:us-west-2:aws:image/windows-server-2016-english-full-base-x86/x.x.x"
 }
 ```
 

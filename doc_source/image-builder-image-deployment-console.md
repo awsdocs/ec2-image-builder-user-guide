@@ -1,126 +1,171 @@
-# Build and automate an operating system image deployment using the EC2 Image Builder console<a name="image-builder-image-deployment-console"></a>
+# Create an automated build pipeline using the EC2 Image Builder console wizard<a name="image-builder-image-deployment-console"></a>
 
-The following steps guide you through an image deployment with Image Builder from the EC2 Image Builder console\.
+This tutorial walks you through creating an automated pipeline to build and maintain a customized EC2 Image Builder image using the **Create image pipeline** console wizard\. To help you move through the steps efficiently, default settings are used when they are available\.
 
-1. From the **EC2 Image Builder** landing page, select **Create image pipeline**\.
+**Topics**
++ [Step 1: Specify pipeline details](#start-build-step1)
++ [Step 2: Choose recipe](#start-build-step2)
++ [Step 3: Define infrastructure configuration \- optional](#start-build-step3)
++ [Step 4: Define distribution settings \- optional](#start-build-step4)
++ [Step 5: Review](#start-build-step5)
++ [Step 6: Clean up](#start-build-cleanup)
 
-1. The following tabs contain information about each of the pages for which you must provide input to create your image pipeline\.
+## Step 1: Specify pipeline details<a name="start-build-step1"></a>
 
-------
-#### [ Define recipe ]
+1. Open the EC2 Image Builder console at [https://console\.aws\.amazon\.com/imagebuilder/](https://console.aws.amazon.com/imagebuilder/)\.
 
-   1. On the **Define Recipe** page, create an image recipe, which includes your source image and components\. 
+1. To begin creating your pipeline, choose **Create image pipeline**\.
 
-      1. Choose your source image\. The source image includes the image OS and the image to configure\. After selecting your image OS, choose from the following options to select an image to configure\.
+1. In the **General** section, enter your **Pipeline name** \(*required*\)\.
+**Tip**  
+Enhanced metadata collection is turned on by default\. To ensure compatibility between components and source images, keep it on\.
 
-         1. Select an image from the managed images, which includes Image Builder images to help you get started, images that you have already created, and images that have been shared with you\. To select an image, enter the image ARN in the text box, or select **Browse images **to view managed images\. All managed images provided by AWS are 64\-bit operating systems\.
+1. In the **Build schedule** section, you can keep the defaults for the **Schedule options**\. Note that the **Time zone** shown for the default schedule is Universal Coordinated Time \(UTC\)\. For more information about UTC time, and to find the offset for your time zone, see [Time Zone Abbreviations — Worldwide List](https://www.timeanddate.com/time/zones/)\.
 
-         1. Use a custom AMI by entering the AMI ID\. 
-
-         Select the checkbox "Always build latest version" if you want Image Builder to use [semantic versioning](https://semver.org/) to set the version number for your image\. If this box is not selected, Image Builder will always use the same version number\. Checking this box does not initiate automatic builds when there are updates to your selected image version unless you have set the build pipeline to run automatically using the job scheduler under **Configure Pipeline**\. 
-
-      1. Select the **Build components**\. Components are installation packages, security hardening steps, and tests to be consumed by the image recipe when building your image\. After an image recipe has been created, its components cannot be modified or replaced\. If you want to update the components in an image recipe, create a new image recipe or image recipe version\. 
-**Important**  
-Components are installed in the order they are selected\. You cannot reorder components after they have been selected\.
-
-         Components include two component types\.
-
-         1. **Build components**\. Build components are installation packages and security hardening steps\. You can enter a component ARN or browse and select from a list of Image Builder components to help you get started\. To create a new component, select **Create Component**\. See [Create New Component](managing-image-builder-console.md#image-builder-create-component) for information about how to create a component\. Enter or select the components in the order that you want them to run in the image build pipeline\. 
-
-         1. **Tests**\. Test components are tests to perform on the output image built by your image pipeline\. Enter a test component ARN or browse and select from a list of Image Builder test components to help you get started\. To create a new component, select **Create Component**\. See [Create New Component](managing-image-builder-console.md#image-builder-create-component) for information about how to create a component\. Enter or select the components in the order that you want them to run in the image build pipeline\.
-
-         After you have entered your source image and components, select **Next**\. 
-
-------
-#### [ Configure pipeline ]
-
-   1. From the **Configure Pipeline** page, define the image pipeline infrastructure and build schedule\. 
-
-      1. Provide the following specifications under **Pipeline details**\. 
-
-         1. Enter a **Name** for your image pipeline\. You must use a unique name for your image pipeline\. 
-
-         1. Provide an optional **Description** for your image deployment pipeline\. 
-
-         1. Select an **IAM** role to associate with the instance profile or **Create a new role**\. If you create a new role, Image Builder will take you to the IAM console\. As a starting point, use the following IAM role policies \(you must attach both policies\): **EC2InstanceProfileForImageBuilder** and **AmazonSSMManagedInstanceCore**\. 
-**Important**  
-Make sure that your role has permissions to run the build and test components included in your image\. If you have logging configured, the instance profile specified in your InfrastructureConfiguration must have the necessary permissions \([s3:PutObject](https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html#using-with-s3-actions-related-to-objects)\) for the target bucket\. You can do this by including an inline policy in the role associated with the instance profile or by atttaching the **S3FullAccess** managed policy to the instance profile\. 
-
-      1. Select a **Build schedule** to run your image pipeline\. 
-
-         1. If you select **Manual**, you can choose when to run the pipeline\. When you want to run the pipeline, select **Run pipeline** on the **Pipeline details** page\. 
-
-         1. If you select **Schedule builder**, you can set the build pipeline to run automatically using the job scheduler\. Enter the cadence after **Run pipeline every**\. You can select to run the pipeline daily, weekly, or monthly\. In order to set the build pipeline to build from the latest image version, you must select the checkbox **Always build latest version** under **Define Recipe**\. 
-
-         1. If you select **CRON expression**, you can set the build pipeline to run using a syntax that specifies the time and intervals to run it\. Enter the expression in the text box\. 
-
-            To see what resources are created when the build pipeline runs, see [Resources created](how-image-builder-works.md#image-builder-resources)\.
-
-      1. Optionally, enter the **Infrastructure** specifications to define the infrastructure for your image\. These settings are associated with the EC2 instance that is launched in your account for the purpose of building the image\. 
-
-         1. Select an **Instance type**\. The instance type selected should adhere to the requirements of the software that you plan to run on your instance\. For more information about EC2 instance types, see [Instance Types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#AvailableInstanceTypes) in the *EC2 User Guide*\. 
-
-         1. If you want to receive notifications and alerts from Image Builder regarding any steps performed in your image pipeline, you can enter an **SNS topic ARN** to be notified by the **AWS Simple Notification Service \(SNS\)**\. For more information, see the [Amazon Simple Notification Service Developer Guide](https://docs.aws.amazon.com/sns/latest/dg/welcome.html)\.
-
-         1. Under **Troubleshooting settings**, provide the following information\. These settings are useful for performing troubleshooting on your instance if the image build fails\. 
-
-            1. Under **Key pair name**, select an existing key pair from the dropdown list or create a new one\. 
-
-               1.  If you select **Create key pair name** to create a new key pair, you are directed to the Amazon EC2 console\. 
-
-               1. From the Amazon EC2 console, choose **Create a new key pair**\.
-
-               1. Enter a name for the key pair\.
-
-               1.  Then choose **Download Key Pair**\.
-**Important**  
-This is the only chance for you to save the private key file, so be sure to download it and save it in a safe place\. You must provide the name of your key pair when you launch an instance, and provide the corresponding private key each time that you connect to the instance\. 
-
-               1. Return to the Image Builder console and choose the refresh icon next to the **Key pair name** dropdown\. The newly created key pair appears in the dropdown list\. For more information about key pairs, see [Amazon EC2 Key Pairs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html)\.
-
-            1. Select whether or not you want to **Terminate your instance upon failure** by selecting the check box\. If you want to be able to troubleshoot the instance when the image build fails, then make sure the check box is not checked\.
+   For **Dependency update settings**, choose the **Run pipeline at the scheduled time if there are dependency updates** option\. This setting causes your pipeline to check for updates before starting the build\. If there are no updates, it skips the scheduled pipeline build\.
 **Note**  
-If the option to terminate your instance upon failure is not selected, the Auto Scaling group and launch template used to launch the instance are not removed from your account when the build fails\. You must remove the Auto Scaling group and launch template resources manually\.
+To ensure that your pipeline recognizes dependency updates and builds as expected, you must use semantic versioning \(x\.x\.x\) for your source image and components\. For more information about how to use this versioning, see the notes in Step 2: Choose recipe\.
 
-            1. Under **S3 Logs**, select the **S3 bucket** to which you want to send your instance log files\. To browse and select your Amazon S3 bucket locations, select **Browse S3**\. The logs show steps and error messages for activity on the EC2 instance during the image build process\.
+1. Choose **Next** to proceed to the next step\.
 
-            1. Under **Advanced Settings**, provide the following information if you want to select a VPC to launch your instance\. If you do not select a VPC, the instance will be launched into your default VPC using your default security group\. For more information about default behavior, see the rules listed in the [RunInstances](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html) API documentation\.
+## Step 2: Choose recipe<a name="start-build-step2"></a>
 
-               1. Select a Virtual Private Cloud into which to launch your instance\. For more information about VPCs, see the [VPC User Guide](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html)\. You can also choose to **Create a new VPC**\. If you select to do this, you will be taken to the **VPC console**\. In order to allow communication between your VPC and the internet, you must enable this connectivity with an internet gateway\. To add an internet gateway to your VPC, follow the steps in [Creating and Attaching an Internet Gateway](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html#Add_IGW_Attach_Gateway) in the *Amazon VPC User Guide*\.
+1. TBD \- add image type choice here
 
-               1. If you select a VPC, choose the **Public subnet ID** associated with your selected VPC or select **Create new subnet**\. For more information, see [VPCs and Subnets](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html)\. 
+1. Image Builder defaults to **Use existing recipe** in the **Recipe** section\. For your first time through, choose the **Create new recipe** option\.
 
-               1. If you select a VPC, select the **Security groups** that are associated with your VPC, or select **Create a new security group**\. For help with security groups, see [Security Groups for Your VPC](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html)\. 
+1. In the **General** section, enter the following required boxes:
+   + **Name** – your recipe name
+   + **Version** – your recipe version \(use the format *<major>\.<minor>\.<patch>*, where major, minor, and patch are integer values\)\. New recipes generally start with `1.0.0`\.
 
-            After you have entered all of your infrastructure specifications, choose **Next**\. 
+1. In the **Source image** section, keep the default values for **Select image**, **Image Operating System \(OS\)**, and **Image origin**\. This results in a list of Amazon Linux 2 AMIs, managed by Amazon, for you to choose from for your source image\.
 
-------
-#### [ Configure additional settings ]
+   1. From the **Image name** dropdown, choose an image\.
 
-   1. From the **Configure additional settings** page, you can optionally define the test and distribution settings, along with other optional configuration parameters that are performed after the image is built\. If you want to define these configurations, provide the following information\. 
+   1. Keep the default for **Auto\-versioning options** \(**Use latest available OS version**\)\.
+**Note**  
+This setting ensures that your pipeline uses semantic versioning for the source image, to detect dependency updates for automatically scheduled jobs\.
 
-      1. Under **Associate license configuration to AMI**, you can choose to associate the output AMI with a pre\-existing license configuration that you created with AWS License Manager\. Select one or more unique license configuration IDs from the dropdown\. If you want to create a new license configuration, select **Create new License Configuration**\. This will take you to the License Manager console\. For more information, see [What Is AWS License Manager? ](https://docs.aws.amazon.com/license-manager/latest/userguide/license-manager.html)
+1. In the **Components** section, you must choose at least one component\.
 
-      1. Provide the following specifications under **Output AMI**\.
+   In the **Build components – Amazon Linux** panel, you can browse through the components listed on the page\. Use the pagination control in the upper right corner to navigate through additional components that are available for your source image OS\. You can also search for specific components, or create your own build component using the Component manager\.
 
-         1. Enter a **Name** for your output AMI\. When the image pipeline has completed, this will be the name of the created AMI\. 
+   For this tutorial, choose a component that updates Linux with the latest security updates, as follows:
 
-         1. Under **AMI tags**, add a **Key** and optional **Value** tag for your image\. For more information about tagging resources, see [Tagging Your Amazon EC2 Resources](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html)\. 
+   1. Filter the results by entering the word `update` in the search bar that's located in the upper left corner of the panel\.
 
-      1. Under **AMI distribution settings**, you can specify other AWS Regions to which you would like your AMI to be copied\. You can also configure permissions for the outbound AMI\. You can choose to allow all AWS accounts, or only specific accounts, to launch the created AMI\. If you choose to allow all AWS accounts to launch the AMI, the output AMI will be public\. 
+   1. Select the check box for the `update-linux` build component\.
 
-         1. **Select the AWS Regions to distribute the AMI**\. Your current Region is included by default\. 
+   1. Scroll down, and in the upper right corner of the **Selected components** list, choose **Expand versioning** \.
 
-         1. Under **Launch permissions**, you can set the AMI as **Private** or **Public**\. The default setting is **Private**\. When you set launch permissions to private, you can grant permissions to specific AWS accounts\. If you set them to public, all AWS users will have access to the output AMI\. 
+   1. Keep the default for **Versioning options** \(**Use latest available component version**\)\.
+**Note**  
+This setting ensures that your pipeline uses semantic versioning for the selected component, to detect dependency updates for automatically scheduled jobs\.
 
-            1. Select **Public** or **Private**\.
+**Reorder components \(optional\)**  
+If you have chosen more than one component to include in your image, you can use the drag\-and\-drop action to rearrange them into the order in which they should run during the build process\.
 
-            1. If you select **Private**, enter the account numbers of the accounts to which you want to grant launch permissions and select **Add**\. 
+   1. Scroll back up to the list of available components\.
 
-------
+   1. Select the check box for the `update-linux-kernel-mainline` build component \(or any other component of your choice\)\.
 
-1. On the **Review and create** page, you can review all of your settings before you create your image pipeline\. Review your **Recipe details**, your **Pipeline configuration details**, and your **Additional settings**\. If you want to make changes, select **Edit** to return to the specification settings that you want to change or update\. When the settings reflect your desired configuration, select **Create Pipeline**\. 
+   1. Scroll down to the **Selected components** list, to see that there are at least two results\.
 
-1. If the creation of your image pipeline fails, you will receive a message with the returned errors\. Address these errors and try to create your pipeline again\.
+   1. Newly added components might not have their versioning expanded\. To expand **Versioning options**, you can either choose the arrow next to **Versioning options**, or you can toggle the **Expand versioning** switch off and on to expand versioning for all of the selected components\.
 
-1. When your image pipeline creation succeeds, you are taken to the **Image pipelines** page\. From here, you can manage, delete, disable, view details about, and run your image pipeline\. 
+   1. Choose one of the components, and drag it up or down to change the order in which the components will run\.
+
+   1. To remove the `update-linux-kernel-mainline` component, choose `X` from the upper right corner of the component box\.
+
+   1. Repeat the previous step to remove any other components you might have added, leaving only the `update-linux` component selected\.
+
+1. Choose **Next** to proceed to the next step\.
+
+## Step 3: Define infrastructure configuration \- optional<a name="start-build-step3"></a>
+
+Image Builder launches EC2 instances in your account to customize images and run validation tests\. The Infrastructure configuration settings specify infrastructure details for the instances that will run in your AWS account during the build process\.
+
+In the **Infrastructure configuration** section, the **Configuration options** default to `Create infrastructure configuration using service defaults`\. This creates an IAM role and associated instance profile that are used by build instances to configure your EC2 AMIs\. You can also create your own custom infrastructure configuration, or use settings that you have already created\. For this tutorial, we are using the default settings\.
++ Choose **Next** to proceed to the next step\.
+
+## Step 4: Define distribution settings \- optional<a name="start-build-step4"></a>
+
+Distribution settings include specific Region settings for encryption, launch permissions, accounts that can launch the output AMI, the output AMI name, and license configurations\.
+
+In the **Distribution settings** section, the **Configuration options** default to `Create distribution settings using service defaults`\. This option will distribute the output AMI to the current Region\. For this tutorial, we are using the default settings\.
++ Choose **Next** to proceed to the next step\.
+
+## Step 5: Review<a name="start-build-step5"></a>
+
+The **Review** section displays all of the settings you have configured\. To edit information in any given section, choose the **Edit** button located in the top right corner of the step section\. For example, if you want to change your pipeline name, choose the **Edit** button in the top right corner of the **Step 1: Pipeline details** section\.
+
+1. When you have reviewed your settings, choose **Create pipeline** to create your pipeline\.
+
+1. You can see success or failure messages at the top of the page, as your resources are created for distribution settings, infrastructure configuration, your new recipe, and the pipeline\. To see details for a resource, including the resource identifier, choose **View details**\.
+
+1. After you have viewed the details for a resource, you can view details about other resources by choosing the resource type from the navigation pane\. For example, to see details for your new pipeline, choose **Image pipelines** from the navigation pane\. If your build was successful, your new pipeline is displayed in the **Image pipelines** list\.
+
+## Step 6: Clean up<a name="start-build-cleanup"></a>
+
+Your Image Builder environment, just like your home, needs regular maintenance to help you find what you need, and complete your tasks without wading through clutter\. Make sure to regularly clean up temporary resources that you created for testing\. Otherwise, you might forget about those resources, and then later, not remember what they were used for\. By then, it might not be clear if you can safely get rid of them\.
+
+**Tip**  
+To prevent dependency errors when you delete resources, make sure to delete your resources in the following order:  
+Image pipeline
+Image recipe
+All remaining resources
+
+To clean up the resources that you created for this tutorial, follow these steps:
+
+**Delete the pipeline**
+
+1. To see a list of the build pipelines created under your account, choose **Image pipelines** from the navigation pane\.
+
+1. Select the check box next to **Pipeline name** to select the pipeline that you want to delete\.
+
+1. At the top of the **Image pipelines** panel, on the **Actions** menu, choose **Delete**\.
+
+1. To confirm the deletion, enter `Delete` in the box, and choose **Delete**\.
+
+**Delete the recipe**
+
+1. To see a list of the recipes created under your account, choose **Image recipes** from the navigation pane\.
+
+1. Select the check box next to **Recipe name** to select the recipe that you want to delete\.
+
+1. At the top of the **Image recipes** panel, on the **Actions** menu, choose **Delete recipe**\.
+
+1. To confirm the deletion, enter `Delete` in the box, and choose **Delete**\.
+
+**Delete infrastructure configuration**
+
+1. To see a list of the infrastructure configurations created under your account, choose **Infrastructure configuration** from the navigation pane\.
+
+1. Select the check box next to **Configuration name** to select the infrastructure configuration that you want to delete\.
+
+1. At the top of the **Infrastructure configurations** panel, choose **Delete**\.
+
+1. To confirm the deletion, enter `Delete` in the box, and choose **Delete**\.
+
+**Delete distribution settings**
+
+1. To see a list of the distribution settings created under your account, choose **Distribution settings** from the navigation pane\.
+
+1. Select the check box next to **Configuration name** to select the distribution settings that you created for this tutorial\.
+
+1. At the top of the **Distribution settings** panel, choose **Delete**\.
+
+1. To confirm the deletion, enter `Delete` in the box, and choose **Delete**\.
+
+**Delete the image**  
+Follow these steps to verify that you have deleted any image that was created from the tutorial pipeline\. This tutorial is not likely to create an image unless enough time has elapsed since you created your pipeline that it runs, according to the build schedule\.
+
+1. To see a list of the images created under your account, choose **Images** from the navigation pane\.
+
+1. Choose the image **Version** for the image that you want to remove\. This opens the **Image build versions** page\.
+
+1. Select the check box next to the **Version** for any image that you want to delete\. You can select more than one image version at a time\.
+
+1. At the top of the **Image build versions** panel, choose **Delete version**\.
+
+1. To confirm the deletion, enter `Delete` in the box, and choose **Delete**\.
