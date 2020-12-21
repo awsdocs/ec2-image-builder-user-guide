@@ -6,4 +6,4 @@ You use AWS published API calls to access Image Builder through the network\. Cl
 
 Additionally, requests must be signed by using an access key ID and a secret access key that is associated with an IAM principal\. Or you can use the [AWS Security Token Service](https://docs.aws.amazon.com/STS/latest/APIReference/Welcome.html) \(AWS STS\) to generate temporary security credentials to sign requests\.
 
-Instances used to build images and run tests using Image Builder must have access to the Amazon EC2 Systems Manager service\. Therefore, in order to use the service, Internet access cannot be prevented\.
+Instances used to build images and run tests using Image Builder must have access to the Amazon EC2 Systems Manager service\.

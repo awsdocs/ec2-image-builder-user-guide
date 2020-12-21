@@ -1,8 +1,8 @@
 # What is EC2 Image Builder?<a name="what-is-image-builder"></a>
 
-EC2 Image Builder is a fully managed AWS service that makes it easier to automate the creation, management, and deployment of customized, secure, and up\-to\-date “golden” server images that are pre\-installed and pre\-configured with software and settings to meet specific IT standards\. 
+EC2 Image Builder is a fully managed AWS service that makes it easier to automate the creation, management, and deployment of customized, secure, and up\-to\-date server images that are pre\-installed and pre\-configured with software and settings to meet specific IT standards\. 
 
-You can use the AWS Management Console, AWS CLI, or APIs to create “golden” images in your AWS account\. When you use the AWS Management Console, the Image Builder wizard guides you through steps to:
+You can use the AWS Management Console, AWS CLI, or APIs to create custom images in your AWS account\. When you use the AWS Management Console, the Image Builder wizard guides you through steps to:
 + Provide starting artifacts
 + Add and remove software
 + Customize settings and scripts
@@ -13,7 +13,7 @@ The images you build are created in your account and you can configure them for 
 
 For troubleshooting and debugging your image deployment, you can configure build logs to be added to your Amazon Simple Storage Service \(Amazon S3\) bucket\. You can also configure the instance\-building application to send logs to CloudWatch\. To receive notifications of image build status, and associate an Amazon Elastic Compute Cloud \(Amazon EC2\) key pair with your instance to perform manual debugging and inspection, you can configure an SNS topic\.
 
-Along with a final image, Image Builder creates an image recipe, which is a combination of the source image and components for a build\. You can use the image recipe with existing source code version control systems and continuous integration/continuous deployment pipelines for repeatable automation\. 
+Along with a final image, Image Builder creates an image recipe, which is a combination of the source image and components for building and testing\. You can use the image recipe with existing source code version control systems and continuous integration/continuous deployment pipelines for repeatable automation\. 
 
 **Topics**
 + [Features of EC2 Image Builder](#image-builder-features)
@@ -43,14 +43,15 @@ Image Builder allows you to create images that remove unnecessary exposure to co
 
 Using built\-in integrations with AWS Organizations, Image Builder enables you to enforce policies that restrict accounts to run instances only from approved AMIs\.
 
-**Simplified sharing of images across AWS accounts**
+**Simplified sharing of resources across AWS accounts**
 
 EC2 Image Builder integrates with AWS Resource Access Manager \(AWS RAM\) to allow you to share certain resources with any AWS account or through AWS Organizations\. EC2 Image Builder resources that can be shared are:
 + Components
 + Images
 + Image recipes
++ Container recipes
 
-For more information, see [Share EC2 Image Builder resources](image-builder-resource-sharing.md)\.
+For more information, see [Share EC2 Image Builder resources](manage-shared-resources.md)\.
 
 ## Supported operating systems<a name="image-builder-os"></a>
 
@@ -65,43 +66,71 @@ Image Builder supports the following operating systems:
 
 ## Supported image formats<a name="image-builder-image-formats"></a>
 
-You can choose an existing AMI as a starting point to build your images\.
+For your custom AMI images, you can choose an existing AMI as a starting point\. For Docker container images, you can choose from public images hosted on DockerHub, existing container images in Amazon ECR, or Amazon\-managed container images\.
 
 ## Concepts<a name="image-builder-concepts"></a>
 
-The following terminology and concepts are central to your understanding and use of EC2 Image Builder\.
+The following terms and concepts are central to your understanding and use of EC2 Image Builder\.
 
 **AMI**  
-An Amazon Machine Image \(AMI\) is the basic unit of deployment in Amazon EC2\. An AMI is a pre\-configured VM image that contains the OS and preinstalled software to deploy EC2 instances\. For more information, see [Amazon Machine Images \(AMI\)](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html)\. 
+An Amazon Machine Image \(AMI\) is the basic unit of deployment in Amazon EC2, and is one of the types of images you can create with Image Builder\. An AMI is a pre\-configured virtual machine image that contains the operating system \(OS\) and preinstalled software to deploy Amazon EC2 instances\. For more information, see [Amazon Machine Images \(AMI\)](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html)\.
 
 **Image pipeline**  
-An image pipeline is the automation configuration for building secure OS images on AWS\. The Image Builder image pipeline is associated with an image recipe that defines the build, validation, and test phases for an image build lifecycle\. An image pipeline can be associated with an infrastructure configuration that defines where your image is built\. You can define attributes, such as instance type, subnets, security groups, logging, and other infrastructure\-related configurations\. You can also associate your image pipeline with a distribution configuration to define how you would like to deploy your image\. 
+An image pipeline provides an automation framework for building secure AMIs and container images on AWS\. The Image Builder image pipeline is associated with an image recipe or container recipe that defines the build, validation, and test phases for an image build lifecycle\.
+
+An image pipeline can be associated with an infrastructure configuration that defines where your image is built\. You can define attributes, such as instance type, subnets, security groups, logging, and other infrastructure\-related configurations\. You can also associate your image pipeline with a distribution configuration to define how you would like to deploy your image\. 
 
 **Managed image**  
-A managed image is a resource in Image Builder that consists of an AMI plus metadata, such as version and platform\. The managed image is used by Image Builder pipelines to determine which AMI to use as a source for the build\. In this guide, managed images are sometimes referred to as "images", however, this is not the same as an AMI\.
+A managed image is a resource in Image Builder that consists of an AMI or container image, plus metadata, such as version and platform\. The managed image is used by Image Builder pipelines to determine which source image to use for the build\. In this guide, managed images are sometimes referred to as "images," however, an image is not the same as an AMI\.
 
 **Image recipe**  
-An Image Builder image recipe is a document that defines the source image and the components to be applied to the source image to produce the desired configuration for the output image\. You can use an image recipe to duplicate builds\. Image Builder image recipes can be shared, branched, and edited using the console wizard, the AWS CLI, or the API\. You can use image recipes with your version control software to maintain shareable versioned image recipes\.
+An Image Builder image recipe is a document that defines the source image and the components that are applied to the source image to produce the desired configuration for the output AMI image\. You can use an image recipe to duplicate builds\. Image Builder image recipes can be shared, branched, and edited using the console wizard, the AWS CLI, or the API\. You can use image recipes with your version control software to maintain shareable, versioned image recipes\.
+
+**Container recipe**  
+An Image Builder container recipe is a document that defines the source image and the components that are applied to the source image to produce the desired configuration for the output container image\. You can use a container recipe to duplicate builds\. You can share, branch, and edit Image Builder image recipes by using the console wizard, the AWS CLI, or the API\. You can use container recipes with your version control software to maintain shareable, versioned container recipes\.
 
 **Source image**  
-The source image is the selected image and OS used in your image recipe document along with the components\. The source image and the component definitions combined produce the desired configuration for the output image\. 
+The source image is the selected image and operating system used in your image or container recipe document, along with the components\. The source image and the component definitions combined produce the desired configuration for the output image\.
 
 **Components**  
-A component defines the sequence of steps required to either mutate an instance prior to image creation \(a **build component**\), or to test an instance that was launched from the created image \(a **test component**\)\. A component is a declarative, plain\-text YAML document that describes a series of steps to perform\. Components are executed on the instance using a component management application\. The component management application parses the documents and executes the desired steps\. After they are created, one or more components are grouped together using an image recipe to define the execution plan for building and testing a virtual machine image\. You can use public components that are owned and managed by AWS, or you can create your own\. For more details about components, see [EC2 Image Builder component manager](image-builder-component-manager.md)\.
+A component defines the sequence of steps required to either customize an instance prior to image creation \(a **build component**\), or to test an instance that was launched from the created image \(a **test component**\)\.
 
-**Document**  
-A declarative document that uses the YAML format to list the execution steps for build, validation, and test of an AMI on an instance\. The document is input to a configuration management application, which runs locally on an Amazon EC2 instance to execute the document steps\. 
+A component is created from a declarative, plain\-text YAML or JSON document that describes the runtime configuration for building and validating, or testing an instance that is produced by your pipeline\. Components run on the instance using a component management application\. The component management application parses the documents and runs the desired steps\.
 
-**Execution phases**  
-EC2 Image Builder has two execution stages: **build** and **test**\. A component has three possible phases: **build**, **validate**, and **test**\. When an image pipeline starts, Image Builder is in the build stage\. During this stage, an instance is launched and all of the components defined in the image recipe are downloaded to the instance\. The components are executed sequentially, in the order specified by the image recipe\. For each component, the component management application parses the document and executes the build and validate phases\. If successful, the instance is turned off, an image is created, and Image Builder continues to the test stage\. During the test stage, an instance is launched from the previously created image and the components are downloaded to the instance\. The component management application parses the documents and executes the test phase\. The build stage in Image Builder maps to the build and validate phases in your components, while the test stage maps to the test phase in your components\. 
+After they are created, one or more components are grouped together using an image recipe or container recipe to define the plan for building and testing a virtual machine or container image\. You can use public components that are owned and managed by AWS, or you can create your own\. For more information about components, see [EC2 Image Builder component manager](image-builder-component-manager.md)\.
+
+**Component document**  
+A declarative, plain\-text YAML or JSON document that describes configuration for a customization you can apply to your image\. The document is used to create a build or test component\.
+
+**Runtime stages**  
+EC2 Image Builder has two runtime stages: **build** and **test**\. Each runtime stage has one or more phases with configuration defined by the component document\.
+
+**Configuration phases**  
+The following list shows the phases that run during the **build** and **test** stages:*Build stage:*
+
+Build phase  
+An image pipeline begins with the build phase of the build stage when it runs\. The source image is downloaded, and configuration that is specified for the build phase of the component is applied to build and launch an instance\.
+
+Validate phase  
+After the instance is launched and all of the build phase customizations are applied, the validation phase begins\. During the validation phase, Image Builder validates that customizations are applied successfully, based on configuration that is specified for the validate phase of the component\. If the instance validation is successful, the instance is turned off, an image is created, and Image Builder continues to the test stage\.*Test stage:*
+
+Test phase  
+The test stage has only one phase – test\. During this phase, an instance is launched from the image that was created after the validation phase completed successfully\. Image Builder runs test components during this phase to verify that the instance is healthy, and is functioning as expected\.
 
 ## Pricing<a name="image-builder-pricing"></a>
 
-There is no cost to use EC2 Image Builder\. There may be costs associated with launching an Amazon EC2 instance and storing logs on Amazon S3, for validating images with Amazon Inspector, and for AMI storage for Amazon EBS Snapshots, depending on the configuration of your image\. If you enable Systems Manager Advanced Tier and run EC2 instances with on\-premises activation, you may be charged for resources through Systems Manager\. 
+There is no cost to use EC2 Image Builder to create custom AMI or container images\. However, standard pricing applies for other services that are used in the process\. The following list includes the usage of some AWS services that can incur costs when you create, build, store, and distribute your custom AMI or container images, depending on your configuration\.
++ Launching an Amazon EC2 instance
++ Storing logs on Amazon S3
++ Validating images with Amazon Inspector
++ Storing Amazon EBS Snapshots for your AMIs
++ Storing container images in Amazon ECR
++ Pushing and pulling container images into and out of Amazon ECR
++ If Systems Manager Advanced Tier is turned on, and Amazon EC2 instances run with on\-premises activation, you might be charged for resources through Systems Manager
 
 ## Related AWS services<a name="image-builder-related-services"></a>
 
-EC2 Image Builder uses other AWS services to build images\. Depending on your Image Builder image recipe configuration, the following services may be used\.
+EC2 Image Builder uses other AWS services to build images\. Depending on your Image Builder image recipe or container recipe configuration, the following services might be used\.
 
 **AWS License Manager**  
 AWS License Manager allows you to create and apply license configurations from an account license configuration store\. For each AMI, you can use Image Builder to attach to a preexisting license configuration that your AWS account has access to as part of the Image Builder workflow\. License configurations can be applied only to AMIs\. Image Builder can use only preexisting license configurations and cannot directly create or modify license configurations\. License Manager settings will not replicate across AWS Regions that must be enabled in your account, for example, between the `ap-east-1` \(Asia Pacific: Hong Kong\) and the `me-south-1` \(Middle East: Bahrain\) Regions\. 
@@ -111,3 +140,6 @@ A Systems Manager automation document defines the actions that Systems Manager p
 
 **Amazon CloudWatch Logs**  
 You can use Amazon CloudWatch Logs to monitor, store, and access your log files from Amazon EC2 instances, AWS CloudTrail, Amazon Route 53, and other sources\.
+
+**Amazon Elastic Container Registry \(Amazon ECR\)**  
+Amazon ECR is a managed AWS container image registry service that is secure, scalable, and reliable\. Container images you create with Image Builder are stored in Amazon ECR in your default Region, and in any Regions where you distribute the container image\. For more information about Amazon ECR, see the [Amazon Elastic Container Registry User Guide](https://docs.aws.amazon.com/AmazonECR/latest/userguide/)\.

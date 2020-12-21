@@ -135,7 +135,7 @@ The schema definitions for a step are as follows\.
 | Field | Description | Type | Required | Default value | 
 | --- | --- | --- | --- | --- | 
 | name | User\-defined name for the step\. | String |  |  | 
-| action | Keyword pertaining to the module that runs the step\. | String |   |  | 
+| action | Keyword pertaining to the module that runs the step\. | String |    |  | 
 | timeoutSeconds |  Number of seconds that the step runs before failing or retrying\.  Also, supports \-1 value, which indicates infinite timeout\. 0 and other negative values are not allowed\.  | Integer |  Yes  | 7,200 sec \(120 mins\) | 
 | onFailure | Specifies what the step should do in case of failure: abort or continue to the next step\. |  String  |  Yes  | Abort | 
 | maxAttempts | Maximum number of attempts allowed before failing the step\. | Integer |  No  | 1 | 
@@ -147,7 +147,7 @@ The following is an example document schema to install all available Windows upd
 
 ```
 name: RunConfig_UpdateWindows
-description: 'This document will install all available Windows updates and execute a config script.  It will then validate the changes before an AMI is created.  Then after AMI creation, it will test all the changes.'
+description: 'This document will install all available Windows updates and run a config script.  It will then validate the changes before an AMI is created.  Then after AMI creation, it will test all the changes.'
 schemaVersion: 1.0
 phases:
   -

@@ -22,6 +22,8 @@ The following section contains details for action modules that perform general e
 
 ### ExecuteBash<a name="image-builder-action-modules-executebash"></a>
 
+ 
+
 The **ExecuteBash** action module allows you to run bash scripts with inline shell code/commands\. This module supports Linux\. 
 
 All of the commands and instructions that you specify in the commands block are converted into a file \(for example, `input.sh`\) and executed using the bash shell\. The result of the execution of the shell file is the exit code of the step\. 

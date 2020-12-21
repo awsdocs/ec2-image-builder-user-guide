@@ -12,7 +12,7 @@ This topic describes the recommended process for verifying the validity of the i
 
 Whenever you download an application from the internet, we recommend that you authenticate the identity of the software publisher\. Also, check that the application is not altered or corrupted since it was published\. This protects you from installing a version of the application that contains a virus or other malicious code\.
 
-If, after running the steps in this topic, you determine that the software for the AWSTOE application is altered or corrupted, do not run the installation file\. Instead, contact AWS Support\.
+If, after running the steps in this topic, you determine that the software for the AWSTOE application is altered or corrupted, do not run the installation file\. Instead, contact AWS Support\. For more information about your support options, see [AWS Support](http://aws.amazon.com/premiumsupport/)\.
 
 AWSTOE application files for Linux\-based operating systems are signed using `GnuPG`, an open source implementation of the Pretty Good Privacy \(OpenPGP\) standard for secure digital signatures\. `GnuPG` \(also known as `GPG`\) provides authentication and integrity checking through a digital signature\. Amazon EC2 publishes a public key and signatures that you can use to verify the downloaded Amazon EC2 CLI tools\. For more information about `PGP` and `GnuPG` \(`GPG`\), see [http://www\.gnupg\.org](http://www.gnupg.org)\.
 

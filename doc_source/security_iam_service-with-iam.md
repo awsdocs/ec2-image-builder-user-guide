@@ -112,7 +112,7 @@ To enable cross\-account access, you can specify an entire account or IAM entiti
 
 ## Authorization based on Image Builder tags<a name="security_iam_service-with-iam-tags"></a>
 
-You can attach tags to Image Builder resources or pass tags in a request to Image Builder\. To control access based on tags, you provide tag information in the [condition element](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition.html) of a policy using the `imagebuilder:ResourceTag/key-name`, `aws:RequestTag/key-name`, or `aws:TagKeys` condition keys\. For more information about tagging Image Builder resources, see [Tag a resource](managing-image-builder-cli.md#image-builder-cli-tag-resource)\.
+You can attach tags to Image Builder resources or pass tags in a request to Image Builder\. To control access based on tags, you provide tag information in the [condition element](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition.html) of a policy using the `imagebuilder:ResourceTag/key-name`, `aws:RequestTag/key-name`, or `aws:TagKeys` condition keys\. For more information about tagging Image Builder resources, see [Tag a resource \(AWS CLI\)](tag-resources.md#cli-tag-resource)\.
 
 ## Image Builder IAM roles<a name="security_iam_service-with-iam-roles"></a>
 

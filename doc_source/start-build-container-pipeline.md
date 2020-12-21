@@ -1,16 +1,16 @@
-# Create an automated build pipeline using the EC2 Image Builder console wizard<a name="image-builder-image-deployment-console"></a>
+# Create a container image pipeline using the EC2 Image Builder console wizard<a name="start-build-container-pipeline"></a>
 
-This tutorial walks you through creating an automated pipeline to build and maintain a customized EC2 Image Builder image using the **Create image pipeline** console wizard\. To help you move through the steps efficiently, default settings are used when they are available\.
+This tutorial walks you through creating an automated pipeline to build and maintain a customized EC2 Image Builder Docker image using the **Create image pipeline** console wizard\. To help you move through the steps efficiently, default settings are used when they are available\.
 
 **Topics**
-+ [Step 1: Specify pipeline details](#start-build-step1)
-+ [Step 2: Choose recipe](#start-build-step2)
-+ [Step 3: Define infrastructure configuration \- optional](#start-build-step3)
-+ [Step 4: Define distribution settings \- optional](#start-build-step4)
-+ [Step 5: Review](#start-build-step5)
-+ [Step 6: Clean up](#start-build-cleanup)
++ [Step 1: Specify pipeline details](#start-build-container-step1)
++ [Step 2: Choose recipe](#start-build-container-step2)
++ [Step 3: Define infrastructure configuration \- optional](#start-build-container-step3)
++ [Step 4: Define distribution settings \- optional](#start-build-container-step4)
++ [Step 5: Review](#start-build-container-step5)
++ [Step 6: Clean up](#start-build-container-cleanup)
 
-## Step 1: Specify pipeline details<a name="start-build-step1"></a>
+## Step 1: Specify pipeline details<a name="start-build-container-step1"></a>
 
 1. Open the EC2 Image Builder console at [https://console\.aws\.amazon\.com/imagebuilder/](https://console.aws.amazon.com/imagebuilder/)\.
 
@@ -20,7 +20,7 @@ This tutorial walks you through creating an automated pipeline to build and main
 **Tip**  
 Enhanced metadata collection is turned on by default\. To ensure compatibility between components and source images, keep it on\.
 
-1. In the **Build schedule** section, you can keep the defaults for the **Schedule options**\. Note that the **Time zone** shown for the default schedule is Universal Coordinated Time \(UTC\)\. For more information about UTC time, and to find the offset for your time zone, see [Time Zone Abbreviations — Worldwide List](https://www.timeanddate.com/time/zones/)\.
+1. In the **Build schedule** section, you can keep the defaults for the **Schedule options**\. Note that the **Time zone** shown for the default schedule is Universal Coordinated Time \(UTC\)\. For more information about UTC time, and to find the offset for your time zone, see [Time Zone Abbreviations – Worldwide List](https://www.timeanddate.com/time/zones/)\.
 
    For **Dependency update settings**, choose the **Run pipeline at the scheduled time if there are dependency updates** option\. This setting causes your pipeline to check for updates before starting the build\. If there are no updates, it skips the scheduled pipeline build\.
 **Note**  
@@ -28,17 +28,17 @@ To ensure that your pipeline recognizes dependency updates and builds as expecte
 
 1. Choose **Next** to proceed to the next step\.
 
-## Step 2: Choose recipe<a name="start-build-step2"></a>
-
-1. TBD \- add image type choice here
+## Step 2: Choose recipe<a name="start-build-container-step2"></a>
 
 1. Image Builder defaults to **Use existing recipe** in the **Recipe** section\. For your first time through, choose the **Create new recipe** option\.
+
+1. In the **Image type** section, choose the **Docker image** option to create a container pipeline that will produce a Docker image and distribute it to Amazon ECR repositories in target Regions\.
 
 1. In the **General** section, enter the following required boxes:
    + **Name** – your recipe name
    + **Version** – your recipe version \(use the format *<major>\.<minor>\.<patch>*, where major, minor, and patch are integer values\)\. New recipes generally start with `1.0.0`\.
 
-1. In the **Source image** section, keep the default values for **Select image**, **Image Operating System \(OS\)**, and **Image origin**\. This results in a list of Amazon Linux 2 AMIs, managed by Amazon, for you to choose from for your source image\.
+1. In the **Source image** section, keep the default values for **Select image**, **Image Operating System \(OS\)**, and **Image origin**\. This results in a list of Amazon Linux 2 container images, managed by Amazon, for you to choose from for your source image\.
 
    1. From the **Image name** dropdown, choose an image\.
 
@@ -46,13 +46,13 @@ To ensure that your pipeline recognizes dependency updates and builds as expecte
 **Note**  
 This setting ensures that your pipeline uses semantic versioning for the source image, to detect dependency updates for automatically scheduled jobs\.
 
-1. In the **Components** section, you must choose at least one component\.
+1. In the **Components** section, you must choose at least one build component\.
 
    In the **Build components – Amazon Linux** panel, you can browse through the components listed on the page\. Use the pagination control in the upper right corner to navigate through additional components that are available for your source image OS\. You can also search for specific components, or create your own build component using the Component manager\.
 
    For this tutorial, choose a component that updates Linux with the latest security updates, as follows:
 
-   1. Filter the results by entering the word `update` in the search bar that's located in the upper left corner of the panel\.
+   1. Filter the results by entering the word `update` in the search bar that's located at the top of the panel\.
 
    1. Select the check box for the `update-linux` build component\.
 
@@ -79,23 +79,29 @@ If you have chosen more than one component to include in your image, you can use
 
    1. Repeat the previous step to remove any other components you might have added, leaving only the `update-linux` component selected\.
 
+1. In the **Dockerfile template** section, select the **Use example** option\. In the **Content** panel, notice the contextual variables where Image Builder places build information or scripts, based on your container image recipe\.
+
+1. In the **Target repository** section, you must specify the name of an existing Amazon ECR repository that you created as a prerequisite for this tutorial\.
+**Note**  
+The target repository must exist in Amazon ECR for all target Regions prior to distribution\.
+
 1. Choose **Next** to proceed to the next step\.
 
-## Step 3: Define infrastructure configuration \- optional<a name="start-build-step3"></a>
+## Step 3: Define infrastructure configuration \- optional<a name="start-build-container-step3"></a>
 
 Image Builder launches EC2 instances in your account to customize images and run validation tests\. The Infrastructure configuration settings specify infrastructure details for the instances that will run in your AWS account during the build process\.
 
 In the **Infrastructure configuration** section, the **Configuration options** default to `Create infrastructure configuration using service defaults`\. This creates an IAM role and associated instance profile that are used by build instances to configure your EC2 AMIs\. You can also create your own custom infrastructure configuration, or use settings that you have already created\. For this tutorial, we are using the default settings\.
 + Choose **Next** to proceed to the next step\.
 
-## Step 4: Define distribution settings \- optional<a name="start-build-step4"></a>
+## Step 4: Define distribution settings \- optional<a name="start-build-container-step4"></a>
 
-Distribution settings include specific Region settings for encryption, launch permissions, accounts that can launch the output AMI, the output AMI name, and license configurations\.
+Distribution settings consist of the target Regions, and the target Amazon ECR repository name\. Output Docker images are deployed to the named Amazon ECR repository in each Region\.
 
-In the **Distribution settings** section, the **Configuration options** default to `Create distribution settings using service defaults`\. This option will distribute the output AMI to the current Region\. For this tutorial, we are using the default settings\.
+In the **Distribution settings** section, the **Configuration options** default to `Create distribution settings using service defaults`\. This option will distribute the output Docker image to the Amazon ECR repository in the current Region\. For this tutorial, we are using the default settings\.
 + Choose **Next** to proceed to the next step\.
 
-## Step 5: Review<a name="start-build-step5"></a>
+## Step 5: Review<a name="start-build-container-step5"></a>
 
 The **Review** section displays all of the settings you have configured\. To edit information in any given section, choose the **Edit** button located in the top right corner of the step section\. For example, if you want to change your pipeline name, choose the **Edit** button in the top right corner of the **Step 1: Pipeline details** section\.
 
@@ -105,7 +111,7 @@ The **Review** section displays all of the settings you have configured\. To edi
 
 1. After you have viewed the details for a resource, you can view details about other resources by choosing the resource type from the navigation pane\. For example, to see details for your new pipeline, choose **Image pipelines** from the navigation pane\. If your build was successful, your new pipeline is displayed in the **Image pipelines** list\.
 
-## Step 6: Clean up<a name="start-build-cleanup"></a>
+## Step 6: Clean up<a name="start-build-container-cleanup"></a>
 
 Your Image Builder environment, just like your home, needs regular maintenance to help you find what you need, and complete your tasks without wading through clutter\. Make sure to regularly clean up temporary resources that you created for testing\. Otherwise, you might forget about those resources, and then later, not remember what they were used for\. By then, it might not be clear if you can safely get rid of them\.
 
@@ -127,13 +133,13 @@ To clean up the resources that you created for this tutorial, follow these steps
 
 1. To confirm the deletion, enter `Delete` in the box, and choose **Delete**\.
 
-**Delete the recipe**
+**Delete the container recipe**
 
-1. To see a list of the recipes created under your account, choose **Image recipes** from the navigation pane\.
+1. To see a list of the container recipes created under your account, choose **Container recipes** from the navigation pane\.
 
 1. Select the check box next to **Recipe name** to select the recipe that you want to delete\.
 
-1. At the top of the **Image recipes** panel, on the **Actions** menu, choose **Delete recipe**\.
+1. At the top of the **Container recipes** panel, on the **Actions** menu, choose **Delete recipe**\.
 
 1. To confirm the deletion, enter `Delete` in the box, and choose **Delete**\.
 

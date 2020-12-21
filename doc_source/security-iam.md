@@ -28,4 +28,7 @@ For detailed information about how to provide authentication for people and proc
 
 For detailed information about how to manage access in AWS by creating policies and attaching them to IAM identities or AWS resources, see [Policies and Permissions](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html) in the *IAM User Guide*\. 
 
-The IAM role that you associate with your instance profile must have permissions to run the build and test components included in your image\. The following IAM role policies must be attached to the IAM role that is associated with the instance profile: **EC2InstanceProfileForImageBuilder** and **AmazonSSMManagedInstanceCore**\.
+The IAM role that you associate with your instance profile must have permissions to run the build and test components included in your image\. The following IAM role policies must be attached to the IAM role that is associated with the instance profile:
++ EC2InstanceProfileForImageBuilder
++ EC2InstanceProfileForImageBuilderECRContainerBuilds
++ AmazonSSMManagedInstanceCore

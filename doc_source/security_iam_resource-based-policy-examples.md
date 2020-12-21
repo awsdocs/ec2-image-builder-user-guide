@@ -1,6 +1,6 @@
 # EC2 Image Builder resource\-based policy examples<a name="security_iam_resource-based-policy-examples"></a>
 
-To learn how to create a component, see [Create components](image-builder-create-component.md)\.
+To learn how to create a component, see [Manage components with AWSTOE](manage-components.md)\.
 
 ## Restricting Image Builder component access to specific IP addresses<a name="security_iam_resource-based-policy-examples-restrict-component-by-ip"></a>
 
