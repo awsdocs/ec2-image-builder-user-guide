@@ -1801,8 +1801,8 @@ If both “include" and "exclude" lists are provided, the resulting list of upda
 
 | Primitive | Description | Type | Required | 
 | --- | --- | --- | --- | 
-| include |  For Windows, you can specify the following: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/imagebuilder/latest/userguide/image-builder-action-modules.html) For Linux, you can specify one or more packages to be included in the list for installation\.  | String List | No | 
-| exclude |  For Windows, you can specify the following: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/imagebuilder/latest/userguide/image-builder-action-modules.html) For Linux, you can specify one or more packages to be excluded from the installation\.  | String List | No | 
+| include |  For Windows, you can specify the following: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/imagebuilder/latest/userguide/image-builder-action-modules.html) For Linux, you can specify one or more packages to be included in the list of updates for installation\.  | String List | No | 
+| exclude |  For Windows, you can specify the following: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/imagebuilder/latest/userguide/image-builder-action-modules.html) For Linux, you can specify one or more packages to be excluded from the list of updates for installation\.  | String List | No | 
 
 **Input example: add support for installing Linux updates**
 
