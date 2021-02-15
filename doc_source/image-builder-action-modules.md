@@ -198,7 +198,7 @@ The following section contains details for action modules that perform download 
 
 ### S3Download<a name="image-builder-action-modules-s3download"></a>
 
-The **S3Download** action module allows you to download an Amazon S3 object or **KeyPrefix** to a local destination path\. The destination path can be a file or folder\. If the destination path already exists, **S3Download** fails unless `override` is set to `true`\. 
+The **S3Download** action module allows you to download an Amazon S3 object or **KeyPrefix** to a local destination path\. The destination path can be a file or folder\. All folders in the destination path must exist prior to download, or the download fails\.
 
 If the **S3Download** action for **S3KeyPrefix** fails, the state of the destination folder remains as it is upon failure\. The folder contents are not rolled back to the contents before failure\.
 
@@ -340,7 +340,7 @@ This action module implicitly handles redirects\. All HTTP status codes, except 
 | --- | --- | --- | --- | --- | 
 | source | The valid HTTP/HTTPS URL, which follows the RFC 3986 standard\. Chaining expressions are permitted\.  | String |  Yes  | N/A | 
 | destination | An absolute or relative file or folder path on the local system\. Folder paths must end with /\. If they do not end with /, they will be treated as file paths\. The module creates any required file or folder for successful downloads\. Chaining expressions are permitted\. | String | Yes | N/A | 
-| overwrite | When enabled, overwrites any existing files on the local system with the downloaded file or resource\. When not enabled, any existing files on the local system are not overwritten, and the action module fails with an error\. When overwrite is enabled and checksum and algorithm are specified, then the action module downloads the file only if the checksum and the hash of any pre\-existing files do not match\.  | Boolean | No | false | 
+| overwrite | When enabled, overwrites any existing files on the local system with the downloaded file or resource\. When not enabled, any existing files on the local system are not overwritten, and the action module fails with an error\. When overwrite is enabled and checksum and algorithm are specified, then the action module downloads the file only if the checksum and the hash of any pre\-existing files do not match\.  | Boolean | No | true | 
 | checksum | When you specify the checksum, it is checked against the hash of the downloaded file that is generated with the supplied algorithm\. For file verification to be enabled, both the checksum and the algorithm must be provided\. Chaining expressions are permitted\.  | String | No | N/A | 
 | algorithm | The algorithm used to calculate the checksum\. The options are MD5, SHA1, SHA256, and SHA512\. For file verification to be enabled, both the checksum and the algorithm must be provided\. Chaining expressions are permitted\.  | String | No | N/A | 
 | ignoreCertificateErrors | SSL certificate validation is ignored when enabled\. | Boolean | No | false | 
@@ -623,7 +623,7 @@ inputs:
 **Input example: copy a file without overwriting \(Linux\)**
 
 ```
-name: CopyingFilesWithOverwriteLinux
+name: CopyingFilesWithoutOverwriteLinux
 action: CopyFile
 inputs:
   - source: /Sample/MyFolder/Sample.txt
@@ -634,7 +634,7 @@ inputs:
 **Input example: copy a file without overwriting \(Windows\)**
 
 ```
-name: CopyingFilesWithOverwriteWindows
+name: CopyingFilesWithoutOverwriteWindows
 action: CopyFile
 inputs:
   - source: C:\Sample\MyFolder\Sample.txt
@@ -733,7 +733,7 @@ inputs:
 **Input example: copy a folder without overwriting \(Linux\)**
 
 ```
-name: CopyingFoldersWithOverwriteLinux
+name: CopyingFoldersWithoutOverwriteLinux
 action: CopyFolder
 inputs:
   - source: /Sample/MyFolder/SourceFolder
@@ -744,7 +744,7 @@ inputs:
 **Input example: copy a folder without overwriting \(Windows\)**
 
 ```
-name: CopyingFoldersWithOverwrite
+name: CopyingFoldersWithoutOverwrite
 action: CopyFolder
 inputs:
   - source: C:\Sample\MyFolder\SourceFolder
@@ -782,7 +782,7 @@ The action module returns an error when the following occurs:
 | owner | The user name or ID\. | String | No | N/A | N/A | Not supported on Windows\. | 
 | group | The group name or ID\. | String | No | The current user\. | N/A | Not supported on Windows\. | 
 | permissions | The file permissions\. | String | No | 0666 | N/A | Not supported on Windows\. | 
-| overwrite | If the name of the specified file already exists, setting this value to true prevents the file from being truncated or overwritten by default\. | Boolean | No | true | N/A | Yes | 
+| overwrite | If the name of the specified file already exists, setting this value to false prevents the file from being truncated or overwritten by default\. | Boolean | No | true | N/A | Yes | 
 
 **Input example: create a file without overwriting \(Linux\)**
 
@@ -862,7 +862,7 @@ The action module returns an error when the following occurs:
 | owner | The user name or ID\. | String | No | The current user\. | N/A | Not supported on Windows\. | 
 | group | The group name or ID\. | String | No | The group of the current user\. | N/A | Not supported on Windows\. | 
 | permissions | The folder permissions\. | String | No | 0777 | N/A | Not supported on Windows\. | 
-| overwrite | If the name of the specified file already exists, setting this value to true prevents the file from being truncated or overwritten by default\. | Boolean | No | true | N/A | Yes | 
+| overwrite | If the name of the specified file already exists, setting this value to false prevents the file from being truncated or overwritten by default\. | Boolean | No | true | N/A | Yes | 
 
 **Input example: create a folder \(Linux\)**
 
@@ -896,14 +896,14 @@ inputs:
     permissions: 777
 ```
 
-**Input example: create a folder with overwriting**
+**Input example: create a folder that overwrites the existing folder, if there is one\.**
 
 ```
 name: CreatingFolderWithOverwrite
 action: CreateFolder
 inputs:
   - path: /Sample/MyFolder/Sample/
-    overwrite: false
+    overwrite: true
 ```
 
 **Output**  
@@ -1261,7 +1261,7 @@ inputs:
 **Input example: move a file without overwriting \(Linux\)**
 
 ```
-name: MovingFilesWithOverwriteLinux
+name: MovingFilesWithoutOverwriteLinux
 action: MoveFile
 inputs:
   - source: /Sample/MyFolder/Sample.txt
@@ -1272,7 +1272,7 @@ inputs:
 **Input example: move a file without overwriting \(Windows\)**
 
 ```
-name: MovingFilesWithOverwrite
+name: MovingFilesWithoutOverwrite
 action: MoveFile
 inputs:
   - source: C:\Sample\MyFolder\Sample.txt
@@ -1373,7 +1373,7 @@ inputs:
 **Input example: move a folder without overwriting \(Linux\)**
 
 ```
-name: MovingFoldersWithOverwriteLinux
+name: MovingFoldersWithoutOverwriteLinux
 action: MoveFolder
 inputs:
   - source: /Sample/MyFolder/SampleFolder
@@ -1384,7 +1384,7 @@ inputs:
 **Input example: move a folder without overwriting \(Windows\)**
 
 ```
-name: MovingFoldersWithOverwriteWindows
+name: MovingFoldersWithoutOverwriteWindows
 action: MoveFolder
 inputs:
   - source: C:\Sample\MyFolder\SampleFolder

@@ -89,8 +89,8 @@ The ARN in this example references the latest image in the SKU based on the sema
       "sometag" : "Tag detail" 
    },
    "targetRepository": { 
-      "repositoryName": "ECR",
-      "service": "myrepo"
+      "repositoryName": "myrepo",
+      "service": "ECR"
    },
    "workingDirectory": "/tmp"
 }

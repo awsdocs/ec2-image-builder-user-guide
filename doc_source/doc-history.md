@@ -6,6 +6,7 @@ The following table describes important changes to the documentation by date\. F
 
 | Change | Description | Date | 
 | --- |--- |--- |
+| [Update cron expressions](https://docs.aws.amazon.com/imagebuilder/latest/userguide/cron-expressions.html) | Image Builder cron processing is updated to increase cron expression granularity to the minute, and use a standard cron scheduling engine\. Examples are updated with the new format\. | February 8, 2021 | 
 | [Feature release: Container support](#doc-history) | Added support for creating Docker container images using Image Builder, with registration and storage of the resulting images on Amazon Elastic Container Registry \(Amazon ECR\)\. Content has been rearranged to reflect new functionality and accomodate future growth\. | December 17, 2020 | 
 | [Restructured cron documentation](https://docs.aws.amazon.com/imagebuilder/latest/userguide/cron-expressions.html) | This page now highlights more information about how cron works with Image Builder pipeline builds, and includes details about UTC time\. Wildcards that are not allowed for specific fields have been removed\. Examples now include expression samples for both console and CLI\. | November 13, 2020 | 
 | [Console version 2\.0: updated pipeline editing](#doc-history) | Content changes in getting started tutorial and manage image pipelines pages to incorporate new console features and flow\. | November 13, 2020 | 

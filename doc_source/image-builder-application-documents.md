@@ -67,10 +67,10 @@ phases:
         inputs:
           -
             source: 's3://sample-bucket/sample1.ps1'
-            destination: 'C:\Temp\sample1.ps1'
+            destination: 'C:\sample1.ps1'
           -
             source: 's3://sample-bucket/sample2.ps1'
-            destination: 'C:\Temp\sample2.ps1'
+            destination: 'C:\sample2.ps1'
 ```
 
 To refer to the output variable \(equal to "Hello"\) of the following example step, the chaining pattern is `{{ build.SamplePowerShellStep.outputs.stdout }}`\.
@@ -88,7 +88,7 @@ phases:
         maxAttempts: 3
         inputs:
           commands:
-            - 'echo "Hello"'
+            - 'Write-Host "Hello"'
 ```
 
 ## Document schema and definitions<a name="document-schema"></a>
@@ -162,7 +162,7 @@ phases:
         inputs:
           -
             source: 's3://customer-bucket/config.ps1'
-            destination: 'C:\Temp\config.ps1'
+            destination: 'C:\config.ps1'
       -
         name: RunConfigScript
         action: ExecutePowerShell
@@ -170,17 +170,14 @@ phases:
         onFailure: Abort
         maxAttempts: 3
         inputs:
-          commands:
-            - '{{build.DownloadConfigScript.inputs[0].destination}}'
+          file: '{{build.DownloadConfigScript.inputs[0].destination}}'
       -
         name: Cleanup
-        action: ExecutePowerShell
-        timeoutSeconds: 120
+        action: DeleteFile
         onFailure: Abort
         maxAttempts: 3
         inputs:
-          commands:
-            - 'Remove-Item {{build.DownloadConfigScript.inputs[0].destination}}'
+          - path: '{{build.DownloadConfigScript.inputs[0].destination}}'
       -
         name: RebootAfterConfigApplied
         action: Reboot
@@ -201,7 +198,7 @@ phases:
         inputs:
           -
             source: 's3://customer-bucket/testConfig.ps1'
-            destination: 'C:\Temp\testConfig.ps1'
+            destination: 'C:\testConfig.ps1'
       -
         name: ValidateConfigScript
         action: ExecutePowerShell
@@ -209,17 +206,14 @@ phases:
         onFailure: Abort
         maxAttempts: 3
         inputs:
-          commands:
-            - '{{validate.DownloadTestConfigScript.inputs[0].destination}}'
+          file: '{{validate.DownloadTestConfigScript.inputs[0].destination}}'
       -
         name: Cleanup
-        action: ExecutePowerShell
-        timeoutSeconds: 120
+        action: DeleteFile
         onFailure: Abort
         maxAttempts: 3
         inputs:
-          commands:
-            - 'Remove-Item {{validate.DownloadTestConfigScript.inputs[0].destination}}'
+          - path: '{{validate.DownloadTestConfigScript.inputs[0].destination}}'
   -
     name: test
     steps:
@@ -232,7 +226,7 @@ phases:
         inputs:
           -
             source: 's3://customer-bucket/testConfig.ps1'
-            destination: 'C:\Temp\testConfig.ps1'
+            destination: 'C:\testConfig.ps1'
       -
         name: ValidateConfigScript
         action: ExecutePowerShell
@@ -240,8 +234,7 @@ phases:
         onFailure: Abort
         maxAttempts: 3
         inputs:
-          commands:
-            - '{{test.DownloadTestConfigScript.inputs[0].destination}}'
+          file: '{{test.DownloadTestConfigScript.inputs[0].destination}}'
 ```
 
 The following is an example document schema to download and run a custom Linux binary file\.
@@ -272,10 +265,9 @@ phases:
           arguments:
             - '--install'
       - name: Delete
-        action: ExecuteBash
+        action: DeleteFile
         inputs:
-          commands:
-            - 'rm {{ build.Download.inputs[0].destination }}'
+          - path: '{{ build.Download.inputs[0].destination }}'
 ```
 
 The following is an example document schema to install the AWS CLI using the setup file\.
@@ -302,10 +294,9 @@ phases:
             - '/quiet'
             - '/norestart'
       - name: Delete
-        action: ExecutePowerShell
+        action: DeleteFile
         inputs:
-          commands:
-            - Remove-Item -Path '{{ build.Download.inputs[0].destination }}' -Force
+          - path: '{{ build.Download.inputs[0].destination }}'
 ```
 
 The following is an example document schema to install the AWS CLI using the MSI installer\.
@@ -333,8 +324,7 @@ phases:
             - '/quiet'
             - '/norestart'
       - name: Delete
-        action: ExecutePowerShell
+        action: DeleteFile
         inputs:
-          commands:
-            - Remove-Item -Path '{{ build.Download.inputs[0].destination }}' -Force
+          - path: '{{ build.Download.inputs[0].destination }}'
 ```
