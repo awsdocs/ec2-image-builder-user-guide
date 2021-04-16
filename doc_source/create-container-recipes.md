@@ -10,9 +10,11 @@ This section covers creating new container recipes and recipe versions\.
 
 Creating a new version is virtually the same as creating a new recipe\. The difference is that certain details are pre\-selected to match the base recipe, in most cases\. The following list describes the differences between creating a new recipe and creating a new version of an existing recipe\.
 
-**Base recipe details in the new version**
+**Recipe details**
 + **Name** – *not editable*\.
 + **Version** – Required\. It is not pre\-filled with the current version or any kind of a sequence\. Enter the version number you want to create, using the format *major\.minor\.patch*\. If the version already exists, you will encounter an error\.
+
+**Source image**
 + The **Select image** option – Pre\-selected, but editable\. If you change your choice for the source of your base image, you might lose other details that depend on the original option you chose\.
 
   To see details that are associated with your base image selection, choose the tab that matches your selection\.
@@ -38,23 +40,35 @@ If you are using semantic versioning to kick off pipeline builds, make sure you 
   + **Docker image ID** – Pre\-filled, but editable\.
 
 ------
-+ **Working directory** – *not editable*\.
-+ **Components** – Pre\-selected, but you can remove or reorder them to suit your needs\. For the pre\-filled build or test components, the versioning does *not* match what you have in your base recipe\. The **Versioning options** default to **Specify component version**, regardless of what you specified in the base recipe\.
+
+**Instance configuration**
++ **AMI ID** – *not editable*\.
++ 
+
+**Storage \(volumes\)**  
+**EBS volume 1 \(AMI root\)** – Pre\-filled\. You cannot edit the root volume **Device name**, **Snapshot**, and **IOPS** selections\. However, you can change all of the remaining settings, such as the **Size**\. You can also add new volumes\.
+
+**Working directory**
++ **Working directory path** – *not editable*\.
+
+**Components**
++ **Selected components** – Build and test components are both pre\-selected, but you can remove or reorder them to suit your needs\. You can also add components from the **Build components** or **Test components** lists\.
+
+  For the pre\-filled build or test components, the versioning does *not* match what you have in your base recipe\. The **Versioning options** default to **Specify component version**, regardless of what you specified in the base recipe\.
 **Important**  
-If you are using semantic versioning to kick off pipeline builds, make sure you change this value to **Use latest available component version** for each component\.
-+ **Storage \(volumes\)** – Pre\-filled\. The root volume **Device name**, **Snapshot**, and **IOPS** selections are not editable\. However, you can change all of the remaining settings, such as the **Size**\. You can also add new volumes\.
+If you use semantic versioning to kick off pipeline builds, make sure that you change this value to **Use latest available component version** for each component\.
 
-**To create a new image recipe version:**
+**To create a new container recipe version:**
 
-1. At the top of the recipe details page, choose **Create new version**\. You are taken to the **Create image recipe** page\.
+1. At the top of the container recipe details page, choose **Create new version**\. You are taken to the **Create recipe** page for container recipes\.
 
-1. To create the new version, make your changes, then choose **Create image recipe**\.
+1. To create the new version, make your changes, then choose **Create recipe**\.
 
 For more information about creating a container recipe, within the context of creating an image pipeline, see [Step 2: Choose recipe](start-build-container-pipeline.md#start-build-container-step2) in the **Get started** section of this guide\.
 
 ## Create a container recipe \(AWS CLI\)<a name="create-container-recipe-cli"></a>
 
-A container recipe defines the source image to use as your starting point to create a new image, as well as the set of components that you add to customize your image\.
+A container recipe defines the source image to use as your starting point to create a new image, in addition to the set of components that you add to customize your image\.
 
 ### Prerequisites<a name="container-recipes-cli-prereq"></a>
 
@@ -65,7 +79,7 @@ Before you run the Image Builder commands in this section to create a container 
 This example shows the use of a basic container recipe, which is the minimal configuration requirement to get started\. You must replace the ARNs shown in the example with the ARNs that you received when you created the components\. The AWS Region and account ID will also be different for your configuration\.
 
 **Important**  
-Components are installed in the order in which they are specified in the Dockerfile\.
+Components are installed in the order in which they are specified in the container recipe\.
 
 This example references the latest version of the Windows Server 2016 English Full Base image\. To target the latest version of the image, you can specify semantic versioning \(x\.x\.x\)\. The "x" wildcards represent the major, minor, and patch positions of the version number\.
 
@@ -75,7 +89,7 @@ The ARN in this example references the latest image in the SKU based on the sema
 {
    "components": [ 
       { 
-         "componentArn": "arn:aws:imagebuilder:us-east-1:123456789012:component/hellowworldal2/x.x.x"
+         "componentArn": "arn:aws:imagebuilder:us-east-1:123456789012:component/helloworldal2/x.x.x"
       }
    ],
    "containerType": "DOCKER",
@@ -87,6 +101,20 @@ The ARN in this example references the latest image in the SKU based on the sema
    "semanticVersion": "1.0.2",
    "tags": { 
       "sometag" : "Tag detail" 
+   },
+   "instanceConfiguration": {
+      "image": "ami-1234567890",
+      "blockDeviceMappings": [
+         {
+            "deviceName": "/dev/xvda",
+            "ebs": {
+               "deleteOnTermination": true,
+               "encrypted": false,
+               "volumeSize": 8,
+               "volumeType": "gp2"
+             }
+          }   		
+      ]
    },
    "targetRepository": { 
       "repositoryName": "myrepo",

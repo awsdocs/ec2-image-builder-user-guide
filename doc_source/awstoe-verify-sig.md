@@ -150,8 +150,8 @@ After you install the `GPG` tools, authenticate and import the AWSTOE public key
 
    If the output includes the phrase `BAD signature`, check whether you performed the procedure correctly\. If you continue to get this response, do not run the installation file that you downloaded previously, and contact AWS Support\.
 
-The following are details about the warnings you might see: 
-+ **WARNING: This key is not certified with a trusted signature\! There is no indication that the signature belongs to the owner\.** This refers to your personal level of trust that you possess an authentic public key for AWSTOE\. In an ideal world, you would visit an AWS office and receive the key in person\. However, more often you download it from a website\. In this case, the website is an AWS website\. 
+The following are details about the warnings that you might see: 
++ **WARNING: This key is not certified with a trusted signature\! There is no indication that the signature belongs to the owner\.** This refers to your personal level of trust that you possess an authentic public key for AWSTOE\. Ideally, you would visit an AWS office and receive the key in person\. However, you would most likely download it from a website\. In this case, the website is an AWS website\. 
 + **gpg: no ultimately trusted keys found\.** This means that the specific key is not "ultimately trusted" by you, or by other people that you trust\.
 
 For more information, see [http://www\.gnupg\.org](http://www.gnupg.org)\.

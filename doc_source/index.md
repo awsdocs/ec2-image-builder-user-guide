@@ -1,7 +1,7 @@
 # EC2 Image Builder User Guide
 
 -----
-*****Copyright &copy; 2021 Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
+*****Copyright &copy;  Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
 
 -----
 Amazon's trademarks and trade dress may not be used in 
@@ -48,6 +48,8 @@ Amazon's trademarks and trade dress may not be used in
    + [Manage EC2 Image Builder distribution settings](manage-distribution-settings.md)
       + [List and view distribution settings detail](distribution-settings-detail.md)
       + [Create and update distribution settings](create-distribution-settings.md)
+      + [Set up cross-account AMI distribution with Image Builder](cross-account-dist.md)
+      + [Configure AMI distribution settings to use an Amazon EC2 launch template](dist-using-launch-template.md)
    + [Share EC2 Image Builder resources](manage-shared-resources.md)
    + [Tag EC2 Image Builder resources](tag-resources.md)
    + [Delete EC2 Image Builder resources](delete-resources.md)
@@ -69,8 +71,8 @@ Amazon's trademarks and trade dress may not be used in
    + [Data protection in EC2 Image Builder](data-protection.md)
    + [Identity and Access Management for EC2 Image Builder](security-iam.md)
       + [How EC2 Image Builder works with IAM](security_iam_service-with-iam.md)
-      + [EC2 Image Builder identity-based policy examples](security_iam_id-based-policy-examples.md)
-      + [EC2 Image Builder resource-based policy examples](security_iam_resource-based-policy-examples.md)
+      + [EC2 Image Builder identity-based policies](security-iam-identity-based-policies.md)
+      + [Using managed policies for EC2 Image Builder](security-iam-awsmanpol.md)
       + [Using service-linked roles for EC2 Image Builder](image-builder-service-linked-role.md)
       + [Troubleshooting EC2 Image Builder identity and access](security_iam_troubleshoot.md)
    + [Compliance validation for EC2 Image Builder](compliance.md)

@@ -37,6 +37,7 @@ To share a component, image, or image recipe:
 + The AWS Key Management Service \(AWS KMS\) CMK associated with encrypted resources must be explicitly shared with the target accounts\.
 + You must enable sharing with AWS Organizations to share these resources with your organization or an organizational unit in AWS Organizations\. 
 + You are responsible for ensuring that dependencies external to these resources, or underlying resources that are managed outside of AWS, are also shared with consumers\. EC2 Image Builder does not manage dependencies external to EC2 Image Builder\. This includes the Amazon EC2 AMIs associated with EC2 Image Builder images, which require account\-level sharing\. This can be configured in the distribution configuration associated with your Image Builder workflows\.
++ If you distribute an image encrypted with AWS KMS across accounts in different Regions, you must create an AWS KMS key and alias in each target Region\. Additionally, the people who will be launching instances in those Regions will need access to the KMS Key specified via the Key Policy\.
 
 ## Related services<a name="manage-shared-resources-related-svcs"></a>
 

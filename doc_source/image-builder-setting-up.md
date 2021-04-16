@@ -52,11 +52,11 @@ The following steps guide you through the process of attaching the IAM policies 
 
 1. Select the bullet next to the policy, and from the **Policy actions** dropdown list, select **Attach**\.
 
-1. Select the Name of the IAM role to which to attach the policy\.
+1. Select the name of the IAM role to which to attach the policy\.
 
 1. Choose **Attach policy**\.
 
 1. Repeat steps 3\-6 for the **EC2InstanceProfileForImageBuilderECRContainerBuilds** and **AmazonSSMManagedInstanceCore** policies\.
 
 **Note**  
-If you want to copy an image created with Image Builder to another account, you must create the `EC2ImageBuilderDistributionCrossAccountRole` role in all of the target accounts and attach the `Ec2ImageBuilderCrossAccountDistributionAccess` managed policy to the role\. For more information, see [Create distribution settings \(AWS CLI\)](create-distribution-settings.md#cli-create-distribution-configuration)\.
+If you want to copy an image created with Image Builder to another account, you must create the `EC2ImageBuilderDistributionCrossAccountRole` role in all of the target accounts, and attach the [Ec2ImageBuilderCrossAccountDistributionAccess policy](security-iam-awsmanpol.md#sec-iam-manpol-Ec2ImageBuilderCrossAccountDistributionAccess) managed policy to the role\. For more information, see [Create distribution settings \(AWS CLI\)](create-distribution-settings.md#cli-create-distribution-configuration)\.

@@ -13,7 +13,7 @@ Creating a new version is virtually the same as creating a new recipe\. The diff
 **Base recipe details in the new version**
 + **Name** – *not editable*\.
 + **Version** – Required\. It is not pre\-filled with the current version or any kind of a sequence\. Enter the version number you want to create, using the format *major\.minor\.patch*\. If the version already exists, you will encounter an error\.
-+ The **Select image** option – Pre\-selected, but editable\. If you change your choice for the source of your base image, you might lose other details that depend on the original option you chose\.
++ The **Select image** option – Pre\-selected, but you can edit it\. If you change your choice for the source of your base image, you might lose other details that depend on the original option you chose\.
 
   To see details that are associated with your base image selection, choose the tab that matches your selection\.
 
@@ -31,7 +31,7 @@ If you are using semantic versioning to kick off pipeline builds, make sure you 
 
 ------
 + **Working directory** – *not editable*\.
-+ **Components** – Pre\-selected, but you can remove or reorder them to suit your needs\. Be aware that for the pre\-filled build or test components, the versioning does *not* match what you have in your base recipe\. The **Versioning options** default to **Specify component version**, regardless of what you specified in the base recipe\.
++ **Components** – Pre\-selected, but you can remove or reorder them to suit your needs\. For the pre\-filled build or test components, the versioning does *not* match what you have in your base recipe\. The **Versioning options** default to **Specify component version**, regardless of what you specified in the base recipe\.
 **Important**  
 If you are using semantic versioning to kick off pipeline builds, make sure you change this value to **Use latest available component version** for each component\.
 + **Storage \(volumes\)** – are pre\-filled\. The root volume **Device name**, **Snapshot**, and **IOPS** selections are not editable\. However, you can change all of the remaining settings, such as the **Size**\. You can also add new volumes\.

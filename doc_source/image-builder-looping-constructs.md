@@ -101,7 +101,7 @@ inputs:
       $f.SetLength({{ loop.value }}MB)
       $f.Close()
     - c:\users\administrator\downloads\latencyTest.exe --file c:\temp\test{{ loop.index }}.txt
-    - aws s3 cp c:\users\administrator\downloads\latencyMetrics.json s3://bucket/latencyMetrics.json
+    - AWS s3 cp c:\users\administrator\downloads\latencyMetrics.json s3://bucket/latencyMetrics.json
     - |
       Remove-Item -Path c:\temp\test{{ loop.index }}.txt
       Remove-Item -Path c:\users\administrator\downloads\latencyMetrics.json

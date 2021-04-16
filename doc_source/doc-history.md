@@ -1,11 +1,13 @@
 # Document History for EC2 Image Builder User Guide<a name="doc-history"></a>
 
 The following table describes important changes to the documentation by date\. For notification about updates to this documentation, you can subscribe to an RSS feed\.
-+ **API version: 2020\-12\-17**
-+ **Latest documentation update:** December 17, 2020
++ **API version: 2021\-04\-07**
 
 | Change | Description | Date | 
 | --- |--- |--- |
+| [Feature release: Launch template integration](#doc-history) | Added support for using Amazon EC2 launch templates for AMI distribution in the Distribution settings\. | April 7, 2021 | 
+| [Feature release: Container build enhancements](#doc-history) | Added support for configuring block device mappings and specifying AMIs to use as the source image for container builds\. | April 7, 2021 | 
+| [New STIG versions](https://docs.aws.amazon.com/imagebuilder/latest/userguide/image-builder-stig.html) | STIG versions and applied STIGS have been updated\. | March 5, 2021 | 
 | [Update cron expressions](https://docs.aws.amazon.com/imagebuilder/latest/userguide/cron-expressions.html) | Image Builder cron processing is updated to increase cron expression granularity to the minute, and use a standard cron scheduling engine\. Examples are updated with the new format\. | February 8, 2021 | 
 | [Feature release: Container support](#doc-history) | Added support for creating Docker container images using Image Builder, with registration and storage of the resulting images on Amazon Elastic Container Registry \(Amazon ECR\)\. Content has been rearranged to reflect new functionality and accomodate future growth\. | December 17, 2020 | 
 | [Restructured cron documentation](https://docs.aws.amazon.com/imagebuilder/latest/userguide/cron-expressions.html) | This page now highlights more information about how cron works with Image Builder pipeline builds, and includes details about UTC time\. Wildcards that are not allowed for specific fields have been removed\. Examples now include expression samples for both console and CLI\. | November 13, 2020 | 

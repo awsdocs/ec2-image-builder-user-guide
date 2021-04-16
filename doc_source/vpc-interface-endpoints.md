@@ -19,7 +19,7 @@ You can create a VPC endpoint for the Image Builder service using either the Ama
 Create a VPC endpoint for Image Builder using the following service name: 
 + com\.amazonaws\.*region*\.imagebuilder 
 
-If you enable private DNS for the endpoint, you can make API requests to Image Builder using its default DNS name for the Region, for example, `imagebuilder.us-east-1.amazonaws.com`\. 
+If you enable private DNS for the endpoint, you can make API requests to Image Builder using its default DNS name for the Region, for example, `imagebuilder.us-east-1.amazonaws.com`\. To look up the endpoint that applies to your target Region, see [EC2 Image Builder endpoints and quotas](https://docs.aws.amazon.com/general/latest/gr/imagebuilder.html#imagebuilder_region) in the *Amazon Web Services General Reference*\.
 
 For more information, see [Accessing a service through an interface endpoint](https://docs.aws.amazon.com/vpc/latest/userguide/vpce-interface.html#access-service-though-endpoint) in the *Amazon VPC User Guide*\.
 

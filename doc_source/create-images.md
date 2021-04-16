@@ -14,8 +14,6 @@ When you have a basic recipe and an infrastructure configuration, you can create
 aws imagebuilder create-image --image-recipe-arn arn:aws:imagebuilder:us-west-2:123456789012:image-recipe/my-example-recipe/2019.12.03 --infrastructure-configuration-arn arn:aws:imagebuilder:us-west-2123456789012:infrastructure-configuration/myexampleinfrastructure
 ```
 
-For information about the resources that are created when you create an image, see [Resources created](how-image-builder-works.md#image-builder-resources)\.
-
 ## Cancel an image creation \(AWS CLI\)<a name="image-builder-cli-cancel-image-creation"></a>
 
 To cancel an in\-progress image build, use the imagebuilder cancel\-image\-creation command\.
