@@ -16,7 +16,7 @@ To provide a launch template with your output AMI, follow these steps in the con
 
 1. In the **Image type** section, choose the **Amazon Machine Image \(AMI\)** **Output type**\. This is the default setting\.
 
-1. In the **General** section, enter the **Name** of the distribution settings resource you wish to create \(*required*\)\.
+1. In the **General** section, enter the **Name** of the distribution settings resource that you want to create \(*required*\)\.
 
 1. In the **Region settings** section, select the name of an EC2 launch template from the list\. If there are no launch templates in your account, choose **Create new launch template**, which opens the **Launch Templates** in the **EC2 Dashboard**\.
 
@@ -28,7 +28,7 @@ To provide a launch template with your output AMI, follow these steps in the con
 
 1. Continue specifying any additional settings that you require, and choose **Create settings** to create your new distribution settings resource\.
 
-## Add an Amazon EC2 launch template to your AMI distribution settings \(cli\)<a name="dist-using-launch-template-cli"></a>
+## Add an Amazon EC2 launch template to your AMI distribution settings \(AWS CLI\)<a name="dist-using-launch-template-cli"></a>
 
 This section describes how to configure a distribution settings file with a launch template, and use the create\-image command in the AWS CLI to build and distribute an Image Builder AMI and a new version of the launch template that uses it\.
 
@@ -42,32 +42,31 @@ This section describes how to configure a distribution settings file with a laun
 
    ```
    {
-   {
        "name": "NewDistributionConfiguration",
        "description": "This is just a test",
        "distributions": [
            {
-               "region":"us-west-2",
+               "region": "us-west-2",
                "amiDistributionConfiguration": {
                    "name": "test-{{imagebuilder:buildDate}}-{{imagebuilder:buildVersion}}",
-                   "description": "description",
+                   "description": "description"
                },
-               "launchTemplateConfigurations":[
+               "launchTemplateConfigurations": [
                    {
-                       "launchTemplateId":"lt-0a1bcde2fgh34567",
+                       "launchTemplateId": "lt-0a1bcde2fgh34567",
                        "accountId": "935302948087",
                        "setDefaultVersion": true
-                  },
-                  {
-                       "launchTemplateId":"lt-0aaa1bcde2ff3456" # only this field is required
                    },
-                  {
-                       "launchTemplateId":"lt-12345678901234567",
-                       "accountId": "123456789012"  # cross account
-                  }
-              ]
+                   {
+                       "launchTemplateId": "lt-0aaa1bcde2ff3456"
+                   },
+                   {
+                       "launchTemplateId": "lt-12345678901234567",
+                       "accountId": "123456789012"
+                   }
+               ]
            }
-      ],
+       ],
        "clientToken": "clientToken1"
    }
    ```

@@ -1,6 +1,6 @@
 # Troubleshoot EC2 Image Builder<a name="image-builder-troubleshooting"></a>
 
-EC2 Image Builder integrates with AWS services for monitoring and troubleshooting to help you troubleshoot image build issues\. EC2 Image Builder tracks and displays the progress for each step in the image building process\. Logs can be exported to an Amazon S3 location that you provide\. For advanced troubleshooting, you can run predefined commands and scripts using [AWS Systems Manager \(SSM\) Run Command](https://docs.aws.amazon.com/systems-manager/latest/userguide/execute-remote-commands.html)\.
+EC2 Image Builder integrates with AWS services for monitoring and troubleshooting to help you troubleshoot image build issues\. EC2 Image Builder tracks and displays the progress for each step in the image building process\. Logs can be exported to an Amazon S3 location that you provide\. For advanced troubleshooting, you can run predefined commands and scripts using [Amazon EC2 Systems Manager \(SSM\) Run Command](https://docs.aws.amazon.com/systems-manager/latest/userguide/execute-remote-commands.html)\.
 
 ## General troubleshooting<a name="image-builder-general-troubleshooting"></a>
 
@@ -10,7 +10,7 @@ If an Image Builder pipeline fails, Image Builder will return an error message t
 SSM execution 'aaaaaaaa-bbbb-cccc-dddd-example12345' failed with status…
 ```
 
-Image Builder uses AWS Systems Manager \(SSM\) Automation to orchestrate actions when an image is built\. To review additional details to help troubleshoot a build failure, search the SSM Automation console for the execution ID provided by Image Builder and review the Automation execution\.
+Image Builder uses Amazon EC2 Systems Manager \(SSM\) Automation to orchestrate actions when an image is built\. To review additional details to help troubleshoot a build failure, search the SSM Automation console for the execution ID provided by Image Builder and review the Automation execution\.
 
 All build activity is also logged in AWS CloudTrail if it is enabled in your account\. Filter CloudTrail events by the source “ssm\.amazonaws\.com", or search for the Amazon EC2 instance ID returned in the execution log to see more details about the pipeline execution\.
 

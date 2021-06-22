@@ -8,7 +8,7 @@ The destination account can then launch or modify the AMI, as needed\.
 
 To ensure that target accounts can successfully launch instances from your Image Builder image, you must configure the appropriate permissions for all destination accounts in all Regions\.
 
-To configure cross\-account distribution permissions in IAM, follow these steps:
+To configure cross\-account distribution permissions in AWS Identity and Access Management \(IAM\), follow these steps:
 
 1. Create a new IAM role in all of the destination accounts called `EC2ImageBuilderDistributionCrossAccountRole`\.
 
@@ -59,14 +59,14 @@ To configure cross\-account distribution permissions in IAM, follow these steps:
    ```
 
 **Note**  
-AWS CLI command examples in this section assume you have previously created image recipe and infrastructure configuration JSON files\.
+AWS CLI command examples in this section assume that you have previously created image recipe and infrastructure configuration JSON files\. To create the JSON file for an image recipe, see [Create an image recipe \(AWS CLI\)](create-image-recipes.md#create-image-recipe-cli)\. To create the JSON file for an infrastructure configuration, see [Create an infrastructure configuration \(AWS CLI\)](create-infra-config.md#cli-create-infrastructure-configuration)\.
 
 ## Limits for cross\-account distribution<a name="cross-account-dist-limits"></a>
 
 There are some limitations when distributing Image Builder images across accounts:
-+ The destination account is limited to 50 concurrent AMI copies per destination Region\.
++ The destination account is limited to 50 concurrent AMI copies for each destination Region\.
 + If you want to copy a paravirtual \(PV\) virtualization AMI to another Region, the destination Region must support PV virtualization AMIs\. For more information, see [Linux AMI virtualization types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/virtualization_types.html)\.
-+ You cannot create an unencrypted copy of an encrypted snapshot\. If you do not specify a AWS Key Management Service \(AWS KMS\) customer\-managed key for the `KmsKeyId` parameter, Image Builder uses the default key for Amazon EBS\. For more information, see [Amazon EBS Encryption](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html) in the *Amazon Elastic Compute Cloud User Guide*\.
++ You cannot create an unencrypted copy of an encrypted snapshot\. If you do not specify an AWS Key Management Service \(AWS KMS\) customer managed key for the `KmsKeyId` parameter, Image Builder uses the default key for Amazon Elastic Block Store \(Amazon EBS\)\. For more information, see [Amazon EBS Encryption](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html) in the *Amazon Elastic Compute Cloud User Guide*\.
 
 For more information, see [CreateDistributionConfiguration](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_CreateDistributionConfiguration.html) in the *EC2 Image Builder API Reference*\.
 
@@ -84,9 +84,9 @@ To create distribution settings in the Image Builder console, follow these steps
 
 1. In the **Image type** section, choose **Amazon Machine Image \(AMI\)** as the **Output type**\. This is the default setting\.
 
-1. In the **General** section, enter the **Name** of the distribution settings resource you wish to create \(*required*\)\.
+1. In the **General** section, enter the **Name** of the distribution settings resource that you want to create \(*required*\)\.
 
-1. In the **Region settings** section, enter a 12\-digit account ID that you want to distribute your AMI to in **Target accounts** for the selected Region, and press **Enter**\. This checks for the correct formatting, and then displays the account ID you entered below the box\. Repeat the process to add more accounts\.
+1. In the **Region settings** section, enter a 12\-digit account ID that you want to distribute your AMI to in **Target accounts** for the selected Region, and press **Enter**\. This checks for the correct formatting, and then displays the account ID that you entered below the box\. Repeat the process to add more accounts\.
 
    To remove an account that you entered, choose the **X** displayed to the right of the account ID\.
 

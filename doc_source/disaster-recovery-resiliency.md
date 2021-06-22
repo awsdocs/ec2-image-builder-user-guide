@@ -5,3 +5,5 @@ The AWS global infrastructure is built around AWS Regions and Availability Zones
 The EC2 Image Builder service allows you to distribute images built in one Region with other Regions, giving them multi\-Region resiliency for AMIs\. There is no mechanism to "back up" image pipelines, recipes, or components\. You can store the recipe and component documents outside of the Image Builder service, such as in an Amazon S3 bucket\. 
 
 The EC2 Image Builder cannot be configured for High Availability \(HA\)\. You can distribute images to multiple Regions to make the images more highly available\. 
+
+For more information about AWS Regions and Availability Zones, see [AWS Global Infrastructure](http://aws.amazon.com/about-aws/global-infrastructure/)\.

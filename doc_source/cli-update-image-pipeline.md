@@ -8,6 +8,9 @@ You can update an AMI image pipeline using a JSON file as input to the imagebuil
 
 Follow these steps to update an AMI image pipeline using the imagebuilder update\-image\-pipeline command in the AWS CLI:
 
+**Note**  
+UpdateImagePipeline does not support selective updates for the pipeline\. You must specify all of the required properties in the update request, not just the properties that have changed\.
+
 1. 
 
 **Create a CLI input JSON file**

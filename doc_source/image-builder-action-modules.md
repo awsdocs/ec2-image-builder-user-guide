@@ -1,6 +1,8 @@
-# Component manager supported action modules<a name="image-builder-action-modules"></a>
+# Action modules supported by AWSTOE component manager<a name="image-builder-action-modules"></a>
 
-This section contains each action module that is supported by the component management application used by EC2 Image Builder to configure the instance that builds your image\. Also included are the corresponding functionality details and input/output values of each action module\.
+This section contains each action module that is supported by the AWSTOE component management application used by EC2 Image Builder to configure the instance that builds your image\. Also included are the corresponding functionality details and input/output values of each action module\.
+
+AWSTOE components are authored with plaintext YAML documents\. For more information about document syntax, see [Use documents in AWSTOE](image-builder-application-documents.md)\.
 
 **Note**  
 All action modules are run by using the same account as the SSM agent, which is `root` on Linux and `NT Authority\SYSTEM` on Windows\.
@@ -327,7 +329,7 @@ None\.
 
 ### WebDownload<a name="image-builder-action-modules-webdownload"></a>
 
-The **WebDownload** action module allows you to download files and resources from a remote location over the HTTP/HTTPS protocol\. There are no limits on the number or size of downloads\. This module handles retry and exponential backoff logic\. 
+The **WebDownload** action module allows you to download files and resources from a remote location over the HTTP/HTTPS protocol \(*HTTPS is recommended*\)\. There are no limits on the number or size of downloads\. This module handles retry and exponential backoff logic\. 
 
 Each download operation is allocated a maximum of 5 attempts to succeed according to user inputs\. These attempts differ from those specified in the `maxAttempts` field of document `steps`, which are related to action module failures\.
 
@@ -338,7 +340,7 @@ This action module implicitly handles redirects\. All HTTP status codes, except 
 
 | Primitive | Description | Type | Required | Default | 
 | --- | --- | --- | --- | --- | 
-| source | The valid HTTP/HTTPS URL, which follows the RFC 3986 standard\. Chaining expressions are permitted\.  | String |  Yes  | N/A | 
+| source | The valid HTTP/HTTPS URL \(HTTPS is recommended\), which follows the RFC 3986 standard\. Chaining expressions are permitted\. | String |  Yes  | N/A | 
 | destination | An absolute or relative file or folder path on the local system\. Folder paths must end with /\. If they do not end with /, they will be treated as file paths\. The module creates any required file or folder for successful downloads\. Chaining expressions are permitted\. | String | Yes | N/A | 
 | overwrite | When enabled, overwrites any existing files on the local system with the downloaded file or resource\. When not enabled, any existing files on the local system are not overwritten, and the action module fails with an error\. When overwrite is enabled and checksum and algorithm are specified, then the action module downloads the file only if the checksum and the hash of any pre\-existing files do not match\.  | Boolean | No | true | 
 | checksum | When you specify the checksum, it is checked against the hash of the downloaded file that is generated with the supplied algorithm\. For file verification to be enabled, both the checksum and the algorithm must be provided\. Chaining expressions are permitted\.  | String | No | N/A | 
@@ -359,7 +361,7 @@ name: DownloadRemoteFile
 action: WebDownload
 maxAttempts: 3
 inputs:
-  - source: http://testdomain/path/to/java14.zip
+  - source: https://testdomain/path/to/java14.zip
     destination: C:\testfolder\package.zip
 
 
@@ -376,9 +378,9 @@ name: DownloadRemoteFiles
 action: WebDownload
 maxAttempts: 3
 inputs:
-  - source: http://testdomain/path/to/java14.zip
+  - source: https://testdomain/path/to/java14.zip
     destination: /tmp/java14_renamed.zip
-  - source: http://testdomain/path/to/java14.zip
+  - source: https://testdomain/path/to/java14.zip
     destination: /tmp/create_new_folder_and_add_java14_as_zip/
 
 
@@ -395,10 +397,10 @@ name: DownloadRemoteMultipleProperties
 action: WebDownload
 maxAttempts: 3
 inputs:
-  - source: http://testdomain/path/to/java14.zip
+  - source: https://testdomain/path/to/java14.zip
     destination: C:\create_new_folder\java14_renamed.zip
     overwrite: false
-  - source: http://testdomain/path/to/java14.zip
+  - source: https://testdomain/path/to/java14.zip
     destination: C:\create_new_folder_and_add_java14_as_zip\
     checksum: ac68bbf921d953d1cfab916cb6120864
     algorithm: MD5
@@ -418,7 +420,7 @@ name: DownloadRemoteIgnoreValidation
 action: WebDownload
 maxAttempts: 3
 inputs:
-  - source: http://www.bad-ssl.com/resource
+  - source: https://www.bad-ssl.com/resource
     destination: /tmp/downloads/
     ignoreCertificateErrors: true
 

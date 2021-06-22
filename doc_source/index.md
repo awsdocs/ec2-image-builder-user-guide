@@ -1,7 +1,7 @@
 # EC2 Image Builder User Guide
 
 -----
-*****Copyright &copy;  Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
+*****Copyright &copy; Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
 
 -----
 Amazon's trademarks and trade dress may not be used in 
@@ -21,12 +21,12 @@ Amazon's trademarks and trade dress may not be used in
    + [Access EC2 Image Builder](image-builder-accessing-prereq.md)
    + [Create an image pipeline using the EC2 Image Builder console wizard](start-build-image-pipeline.md)
    + [Create a container image pipeline using the EC2 Image Builder console wizard](start-build-container-pipeline.md)
-+ [EC2 Image Builder component manager](image-builder-component-manager.md)
-   + [Use documents in EC2 Image Builder](image-builder-application-documents.md)
-   + [Develop Image Builder components locally](image-builder-component-manager-local.md)
-   + [Use looping constructs in the AWSTOE application](image-builder-looping-constructs.md)
-   + [Define and reference variables in the AWSTOE application](image-builder-component-manager-user-defined-variables.md)
-   + [Component manager supported action modules](image-builder-action-modules.md)
++ [AWS Task Orchestrator and Executor component manager](image-builder-component-manager.md)
+   + [Use documents in AWSTOE](image-builder-application-documents.md)
+   + [Develop AWSTOE components locally](image-builder-component-manager-local.md)
+   + [Use looping constructs in AWSTOE](image-builder-looping-constructs.md)
+   + [Define and reference variables in AWSTOE](image-builder-component-manager-user-defined-variables.md)
+   + [Action modules supported by AWSTOE component manager](image-builder-action-modules.md)
    + [Verify the signature of the AWSTOE installation download](awstoe-verify-sig.md)
    + [EC2 Image Builder STIG components](image-builder-stig.md)
 + [Manage EC2 Image Builder resources](manage-resources.md)
@@ -47,7 +47,8 @@ Amazon's trademarks and trade dress may not be used in
       + [Create and update infrastructure configurations](create-infra-config.md)
    + [Manage EC2 Image Builder distribution settings](manage-distribution-settings.md)
       + [List and view distribution settings detail](distribution-settings-detail.md)
-      + [Create and update distribution settings](create-distribution-settings.md)
+      + [Create and update distribution settings for AMIs](crud-ami-distribution-settings.md)
+      + [Create and update distribution settings for container images](crud-container-distribution-settings.md)
       + [Set up cross-account AMI distribution with Image Builder](cross-account-dist.md)
       + [Configure AMI distribution settings to use an Amazon EC2 launch template](dist-using-launch-template.md)
    + [Share EC2 Image Builder resources](manage-shared-resources.md)

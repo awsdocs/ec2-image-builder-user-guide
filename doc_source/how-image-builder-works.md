@@ -89,7 +89,7 @@ Image Builder uses the component management application as follows\.
 
 1. The application executes the phases, steps, and actions defined in the document\. 
 
-For more information about the Component Manager used by Image Builder to orchestrate workflows, including information about documents, supported action modules, and STIGs, see [EC2 Image Builder component manager](image-builder-component-manager.md)\.
+For more information about the Component Manager used by Image Builder to orchestrate workflows, including information about documents, supported action modules, and STIGs, see [AWS Task Orchestrator and Executor component manager](image-builder-component-manager.md)\.
 
 ## Resources created<a name="image-builder-resources"></a>
 
@@ -124,6 +124,8 @@ EC2 Image Builder can distribute AMIs or container images to any AWS Region\. Th
 
 For AMI output images, you can define AMI launch permissions to control which AWS accounts are permitted to launch Amazon EC2 instances with the created AMI\. For example, you can make the image private, public, or share with specific accounts\. If you both distribute the AMI to other Regions, and define launch permissions for other accounts, the launch permissions are propagated to the AMIs in all of the Regions in which the AMI is distributed\.
 
+You can also use your AWS Organizations account to enforce limitations on member accounts to launch instances only with approved and compliant AMIs\. For more information, see [Managing the AWS accounts in Your Organization](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts.html)\.
+
 To update your distribution settings using the Image Builder console, follow the steps to [Create a new image recipe version \(console\)](create-image-recipes.md#create-image-recipe-version-console), or [Create a new container recipe version \(console\)](create-container-recipes.md#create-container-recipe-version)\.
 
 ## Sharing Resources<a name="image-builder-distribution"></a>
@@ -132,4 +134,4 @@ To share components, recipes, or images with other accounts or within AWS Organi
 
 ## Compliance<a name="image-builder-compliance"></a>
 
-For CIS, EC2 Image Builder uses Amazon Inspector to perform assessments for exposure, vulnerabilities, and deviations from best practices and compliance standards\. For example, it assesses unintended network accessibility, unpatched CVEs, public internet connectivity, and remote root login enablement\. Amazon Inspector is offered as a test component that you can choose to add to your image recipe\. \. For hardening, EC2 Image Builder validates using STIG\. For a complete list of STIG components available through Image Builder, see [EC2 Image Builder STIG components](image-builder-stig.md)\. For more information, see [Center for Internet Security \(CIS\) Benchmarks](https://docs.aws.amazon.com/inspector/latest/userguide/inspector_cis.html) and [Amazon EC2 Windows Server AMIs for STIG Compliance](https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/ami-windows-stig.html)\.
+For CIS, EC2 Image Builder uses Amazon Inspector to perform assessments for exposure, vulnerabilities, and deviations from best practices and compliance standards\. For example, it assesses unintended network accessibility, unpatched CVEs, public internet connectivity, and remote root login enablement\. Amazon Inspector is offered as a test component that you can choose to add to your image recipe\. For more information about Amazon Inspector, see the [Amazon Inspector](https://docs.aws.amazon.com/inspector/latest/userguide/inspector_introduction.html) User Guide\. For hardening, EC2 Image Builder validates using STIG\. For a complete list of STIG components available through Image Builder, see [EC2 Image Builder STIG components](image-builder-stig.md)\. For more information, see [Center for Internet Security \(CIS\) Benchmarks](https://docs.aws.amazon.com/inspector/latest/userguide/inspector_cis.html) and [Amazon EC2 Windows Server AMIs for STIG Compliance](https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/ami-windows-stig.html)\.

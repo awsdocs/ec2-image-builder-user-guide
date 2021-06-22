@@ -1,10 +1,10 @@
-# Use looping constructs in the AWSTOE application<a name="image-builder-looping-constructs"></a>
+# Use looping constructs in AWSTOE<a name="image-builder-looping-constructs"></a>
 
-This section provides information to help you create looping constructs in the AWSTOE application\. Looping constructs define a repeated sequence of instructions\. You can use the following types of looping constructs in the AWSTOE application:
-+ `for` constructs — Iterate over a bounded sequence of integers\.
+This section provides information to help you create looping constructs in the AWSTOE\. Looping constructs define a repeated sequence of instructions\. You can use the following types of looping constructs in AWSTOE:
++ `for` constructs – Iterate over a bounded sequence of integers\.
 + `forEach` constructs
-  + `forEach` loop with input list — Iterates over a finite collection of strings\. 
-  + `forEach` loop with delimited list — Iterates over a finite collection of strings joined by a delimiter\.
+  + `forEach` loop with input list – Iterates over a finite collection of strings\. 
+  + `forEach` loop with delimited list – Iterates over a finite collection of strings joined by a delimiter\.
 
 **Note**  
 Looping constructs support only string data types\.
@@ -20,24 +20,24 @@ Looping constructs support only string data types\.
 To refer to the index and value of the current iteration variable, the reference expression `{{ loop.* }}` must be used within the input body of a step that contains a looping construct\. This expression cannot be used to refer to the iteration variables of the looping construct of another step\.
 
 The reference expression consists of the following members:
-+ `{{ loop.index }}` — The ordinal position of the current iteration, which is indexed at `0`\. 
-+ `{{ loop.value }}` — The value associated with the current iteration variable\. 
++ `{{ loop.index }}` – The ordinal position of the current iteration, which is indexed at `0`\. 
++ `{{ loop.value }}` – The value associated with the current iteration variable\. 
 
 ### Loop names<a name="image-builder-looping-constructs-iteration-variables-names"></a>
 
  All looping constructs have an optional name field for identification\. If a loop name is provided, it can be used to refer to iteration variables in the input body of the step\. To refer to the iteration indices and values of a named loop, use `{{ <loop_name>.* }}` with `{{ loop.* }}` in the input body of the step\. This expression cannot be used to refer to the named looping construct of another step\. 
 
 The reference expression consists of the following members:
-+ `{{ <loop_name>.index }}` — The ordinal position of the current iteration of the named loop, which is indexed at `0`\.
-+ `{{ <loop_name>.value }}` — The value associated with the current iteration variable of the named loop\.
++ `{{ <loop_name>.index }}` – The ordinal position of the current iteration of the named loop, which is indexed at `0`\.
++ `{{ <loop_name>.value }}` – The value associated with the current iteration variable of the named loop\.
 
 ### Resolve reference expressions<a name="image-builder-looping-constructs-iteration-variables-expressions"></a>
 
-The AWSTOE application resolves reference expressions as follows: 
-+ `{{ <loop_name>.* }}` — AWSTOE resolves this expression using the following logic:
+The AWSTOE resolves reference expressions as follows: 
++ `{{ <loop_name>.* }}` – AWSTOE resolves this expression using the following logic:
   + If the loop of the currently running step matches the `<loop_name>` value, then the reference expression resolves to the looping construct of the currently running step\.
   + `<loop_name>` resolves to the named looping construct if it appears within the currently running step\.
-+ `{{ loop.* }}` — AWSTOE resolves the expression using the looping construct defined in the currently running step\.
++ `{{ loop.* }}` – AWSTOE resolves the expression using the looping construct defined in the currently running step\.
 
 If reference expressions are used within a step that does not contain a loop, then AWSTOE does not resolve the expressions and they appear in the step with no replacement\. 
 
@@ -46,7 +46,7 @@ Reference expressions must be enclosed in double quotes to be correctly interpre
 
 ## Types of looping constructs<a name="image-builder-looping-constructs-types"></a>
 
-This section provides information and examples about looping construct types that can be used in the AWSTOE application\.
+This section provides information and examples about looping construct types that can be used in the AWSTOE\.
 
 **Topics**
 + [`for` loop](#image-builder-looping-constructs-types-for)
@@ -193,7 +193,7 @@ inputs:
 
 ### `forEach` loop with delimited list<a name="image-builder-looping-constructs-types-foreach-delimited"></a>
 
-The loop iterates over a string containing values separated by a delimiter\. To iterate over the string’s constituents, TOE uses the delimiter to split the string into an array suitable for iteration\. 
+The loop iterates over a string containing values separated by a delimiter\. To iterate over the string’s constituents, AWSTOE uses the delimiter to split the string into an array suitable for iteration\. 
 
 `forEach` loop with delimited list schema
 
@@ -255,17 +255,28 @@ inputs:
 ## Step fields<a name="image-builder-looping-constructs-step-fields"></a>
 
 Loops are part of a step\. Any field related to the running of a step is not applied to individual iterations\. Step fields apply only at the step level, as follows:
-+ *timeoutSeconds* — All iterations of the loop must be run within the time period specified by this field\. If the loop run times out, then AWSTOE runs the retry policy of the step and resets the timeout parameter for each new attempt\. If the loop run exceeds the timeout value after reaching the maximum number of retries, the failure message of the step states that the loop run had timed out\. 
-+ *onFailure* — Failure handling is applied to the step:
-  + If *onFailure* is set to `Abort`, then a failed iteration causes AWSTOE to exit the loop to run the retry policy\. If the step fails after reaching the maximum number of attempts, AWSTOE aborts running its process after the current step is marked for failure\.
-  + If *onFailure* is set to `Continue`, then all iterations run regardless of failures and AWSTOE runs the retry policy of the step\. If the step fails after reaching the maximum number of attempts, AWSTOE continues to run the step after the current step, and the global run status is marked for failure\.
-+ *maxAttempts * — For every retry, the entire step and all iterations are run from the beginning\.
-+ *status* — The overall status of the running of a step\.`status` does not represent the status of individual iterations\. The status of a step with loops is determined as follows:
++ *timeoutSeconds* – All iterations of the loop must be run within the time period specified by this field\. If the loop run times out, then AWSTOE runs the retry policy of the step and resets the timeout parameter for each new attempt\. If the loop run exceeds the timeout value after reaching the maximum number of retries, the failure message of the step states that the loop run had timed out\. 
++ *onFailure* – Failure handling is applied to the step as follows:
+  + If *onFailure* is set to `Abort`, AWSTOE exits the loop and retries the step according to the retry policy\. After the maximum number of retry attempts, AWSTOE marks the current step as failed, and stops running the process\.
+
+    AWSTOE sets the status code for the parent phase and document to `Failed`\.
+**Note**  
+No further steps run after the failed step\.
+  + If *onFailure* is set to `Continue`, AWSTOE exits the loop and retries the step according to the retry policy\. After the maximum number of retry attempts, AWSTOE marks the current step as failed, and continues on to run the next step\.
+
+    AWSTOE sets the status code for the parent phase and document to `Failed`\.
+  + If *onFailure* is set to `Ignore`, AWSTOE exits the loop and retries the step according to the retry policy\. After the maximum number of retry attempts, AWSTOE marks the current step as `IgnoredFailure`, and continues on to run the next step\.
+
+    AWSTOE sets the status code for the parent phase and document to `SuccessWithIgnoredFailure`\.
+**Note**  
+This is still considered a successful run, but includes information to let you know that one or more steps failed and were ignored\.
++ *maxAttempts * – For every retry, the entire step and all iterations are run from the beginning\.
++ *status* – The overall status of the running of a step\.`status` does not represent the status of individual iterations\. The status of a step with loops is determined as follows:
   + If a single iteration fails to run, the status of a step points to a failure\.
   + If all iterations succeed, the status of a step points to a success\.
-+ *startTime * — The overall start time of the running of a step\. Does not represent the start time of individual iterations\.
-+ *endTime * — The overall end time of the running of a step\. Does not represent the end time of individual iterations\.
-+ *failureMessage * — Includes the iteration indices that failed in case of non\-timeout errors\. In case of timeout errors, the message states that the loop run has failed\. Individual error messages for each iteration are not provided to minimize the size of failure messages\.
++ *startTime * – The overall start time of the running of a step\. Does not represent the start time of individual iterations\.
++ *endTime * – The overall end time of the running of a step\. Does not represent the end time of individual iterations\.
++ *failureMessage * – Includes the iteration indices that failed in case of non\-timeout errors\. In case of timeout errors, the message states that the loop run has failed\. Individual error messages for each iteration are not provided to minimize the size of failure messages\.
 
 ## Step and iteration outputs<a name="image-builder-looping-constructs-step-output"></a>
 

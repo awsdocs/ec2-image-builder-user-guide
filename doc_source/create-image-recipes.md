@@ -30,7 +30,7 @@ If you are using semantic versioning to kick off pipeline builds, make sure you 
   + **AMI ID** – Required\. However, it is not pre\-filled with your original entry\. You must enter the AMI ID for your source image\.
 
 ------
-+ **Working directory** – *not editable*\.
++ **Working directory** – Pre\-selected, but you can edit it\.
 + **Components** – Pre\-selected, but you can remove or reorder them to suit your needs\. For the pre\-filled build or test components, the versioning does *not* match what you have in your base recipe\. The **Versioning options** default to **Specify component version**, regardless of what you specified in the base recipe\.
 **Important**  
 If you are using semantic versioning to kick off pipeline builds, make sure you change this value to **Use latest available component version** for each component\.

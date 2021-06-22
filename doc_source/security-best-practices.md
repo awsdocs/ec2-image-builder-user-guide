@@ -10,7 +10,7 @@ EC2 Image Builder provides a number of security features to consider as you deve
 
 When building Linux images using EC2 Image Builder, AWS will enforce the execution of a script that will run at the end of the image building process\. Similarly, EC2 Image Builder will run Microsoft’s [Sysprep](https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/sysprep--generalize--a-windows-installation) utility after customizing Windows images\. These actions follow [AWS best practices for hardening and cleaning the image](https://aws.amazon.com/articles/public-ami-publishing-hardening-and-clean-up-requirements/)\. However, because additional customizations can be made during image customization, AWS does not guarantee the images produced to be compliant with any specific regulatory criteria\.
 
-AWS recommends that you test your images to validate the security posture and applicable security compliance levels\. 
+AWS recommends that you test your images to validate the security posture and applicable security compliance levels\. Solutions such as [Amazon Inspector](https://aws.amazon.com/inspector) can help validate the security and compliance posture of images\.
 
 The following script is run as a mandatory step when Linux images are customized with EC2 Image Builder\.
 

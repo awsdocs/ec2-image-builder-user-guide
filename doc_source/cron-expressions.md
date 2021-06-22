@@ -24,7 +24,7 @@ The following table shows supported values for required cron entries\.
 | Hour | 0\-23 | , \- \* / | 
 | Day | 1\-31 | , \- \* ? / L W | 
 | Month | 1\-12 or jan\-dec | , \- \* / | 
-| Day of the week | 1\-7 or mon\-sun | , \- \* ? L \# | 
+| Day of the week | 1\-7 or sun\-sat | , \- \* ? L \# | 
 | Year | 1970\-2199 | , \- \* / | 
 
 **Wildcards**  
@@ -111,3 +111,25 @@ The following examples show cron expressions that you can enter for your build s
 If you don't want your pipeline job to extend into the next day while it's running, make sure that you factor in time for your build when you specify the start time\.
 
 ------
+
+## Rate expressions in EC2 Image Builder<a name="ib-rate-expressions"></a>
+
+A rate expression starts when you create the scheduled event rule, and then runs on its defined schedule\.
+
+Rate expressions have two required fields\. Fields are separated by white space\.
+
+**Syntax**
+
+```
+rate(value unit)
+```
+
+*value*  
+A positive number\.
+
+*unit*  
+The unit of time\. Different units are required for values of 1, such as `minute`, and values over 1, such as `minutes`\.  
+Valid values: minute \| minutes \| hour \| hours \| day \| days
+
+**Restrictions**  
+If the value is equal to `1`, then the unit must be singular\. Similarly, for values greater than `1`, the unit must be plural\. For example, `rate(1 hours)` and `rate(5 hour)` are not valid, but `rate(1 hour)` and `rate(5 hours)` are valid\.

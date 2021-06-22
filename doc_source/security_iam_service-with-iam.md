@@ -119,6 +119,11 @@ Resource\-based policies are JSON policy documents that specify what actions a s
 
 To enable cross\-account access, you can specify an entire account or IAM entities in another account as the [principal in a resource\-based policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html)\. Adding a cross\-account principal to a resource\-based policy is only half of establishing the trust relationship\. When the principal and the resource are in different AWS accounts, you must also grant the principal entity permission to access the resource\. Grant permission by attaching an identity\-based policy to the entity\. However, if a resource\-based policy grants access to a principal in the same account, no additional identity\-based policy is required\. For more information, see [How IAM Roles Differ from Resource\-based Policies ](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_compare-resource-policies.html)in the *IAM User Guide*\.
 
+For information about how to attach a resource\-based policy to a component, image, or image recipe, see [Share EC2 Image Builder resources](manage-shared-resources.md)\.
+
+**Note**  
+When you update a resource policy using Image Builder, the update will appear in the RAM console\.
+
 ## Authorization based on Image Builder tags<a name="security-iam-service-with-ib-tags"></a>
 
 You can attach tags to Image Builder resources or pass tags in a request to Image Builder\. To control access based on tags, you provide tag information in the [condition element](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition.html) of a policy using the `imagebuilder:ResourceTag/key-name`, `aws:RequestTag/key-name`, or `aws:TagKeys` condition keys\. For more information about tagging Image Builder resources, see [Tag a resource \(AWS CLI\)](tag-resources.md#cli-tag-resource)\.
