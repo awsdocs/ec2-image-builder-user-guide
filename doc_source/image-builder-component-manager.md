@@ -2,7 +2,7 @@
 
 EC2 Image Builder uses the AWS Task Orchestrator and Executor application to orchestrate complex workflows, modify system configurations, and test your systems without writing code\. This application uses a declarative document schema\. Because it is a standalone application, it does not require additional server setup\. It can run on any cloud infrastructure and on premises\. 
 
-To install AWSTOE, choose the download link for your architecture and platform\.
+To install AWS TOE, choose the download link for your architecture and platform\.
 
 
 | Architecture | Platform | Download link | Example | 
@@ -14,11 +14,11 @@ To install AWSTOE, choose the download link for your architecture and platform\.
 
 EC2 Image Builder uses this application to perform all on\-instance activities, such as build, validation, and test\. You define a document that describes how to build, validate, and test your image\. EC2 Image Builder sends the component to your instance and the application interprets and applies it to your instance by running the defined phases, steps, and actions\. When complete, the application sends a summary to EC2 Image Builder\. It also sends detailed outputs to Amazon S3 if you specified an S3 bucket in your pipeline configuration\. EC2 Image Builder then cleans up the application and removes it from the instance using [AWS best practices for hardening and cleaning the image](https://aws.amazon.com/articles/public-ami-publishing-hardening-and-clean-up-requirements)\. 
 
-The AWSTOE application performs the following phases:
+The AWS TOE application performs the following phases:
 + **Build phase**\. The image is modified\. For example, you can configure your image to install an application or to modify the operating system firewall settings\. The validate phase is run as part of the build phase, prior to the creation of the image\. 
 + **Test phase**\. Tests are run against your new image after it is created\.
 
-EC2 Image Builder uses the AWSTOE component management application, as follows\.
+EC2 Image Builder uses the AWS TOE component management application, as follows\.
 
 1. Define an image component, which is a document that describes how to build, validate, and test your image\.
 
@@ -28,13 +28,15 @@ EC2 Image Builder uses the AWSTOE component management application, as follows\.
 
 **Supported Regions**
 
-AWSTOE is supported as a standalone application in the following Regions\.
+AWS TOE is supported as a standalone application in the following Regions\.
 
 
 | Region name | Region | 
 | --- | --- | 
 |  US East \(Ohio\)  |  us\-east\-2  | 
 |  US East \(N\. Virginia\)  |  us\-east\-1  | 
+|  AWS GovCloud \(US\-East\)  |  us\-gov\-east\-1  | 
+|  AWS GovCloud \(US\-West\)  |  us\-gov\-west\-1  | 
 |  US West \(N\. California\)  | us\-west\-1  | 
 |  US West \(Oregon\)  | us\-west\-2  | 
 |  Africa \(Cape Town\)  | af\-south\-1  | 
@@ -56,10 +58,10 @@ AWSTOE is supported as a standalone application in the following Regions\.
 |  South America \(São Paulo\)  | sa\-east\-1  | 
 
 **Topics**
-+ [Use documents in AWSTOE](image-builder-application-documents.md)
-+ [Develop AWSTOE components locally](image-builder-component-manager-local.md)
-+ [Use looping constructs in AWSTOE](image-builder-looping-constructs.md)
-+ [Define and reference variables in AWSTOE](image-builder-component-manager-user-defined-variables.md)
-+ [Action modules supported by AWSTOE component manager](image-builder-action-modules.md)
-+ [Verify the signature of the AWSTOE installation download](awstoe-verify-sig.md)
++ [Use documents in AWS TOE](image-builder-application-documents.md)
++ [Develop AWS TOE components locally](image-builder-component-manager-local.md)
++ [Use looping constructs in AWS TOE](image-builder-looping-constructs.md)
++ [Define and reference variables in AWS TOE](image-builder-component-manager-user-defined-variables.md)
++ [Action modules supported by AWS TOE component manager](image-builder-action-modules.md)
++ [Verify the signature of the AWS TOE installation download](awstoe-verify-sig.md)
 + [EC2 Image Builder STIG components](image-builder-stig.md)

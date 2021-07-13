@@ -26,7 +26,7 @@ For detailed information about how to provide authentication for people and proc
 
 ## EC2 Image Builder resource\-based policies<a name="security-iam-resource-based-policies"></a>
 
-For information about how to create a component, see [Manage components with AWSTOE](manage-components.md)\.
+For information about how to create a component, see [Manage components with AWS TOE](manage-components.md)\.
 
 ### Restricting Image Builder component access to specific IP addresses<a name="sec-iam-resourcepol-restrict-component-by-ip"></a>
 

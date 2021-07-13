@@ -1,6 +1,6 @@
 # Create an image pipeline using the EC2 Image Builder console wizard<a name="start-build-image-pipeline"></a>
 
-This tutorial walks you through creating an automated pipeline to build and maintain a customized EC2 Image Builder image using the **Create image pipeline** console wizard\. To help you move through the steps efficiently, default settings are used when they are available\.
+This tutorial walks you through creating an automated pipeline to build and maintain a customized EC2 Image Builder image using the **Create image pipeline** console wizard\. To help you move through the steps efficiently, default settings are used when they are available, and optional sections are skipped\.
 
 **Topics**
 + [Step 1: Specify pipeline details](#start-build-image-step1)
@@ -46,6 +46,10 @@ To ensure that your pipeline recognizes dependency updates and builds as expecte
 **Note**  
 This setting ensures that your pipeline uses semantic versioning for the source image, to detect dependency updates for automatically scheduled jobs\.
 
+1. In the **Instance configuration** section, keep the default values for the **SSM agent**\. This results in Image Builder removing the SSM agent after the build and tests are complete, before creating the new image\.
+
+   Leave **User data** blank for this tutorial\. You can use this area at other times to provide commands, or a command script to run when you launch your build instance\. However, it replaces any commands that Image Builder might have added to ensure that SSM is installed\. When you do use it, make sure that the SSM agent is pre\-installed on your source image, or that you include the install in your user data\.
+
 1. In the **Components** section, you must choose at least one build component\.
 
    In the **Build components – Amazon Linux** panel, you can browse through the components listed on the page\. Use the pagination control in the upper right corner to navigate through additional components that are available for your source image OS\. You can also search for specific components, or create your own build component using the Component manager\.
@@ -56,11 +60,13 @@ This setting ensures that your pipeline uses semantic versioning for the source 
 
    1. Select the check box for the `update-linux` build component\.
 
-   1. Scroll down, and in the upper right corner of the **Selected components** list, choose **Expand versioning** \.
+   1. Scroll down, and in the upper right corner of the **Selected components** list, choose **Expand all** \.
 
    1. Keep the default for **Versioning options** \(**Use latest available component version**\)\.
 **Note**  
 This setting ensures that your pipeline uses semantic versioning for the selected component, to detect dependency updates for automatically scheduled jobs\.
+
+      If you had selected a component that has input parameters, you would also see the parameters in this area\. Parameters are not covered in this tutorial\. To learn more about using input parameters in your components, and setting them in your recipes, see [Manage AWS TOE component parameters with EC2 Image Builder](manage-component-parameters.md)\.
 
 **Reorder components \(optional\)**  
 If you have chosen more than one component to include in your image, you can use the drag\-and\-drop action to rearrange them into the order in which they should run during the build process\.
@@ -71,7 +77,7 @@ If you have chosen more than one component to include in your image, you can use
 
    1. Scroll down to the **Selected components** list, to see that there are at least two results\.
 
-   1. Newly added components might not have their versioning expanded\. To expand **Versioning options**, you can either choose the arrow next to **Versioning options**, or you can toggle the **Expand versioning** switch off and on to expand versioning for all of the selected components\.
+   1. Newly added components might not have their versioning or input parameter settings expanded\. To expand **Versioning options** or **Input parameters** settings, you can either choose the arrow next to the name of the setting, or you can toggle the **Expand all** switch off and on to expand all of the settings for all of the selected components\.
 
    1. Choose one of the components, and drag it up or down to change the order in which the components will run\.
 

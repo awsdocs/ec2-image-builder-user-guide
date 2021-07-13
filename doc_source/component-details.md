@@ -1,6 +1,6 @@
 # List and view component details<a name="component-details"></a>
 
-This section describes the various ways you can find information and view details for the AWSTOE components that you use in your EC2 Image Builder recipes\.
+This section describes the various ways you can find information and view details for the AWS TOE components that you use in your EC2 Image Builder recipes\.
 
 **Topics**
 + [List components \(AWS CLI\)](#cli-list-components)

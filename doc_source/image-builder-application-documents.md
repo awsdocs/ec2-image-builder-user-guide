@@ -1,4 +1,4 @@
-# Use documents in AWSTOE<a name="image-builder-application-documents"></a>
+# Use documents in AWS TOE<a name="image-builder-application-documents"></a>
 
 To build a component, you must provide a YAML\-based document, which represents the phases and steps to create the component\.
 
@@ -21,8 +21,8 @@ The sections of a document are as follows\.
   + Steps are run sequentially\.
   + Both the input and output of a step can be used as inputs for a subsequent step\. This is called “chaining”\. 
   + Each step uses an action module that returns an exit code\. 
-+ **Supported actions**\. Supported actions must be contained for each step in a document\. Each supported action correlates to an action module\. For a complete list of supported action modules, how they work, input/output values, and examples, see [Action modules supported by AWSTOE component manager](image-builder-action-modules.md)\.
-+ **Output files**\. The configuration management application creates the following output files each time the application is run:
++ **Supported actions**\. Supported actions must be contained for each step in a document\. Each supported action correlates to an action module\. For a complete list of supported action modules, how they work, input/output values, and examples, see [Action modules supported by AWS TOE component manager](image-builder-action-modules.md)\.
++ **Output files**\. AWS TOE The configuration management application creates the following output files each time the application is run:
   + **detailedOutput\.json**: A file that describes all of the detailed information about the orchestration\. Contains information about each phase, step, and the action that occurs when the application is run\. 
   + **document\.yaml**: The file that is sent to the application to be run\. After the application runs, this file is stored as an artifact\.
   + **console\.log**: Contains all of the standard out \(stdout\) and standard error \(stderr\) information captured while the application is running\. 
@@ -30,7 +30,7 @@ The sections of a document are as follows\.
 
 ## Input and output chaining<a name="document-chaining"></a>
 
-The AWSTOE configuration management application provides a feature for chaining inputs and outputs by writing references in the following formats:
+The AWS TOE configuration management application provides a feature for chaining inputs and outputs by writing references in the following formats:
 
 `{{ phase_name.step_name.inputs/outputs.variable }}`
 

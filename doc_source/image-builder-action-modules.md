@@ -1,8 +1,8 @@
-# Action modules supported by AWSTOE component manager<a name="image-builder-action-modules"></a>
+# Action modules supported by AWS TOE component manager<a name="image-builder-action-modules"></a>
 
-This section contains each action module that is supported by the AWSTOE component management application used by EC2 Image Builder to configure the instance that builds your image\. Also included are the corresponding functionality details and input/output values of each action module\.
+This section contains each action module that is supported by the AWS TOE component management application used by EC2 Image Builder to configure the instance that builds your image\. Also included are the corresponding functionality details and input/output values of each action module\.
 
-AWSTOE components are authored with plaintext YAML documents\. For more information about document syntax, see [Use documents in AWSTOE](image-builder-application-documents.md)\.
+AWS TOE components are authored with plaintext YAML documents\. For more information about document syntax, see [Use documents in AWS TOE](image-builder-application-documents.md)\.
 
 **Note**  
 All action modules are run by using the same account as the SSM agent, which is `root` on Linux and `NT Authority\SYSTEM` on Windows\.

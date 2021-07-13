@@ -1,6 +1,6 @@
-# Use looping constructs in AWSTOE<a name="image-builder-looping-constructs"></a>
+# Use looping constructs in AWS TOE<a name="image-builder-looping-constructs"></a>
 
-This section provides information to help you create looping constructs in the AWSTOE\. Looping constructs define a repeated sequence of instructions\. You can use the following types of looping constructs in AWSTOE:
+This section provides information to help you create looping constructs in the AWS TOE\. Looping constructs define a repeated sequence of instructions\. You can use the following types of looping constructs in AWS TOE:
 + `for` constructs – Iterate over a bounded sequence of integers\.
 + `forEach` constructs
   + `forEach` loop with input list – Iterates over a finite collection of strings\. 
@@ -33,20 +33,20 @@ The reference expression consists of the following members:
 
 ### Resolve reference expressions<a name="image-builder-looping-constructs-iteration-variables-expressions"></a>
 
-The AWSTOE resolves reference expressions as follows: 
-+ `{{ <loop_name>.* }}` – AWSTOE resolves this expression using the following logic:
+The AWS TOE resolves reference expressions as follows: 
++ `{{ <loop_name>.* }}` – AWS TOE resolves this expression using the following logic:
   + If the loop of the currently running step matches the `<loop_name>` value, then the reference expression resolves to the looping construct of the currently running step\.
   + `<loop_name>` resolves to the named looping construct if it appears within the currently running step\.
-+ `{{ loop.* }}` – AWSTOE resolves the expression using the looping construct defined in the currently running step\.
++ `{{ loop.* }}` – AWS TOE resolves the expression using the looping construct defined in the currently running step\.
 
-If reference expressions are used within a step that does not contain a loop, then AWSTOE does not resolve the expressions and they appear in the step with no replacement\. 
+If reference expressions are used within a step that does not contain a loop, then AWS TOE does not resolve the expressions and they appear in the step with no replacement\. 
 
 **Note**  
 Reference expressions must be enclosed in double quotes to be correctly interpreted by the YAML compiler\.
 
 ## Types of looping constructs<a name="image-builder-looping-constructs-types"></a>
 
-This section provides information and examples about looping construct types that can be used in the AWSTOE\.
+This section provides information and examples about looping construct types that can be used in the AWS TOE\.
 
 **Topics**
 + [`for` loop](#image-builder-looping-constructs-types-for)
@@ -57,7 +57,7 @@ This section provides information and examples about looping construct types tha
 
 The `for` loop iterates on a range of integers specified within a boundary outlined by the start and end of the variables\. The iterating values are in the set `[start, end]` and includes boundary values\.
 
-AWSTOE verifies the `start`, `end`, and `updateBy` values to ensure that the combination does not result in an infinite loop\.
+AWS TOE verifies the `start`, `end`, and `updateBy` values to ensure that the combination does not result in an infinite loop\.
 
 `for` loop schema
 
@@ -193,7 +193,7 @@ inputs:
 
 ### `forEach` loop with delimited list<a name="image-builder-looping-constructs-types-foreach-delimited"></a>
 
-The loop iterates over a string containing values separated by a delimiter\. To iterate over the string’s constituents, AWSTOE uses the delimiter to split the string into an array suitable for iteration\. 
+The loop iterates over a string containing values separated by a delimiter\. To iterate over the string’s constituents, AWS TOE uses the delimiter to split the string into an array suitable for iteration\. 
 
 `forEach` loop with delimited list schema
 
@@ -255,19 +255,19 @@ inputs:
 ## Step fields<a name="image-builder-looping-constructs-step-fields"></a>
 
 Loops are part of a step\. Any field related to the running of a step is not applied to individual iterations\. Step fields apply only at the step level, as follows:
-+ *timeoutSeconds* – All iterations of the loop must be run within the time period specified by this field\. If the loop run times out, then AWSTOE runs the retry policy of the step and resets the timeout parameter for each new attempt\. If the loop run exceeds the timeout value after reaching the maximum number of retries, the failure message of the step states that the loop run had timed out\. 
++ *timeoutSeconds* – All iterations of the loop must be run within the time period specified by this field\. If the loop run times out, then AWS TOE runs the retry policy of the step and resets the timeout parameter for each new attempt\. If the loop run exceeds the timeout value after reaching the maximum number of retries, the failure message of the step states that the loop run had timed out\. 
 + *onFailure* – Failure handling is applied to the step as follows:
-  + If *onFailure* is set to `Abort`, AWSTOE exits the loop and retries the step according to the retry policy\. After the maximum number of retry attempts, AWSTOE marks the current step as failed, and stops running the process\.
+  + If *onFailure* is set to `Abort`, AWS TOE exits the loop and retries the step according to the retry policy\. After the maximum number of retry attempts, AWS TOE marks the current step as failed, and stops running the process\.
 
-    AWSTOE sets the status code for the parent phase and document to `Failed`\.
+    AWS TOE sets the status code for the parent phase and document to `Failed`\.
 **Note**  
 No further steps run after the failed step\.
-  + If *onFailure* is set to `Continue`, AWSTOE exits the loop and retries the step according to the retry policy\. After the maximum number of retry attempts, AWSTOE marks the current step as failed, and continues on to run the next step\.
+  + If *onFailure* is set to `Continue`, AWS TOE exits the loop and retries the step according to the retry policy\. After the maximum number of retry attempts, AWS TOE marks the current step as failed, and continues on to run the next step\.
 
-    AWSTOE sets the status code for the parent phase and document to `Failed`\.
-  + If *onFailure* is set to `Ignore`, AWSTOE exits the loop and retries the step according to the retry policy\. After the maximum number of retry attempts, AWSTOE marks the current step as `IgnoredFailure`, and continues on to run the next step\.
+    AWS TOE sets the status code for the parent phase and document to `Failed`\.
+  + If *onFailure* is set to `Ignore`, AWS TOE exits the loop and retries the step according to the retry policy\. After the maximum number of retry attempts, AWS TOE marks the current step as `IgnoredFailure`, and continues on to run the next step\.
 
-    AWSTOE sets the status code for the parent phase and document to `SuccessWithIgnoredFailure`\.
+    AWS TOE sets the status code for the parent phase and document to `SuccessWithIgnoredFailure`\.
 **Note**  
 This is still considered a successful run, but includes information to let you know that one or more steps failed and were ignored\.
 + *maxAttempts * – For every retry, the entire step and all iterations are run from the beginning\.
@@ -280,7 +280,7 @@ This is still considered a successful run, but includes information to let you k
 
 ## Step and iteration outputs<a name="image-builder-looping-constructs-step-output"></a>
 
-Every iteration contains an output\. At the end of a loop run, AWSTOE consolidates all successful iteration outputs in `detailedOutput.json`\. The consolidated outputs are a collation of values that belong to the corresponding output keys as defined in the output schema of the action module\. The following example shows how the outputs are consolidated:
+Every iteration contains an output\. At the end of a loop run, AWS TOE consolidates all successful iteration outputs in `detailedOutput.json`\. The consolidated outputs are a collation of values that belong to the corresponding output keys as defined in the output schema of the action module\. The following example shows how the outputs are consolidated:
 
 **Output of `ExecuteBash` for Iteration 1**
 
@@ -302,4 +302,4 @@ Every iteration contains an output\. At the end of a loop run, AWSTOE consolidat
 
 For example, `ExecuteBash`, `ExecutePowerShell`, and `ExecuteBinary` are action modules which return `STDOUT` as the action module output\. `STDOUT` messages are joined with the new line character to produce the overall output of the step in `detailedOutput.json`\.
 
-AWSTOE will not consolidate the outputs of unsuccessful iterations\.
+AWS TOE will not consolidate the outputs of unsuccessful iterations\.

@@ -42,21 +42,26 @@ If you are using semantic versioning to kick off pipeline builds, make sure you 
 ------
 
 **Instance configuration**
-+ **AMI ID** – *not editable*\.
++ **AMI ID** – Pre\-filled, but editable\.
 + 
 
 **Storage \(volumes\)**  
 **EBS volume 1 \(AMI root\)** – Pre\-filled\. You cannot edit the root volume **Device name**, **Snapshot**, and **IOPS** selections\. However, you can change all of the remaining settings, such as the **Size**\. You can also add new volumes\.
 
 **Working directory**
-+ **Working directory path** – *not editable*\.
++ **Working directory path** – Pre\-filled, but editable\.
 
 **Components**
-+ **Selected components** – Build and test components are both pre\-selected, but you can remove or reorder them to suit your needs\. You can also add components from the **Build components** or **Test components** lists\.
++ **Components** – Components that are already included in the recipe are displayed in the **Selected components** section at the end of each of the component lists \(build and test\)\. You can remove or reorder the selected components to suit your needs\.
 
-  For the pre\-filled build or test components, the versioning does *not* match what you have in your base recipe\. The **Versioning options** default to **Specify component version**, regardless of what you specified in the base recipe\.
-**Important**  
-If you use semantic versioning to kick off pipeline builds, make sure that you change this value to **Use latest available component version** for each component\.
+  You can configure the following settings for your selected component:
+  + **Versioning options** – Pre\-selected, but you can change them\. We recommend that you choose the **Use latest available component version** option to ensure that your image builds always pick up the latest version of the component\. If you need to use a specific component version in your recipe, you can choose **Specify component version**, and enter the version in the **Component version** box that appears\.
+  + **Input parameters** – Displays input parameters that the component accepts\. The **Value** is pre\-filled with the value from the prior version of the recipe\. If there is a default value, and nothing else was entered, the default appears in the **Value** box with greyed\-out text\. You must enter a value, if the default value is displayed in the box\.
+
+  To expand **Versioning options** or **Input parameters** settings, you can either choose the arrow next to the name of the setting, or you can toggle the **Expand all** switch off and on to expand all of the settings for all of the selected components\.
+
+**Target repository**
++ **Target repository name** – Pre\-filled, but editable\.
 
 **To create a new container recipe version:**
 
@@ -68,64 +73,102 @@ For more information about creating a container recipe, within the context of cr
 
 ## Create a container recipe \(AWS CLI\)<a name="create-container-recipe-cli"></a>
 
-A container recipe defines the source image to use as your starting point to create a new image, in addition to the set of components that you add to customize your image\.
+To create an Image Builder container recipe, using the `imagebuilder create-container-recipe` command in the AWS CLI, follow these steps:
 
-### Prerequisites<a name="container-recipes-cli-prereq"></a>
+**Prerequisites**  
+Before you run the Image Builder commands in this section to create a container recipe using the AWS CLI, you must have created the components that the recipe will use\. The container recipe example in the following step refers to example components that are created in the [Create a component \(AWS CLI\)](create-components-cli.md) section of this guide\.
 
-Before you run the Image Builder commands in this section to create a container recipe using the AWS CLI, you must have created the components that the recipe will use\. The container recipe example in the next section references two components that were created in the [Create a component \(AWS CLI\)](create-components-cli.md) section of this guide\.
+After you create your components, or if you are using existing components, take note of the ARNs that you want to include in the recipe\.
 
-### Create a basic container recipe<a name="container-recipes-cli-create"></a>
+1. 
 
-This example shows the use of a basic container recipe, which is the minimal configuration requirement to get started\. You must replace the ARNs shown in the example with the ARNs that you received when you created the components\. The AWS Region and account ID will also be different for your configuration\.
+**Create a CLI input JSON file**
 
+   To streamline the imagebuilder create\-container\-recipe command that is used in the AWS CLI, we create a JSON file that contains all of the recipe parameters that we want to pass into the command\. Save the file as `create-container-recipe.json`, to use in the imagebuilder create\-container\-recipe command\.
+**Note**  
+The naming convention for the data points in the JSON file follows the pattern that is specified for the Image Builder API command request parameters\. To review the API command request parameters, see the [CreateContainerRecipe](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_CreateContainerRecipe.html) command in the *EC2 Image Builder API Reference*\.  
+Do not use the naming convention that is specified for providing these datapoints directly to the imagebuilder create\-container\-recipe command as options\.
+
+   Here is a summary of the parameters that we specify in is example:
+   + **components** \(array of objects, required\) – Contains an array of `ComponentConfiguration` objects\. At least one build component must be specified:
 **Important**  
-Components are installed in the order in which they are specified in the container recipe\.
+Components are installed in the order in which they are specified\.
+     + **componentARN** \(string, required\) – The component ARN\.
+**Note**  
+To use the example to create your own container recipe, you must replace the example ARNs with the ARNs for the components that you are using for your recipe, including the AWS Region, name, and version number for each\.
+     + **parameters** \(array of objects\) – Contains an array of `ComponentParameter` objects\.
+       + **name** \(string, required\) – The name of the component parameter to set\.
+       + **value** \(array of strings, required\) – Contains an array of strings to set the value for the named component parameter\.
+   + **containerType** \(string, required\) – The type of container to create\. Valid values include: "DOCKER"\.
+   + **dockerfileTemplateData** \(string\) – The Dockerfile template that is used to build your image, as an inline data blob\.
+   + **name** \(string, required\) – The name of the container recipe\.
+   + **description** \(string\) – The description of the container recipe\.
+   + **parentImage** \(string, required\) – The source \(parent\) image that the container recipe uses as its base environment\.
+   + **platformOverride** \(string\) – Specifies the operating system platform when you use a custom source image\.
+   + **semanticVersion** \(string, required\) – The semantic version of the container recipe, which specifies the version in the following format, with numeric values in each position to indicate a specific version: <major>\.<minor>\.<patch>\. For example, `1.0.0`\.
+   + **tags** \(string map\) – Tags that are attached to the container recipe\.
+   + **instanceConfiguration** \(object\) – A group of options that can be used to configure an instance for building and testing container images\.
+     + **image** \(string\) – The AMI ID to use as the base image for a container build and test instance\. If not specified, Image Builder will use the appropriate Amazon ECS\-optimized AMI as a base image\.
+     + **blockDeviceMappings** \(array of objects\) – Defines the block devices to attach for building an instance from the Image Builder AMI specified in the image parameter\.
+       + **deviceName** \(string\) – The device to which these mappings apply\.
+       + **ebs** \(object\) – Used to manage Amazon EBS\-specific configuration for this mapping\.
+         + **deleteOnTermination** \(Boolean\) – Used to configure delete on termination of the associated device\.
+         + **encrypted** \(Boolean\) – Used to configure device encryption\.
+         + **volumeSize** \(integer\) – Used to override the device's volume size\.
+         + **volumeType** \(string\) – Used to override the device's volume type\.
+   + **targetRepository** \(object, required\) – The destination repository for the container image\.
+     + **repositoryName** \(string, required\) – The name of the container repository where the output container image is stored\. This name is prefixed by the repository location\.
+     + **service** \(string, required\) – Specifies the service in which this image was registered\.
+   + **workingDirectory** \(string\) – The working directory for use during build and test workflows\.
 
-This example references the latest version of the Windows Server 2016 English Full Base image\. To target the latest version of the image, you can specify semantic versioning \(x\.x\.x\)\. The "x" wildcards represent the major, minor, and patch positions of the version number\.
+   ```
+   {
+      "components": [ 
+         { 
+            "componentArn": "arn:aws:imagebuilder:us-east-1:123456789012:component/helloworldal2/x.x.x"
+         }
+      ],
+      "containerType": "DOCKER",
+      "description": "My Linux Docker container image",
+      "dockerfileTemplateData": "FROM {{{ imagebuilder:parentImage }}}\n{{{ imagebuilder:environments }}}\n{{{ imagebuilder:components }}}",
+      "name": "amazonlinux-container-recipe",
+      "parentImage": "amazonlinux:latest",
+      "platformOverride": "Linux",
+      "semanticVersion": "1.0.2",
+      "tags": { 
+         "sometag" : "Tag detail" 
+      },
+      "instanceConfiguration": {
+         "image": "ami-1234567890",
+         "blockDeviceMappings": [
+            {
+               "deviceName": "/dev/xvda",
+               "ebs": {
+                  "deleteOnTermination": true,
+                  "encrypted": false,
+                  "volumeSize": 8,
+                  "volumeType": "gp2"
+                }
+             }   		
+         ]
+      },
+      "targetRepository": { 
+         "repositoryName": "myrepo",
+         "service": "ECR"
+      },
+      "workingDirectory": "/tmp"
+   }
+   ```
 
-The ARN in this example references the latest image in the SKU based on the semantic version filters that you have specified: `arn:aws:imagebuilder:us-west-2:aws:image/windows-server-2016-english-full-base-x86/x.x.x`\. You can provide the specific version that you want to use, or you can use a wildcard in all of the fields\.
+1. 
 
-```
-{
-   "components": [ 
-      { 
-         "componentArn": "arn:aws:imagebuilder:us-east-1:123456789012:component/helloworldal2/x.x.x"
-      }
-   ],
-   "containerType": "DOCKER",
-   "description": "My Linux Docker container image",
-   "dockerfileTemplateData": "FROM {{{ imagebuilder:parentImage }}}\n{{{ imagebuilder:environments }}}\n{{{ imagebuilder:components }}}",
-   "name": "amazonlinux-container-recipe",
-   "parentImage": "amazonlinux:latest",
-   "platformOverride": "Linux",
-   "semanticVersion": "1.0.2",
-   "tags": { 
-      "sometag" : "Tag detail" 
-   },
-   "instanceConfiguration": {
-      "image": "ami-1234567890",
-      "blockDeviceMappings": [
-         {
-            "deviceName": "/dev/xvda",
-            "ebs": {
-               "deleteOnTermination": true,
-               "encrypted": false,
-               "volumeSize": 8,
-               "volumeType": "gp2"
-             }
-          }   		
-      ]
-   },
-   "targetRepository": { 
-      "repositoryName": "myrepo",
-      "service": "ECR"
-   },
-   "workingDirectory": "/tmp"
-}
-```
+**Create the recipe**
 
-Assuming that you have a container recipe definition stored in `create-container-recipe.json`, you can create the container recipe as follows:
+   Use the following command to create the recipe, referencing the file name for the JSON file that you created in the prior step:
 
-```
-aws imagebuilder create-container-recipe --cli-input-json file://create-container-recipe.json
-```
+   ```
+   aws imagebuilder create-container-recipe --cli-input-json file://create-container-recipe.json
+   ```
+**Note**  
+You must include the `file://` notation at the beginning of the JSON file path\.
+The path for the JSON file should follow the appropriate convention for the base operating system where you are running the command\. For example, Windows uses the backslash \(\\\) to refer to the directory path, and Linux uses the forward slash \(/\)\.

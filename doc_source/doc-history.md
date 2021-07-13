@@ -1,10 +1,13 @@
 # Document History for EC2 Image Builder User Guide<a name="doc-history"></a>
 
 The following table describes important changes to the documentation by date\. For notification about updates to this documentation, you can subscribe to an RSS feed\.
-+ **API version: 2021\-04\-07**
++ **API version: 2021\-07\-06**
 
 | Change | Description | Date | 
 | --- |--- |--- |
+| [Feature release: Parameterized components and additional instance configuration](#doc-history) | Added support for specifying parameters to customize components for recipes\. Expanded configuration of the Amazon EC2 instances that are used for building and testing images, including the ability to specify commands to run on launch, and more control over installation and removal of the SSM agent\. | July 7, 2021 | 
+| [New STIG versions](https://docs.aws.amazon.com/imagebuilder/latest/userguide/image-builder-stig.html) | STIG versions and applied STIGS updated for 2021 second quarter release\. | June 30, 2021 | 
+| [Enhancement: Tagging enhancements](#doc-history) | Improved messaging around resource tagging\. | June 25, 2021 | 
 | [Feature release: Launch template integration](#doc-history) | Added support for using Amazon EC2 launch templates for AMI distribution in the Distribution settings\. | April 7, 2021 | 
 | [Feature release: Container build enhancements](#doc-history) | Added support for configuring block device mappings and specifying AMIs to use as the source image for container builds\. | April 7, 2021 | 
 | [New STIG versions](https://docs.aws.amazon.com/imagebuilder/latest/userguide/image-builder-stig.html) | STIG versions and applied STIGS have been updated\. | March 5, 2021 | 
@@ -14,8 +17,8 @@ The following table describes important changes to the documentation by date\. F
 | [Console version 2\.0: updated pipeline editing](#doc-history) | Content changes in getting started tutorial and manage image pipelines pages to incorporate new console features and flow\. | November 13, 2020 | 
 | [Console version 2\.0: updated create pipeline tutorial](https://https://docs.aws.amazon.com/imagebuilder/latest/userguide/start-build-image-pipeline.html) | Content changes in the create pipeline tutorial to incorporate new console features and flow\. | November 13, 2020 | 
 | [New STIG versions](https://docs.aws.amazon.com/imagebuilder/latest/userguide/image-builder-stig.html) | STIG versions and applied STIGS have been updated\. Note \- list format changed to show STIGs that are applied by default\. | October 15, 2020 | 
-| [Support for looping constructs in AWSTOE](image-builder-looping-constructs.md) | Create looping constructs to define a repeated sequence of instructions in the AWSTOE application\. | July 29, 2020 | 
-| [Support for local development of AWSTOE components](image-builder-component-manager.md) | Develop and test image components locally with the AWSTOE application\. | July 28, 2020 | 
+| [Support for looping constructs in AWS TOE](image-builder-looping-constructs.md) | Create looping constructs to define a repeated sequence of instructions in the AWS TOE application\. | July 29, 2020 | 
+| [Support for local development of AWS TOE components](image-builder-component-manager.md) | Develop and test image components locally with the AWS TOE application\. | July 28, 2020 | 
 | [Encrypted AMIs](#doc-history) | EC2 Image Builder adds support for encrypted AMI distribution\. | July 1, 2020 | 
 | [AutoScaling deprecation](#doc-history) | Deprecation of the use of AutoScaling to launch instances\.  | June 15, 2020 | 
 | [Support for connectivity through AWS PrivateLink](https://https://docs.aws.amazon.com/imagebuilder/latest/userguide/vpc-interface-endpoints.html) | You can establish a private connection between your VPC and EC2 Image Builder by creating an interface VPC endpoint\. Interface endpoints are powered by AWS PrivateLink, a technology that enables you to privately access Image Builder APIs without an internet gateway, NAT device, VPN connection, or AWS Direct Connect connection\. Instances in your VPC don't need public IP addresses to communicate with Image Builder APIs\. Traffic between your VPC and Image Builder does not leave the Amazon network\. | June 10, 2020 | 
