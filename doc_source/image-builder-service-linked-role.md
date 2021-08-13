@@ -10,7 +10,7 @@ For information about other services that support service\-linked roles, see [AW
 
 Image Builder uses the **AWSServiceRoleForImageBuilder** service\-linked role to allow EC2 Image Builder to access AWS resources on your behalf\. The service\-linked role trusts the *imagebuilder\.amazonaws\.com* service to assume the role\.
 
-You don't need to manually create this service\-linked role\. When you create your first Image Builder resource in the AWS Management Console, the AWS CLI, or the AWS API, Image Builder creates the service\-linked role for you, through SSM\.
+You don't need to manually create this service\-linked role\. When you create your first Image Builder resource in the AWS Management Console, the AWS CLI, or the AWS API, Image Builder creates the service\-linked role for you, through Systems Manager\.
 
 **Important**  
 If the service\-linked role is deleted from your account, you can use the same process to create it again\. When you create your first EC2 Image Builder resource, Image Builder creates the service\-linked role for you again\.

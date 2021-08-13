@@ -37,7 +37,7 @@ Image Builder allows you to test your images before deployment with both AWS\-pr
 
 **Raise the security bar for deployments**
 
-Image Builder allows you to create images that remove unnecessary exposure to component security vulnerabilities\. You can apply AWS security settings to create secure, out\-of\-the\-box images that meet industry and internal security criteria\. Image Builder also provides collections of settings for companies in regulated industries\. You can use these settings to help you quickly and easily build compliant images for STIG standards\. For a complete list of STIG components available through Image Builder, see [EC2 Image Builder STIG components](image-builder-stig.md)\.
+Image Builder allows you to create images that remove unnecessary exposure to component security vulnerabilities\. You can apply AWS security settings to create secure, out\-of\-the\-box images that meet industry and internal security criteria\. Image Builder also provides collections of settings for companies in regulated industries\. You can use these settings to help you quickly and easily build compliant images for STIG standards\. For a complete list of STIG components available through Image Builder, see [EC2 Image Builder STIG components](toe-stig.md)\.
 
 **Centralized enforcement and lineage tracking**
 
@@ -58,10 +58,10 @@ For more information, see [Share EC2 Image Builder resources](manage-shared-reso
 Image Builder supports the following operating systems:
 + Amazon Linux 2
 + Windows Server 2019/2016/2012 R2
-+ Windows Server version 1909
++ Windows Server version 2004, and 20H2
 + Red Hat Enterprise Linux \(RHEL\) 8 and 7
 + CentOS 8 and 7
-+ Ubuntu 18 and 16
++ Ubuntu 20, 18, and 16
 + SUSE Linux Enterprise Server \(SUSE\) 15
 
 ## Supported image formats<a name="image-builder-image-formats"></a>
@@ -97,7 +97,7 @@ A component defines the sequence of steps required to either customize an instan
 
 A component is created from a declarative, plain\-text YAML or JSON document that describes the runtime configuration for building and validating, or testing an instance that is produced by your pipeline\. Components run on the instance using a component management application\. The component management application parses the documents and runs the desired steps\.
 
-After they are created, one or more components are grouped together using an image recipe or container recipe to define the plan for building and testing a virtual machine or container image\. You can use public components that are owned and managed by AWS, or you can create your own\. For more information about components, see [AWS Task Orchestrator and Executor component manager](image-builder-component-manager.md)\.
+After they are created, one or more components are grouped together using an image recipe or container recipe to define the plan for building and testing a virtual machine or container image\. You can use public components that are owned and managed by AWS, or you can create your own\. For more information about components, see [AWS Task Orchestrator and Executor component manager](toe-component-manager.md)\.
 
 **Component document**  
 A declarative, plain\-text YAML or JSON document that describes configuration for a customization you can apply to your image\. The document is used to create a build or test component\.
@@ -141,14 +141,14 @@ AWS Organizations allows you to apply Service Control Policies \(SCP\) on accoun
 **Amazon Inspector**  
 Image Builder uses Amazon Inspector as the default vulnerability scanning agent to establish security baselines for Amazon Linux 2, Windows Server 2012, and Windows Server 2016\. For more information, see [What is Amazon Inspector?](https://docs.aws.amazon.com/inspector/latest/userguide/inspector_introduction.html)
 
-**Amazon EC2 Systems Manager \(SSM\) Automation**  
-An Amazon EC2 Systems Manager automation document defines the actions that Amazon EC2 Systems Manager performs on your managed instances and AWS resources\. SSM documents use JSON or YAML and include steps and parameters that you specify\. The steps you specify run in sequential order\. Automation documents are Amazon EC2 Systems Manager documents of type Automation, as opposed to Command and Policy documents\. For more information, see [Amazon EC2 Systems Manager Automation](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation.html)\.
+**AWS Systems Manager Automation**  
+An AWS Systems Manager automation document defines the actions that AWS Systems Manager performs on your managed instances and AWS resources\. Systems Manager documents use JSON or YAML and include steps and parameters that you specify\. The steps you specify run in sequential order\. Automation documents are AWS Systems Manager documents of type Automation, as opposed to Command and Policy documents\. For more information, see [AWS Systems Manager Automation](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation.html)\.
 
 **AWS Resource Access Manager**  
 AWS Resource Access Manager \(AWS RAM\) lets you share your resources with any AWS account or through AWS Organizations\. If you have multiple AWS accounts, you can create resources centrally and use AWS RAM to share those resources with other accounts\. EC2 Image Builder allows sharing for the following resources: components, images, and image recipes\. For more information about AWS RAM, see the [AWS Resource Access Manager User Guide](https://docs.aws.amazon.com/ram/latest/userguide/what-is.html)\. For information about sharing Image Builder resources, see [Share EC2 Image Builder resources](manage-shared-resources.md)\.
 
 **Amazon CloudWatch Logs**  
-You can use Amazon CloudWatch Logs to monitor, store, and access your log files from Amazon EC2 instances, AWS CloudTrail, Amazon Route 53, and other sources\.
+You can use Amazon CloudWatch Logs to monitor, store, and access your log files from Amazon EC2 instances, AWS CloudTrail, Amazon Route 53 , and other sources\.
 
 **Amazon Elastic Container Registry \(Amazon ECR\)**  
 Amazon ECR is a managed AWS container image registry service that is secure, scalable, and reliable\. Container images you create with Image Builder are stored in Amazon ECR in your default Region, and in any Regions where you distribute the container image\. For more information about Amazon ECR, see the [Amazon Elastic Container Registry User Guide](https://docs.aws.amazon.com/AmazonECR/latest/userguide/)\.

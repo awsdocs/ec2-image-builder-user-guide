@@ -56,7 +56,7 @@ If you are using semantic versioning to kick off pipeline builds, make sure you 
 
   You can configure the following settings for your selected component:
   + **Versioning options** – Pre\-selected, but you can change them\. We recommend that you choose the **Use latest available component version** option to ensure that your image builds always pick up the latest version of the component\. If you need to use a specific component version in your recipe, you can choose **Specify component version**, and enter the version in the **Component version** box that appears\.
-  + **Input parameters** – Displays input parameters that the component accepts\. The **Value** is pre\-filled with the value from the prior version of the recipe\. If there is a default value, and nothing else was entered, the default appears in the **Value** box with greyed\-out text\. You must enter a value, if the default value is displayed in the box\.
+  + **Input parameters** – Displays input parameters that the component accepts\. The **Value** is pre\-filled with the value from the prior version of the recipe\. If you are using this component for the first time in this recipe, and a default value was defined for the component, the default value appears in the **Value** box with greyed\-out text\. If no other value is entered, AWSTOE uses the default value\.
 
   To expand **Versioning options** or **Input parameters** settings, you can either choose the arrow next to the name of the setting, or you can toggle the **Expand all** switch off and on to expand all of the settings for all of the selected components\.
 
@@ -98,7 +98,7 @@ Components are installed in the order in which they are specified\.
 To use the example to create your own container recipe, you must replace the example ARNs with the ARNs for the components that you are using for your recipe, including the AWS Region, name, and version number for each\.
      + **parameters** \(array of objects\) – Contains an array of `ComponentParameter` objects\.
        + **name** \(string, required\) – The name of the component parameter to set\.
-       + **value** \(array of strings, required\) – Contains an array of strings to set the value for the named component parameter\.
+       + **value** \(array of strings, required\) – Contains an array of strings to set the value for the named component parameter\. If there is a default value defined for the component, and no other value is provided, AWSTOE uses the default value\.
    + **containerType** \(string, required\) – The type of container to create\. Valid values include: "DOCKER"\.
    + **dockerfileTemplateData** \(string\) – The Dockerfile template that is used to build your image, as an inline data blob\.
    + **name** \(string, required\) – The name of the container recipe\.

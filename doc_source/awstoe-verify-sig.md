@@ -1,20 +1,20 @@
-# Verify the signature of the AWS TOE installation download<a name="awstoe-verify-sig"></a>
+# Verify the signature of the AWSTOE installation download<a name="awstoe-verify-sig"></a>
 
-This section describes the recommended process for verifying the validity of the installation download for AWS TOE on Linux\- and Windows\-based operating systems\.
+This section describes the recommended process for verifying the validity of the installation download for AWSTOE on Linux\- and Windows\-based operating systems\.
 
 **Topics**
-+ [Verify the signature of the AWS TOE installation download on Linux](#awstoe-verify-sig-linux)
-+ [Verify the signature of the AWS TOE installation download on Windows](#awstoe-verify-sig-win)
++ [Verify the signature of the AWSTOE installation download on Linux](#awstoe-verify-sig-linux)
++ [Verify the signature of the AWSTOE installation download on Windows](#awstoe-verify-sig-win)
 
-## Verify the signature of the AWS TOE installation download on Linux<a name="awstoe-verify-sig-linux"></a>
+## Verify the signature of the AWSTOE installation download on Linux<a name="awstoe-verify-sig-linux"></a>
 
-This topic describes the recommended process for verifying the validity of the installation download for the AWS TOE on Linux\-based operating systems\. 
+This topic describes the recommended process for verifying the validity of the installation download for the AWSTOE on Linux\-based operating systems\. 
 
 Whenever you download an application from the internet, we recommend that you authenticate the identity of the software publisher\. Also, check that the application is not altered or corrupted since it was published\. This protects you from installing a version of the application that contains a virus or other malicious code\.
 
-If, after running the steps in this topic, you determine that the software for the AWS TOE is altered or corrupted, do not run the installation file\. Instead, contact AWS Support For more information about your support options, see [AWS Support](http://aws.amazon.com/premiumsupport/)\.
+If, after running the steps in this topic, you determine that the software for the AWSTOE is altered or corrupted, do not run the installation file\. Instead, contact AWS Support For more information about your support options, see [AWS Support](http://aws.amazon.com/premiumsupport/)\.
 
-AWS TOE files for Linux\-based operating systems are signed using `GnuPG`, an open source implementation of the Pretty Good Privacy \(OpenPGP\) standard for secure digital signatures\. `GnuPG` \(also known as `GPG`\) provides authentication and integrity checking through a digital signature\. Amazon EC2 publishes a public key and signatures that you can use to verify the downloaded Amazon EC2 CLI tools\. For more information about `PGP` and `GnuPG` \(`GPG`\), see [http://www\.gnupg\.org](http://www.gnupg.org)\.
+AWSTOE files for Linux\-based operating systems are signed using `GnuPG`, an open source implementation of the Pretty Good Privacy \(OpenPGP\) standard for secure digital signatures\. `GnuPG` \(also known as `GPG`\) provides authentication and integrity checking through a digital signature\. Amazon EC2 publishes a public key and signatures that you can use to verify the downloaded Amazon EC2 CLI tools\. For more information about `PGP` and `GnuPG` \(`GPG`\), see [http://www\.gnupg\.org](http://www.gnupg.org)\.
 
 The first step is to establish trust with the software publisher\. Download the public key of the software publisher, check that the owner of the public key is who they claim to be, and then add the public key to your *keyring*\. Your keyring is a collection of known public keys\. After you establish the authenticity of the public key, you can use it to verify the signature of the application\.
 
@@ -35,9 +35,9 @@ If your operating system is Linux or Unix, the GPG tools are likely already inst
 
 ### Authenticating and importing the public key<a name="awstoe-verify-signature-of-binary-download-authenticate-import-public-key"></a>
 
-The next step in the process is to authenticate the AWS TOE public key and add it as a trusted key in your `GPG` keyring\.
+The next step in the process is to authenticate the AWSTOE public key and add it as a trusted key in your `GPG` keyring\.
 
-**To authenticate and import the AWS TOE public key**
+**To authenticate and import the AWSTOE public key**
 
 1. Obtain a copy of our public `GPG` build key by doing one of the following:
    + Download the key from https://awstoe\-**<region>**\.s3\.**<region>**\.amazonaws\.com/assets/awstoe\.gpg\. For example, [https://awstoe-us-east-1.s3.us-east-1.amazonaws.com/latest/assets/awstoe.gpg](https://awstoe-us-east-1.s3.us-east-1.amazonaws.com/latest/assets/awstoe.gpg)\.
@@ -64,7 +64,7 @@ The next step in the process is to authenticate the AWS TOE public key and add i
      -----END PGP PUBLIC KEY BLOCK-----
      ```
 
-1. At a command prompt in the directory where you saved **awstoe\.gpg**, use the following command to import the AWS TOE public key into your keyring\.
+1. At a command prompt in the directory where you saved **awstoe\.gpg**, use the following command to import the AWSTOE public key into your keyring\.
 
    ```
    gpg --import awstoe.gpg
@@ -94,11 +94,11 @@ The next step in the process is to authenticate the AWS TOE public key and add i
    uid       [ unknown] AWSTOE <awstoe@amazon.com>
    ```
 
-   Additionally, the fingerprint string should be identical to `F6DD E01C 869F D639 15E5 5742 DEBD C156 F5AE BC52`, as shown in the preceding example\. Compare the key fingerprint that is returned to the one published on this page\. They should match\. If they don't match, do not install the AWS TOE installation script, and contact AWS Support\. 
+   Additionally, the fingerprint string should be identical to `F6DD E01C 869F D639 15E5 5742 DEBD C156 F5AE BC52`, as shown in the preceding example\. Compare the key fingerprint that is returned to the one published on this page\. They should match\. If they don't match, do not install the AWSTOE installation script, and contact AWS Support\. 
 
 ### Verify the signature of the package<a name="awstoe-verify-signature-of-binary-package"></a>
 
-After you install the `GPG` tools, authenticate and import the AWS TOE public key, and verify that the public key is trusted, you are ready to verify the signature of the installation script\. 
+After you install the `GPG` tools, authenticate and import the AWSTOE public key, and verify that the public key is trusted, you are ready to verify the signature of the installation script\. 
 
 **To verify the installation script signature**
 
@@ -130,7 +130,7 @@ After you install the `GPG` tools, authenticate and import the AWS TOE public ke
 
    Supported values for **architecture** can be `amd64`, `386`, and `arm64`\.
 
-1. Verify the signature by running the following command at a command prompt in the directory where you saved `awstoe.sig` and the AWS TOE installation file\. Both files must be present\.
+1. Verify the signature by running the following command at a command prompt in the directory where you saved `awstoe.sig` and the AWSTOE installation file\. Both files must be present\.
 
    ```
    gpg --verify ./awstoe.sig ~/awstoe
@@ -146,7 +146,7 @@ After you install the `GPG` tools, authenticate and import the AWS TOE public ke
    Primary key fingerprint: F6DD E01C 869F D639 15E5 5742 DEBD C156 F5AE BC52
    ```
 
-   If the output contains the phrase `Good signature from "AWSTOE <awstoe@amazon.com>"`, it means that the signature has successfully been verified, and you can proceed to run the AWS TOE installation script\.
+   If the output contains the phrase `Good signature from "AWSTOE <awstoe@amazon.com>"`, it means that the signature has successfully been verified, and you can proceed to run the AWSTOE installation script\.
 
    If the output includes the phrase `BAD signature`, check whether you performed the procedure correctly\. If you continue to get this response, do not run the installation file that you downloaded previously, and contact AWS Support\.
 
@@ -156,13 +156,13 @@ The following are details about the warnings that you might see:
 
 For more information, see [http://www\.gnupg\.org](http://www.gnupg.org)\.
 
-## Verify the signature of the AWS TOE installation download on Windows<a name="awstoe-verify-sig-win"></a>
+## Verify the signature of the AWSTOE installation download on Windows<a name="awstoe-verify-sig-win"></a>
 
 This topic describes the recommended process for verifying the validity of the installation file for the AWS Task Orchestrator and Executor application on Windows\-based operating systems\. 
 
 Whenever you download an application from the internet, we recommend that you authenticate the identity of the software publisher and check that the application is not altered or corrupted since it was published\. This protects you from installing a version of the application that contains a virus or other malicious code\.
 
-If, after running the steps in this topic, you determine that the software for the AWS TOE application is altered or corrupted, do not run the installation file\. Instead, contact AWS Support\.
+If, after running the steps in this topic, you determine that the software for the AWSTOE application is altered or corrupted, do not run the installation file\. Instead, contact AWS Support\.
 
 To verify the validity of the downloaded awstoe binary on Windows\-based operating systems, make sure that the thumbprint of its Amazon Services LLC signer certificate is equal to this value:
 
@@ -185,5 +185,5 @@ To verify this value, perform the following procedure:
 
      **16 67 49 A7 B8 CC 5B 8A 57 1D DF 4B 7A 37 9D B1 6A 5E 65 80**
 
-     then your downloaded AWS TOE binary is authentic and can be safely installed\.
+     then your downloaded AWSTOE binary is authentic and can be safely installed\.
    + If the thumbprint value in the lower details window is not identical to the previous value, do not run `awstoe.exe`\.

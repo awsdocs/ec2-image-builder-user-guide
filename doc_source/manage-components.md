@@ -1,27 +1,42 @@
-# Manage components with AWS TOE<a name="manage-components"></a>
+# Manage components with AWSTOE<a name="manage-components"></a>
 
-Image Builder uses a component management application AWS Task Orchestrator and Executor \(AWS TOE\) to orchestrate complex workflows, modify system configurations, and test your systems\. There is no additional server setup required to use the Image Builder console or to use Image Builder commands that interact with AWS TOE component management on your behalf\.
+Image Builder uses the AWS Task Orchestrator and Executor \(AWSTOE\) component management application to orchestrate complex workflows\. AWSTOE components are based on YAML documents that define the scripts to customize or test your image\. For AMI images, Image Builder installs AWSTOE components and the component application on its Amazon EC2 build and test instances\. For container images, the components and component application are installed inside of the running container\. 
 
-AWS TOE component management uses YAML documents to define the scripts that customize your image\. The documents can include build, validate, and test phases\. For more information about YAML documents, see [Document schema and definitions](image-builder-application-documents.md#document-schema)\.
+Image Builder uses AWSTOE to perform all on\-instance activities\. There is no additional setup required to interact with AWSTOE when you run Image Builder commands or use the Image Builder console\.
 
-You can create the following types of components to add to your recipes:
+**Workflow stages for building a new image**  
+The Image Builder workflow for building new images includes the following two distinct stages\. The components that it runs fall into one stage or the other – never both\.
 
-**Build components**  
-Software scripts that define a sequence of steps for downloading, installing, and configuring software packages\. These scripts also define validation steps\.
+1. **Build stage** \(pre\-snapshot\) – During the build stage, you make changes to the Amazon EC2 build instance that's running your source image, to create the baseline for your new image\. For example, your image or container recipe can include components that install an application, or modify the operating system firewall settings\.
 
-**Test components**  
-A sequence of steps to verify that the output image built by your image pipeline functions as expected\.
+   The following phases run during the build stage:
+   + build
+   + validate
+
+   After this stage completes successfully, Image Builder creates a snapshot or container image that it uses for the test stage and beyond\.
+
+1. **Test stage** \(post\-snapshot\) – During the test stage, Image Builder launches an Amazon EC2 instance from the snapshot or container image that was created as the final step of the build stage\. The test stage components run on the new instance to validate settings and ensure that it's running as expected\.
+
+   The following phase runs during the test stage:
+   + test
+
+   After this stage completes successfully, Image Builder can create and distribute your final image from the snapshot or the container image\.
+
+**Note**  
+While AWSTOE allows you to define many phases in a component document, Image Builder has strict rules about what phases it runs, and during which stages it runs them\. For a component to run during the build stage, the component document must define at least one of these phases: `build` or `validate`\. For a component to run during the test stage, the component document must define the `test` phase\.
+
+To assist with troubleshooting on your build or test instance AWSTOE creates a log folder that contains the input document and log files to track what's happening each time a component runs\. If you configured an Amazon S3 bucket in your pipeline configuration, the logs are also written there\. For more information about YAML documents and log output, see [Use component documents in AWSTOE](toe-use-documents.md)\.
 
 **Tip**  
 When you have many components to keep track of, tagging helps you to identify a specific component or version based on the tags you've assigned to it\. For more information about tagging your resources using Image Builder commands in the AWS CLI, see the [Tag resources](tag-resources.md) section of this guide\.
 
-This section covers how to list, view, create, and import AWS TOE components, using the Image Builder console, and commands in the AWS CLI\.
+This section covers how to list, view, create, and import AWSTOE components, using the Image Builder console, and commands in the AWS CLI\.
 
 **Topics**
 + [List and view component details](component-details.md)
 + [Create a component using the Image Builder console](create-component-console.md)
 + [Create a component \(AWS CLI\)](create-components-cli.md)
-+ [Manage AWS TOE component parameters with EC2 Image Builder](manage-component-parameters.md)
++ [Manage AWSTOE component parameters with EC2 Image Builder](manage-component-parameters.md)
 + [Import a component \(AWS CLI\)](#import-component-cli)
 + [Clean up resources](#component-cleanup)
 

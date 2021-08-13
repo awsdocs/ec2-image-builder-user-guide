@@ -46,9 +46,9 @@ To ensure that your pipeline recognizes dependency updates and builds as expecte
 **Note**  
 This setting ensures that your pipeline uses semantic versioning for the source image, to detect dependency updates for automatically scheduled jobs\.
 
-1. In the **Instance configuration** section, keep the default values for the **SSM agent**\. This results in Image Builder removing the SSM agent after the build and tests are complete, before creating the new image\.
+1. In the **Instance configuration** section, keep the default values for the **Systems Manager agent**\. This results in Image Builder removing the Systems Manager agent after the build and tests are complete, before creating the new image\.
 
-   Leave **User data** blank for this tutorial\. You can use this area at other times to provide commands, or a command script to run when you launch your build instance\. However, it replaces any commands that Image Builder might have added to ensure that SSM is installed\. When you do use it, make sure that the SSM agent is pre\-installed on your source image, or that you include the install in your user data\.
+   Keep **User data** blank for this tutorial\. You can use this area at other times to provide commands, or a command script to run when you launch your build instance\. However, it replaces any commands that Image Builder might have added to ensure that Systems Manager is installed\. When you do use it, make sure that the Systems Manager agent is pre\-installed on your source image, or that you include the install in your user data\.
 
 1. In the **Components** section, you must choose at least one build component\.
 
@@ -66,7 +66,7 @@ This setting ensures that your pipeline uses semantic versioning for the source 
 **Note**  
 This setting ensures that your pipeline uses semantic versioning for the selected component, to detect dependency updates for automatically scheduled jobs\.
 
-      If you had selected a component that has input parameters, you would also see the parameters in this area\. Parameters are not covered in this tutorial\. To learn more about using input parameters in your components, and setting them in your recipes, see [Manage AWS TOE component parameters with EC2 Image Builder](manage-component-parameters.md)\.
+      If you had selected a component that has input parameters, you would also see the parameters in this area\. Parameters are not covered in this tutorial\. For more information about using input parameters in your components, and setting them in your recipes, see [Manage AWSTOE component parameters with EC2 Image Builder](manage-component-parameters.md)\.
 
 **Reorder components \(optional\)**  
 If you have chosen more than one component to include in your image, you can use the drag\-and\-drop action to rearrange them into the order in which they should run during the build process\.

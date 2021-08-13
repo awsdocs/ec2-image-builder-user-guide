@@ -28,7 +28,7 @@ UpdateImagePipeline does not support selective updates for the pipeline\. You mu
            "timeoutMinutes": 120
        },
        "schedule": {
-           "scheduleExpression": "cron(0 0 * * MON)",
+           "scheduleExpression": "cron(0 0 * * MON *)",
            "pipelineExecutionStartCondition": "EXPRESSION_MATCH_AND_DEPENDENCY_UPDATES_AVAILABLE"
        },
        "status": "DISABLED"

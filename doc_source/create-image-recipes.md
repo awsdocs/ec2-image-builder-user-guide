@@ -31,16 +31,16 @@ If you are using semantic versioning to kick off pipeline builds, make sure you 
 
 ------
 + **Instance configuration** – Settings are pre\-selected, but you can edit them\.
-  + **SSM agent** – You can select or clear this check box to control installation of the SSM agent on the new image\. The check box is cleared by default, to include the SSM agent in your new image\. To remove the SSM agent from the final image, so that it will not be included in your AMI, you can select the check box\.
-  + **User data** – You can use this area to provide commands, or a command script to run when you launch your build instance\. However, it replaces any commands that Image Builder might have added to ensure that SSM is installed\.
+  + **Systems Manager agent** – You can select or clear this check box to control installation of the Systems Manager agent on the new image\. The check box is cleared by default, to include the Systems Manager agent in your new image\. To remove the Systems Manager agent from the final image, so that it will not be included in your AMI, elect the check box\.
+  + **User data** – You can use this area to provide commands, or a command script to run when you launch your build instance\. However, it replaces any commands that Image Builder might have added to ensure that Systems Manager is installed\.
 **Important**  
-If you enter user data, make sure that the SSM agent is pre\-installed on your source image, or that you include the install in your user data\.
+If you enter user data, make sure that the Systems Manager agent is pre\-installed on your source image, or that you include the install in your user data\.
 + **Working directory** – Pre\-selected, but you can edit it\.
 + **Components** – Components that are already included in the recipe are displayed in the **Selected components** section at the end of each of the component lists \(build and test\)\. You can remove or reorder the selected components to suit your needs\.
 
   You can configure the following settings for your selected component:
   + **Versioning options** – Pre\-selected, but you can change them\. We recommend that you choose the **Use latest available component version** option to ensure that your image builds always pick up the latest version of the component\. If you need to use a specific component version in your recipe, you can choose **Specify component version**, and enter the version in the **Component version** box that appears\.
-  + **Input parameters** – Displays input parameters that the component accepts\. The **Value** is pre\-filled with the value from the prior version of the recipe\. If there is a default value, and nothing else was entered, the default appears in the **Value** box with greyed\-out text\. You must enter a value, if the default value is displayed in the box\.
+  + **Input parameters** – Displays input parameters that the component accepts\. The **Value** is pre\-filled with the value from the prior version of the recipe\. If you are using this component for the first time in this recipe, and a default value was defined for the component, the default value appears in the **Value** box with greyed\-out text\. If no other value is entered, AWSTOE uses the default value\.
 
   To expand **Versioning options** or **Input parameters** settings, you can either choose the arrow next to the name of the setting, or you can toggle the **Expand all** switch off and on to expand all of the settings for all of the selected components\.
 + **Storage \(volumes\)** – are pre\-filled\. The root volume **Device name**, **Snapshot**, and **IOPS** selections are not editable\. However, you can change all of the remaining settings, such as the **Size**\. You can also add new volumes\.
@@ -86,14 +86,14 @@ Components are installed in the order in which they are specified\.
 To use one of the examples to create your own image recipe, you must replace the example ARNs with the ARNs for the components that you are using for your recipe, including the AWS Region, name, and version number for each\.
      + **parameters** \(array of objects\) – Contains an array of `ComponentParameter` objects\.
        + **name** \(string, required\) – The name of the component parameter to set\.
-       + **value** \(array of strings, required\) – Contains an array of strings to set the value for the named component parameter\.
+       + **value** \(array of strings, required\) – Contains an array of strings to set the value for the named component parameter\. If there is a default value defined for the component, and no other value is provided, AWSTOE uses the default value\.
    + **additionalInstanceConfiguration** \(object\) – Specify additional settings and launch scripts for your build instances\.
-     + **systemsManagerAgent** \(object\) – Contains settings for the SSM agent on your build instance\.
-       + **uninstallAfterBuild** \(Boolean\) – Controls whether the SSM agent is removed from your final build image, prior to creating the new AMI\. If this is set to `true`, then the agent is removed from the final image\. If it's set to `false`, then the agent is left in, so that it is included in the new AMI\. The default value is `false`\.
+     + **systemsManagerAgent** \(object\) – Contains settings for the Systems Manager agent on your build instance\.
+       + **uninstallAfterBuild** \(Boolean\) – Controls whether the Systems Manager agent is removed from your final build image, prior to creating the new AMI\. If this is set to `true`, then the agent is removed from the final image\. If it's set to `false`, then the agent is left in, so that it is included in the new AMI\. The default value is `false`\.
 **Note**  
-If the `uninstallAfterBuild` attribute is not included in the JSON file, and the following conditions are true, then Image Builder removes the SSM agent from the final image, so that it is not available in the AMI:  
+If the `uninstallAfterBuild` attribute is not included in the JSON file, and the following conditions are true, then Image Builder removes the Systems Manager agent from the final image, so that it is not available in the AMI:  
 The `userDataOverride` is empty, or has been left out of the JSON file\.
-Image Builder automatically installed the SSM agent on the build instance for an operating system that did not have the agent pre\-installed on the source \(parent\) image\.
+Image Builder automatically installed the Systems Manager agent on the build instance for an operating system that did not have the agent pre\-installed on the source \(parent\) image\.
      + **userDataOverride** \(string\) – Provide commands or a command script to run when you launch your build instance\.
 **Note**  
 The user data is always base 64 encoded\. For example, the following commands are encoded as `IyEvYmluL2Jhc2gKbWtkaXIgLXAgL3Zhci9iYi8KdG91Y2ggL3Zhci$`:  

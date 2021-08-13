@@ -1,6 +1,6 @@
 # Create a component \(AWS CLI\)<a name="create-components-cli"></a>
 
-In this section, we'll cover creating AWS TOE components by using Image Builder commands in the AWS CLI\.
+In this section, we'll cover creating AWSTOE components by using Image Builder commands in the AWS CLI\.
 
 ## Create a YAML component document<a name="create-component-yaml"></a>
 
@@ -83,24 +83,24 @@ Use a tool like this online [YAML Validator](https://jsonformatter.org/yaml-vali
 
 ------
 
-To learn more about the phases, steps, and syntax for AWS TOE YAML application component documents, see [Use documents in AWS TOE](https://docs.aws.amazon.com/imagebuilder/latest/userguide/image-builder-application-documents.html)\.
+For more information about the phases, steps, and syntax for AWSTOE YAML application component documents, see [Use documents in AWSTOE](https://docs.aws.amazon.com/imagebuilder/latest/userguide/toe-use-documents.html)\.
 
-## Create AWS TOE components using Image Builder \(AWS CLI\)<a name="create-component-cli"></a>
+## Create AWSTOE components using Image Builder \(AWS CLI\)<a name="create-component-cli"></a>
 
-This section walks you through the following steps to create an AWS TOE application component, using Image Builder commands in the AWS CLI:
-+ Upload your YAML component document to an Amazon S3 bucket that you can reference from the command line\.
-+ Upload dependencies for your YAML component document to the same Amazon S3 bucket\.
-+ Create the AWS TOE application component using the imagebuilder create\-component command\.
+This section walks you through the following steps to create an AWSTOE application component, using Image Builder commands in the AWS CLI:
++ Upload your YAML component document to an S3 bucket that you can reference from the command line\.
++ Upload dependencies for your YAML component document to the same S3 bucket\.
++ Create the AWSTOE application component using the imagebuilder create\-component command\.
 + List component versions using the imagebuilder list\-components command with a name filter to determine the next version for updates\.
 
-To create an AWS TOE application component from the YAML document you created in the prior section, follow the steps that match your image operating system\.
+To create an AWSTOE application component from the YAML document that you created in the prior section, follow the steps that match your image operating system\.
 
 ------
 #### [ Linux ]
 
 **Store your application component document in Amazon S3**
 
-You can use Amazon S3 as a repository for the YAML application component document you created in a prior section, and all of its dependencies\. Follow these steps to store your AWS TOE application component source document and dependencies:
+You can use Amazon S3 as a repository for the YAML application component document you created in a prior section, and all of its dependencies\. Follow these steps to store your AWSTOE application component source document and dependencies:
 
 1. 
 
@@ -124,7 +124,7 @@ You can use Amazon S3 as a repository for the YAML application component documen
 
 **Create a component from the YAML document**
 
-To streamline the imagebuilder create\-component command that is used in the AWS CLI, we create a JSON file that contains all of the component parameters that we want to pass into the command, including the location of the `component.yaml` document created in the prior steps\. The `uri` key value pair contains the file reference\.
+To streamline the imagebuilder create\-component command that is used in the AWS CLI, we create a JSON file that contains all of the component parameters that we want to pass into the command, including the location of the `component.yaml` document created in the prior steps\. The `uri` key\-value pair contains the file reference\.
 **Note**  
 The naming convention for the data points in the JSON file follows the pattern that is specified for the Image Builder API command request parameters\. To review the API command request parameters, see the [CreateComponent](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_CreateComponent.html) command in the *EC2 Image Builder API Reference*\.  
 Do not use the naming convention that is specified for providing these datapoints directly to the imagebuilder create\-component command as options\.
@@ -171,7 +171,7 @@ The path for the JSON file should follow the appropriate convention for the base
 
 **Store your application component document in Amazon S3**
 
-You can use Amazon S3 as a repository for the YAML application component document you created in a prior section, and all of its dependencies\. Follow these steps to store your AWS TOE application component source document and dependencies:
+You can use Amazon S3 as a repository for the YAML application component document you created in a prior section, and all of its dependencies\. Follow these steps to store your AWSTOE application component source document and dependencies:
 
 1. 
 
@@ -195,7 +195,7 @@ You can use Amazon S3 as a repository for the YAML application component documen
 
 **Create a component from the YAML document**
 
-To streamline the imagebuilder create\-component command that is used in the AWS CLI, we create a JSON file that contains all of the component parameters that we want to pass into the command, including the location of the `component.yaml` document created in the prior steps\. The `uri` key value pair contains the file reference\.
+To streamline the imagebuilder create\-component command that is used in the AWS CLI, we create a JSON file that contains all of the component parameters that we want to pass into the command, including the location of the `component.yaml` document created in the prior steps\. The `uri` key\-value pair contains the file reference\.
 **Note**  
 The naming convention for the data points in the JSON file follows the pattern that is specified for the Image Builder API command request parameters\. To review the API command request parameters, see the [CreateComponent](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_CreateComponent.html) command in the *EC2 Image Builder API Reference*\.  
 Do not use the naming convention that is specified for providing these datapoints directly to the imagebuilder create\-component command as options\.
@@ -239,9 +239,9 @@ The path for the JSON file should follow the appropriate convention for the base
 
 ------
 
-### AWS TOE component versioning for updates \(AWS CLI\)<a name="component-update-cli"></a>
+### AWSTOE component versioning for updates \(AWS CLI\)<a name="component-update-cli"></a>
 
-AWS TOE component names and versions are embedded in the component's Amazon Resource Name \(ARN\), after the component prefix\. Each new version of a component has its own unique ARN\. The steps to create a new version are exactly the same as the steps to create a new component, as long as the semantic version is unique for that component name\.
+AWSTOE component names and versions are embedded in the component's Amazon Resource Name \(ARN\), after the component prefix\. Each new version of a component has its own unique ARN\. The steps to create a new version are exactly the same as the steps to create a new component, as long as the semantic version is unique for that component name\.
 
 To ensure that you assign the next logical version, first get a list of the existing versions for the component that you want to change, using the imagebuilder list\-components, command in the AWS CLI, and filtering on the name, as follows:
 

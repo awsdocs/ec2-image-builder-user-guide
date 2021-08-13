@@ -1,6 +1,6 @@
 # List and view component details<a name="component-details"></a>
 
-This section describes the various ways you can find information and view details for the AWS TOE components that you use in your EC2 Image Builder recipes\.
+This section describes how you can find information and view details for the AWSTOE components that you use in your EC2 Image Builder recipes\.
 
 **Topics**
 + [List components \(AWS CLI\)](#cli-list-components)
@@ -40,7 +40,7 @@ aws imagebuilder list-component-build-versions --component-version-arn arn:aws:i
 
 ## Get component details \(AWS CLI\)<a name="cli-get-component"></a>
 
-The following example shows how to use an imagebuilder CLI command to get the details of a component by specifying its ARN\.
+The following example shows how to use an imagebuilder CLI command to get the details of a component by specifying its Amazon Resource Name \(ARN\)\.
 
 ```
 aws imagebuilder get-component --component-build-version-arn arn:aws:imagebuilder:us-west-2:123456789012:component/my-example-component/2019.12.02/1
@@ -48,7 +48,7 @@ aws imagebuilder get-component --component-build-version-arn arn:aws:imagebuilde
 
 ## Get component policy details \(AWS CLI\)<a name="cli-get-component-policy"></a>
 
-The following example shows how to use an imagebuilder CLI command to get the details of a component policy by specifying its Amazon Resource Name \(ARN\)\.
+The following example shows how to use an imagebuilder CLI command to get the details of a component policy by specifying its ARN\.
 
 ```
 aws imagebuilder get-component-policy --component-arn arn:aws:imagebuilder:us-west-2:123456789012:component/my-example-component/2019.12.02

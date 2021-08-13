@@ -9,21 +9,21 @@ EC2 Image Builder uses a service\-linked role to grant permissions to other AWS 
 ## Configuration requirements<a name="image-builder-config"></a>
 + Image Builder supports [AWS PrivateLink](https://docs.aws.amazon.com/vpc/latest/userguide/endpoint-service.html)\.
 + Image Builder supports EC2\-Classic\.
-+ The instances that Image Builder uses to build images and run tests must have access to the Systems Manager service\. All build activity is orchestrated by SSM Automation\. Installation requirements depend on your operating system\.
++ The instances that Image Builder uses to build images and run tests must have access to the Systems Manager service\. All build activity is orchestrated by Systems Manager Automation\. Installation requirements depend on your operating system\.
 
   To see the installation requirements for your source image, choose the tab that matches your source image operating system\.
 
 ------
 #### [ Linux ]
 
-  For Amazon EC2 Linux instances, Image Builder installs the SSM Agent on the build instance if it is not already present, and removes it before creating the image\.
+  For Amazon EC2 Linux instances, Image Builder installs the Systems Manager Agent on the build instance if it is not already present, and removes it before creating the image\.
 
 ------
 #### [ Windows ]
 
-  Image Builder does not install the SSM Agent on Amazon EC2 Windows Server build instances\. If your source image did not come pre\-installed with the SSM Agent, you must launch an instance from your source image, manually install SSM on the instance, and create a new source image from your instance\.
+  Image Builder does not install the Systems Manager Agent on Amazon EC2 Windows Server build instances\. If your source image did not come pre\-installed with the Systems Manager Agent, you must launch an instance from your source image, manually install Systems Manager on the instance, and create a new source image from your instance\.
 
-  To manually install the SSM agent on your Amazon EC2 Windows Server instance, see [Manually install SSM Agent on Amazon EC2 instances for Windows Server](https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-install-win.html) in the *AWS Systems Manager User Guide*\.
+  To manually install the Systems Manager agent on your Amazon EC2 Windows Server instance, see [Manually install Systems Manager Agent on Amazon EC2 instances for Windows Server](https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-install-win.html) in the *AWS Systems Manager User Guide*\.
 
 ------
 

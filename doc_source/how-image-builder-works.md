@@ -71,11 +71,11 @@ You can opt out of CloudWatch streaming by removing the following permissions as
 ]
 ```
 
-For advanced troubleshooting, you can run predefined commands and scripts using [Amazon EC2 Systems Manager \(SSM\) Run Command](https://docs.aws.amazon.com/systems-manager/latest/userguide/execute-remote-commands.html)\. For more information, see [Troubleshoot EC2 Image Builder](image-builder-troubleshooting.md)\.
+For advanced troubleshooting, you can run predefined commands and scripts using [AWS Systems Manager Run Command](https://docs.aws.amazon.com/systems-manager/latest/userguide/execute-remote-commands.html)\. For more information, see [Troubleshoot EC2 Image Builder](image-builder-troubleshooting.md)\.
 
 ## Component manager<a name="image-builder-component-management"></a>
 
-EC2 Image Builder uses a component management application \(AWS TOE\) that helps you orchestrate complex workflows, modify system configurations, and test your systems without writing code\. This application uses a declarative document schema\. Because it is a standalone application, it does not require additional server setup\. It can run on any cloud infrastructure and on premises\. To download the component management application \(AWS TOE\) as a standalone application, see [Get started with the AWS TOE application ](image-builder-component-manager-local.md#image-builder-component-manager-commands)\.
+EC2 Image Builder uses a component management application \(AWSTOE\) that helps you orchestrate complex workflows, modify system configurations, and test your systems without writing code\. This application uses a declarative document schema\. Because it is a standalone application, it does not require additional server setup\. It can run on any cloud infrastructure and on premises\. To download the component management application \(AWSTOE\) as a standalone application, see [Get started with AWSTOE](toe-get-started.md)\.
 
 Image Builder uses this application to perform all on\-instance activities, such as build, validation, and test\. You define a document that describes how to build, validate, and test your image\. Image Builder sends the component to your instance and the application interprets and applies it to your instance by executing the defined phases, steps, and actions\. When complete, the application sends a summary to Image Builder\. It also sends detailed execution outputs to Amazon S3 if you specified an S3 bucket in your pipeline configuration\. Image Builder then cleans up the application and removes it from the instance using [AWS best practices for hardening and cleaning the image](https://aws.amazon.com/articles/public-ami-publishing-hardening-and-clean-up-requirements)\. 
 + **Build phase**\. The image is modified\. For example, you can configure your image to install an application or to modify the operating system firewall settings\. The validate phase is executed as part of the build phase, prior to the creation of the image\. 
@@ -89,7 +89,7 @@ Image Builder uses the component management application as follows\.
 
 1. The application executes the phases, steps, and actions defined in the document\. 
 
-For more information about the Component Manager used by Image Builder to orchestrate workflows, including information about documents, supported action modules, and STIGs, see [AWS Task Orchestrator and Executor component manager](image-builder-component-manager.md)\.
+For more information about the Component Manager used by Image Builder to orchestrate workflows, including information about documents, supported action modules, and STIGs, see [AWS Task Orchestrator and Executor component manager](toe-component-manager.md)\.
 
 ## Resources created<a name="image-builder-resources"></a>
 
@@ -102,13 +102,13 @@ The following resources are created during the image build process:
 
 **AMI image pipelines**
 + Amazon EC2 Instance \(*temporary*\)
-+ SSM Inventory Association \(through SSM State Manager\) `EnhancedImageMetadata` is Enabled\) on the Amazon EC2 instance
++ Systems Manager Inventory Association \(through Systems Manager State Manager\) `EnhancedImageMetadata` is Enabled\) on the Amazon EC2 instance
 + Amazon EC2 AMI
 + The Amazon EBS Snapshot associated with Amazon EC2 AMI
 
 **Container image pipelines**
 + Docker container running on an Amazon EC2 instance \(*temporary*\)
-+ SSM Inventory Association \(through SSM State Manager\) `EnhancedImageMetadata` is Enabled\) on the Amazon EC2 instance
++ Systems Manager Inventory Association \(through Systems Manager State Manager\) `EnhancedImageMetadata` is Enabled\) on the Amazon EC2 instance
 + Docker container image
 + Dockerfile
 
@@ -134,4 +134,4 @@ To share components, recipes, or images with other accounts or within AWS Organi
 
 ## Compliance<a name="image-builder-compliance"></a>
 
-For CIS, EC2 Image Builder uses Amazon Inspector to perform assessments for exposure, vulnerabilities, and deviations from best practices and compliance standards\. For example, it assesses unintended network accessibility, unpatched CVEs, public internet connectivity, and remote root login enablement\. Amazon Inspector is offered as a test component that you can choose to add to your image recipe\. For more information about Amazon Inspector, see the [Amazon Inspector](https://docs.aws.amazon.com/inspector/latest/userguide/inspector_introduction.html) User Guide\. For hardening, EC2 Image Builder validates using STIG\. For a complete list of STIG components available through Image Builder, see [EC2 Image Builder STIG components](image-builder-stig.md)\. For more information, see [Center for Internet Security \(CIS\) Benchmarks](https://docs.aws.amazon.com/inspector/latest/userguide/inspector_cis.html) and [Amazon EC2 Windows Server AMIs for STIG Compliance](https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/ami-windows-stig.html)\.
+For CIS, EC2 Image Builder uses Amazon Inspector to perform assessments for exposure, vulnerabilities, and deviations from best practices and compliance standards\. For example, it assesses unintended network accessibility, unpatched CVEs, public internet connectivity, and remote root login enablement\. Amazon Inspector is offered as a test component that you can choose to add to your image recipe\. For more information about Amazon Inspector, see the [Amazon Inspector](https://docs.aws.amazon.com/inspector/latest/userguide/inspector_introduction.html) User Guide\. For hardening, EC2 Image Builder validates using STIG\. For a complete list of STIG components available through Image Builder, see [EC2 Image Builder STIG components](toe-stig.md)\. For more information, see [Center for Internet Security \(CIS\) Benchmarks](https://docs.aws.amazon.com/inspector/latest/userguide/inspector_cis.html) and [Amazon EC2 Windows Server AMIs for STIG Compliance](https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/ami-windows-stig.html)\.

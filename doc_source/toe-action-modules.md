@@ -1,47 +1,47 @@
-# Action modules supported by AWS TOE component manager<a name="image-builder-action-modules"></a>
+# Action modules supported by AWSTOE component manager<a name="toe-action-modules"></a>
 
-This section contains each action module that is supported by the AWS TOE component management application used by EC2 Image Builder to configure the instance that builds your image\. Also included are the corresponding functionality details and input/output values of each action module\.
+This section contains each action module that is supported by the AWSTOE component management application used by EC2 Image Builder to configure the instance that builds your image\. Also included are the corresponding functionality details and input/output values of each action module\.
 
-AWS TOE components are authored with plaintext YAML documents\. For more information about document syntax, see [Use documents in AWS TOE](image-builder-application-documents.md)\.
+AWSTOE components are authored with plaintext YAML documents\. For more information about document syntax, see [Use component documents in AWSTOE](toe-use-documents.md)\.
 
 **Note**  
-All action modules are run by using the same account as the SSM agent, which is `root` on Linux and `NT Authority\SYSTEM` on Windows\.
+All action modules are run by using the same account as the Systems Manager agent, which is `root` on Linux and `NT Authority\SYSTEM` on Windows\.
 
 **Topics**
-+ [General execution modules](#image-builder-action-modules-general-execution)
-+ [File download and upload modules](#image-builder-action-modules-download-upload)
-+ [File system operation modules](#image-builder-action-modules-file-system-operations)
-+ [System action modules](#image-builder-action-modules-file-system-actions)
++ [General execution modules](#action-modules-general-execution)
++ [File download and upload modules](#action-modules-download-upload)
++ [File system operation modules](#action-modules-file-system-operations)
++ [System action modules](#action-modules-file-system-actions)
 
-## General execution modules<a name="image-builder-action-modules-general-execution"></a>
+## General execution modules<a name="action-modules-general-execution"></a>
 
 The following section contains details for action modules that perform general execution commands and instructions\.
 
 **Topics**
-+ [ExecuteBash](#image-builder-action-modules-executebash)
-+ [ExecuteBinary](#image-builder-action-modules-executebinary)
-+ [ExecutePowerShell](#image-builder-action-modules-executepowershell)
++ [ExecuteBash](#action-modules-executebash)
++ [ExecuteBinary](#action-modules-executebinary)
++ [ExecutePowerShell](#action-modules-executepowershell)
 
-### ExecuteBash<a name="image-builder-action-modules-executebash"></a>
+### ExecuteBash<a name="action-modules-executebash"></a>
 
  
 
 The **ExecuteBash** action module allows you to run bash scripts with inline shell code/commands\. This module supports Linux\. 
 
-All of the commands and instructions that you specify in the commands block are converted into a file \(for example, `input.sh`\) and executed using the bash shell\. The result of the execution of the shell file is the exit code of the step\. 
+All of the commands and instructions that you specify in the commands block are converted into a file \(for example, `input.sh`\) and run with the bash shell\. The result of running the shell file is the exit code of the step\. 
 
-The **ExecuteBash** module handles system restarts if the execution exits with an exit code of `194`\. When triggered, the application performs one of the following actions:
-+ The application hands the exit code to the caller if it is executed by the SSM Agent\. The SSM Agent handles the system reboot and re\-invokes the execution as described in [Rebooting Managed Instance from Scripts](https://docs.aws.amazon.com/systems-manager/latest/userguide/send-commands-reboot.html)\.
-+ The application saves the current `executionstate`, configures a restart trigger to re\-execute the application, and reboots the system\.
+The **ExecuteBash** module handles system restarts if the script exits with an exit code of `194`\. When initiated, the application performs one of the following actions:
++ The application hands the exit code to the caller if it is run by the Systems Manager Agent\. The Systems Manager Agent handles the system reboot and runs the same step that initiated the restart, as described in [Rebooting Managed Instance from Scripts](https://docs.aws.amazon.com/systems-manager/latest/userguide/send-commands-reboot.html)\.
++ The application saves the current `executionstate`, configures a restart trigger to rerun the application, and restarts the system\.
 
-After system restart, the application runs the same step that triggered the restart\. If you require this functionality, you must write idempotent scripts that can handle multiple invocations of the same shell command\.
+After system restart, the application runs the same step that initiated the restart\. If you require this functionality, you must write idempotent scripts that can handle multiple invocations of the same shell command\.
 
 
 **Input**  
 
 | Primitive | Description | Type | Required | 
 | --- | --- | --- | --- | 
-| commands | Contains a list of instructions or commands to execute as per bash syntax\. Multi\-line YAML is allowed\. | List | Yes | 
+| commands | Contains a list of instructions or commands to run as per bash syntax\. Multi\-line YAML is allowed\. | List | Yes | 
 
 **Input example: install and validate Corretto**
 
@@ -85,21 +85,21 @@ inputs:
 
 ```
 {
-    “stdout”: “This is the standard output from the shell execution\n"
+    “stdout”: “This is the standard output from running the shell\n"
 }
 ```
 
 If you start a reboot and return exit code `194` as part of the action module, the build will resume at the same action module step that initiated the reboot\. If you start a reboot without the exit code, the build process may fail\.
 
-### ExecuteBinary<a name="image-builder-action-modules-executebinary"></a>
+### ExecuteBinary<a name="action-modules-executebinary"></a>
 
 The **ExecuteBinary** action module allows you to run binary files with a list of command\-line arguments\.
 
-The **ExecuteBinary** module handles system restarts if the execution exits with an exit code of `194` \(Linux\) or `3010` \(Windows\)\. When triggered, the application performs one of the following actions:
-+ The application hands the exit code to the caller if it is executed by the SSM Agent\. The SSM Agent handles the system reboot and re\-invokes the execution as described in [Rebooting Managed Instance from Scripts](https://docs.aws.amazon.com/systems-manager/latest/userguide/send-commands-reboot.html)\.
-+ The application saves the current `executionstate`, configures a restart trigger to rerun the application, and reboots the system\.
+The **ExecuteBinary** module handles system restarts if the binary file exits with an exit code of `194` \(Linux\) or `3010` \(Windows\)\. When this happens, the application performs one of the following actions:
++ The application hands the exit code to the caller if it is run by the Systems Manager Agent\. The Systems Manager Agent handles restarting the system and runs the same step that initiated the restart, as described in [Rebooting Managed Instance from Scripts](https://docs.aws.amazon.com/systems-manager/latest/userguide/send-commands-reboot.html)\.
++ The application saves the current `executionstate`, configures a restart trigger to rerun the application, and restarts the system\.
 
-After system restart, the application runs the same step that triggered the restart\. If you require this functionality, you must write idempotent scripts that can handle multiple invocations of the same shell command\.
+After the system restarts, the application runs the same step that initiated the restart\. If you require this functionality, you must write idempotent scripts that can handle multiple invocations of the same shell command\.
 
 
 **Input**  
@@ -107,7 +107,7 @@ After system restart, the application runs the same step that triggered the rest
 | Primitive | Description | Type | Required | 
 | --- | --- | --- | --- | 
 | path | The path to the binary file for execution\. | String | Yes | 
-| arguments | Contains a list of command\-line arguments to use when executing the binary\. | String List | No | 
+| arguments | Contains a list of command\-line arguments to use when running the binary\. | String List | No | 
 
 **Input example: install \.NET**
 
@@ -136,24 +136,24 @@ inputs:
 }
 ```
 
-### ExecutePowerShell<a name="image-builder-action-modules-executepowershell"></a>
+### ExecutePowerShell<a name="action-modules-executepowershell"></a>
 
 The **ExecutePowerShell** action module allows you to run PowerShell scripts with inline shell code/commands\. This module supports the Windows platform and Windows PowerShell\.
 
-All of the commands/instructions specified in the commands block are converted into a script file \(for example, `input.ps1`\) and executed using Windows PowerShell\. The result of running the shell file is the exit code\.
+All of the commands/instructions specified in the commands block are converted into a script file \(for example, `input.ps1`\) and run using Windows PowerShell\. The result of running the shell file is the exit code\.
 
-The **ExecutePowerShell** module handles system restarts if the shell command exits with an exit code of `3010`\. When triggered, the application performs one of the following actions: 
-+ Hands the exit code to the caller if executed by the SSM Agent\. The SSM Agent handles the system reboot and re\-invokes the execution as described in [Rebooting Managed Instance from Scripts](https://docs.aws.amazon.com/systems-manager/latest/userguide/send-commands-reboot.html)\.
+The **ExecutePowerShell** module handles system restarts if the shell command exits with an exit code of `3010`\. When initiated, the application performs one of the following actions: 
++ Hands the exit code to the caller if run by the Systems Manager Agent\. The Systems Manager Agent handles the system reboot and runs the same step that initiated the restart, as described in [Rebooting Managed Instance from Scripts](https://docs.aws.amazon.com/systems-manager/latest/userguide/send-commands-reboot.html)\.
 + Saves the current `executionstate`, configures a restart trigger to rerun the application, and reboots the system\.
 
-After system restart, the application runs the same step that triggered the restart\. If you require this functionality, you must write idempotent scripts that can handle multiple invocations of the same shell command\.
+After system restart, the application runs the same step that initiated the restart\. If you require this functionality, you must write idempotent scripts that can handle multiple invocations of the same shell command\.
 
 
 **Input**  
 
 | Primitive | Description | Type | Required | 
 | --- | --- | --- | --- | 
-| commands | Contains a list of instructions or commands to execute as per PowerShell syntax\. Multi\-line YAML is allowed\. | String List | Yes\. Must specify `commands` or `file`, not both\.  | 
+| commands | Contains a list of instructions or commands to run as per PowerShell syntax\. Multi\-line YAML is allowed\. | String List | Yes\. Must specify `commands` or `file`, not both\.  | 
 | file | Contains the path to a PowerShell script file\. PowerShell will run against this file using the \-file command line argument\. The path must point to a \.ps1 file\. | String | Yes\. Must specify `commands` or `file`, not both\.  | 
 
 **Input example: install software using PowerShell commands**
@@ -189,45 +189,51 @@ inputs:
 
 If you run a reboot and return exit code `3010` as part of the action module, the build will resume at the same action module step that initiated the reboot\. If you run a reboot without the exit code, the build process may fail\.
 
-## File download and upload modules<a name="image-builder-action-modules-download-upload"></a>
+## File download and upload modules<a name="action-modules-download-upload"></a>
 
 The following section contains details for action modules that perform download and upload commands and instructions\.
 
 **Topics**
-+ [S3Download](#image-builder-action-modules-s3download)
-+ [S3Upload](#image-builder-action-modules-s3upload)
-+ [WebDownload](#image-builder-action-modules-webdownload)
++ [S3Download](#action-modules-s3download)
++ [S3Upload](#action-modules-s3upload)
++ [WebDownload](#action-modules-webdownload)
 
-### S3Download<a name="image-builder-action-modules-s3download"></a>
+### S3Download<a name="action-modules-s3download"></a>
 
-The **S3Download** action module allows you to download an Amazon S3 object or **KeyPrefix** to a local destination path\. The destination path can be a file or folder\. All folders in the destination path must exist prior to download, or the download fails\.
+With the `S3Download` action module, you can download an Amazon S3 object, or a set of objects, to a local file or folder that you specify with the `destination` path\. If any file already exists in the specified location, and the `overwrite` flag is set to true, `S3Download` overwrites the file\.
 
-If the **S3Download** action for **S3KeyPrefix** fails, the state of the destination folder remains as it is upon failure\. The folder contents are not rolled back to the contents before failure\.
+Your `source` location can point to a specific object in Amazon S3, or you can use a key prefix with an asterisk wildcard \(`*`\) to download a set of objects that match the key prefix path\. When you specify a key prefix in your `source` location, the `S3Download` action module downloads everything that matches the prefix \(files and folders included\)\. Make sure that the key prefix ends with a forward\-slash, followed by an asterisk \(`/*`\), so that you download everything that matches the prefix\. For example:  `s3://my-bucket/my-folder/*`\.
 
-**Supported use cases:**
-+ S3 object to local file\.
-+ S3 objects \(with **KeyPrefix** in S3 file path\) to local folder, which recursively copies all S3 files in a **KeyPrefix** to the local folder\.
+**Note**  
+All folders in the destination path must exist prior to download, or the download fails\.
 
-**IAM requirements**
+If the `S3Download` action for a specified key prefix fails during a download, the folder content is not rolled back to its state prior to the failure\. The destination folder remains as it was at the time of the failure\.
 
-The IAM role that you associate with your instance profile must have permissions to run the **S3Download** action module\. The following IAM role policies must be attached to the IAM role that is associated with the instance profile: 
+**Supported use cases**  
+The `S3Download` action module supports the following use cases:
++ The Amazon S3 object is downloaded to a local folder, as specified in the download path\.
++ Amazon S3 objects \(with a key prefix in the Amazon S3 file path\) are downloaded to the specified local folder, which recursively copies all Amazon S3 objects that match the key prefix to the local folder\.
+
+**IAM requirements**  
+The IAM role that you associate with your instance profile must have permissions to run the `S3Download` action module\. The following IAM policies must be attached to the IAM role that is associated with the instance profile:
 + **Single file**: `s3:GetObject` against the bucket/object \(for example, `arn:aws:s3:::BucketName/*`\)\.
 + **Multiple files**: `s3:ListBucket` against the bucket/object \(for example, `arn:aws:s3:::BucketName`\) and `s3:GetObject` against the bucket/object \(for example, `arn:aws:s3:::BucketName/*`\)\.
 
 
 **Input**  
 
-| Primitive | Description | Type | Required | 
-| --- | --- | --- | --- | 
-| source | Remote path\. Source supports wildcard denoted by a \*\. | String |  Yes  | 
-| destination | Local path\. | String | Yes | 
+|  Primitive  |  Description  |  Type  |  Required  |  Default  | 
+| --- | --- | --- | --- | --- | 
+|  `source`  |  The Amazon S3 bucket that is the source for your download\. You can specify a path to a specific object, or use a key prefix, that ends with a forward\-slash, followed by an asterisk wildcard \(`/*`\), to download a set of objects that match the key prefix\.   |  String  |  Yes  |  N/A  | 
+|  `destination`  |  The local path where the Amazon S3 objects are downloaded\.  |  String  |  Yes  |  N/A  | 
+|  `expectedBucketOwner`  |  Expected owner account ID of the bucket provided in the `source` path\. We recommend that you verify the ownership of the Amazon S3 bucket specified in the source\.  |  String  |  No  |  N/A  | 
+|  `overwrite`  |  When set to true, if a file of the same name already exists in the destination folder for the specified local path, the download file overwrites the local file\. When set to false, the existing file on the local system is protected from being overwritten, and the action module fails with a download error\. For example, `Error: S3Download: File already exists and "overwrite" property for "destination" file is set to false. Cannot download.`  |  Boolean  |  No  |  true  | 
 
 **Note**  
 For the following examples, the Windows folder path can be replaced with a Linux path\. For example, `C:\myfolder\package.zip` can be replaced with `/myfolder/package.zip`\.
 
-**Input example: copy S3 object to local file**
-
-The following example shows how to copy an S3 Object to a local file\.
+**Input example: copy an Amazon S3 object to a local file**  
+The following example shows how to copy an Amazon S3 object to a local file\.
 
 ```
 name: DownloadMyFile
@@ -235,11 +241,19 @@ action: S3Download
 inputs:
     - source: s3://mybucket/path/to/package.zip
       destination: C:\myfolder\package.zip
+      expectedBucketOwner: 123456789022
+      overwrite: false
+    - source: s3://mybucket/path/to/package.zip
+      destination: C:\myfolder\package.zip
+      expectedBucketOwner: 123456789022
+      overwrite: true
+    - source: s3://mybucket/path/to/package.zip
+      destination: C:\myfolder\package.zip
+      expectedBucketOwner: 123456789022
 ```
 
-**Input example: copy All S3 objects in S3 bucket with KeyPrefix to local folder**
-
-The following example shows how to copy all S3 Objects in an Amazon S3 Bucket with the **KeyPrefix** to a local folder\. S3 has no concept of a folder, therefore all objects matching the **KeyPrefix** are copied\. The limit for maximum objects is 1000\.
+**Input example: copy all Amazon S3 objects in an Amazon S3 bucket with key prefix to a local folder**  
+The following example shows how to copy all Amazon S3 objects in an Amazon S3 bucket with the key prefix to a local folder\. Amazon S3 has no concept of a folder, therefore all objects that match the key prefix are copied\. The maximum number of objects that can be downloaded is 1000\.
 
 ```
 name: MyS3DownloadKeyprefix
@@ -248,41 +262,46 @@ maxAttempts: 3
 inputs:
     - source: s3://mybucket/path/to/*
       destination: C:\myfolder\
+      expectedBucketOwner: 123456789022
+      overwrite: false
+    - source: s3://mybucket/path/to/*
+      destination: C:\myfolder\
+      expectedBucketOwner: 123456789022
+      overwrite: true
+    - source: s3://mybucket/path/to/*
+      destination: C:\myfolder\
+      expectedBucketOwner: 123456789022
 ```
 
-**Output **
-
+**Output**  
 None\.
 
-### S3Upload<a name="image-builder-action-modules-s3upload"></a>
+### S3Upload<a name="action-modules-s3upload"></a>
 
-The **S3Upload** action module allows you to upload a file from a source file or folder to an Amazon S3 location\. Wildcards are permitted for use with the source and are denoted by the `*` character \. 
+With the **S3Upload** action module, you can upload a file from a source file or folder to an Amazon S3 location\. You can use a wildcard \(`*`\) in the path specified for your source location to upload all of the files whose path matches the wildcard pattern\.
 
-If the recursive **S3Upload** action fails, Amazon S3 files that have already been uploaded will remain\.
+If the recursive **S3Upload** action fails, any files that have already been uploaded will remain in the destination Amazon S3 bucket\.
 
-**Supported use cases:**
-
-• Local file to S3 object\.
-
-• Local files in folder \(with wildcard\) to S3 `KeyPrefix`\.
-
-• Copy local folder \(must have `recurse` set to `true`\) to S3 `KeyPrefix`\.
+**Supported use cases**
++ Local file to Amazon S3 object\.
++ Local files in folder \(with wildcard\) to Amazon S3 key prefix\.
++ Copy local folder \(must have `recurse` set to `true`\) to Amazon S3 key prefix\.
 
 **IAM requirements**  
-The IAM role that you associate with your instance profile must have permissions to run the **S3Upload** action module\. The following IAM role policy must be attached to the IAM role that is associated with the instance profile: `s3:PutObject` against the bucket/object \(for example, `arn:aws:s3:::BucketName/*`\)\.
+The IAM role that you associate with your instance profile must have permissions to run the `S3Upload` action module\. The following IAM policy must be attached to the IAM role that is associated with the instance profile\. The policy must grant `s3:PutObject` permissions to the target Amazon S3 bucket\. For example, `arn:aws:s3:::BucketName/*`\)\.
 
 
 **Input**  
 
-| Primitive | Description | Type | Required | Default | 
+|  Primitive  |  Description  |  Type  |  Required  |  Default  | 
 | --- | --- | --- | --- | --- | 
-| source | Local path\. Source supports wildcard denoted by a \*\. | String |  Yes  | N/A | 
-| destination | Remote path\. | String |  Yes  | N/A | 
-| recurse | When set to true, performs S3Upload recursively\. | String | No | false | 
+|  `source`  |  The local path where source files/folders originate\. The `source` supports an asterisk wildcard \(`*`\)\.  |  String  |  Yes  |  N/A  | 
+|  `destination`  |  The path for the destination Amazon S3 bucket where source files/folders are uploaded\.  |  String  |  Yes  |  N/A  | 
+|  `recurse`  |  When set to `true`, performs **S3Upload** recursively\.  |  String  |  No  |  `false`  | 
+|  `expectedBucketOwner`  |  The expected owner account ID for the Amazon S3 bucket specified in the destination path\. We recommend that you verify the ownership of the Amazon S3 bucket specified in the destination\.  |  String  |  No  |  N/A  | 
 
-**Input example: copy local file to S3 object**
-
-The following example shows how to copy a local file to an Amazon S3 Object\.
+**Input example: copy a local file to an Amazon S3 object**  
+The following example shows how to copy a local file to an Amazon S3 object\.
 
 ```
 name: MyS3UploadFile
@@ -292,11 +311,11 @@ maxAttempts: 3
 inputs:
     - source: C:\myfolder\package.zip
       destination: s3://mybucket/path/to/package.zip
+      expectedBucketOwner: 123456789022
 ```
 
-**Input example: copy all files in local folder to S3 bucket with ****KeyPrefix**
-
-The following example shows how to copy all files in the local folder to an Amazon S3 bucket with **KeyPrefix**\. This example does not copy sub\-folders or their contents because `recurse` is not specified and it defaults to `false`\. 
+**Input example: copy all files in a local folder to an Amazon S3 bucket with key prefix**  
+The following example shows how to copy all files in the local folder to an Amazon S3 bucket with key prefix\. This example does not copy sub\-folders or their contents because `recurse` is not specified, and it defaults to `false`\.
 
 ```
 name: MyS3UploadMultipleFiles
@@ -306,11 +325,11 @@ maxAttempts: 3
 inputs:
     - source: C:\myfolder\*
       destination: s3://mybucket/path/to/
+      expectedBucketOwner: 123456789022
 ```
 
-**Input example: copy all files and folders recursively from a local folder to S3 bucket **
-
-The following example shows how to copy all files and folders recursively from a local folder to an Amazon S3 bucket with **KeyPrefix**\. 
+**Input example: copy all files and folders recursively from a local folder to an Amazon S3 bucket**  
+The following example shows how to copy all files and folders recursively from a local folder to an Amazon S3 bucket with key prefix\.
 
 ```
 name: MyS3UploadFolder
@@ -321,13 +340,13 @@ inputs:
     - source: C:\myfolder\*
       destination: s3://mybucket/path/to/
       recurse: true
+      expectedBucketOwner: 123456789022
 ```
 
-**Output**
+**Output**  
+None\.
 
-None\. 
-
-### WebDownload<a name="image-builder-action-modules-webdownload"></a>
+### WebDownload<a name="action-modules-webdownload"></a>
 
 The **WebDownload** action module allows you to download files and resources from a remote location over the HTTP/HTTPS protocol \(*HTTPS is recommended*\)\. There are no limits on the number or size of downloads\. This module handles retry and exponential backoff logic\. 
 
@@ -431,30 +450,30 @@ Output:
 }
 ```
 
-## File system operation modules<a name="image-builder-action-modules-file-system-operations"></a>
+## File system operation modules<a name="action-modules-file-system-operations"></a>
 
 The following section contains details for action modules that perform file system operation commands and instructions\.
 
 **Topics**
-+ [AppendFile](#image-builder-action-modules-appendfile)
-+ [CopyFile](#image-builder-action-modules-copyfile)
-+ [CopyFolder](#image-builder-action-modules-copyfolder)
-+ [CreateFile](#image-builder-action-modules-createfile)
-+ [CreateFolder](#image-builder-action-modules-createfolder)
-+ [CreateSymlink](#image-builder-action-modules-createsymlink)
-+ [DeleteFile](#image-builder-action-modules-deleteefile)
-+ [DeleteFolder](#image-builder-action-modules-deletefolder)
-+ [ListFiles](#image-builder-action-modules-listfiles)
-+ [MoveFile](#image-builder-action-modules-movefile)
-+ [MoveFolder](#image-builder-action-modules-movefolder)
-+ [ReadFile](#image-builder-action-modules-readfile)
-+ [SetFileEncoding](#image-builder-action-modules-setfileencoding)
-+ [SetFileOwner](#image-builder-action-modules-setfileowner)
-+ [SetFolderOwner](#image-builder-action-modules-setfolderowner)
-+ [SetFilePermissions](#image-builder-action-modules-setfilepermissions)
-+ [SetFolderPermissions](#image-builder-action-modules-setfolderpermissions)
++ [AppendFile](#action-modules-appendfile)
++ [CopyFile](#action-modules-copyfile)
++ [CopyFolder](#action-modules-copyfolder)
++ [CreateFile](#action-modules-createfile)
++ [CreateFolder](#action-modules-createfolder)
++ [CreateSymlink](#action-modules-createsymlink)
++ [DeleteFile](#action-modules-deleteefile)
++ [DeleteFolder](#action-modules-deletefolder)
++ [ListFiles](#action-modules-listfiles)
++ [MoveFile](#action-modules-movefile)
++ [MoveFolder](#action-modules-movefolder)
++ [ReadFile](#action-modules-readfile)
++ [SetFileEncoding](#action-modules-setfileencoding)
++ [SetFileOwner](#action-modules-setfileowner)
++ [SetFolderOwner](#action-modules-setfolderowner)
++ [SetFilePermissions](#action-modules-setfilepermissions)
++ [SetFolderPermissions](#action-modules-setfolderpermissions)
 
-### AppendFile<a name="image-builder-action-modules-appendfile"></a>
+### AppendFile<a name="action-modules-appendfile"></a>
 
 The **AppendFile** action module adds specified content to the preexisting content of a file\.
 
@@ -537,7 +556,7 @@ inputs:
 **Output**  
 None\.
 
-### CopyFile<a name="image-builder-action-modules-copyfile"></a>
+### CopyFile<a name="action-modules-copyfile"></a>
 
 The **CopyFile** action module copies files from the specified source to the specified destination\. By default, the module recursively creates the destination folder if it does not exist at runtime\.
 
@@ -647,7 +666,7 @@ inputs:
 **Output**  
 None\.
 
-### CopyFolder<a name="image-builder-action-modules-copyfolder"></a>
+### CopyFolder<a name="action-modules-copyfolder"></a>
 
 The **CopyFolder** action module copies a folder from the specified source to the specified destination\. The input for the `source` option is the folder to copy, and the input for the `destination` option is the folder where the contents of the source folder are copied\. By default, the module recursively creates the destination folder if it does not exist at runtime\.
 
@@ -757,7 +776,7 @@ inputs:
 **Output**  
 None\.
 
-### CreateFile<a name="image-builder-action-modules-createfile"></a>
+### CreateFile<a name="action-modules-createfile"></a>
 
 The **CreateFile** action module creates a file in a specified location\. By default, if required, the module also recursively creates the parent folders\.
 
@@ -841,7 +860,7 @@ inputs:
 **Output**  
 None\.
 
-### CreateFolder<a name="image-builder-action-modules-createfolder"></a>
+### CreateFolder<a name="action-modules-createfolder"></a>
 
 The **CreateFolder** action module creates a folder in a specified location\. By default, if required, the module also recursively creates the parent folders\.
 
@@ -911,7 +930,7 @@ inputs:
 **Output**  
 None\.
 
-### CreateSymlink<a name="image-builder-action-modules-createsymlink"></a>
+### CreateSymlink<a name="action-modules-createsymlink"></a>
 
 The **CreateSymlink** action module creates symbolic links, or files that contain a reference to another file\. This module is not supported on Windows platforms\. 
 
@@ -959,7 +978,7 @@ inputs:
 **Output**  
 None\.
 
-### DeleteFile<a name="image-builder-action-modules-deleteefile"></a>
+### DeleteFile<a name="action-modules-deleteefile"></a>
 
 The **DeleteFile** action module deletes a file or files in a specified location\.
 
@@ -1033,7 +1052,7 @@ inputs:
 **Output**  
 None\.
 
-### DeleteFolder<a name="image-builder-action-modules-deletefolder"></a>
+### DeleteFolder<a name="action-modules-deletefolder"></a>
 
 The **DeleteFolder** action module deletes folders\.
 
@@ -1092,7 +1111,7 @@ inputs:
 **Output**  
 None\.
 
-### ListFiles<a name="image-builder-action-modules-listfiles"></a>
+### ListFiles<a name="action-modules-listfiles"></a>
 
 The **ListFiles** action module lists the files in a specified folder\. When the recursive option is set to `true`, it lists the files in subfolders\. This module does not list files in subfolders by default\.
 
@@ -1175,7 +1194,7 @@ inputs:
 }
 ```
 
-### MoveFile<a name="image-builder-action-modules-movefile"></a>
+### MoveFile<a name="action-modules-movefile"></a>
 
 The **MoveFile** action module moves files from the specified source to the specified destination\.
 
@@ -1285,7 +1304,7 @@ inputs:
 **Output**  
 None\.
 
-### MoveFolder<a name="image-builder-action-modules-movefolder"></a>
+### MoveFolder<a name="action-modules-movefolder"></a>
 
 The **MoveFolder** action module moves folders from the specified source to the specified destination\. The input for the `source` option is the folder to move, and the input to the `destination` option is the folder where the contents of the source folders are moved\.
 
@@ -1397,7 +1416,7 @@ inputs:
 **Output**  
 None\.
 
-### ReadFile<a name="image-builder-action-modules-readfile"></a>
+### ReadFile<a name="action-modules-readfile"></a>
 
 The **ReadFile** action module reads the content of a text file of type string\. This module can be used to read the content of a file for use in subsequent steps through chaining or for reading data to the `console.log` file\. If the specified path is a symbolic link, this module returns the content of the target file\. This module only supports text files\.
 
@@ -1473,7 +1492,7 @@ inputs:
 }
 ```
 
-### SetFileEncoding<a name="image-builder-action-modules-setfileencoding"></a>
+### SetFileEncoding<a name="action-modules-setfileencoding"></a>
 
 The **SetFileEncoding** action module modifies the encoding property of an existing file\. This module can convert file encoding from `utf-8` to a specified encoding standard\. By default, `utf-16` and `utf-32` are assumed to be little\-endian encoding\.
 
@@ -1503,7 +1522,7 @@ inputs:
 **Output**  
 None\.
 
-### SetFileOwner<a name="image-builder-action-modules-setfileowner"></a>
+### SetFileOwner<a name="action-modules-setfileowner"></a>
 
 The **SetFileOwner** action module modifies the `owner` and`group` owner properties of an existing file\. If the specified file is a symbolic link, the module modifies the `owner` property of the source file\. This module is not supported on Windows platforms\. 
 
@@ -1548,7 +1567,7 @@ inputs:
 **Output**  
 None\.
 
-### SetFolderOwner<a name="image-builder-action-modules-setfolderowner"></a>
+### SetFolderOwner<a name="action-modules-setfolderowner"></a>
 
 The **SetFolderOwner** action module recursively modifies the `owner` and`group` owner properties of an existing folder\. By default, the module can modify ownership for all of the contents in a folder\. You can set the `recursive` option to `false` to override this behavior\. This module is not supported on Windows platforms\. 
 
@@ -1605,7 +1624,7 @@ inputs:
 **Output**  
 None\.
 
-### SetFilePermissions<a name="image-builder-action-modules-setfilepermissions"></a>
+### SetFilePermissions<a name="action-modules-setfilepermissions"></a>
 
 The **SetFilePermissions** action module modifies the `permissions` of an existing file\. This module is not supported on Windows platforms\. 
 
@@ -1639,7 +1658,7 @@ inputs:
 **Output**  
 None\.
 
-### SetFolderPermissions<a name="image-builder-action-modules-setfolderpermissions"></a>
+### SetFolderPermissions<a name="action-modules-setfolderpermissions"></a>
 
 The **SetFolderPermissions** action module recursively modifies the `permissions` of an existing folder and all of its subfiles and subfolders\. By default, this module can modify permissions for all of the contents of the specified folder\. You can set the `recursive` option to `false` to override this behavior\. This module is not supported on Windows platforms\. 
 
@@ -1685,20 +1704,20 @@ inputs:
 **Output**  
 None\.
 
-## System action modules<a name="image-builder-action-modules-file-system-actions"></a>
+## System action modules<a name="action-modules-file-system-actions"></a>
 
 The following section contains details for action modules that perform file system action commands and instructions\.
 
 **Topics**
-+ [Reboot](#image-builder-action-modules-reboot)
-+ [SetRegistry](#image-builder-action-modules-setregistry)
-+ [UpdateOS](#image-builder-action-modules-updateos)
++ [Reboot](#action-modules-reboot)
++ [SetRegistry](#action-modules-setregistry)
++ [UpdateOS](#action-modules-updateos)
 
-### Reboot<a name="image-builder-action-modules-reboot"></a>
+### Reboot<a name="action-modules-reboot"></a>
 
 The **Reboot** action module reboots the instance\. It has a configurable option to delay the start of the reboot\. It does not support the step timeout value due to the instance getting rebooted\. Default behavior is that `delaySeconds` is `0`, which means that there is no delay\.
 
-If the application is invoked by the SSM Agent, it hands the exit code \(`3010` for Windows, `194` for Linux\) to the SSM Agent\. The SSM Agent handles the system reboot as described in [Rebooting Managed Instance from Scripts](https://docs.aws.amazon.com/systems-manager/latest/userguide/send-commands-reboot.html)\.
+If the application is invoked by the Systems Manager Agent, it hands the exit code \(`3010` for Windows, `194` for Linux\) to the Systems Manager Agent\. The Systems Manager Agent handles the system reboot as described in [Rebooting Managed Instance from Scripts](https://docs.aws.amazon.com/systems-manager/latest/userguide/send-commands-reboot.html)\.
 
 If the application is invoked on the host as a standalone process, it saves the current execution state, configures a post reboot auto\-run trigger to re\-execute the application, and then reboots the system\.
 
@@ -1738,7 +1757,7 @@ None\.
 
 When the **Reboot** module completes, Image Builder continues to the next step in the build\.
 
-### SetRegistry<a name="image-builder-action-modules-setregistry"></a>
+### SetRegistry<a name="action-modules-setregistry"></a>
 
 The **SetRegistry** action module accepts a list of inputs and allows you to set the value for the specified registry key\. If a registry key does not exist, it is created in the defined path\. This feature applies only to Windows\.
 
@@ -1788,7 +1807,7 @@ inputs:
 
 None\.
 
-### UpdateOS<a name="image-builder-action-modules-updateos"></a>
+### UpdateOS<a name="action-modules-updateos"></a>
 
 The **UpdateOS** action module adds support for installing Windows and Linux updates\.
 
@@ -1803,8 +1822,8 @@ If both “include" and "exclude" lists are provided, the resulting list of upda
 
 | Primitive | Description | Type | Required | 
 | --- | --- | --- | --- | 
-| include |  For Windows, you can specify the following: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/imagebuilder/latest/userguide/image-builder-action-modules.html) For Linux, you can specify one or more packages to be included in the list of updates for installation\.  | String List | No | 
-| exclude |  For Windows, you can specify the following: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/imagebuilder/latest/userguide/image-builder-action-modules.html) For Linux, you can specify one or more packages to be excluded from the list of updates for installation\.  | String List | No | 
+| include |  For Windows, you can specify the following: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/imagebuilder/latest/userguide/toe-action-modules.html) For Linux, you can specify one or more packages to be included in the list of updates for installation\.  | String List | No | 
+| exclude |  For Windows, you can specify the following: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/imagebuilder/latest/userguide/toe-action-modules.html) For Linux, you can specify one or more packages to be excluded from the list of updates for installation\.  | String List | No | 
 
 **Input example: add support for installing Linux updates**
 

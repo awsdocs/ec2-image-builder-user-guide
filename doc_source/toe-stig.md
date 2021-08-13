@@ -1,27 +1,27 @@
-# EC2 Image Builder STIG components<a name="image-builder-stig"></a>
+# EC2 Image Builder STIG components<a name="toe-stig"></a>
 
-Security Technical Implementation Guides \(STIGs\) are the configuration standards created by the Defense Information Systems Agency \(DISA\) to secure information systems and software\. To make your systems compliant with STIG standards, you must install, configure, and test a variety of security settings\. 
+Security Technical Implementation Guides \(STIGs\) are the configuration standards created by the Defense Information Systems Agency \(DISA\) to secure information systems and software\. To make your systems compliant with STIG standards, you must install, configure, and test a variety of security settings\.
 
-EC2 Image Builder provides STIG components to help you quickly build compliant images for STIG standards\. These STIG components scan for misconfigurations and run a remediation script\. There are no additional charges for using STIG\-compliant components\. 
+AWS Task Orchestrator and Executor provides STIG components to help you more efficiently build compliant images for STIG standards\. These STIG components scan for misconfigurations and run a remediation script\. There are no additional charges for using STIG\-compliant components\.
 
 **Compliance levels**
 + **High \(Category I\) **
 
-  The most severe risk\. It includes any vulnerability that can result in loss of confidentiality, availability, or integrity\.
+  The most severe risk\. Includes any vulnerability that can result in loss of confidentiality, availability, or integrity\.
 + **Medium \(Category II\) **
 
-  Any vulnerability that could result in loss of confidentiality, availability, or integrity\. These risks could be mitigated\.
+  Includes any vulnerability that can result in loss of confidentiality, availability, or integrity, but the risks can be mitigated\.
 + **Low \(Category III\) **
 
   Any vulnerability that degrades measures to protect against loss of confidentiality, availability, or integrity\.
 
 **Topics**
-+ [Windows STIG components](#base-os-stig)
-+ [Linux STIG components](#ie-os-stig)
++ [Windows STIG components](#windows-os-stig)
++ [Linux STIG components](#linux-os-stig)
 
-## Windows STIG components<a name="base-os-stig"></a>
+## Windows STIG components<a name="windows-os-stig"></a>
 
-Windows STIG components are designed for standalone servers and apply Local Group Policy\. STIG\-compliant components install InstallRoot on Windows AMIs from the Department of Defense \(DoD\) to install and update the DoD certificates\. They also remove unnecessary certificates to maintain STIG compliance\.
+Windows STIG components are designed for standalone servers and they apply Local Group Policy\. STIG\-compliant components install InstallRoot on Windows AMIs from the Department of Defense \(DoD\) to install and update the DoD certificates\. They also remove unnecessary certificates to maintain STIG compliance\.
 
 ### STIG\-Build\-Windows\-Low version 1\.4\.0<a name="ib-windows-stig-low"></a>
 
@@ -119,7 +119,7 @@ The STIG\-Build\-Windows\-High components include all STIG settings that Image B
 
   Includes all STIG settings that Image Builder applies for Categories II and III \(Medium and Low\) vulnerabilities for Internet Explorer 11\. No additional STIG settings are applied for Category I vulnerabilities\.
 
-## Linux STIG components<a name="ie-os-stig"></a>
+## Linux STIG components<a name="linux-os-stig"></a>
 
 This section contains information about Linux STIG components\. If the Linux distribution does not have STIG settings of its own, RHEL settings are applied\. STIG settings are applied to components based on the Linux distribution, as follows:
 

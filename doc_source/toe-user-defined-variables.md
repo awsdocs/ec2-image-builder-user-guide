@@ -1,8 +1,8 @@
-# Define and reference variables in AWS TOE<a name="image-builder-component-manager-user-defined-variables"></a>
+# Define and reference variables in AWSTOE<a name="toe-user-defined-variables"></a>
 
-Variables provide a way to label data with meaningful names that can be used throughout an application\. You can define custom variables with simple and readable formats for complex workflows, and reference them in the YAML application component document for an AWS TOE component\.
+Variables provide a way to label data with meaningful names that can be used throughout an application\. You can define custom variables with simple and readable formats for complex workflows, and reference them in the YAML application component document for an AWSTOE component\.
 
-This section provides information to help you define variables for your AWS TOE component in the YAML application component document, including syntax, name constraints, and examples\.
+This section provides information to help you define variables for your AWSTOE component in the YAML application component document, including syntax, name constraints, and examples\.
 
 ## Parameters<a name="user-defined-vars-parameters"></a>
 
@@ -14,7 +14,7 @@ Parameters are mutable variables, with settings that the calling application can
 + The name must be unique within the document\.
 + The name must be specified as a YAML string\.
 
-### Syntax<a name="w54aac14c35b7b7"></a>
+### Syntax<a name="vars-parameters-syntax"></a>
 
 ```
 parameters:
@@ -32,7 +32,7 @@ parameters:
 | `default` | No | The default value for the parameter\. | 
 | `description` | No | Describes the parameter\. | 
 
-### Reference parameter values in a document<a name="w54aac14c35b7b9"></a>
+### Reference parameter values in a document<a name="vars-parameters-referencing"></a>
 
 You can reference parameters in step or loop inputs inside of your YAML document, as follows:
 + Parameter references are case\-sensitive, and the name must match exactly\.
@@ -91,15 +91,15 @@ The following examples show how to use parameters in your YAML document:
               - ping -c 4 {{ loop.value }}
   ```
 
-### Override parameters at runtime<a name="w54aac14c35b7c11"></a>
+### Override parameters at runtime<a name="vars-parameters-set-at-runtime"></a>
 
-You can use the `--parameters` option from the AWS CLI with a key/value pair to set a parameter value at runtime\.
-+ Specify the parameter key/value pair as the name and value, separated by an equals sign \(<name>=<value>\)\.
+You can use the `--parameters` option from the AWS CLI with a key\-value pair to set a parameter value at runtime\.
++ Specify the parameter key\-value pair as the name and value, separated by an equals sign \(<name>=<value>\)\.
 + Multiple parameters must be separated by a comma\.
 + Parameter names that are not found in the YAML component document are ignored\.
 + The parameter name and value are both required\.
 
-#### Syntax<a name="w54aac14c35b7c11b7"></a>
+#### Syntax<a name="vars-parameters-syntax"></a>
 
 ```
 --parameters name1=value1,name12=value2...
@@ -108,29 +108,29 @@ You can use the `--parameters` option from the AWS CLI with a key/value pair to 
 
 | CLI option | Required | Description | 
 | --- | --- | --- | 
-| \-\-parameters *name*=*value*,\.\.\. | No | This option takes list of key/value pairs, with the parameter name as the key\. | 
+| \-\-parameters *name*=*value*,\.\.\. | No | This option takes list of key\-value pairs, with the parameter name as the key\. | 
 
 **Examples**  
 The following examples show how to use parameters in your YAML document:
-+ The parameter key/value pair specified in this `--parameter` option is not valid:
++ The parameter key\-value pair specified in this `--parameter` option is not valid:
 
   ```
   --parameters ntp-server=
   ```
-+ Set one parameter key/value pair with the `--parameter` option in the AWS CLI:
++ Set one parameter key\-value pair with the `--parameter` option in the AWS CLI:
 
   ```
   --parameters ntp-server=ntp-server-windows-qe.us-east1.amazon.com
   ```
-+ Set multiple parameter key/value pairs with the `--parameter` option in the AWS CLI:
++ Set multiple parameter key\-value pairs with the `--parameter` option in the AWS CLI:
 
   ```
   --parameters ntp-server=ntp-server.amazon.com,http-url=https://internal-us-east1.amazon.com
   ```
 
-## Constants<a name="image-builder-component-manager-user-defined-variables-constants"></a>
+## Constants<a name="user-defined-vars-constants"></a>
 
-Constants are immutable variables that cannot be modified or overridden once defined\. Constants can be defined using values in the `constants` section of an AWS TOE document\.
+Constants are immutable variables that cannot be modified or overridden once defined\. Constants can be defined using values in the `constants` section of an AWSTOE document\.
 
 **Rules for constant names**
 + The name must be between 3 and 128 characters in length\.

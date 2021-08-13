@@ -7,7 +7,7 @@ To help you manage your Image Builder resources, you can assign your own metadat
 For more information about tagging your resources using Image Builder commands in the AWS CLI, see the [Tag resources](tag-resources.md) section of this guide\.
 
 **Topics**
-+ [Manage components with AWS TOE](manage-components.md)
++ [Manage components with AWSTOE](manage-components.md)
 + [Manage recipes](manage-recipes.md)
 + [Manage EC2 Image Builder images](manage-images.md)
 + [Manage EC2 Image Builder infrastructure configuration](manage-infra-config.md)

@@ -180,7 +180,7 @@ The **AWSServiceRoleForImageBuilder** policy allows Image Builder to call AWS se
 
 ### Permissions details<a name="sec-iam-manpol-AWSServiceRoleForImageBuilder-details"></a>
 
-This policy includes the following permissions and is attached to the Image Builder service\-linked role when the role is created through SSM:
+This policy is attached to the Image Builder service\-linked role when the role is created through Systems Manager\. The policy includes the following permissions:
 + **CloudWatch Logs** – Access is granted to create and upload CloudWatch Logs to any log group whose name starts with `/aws/imagebuilder/`\.
 + **Amazon EC2** – Access is granted for Image Builder to launch Amazon EC2 instances in your account, using related snapshots, volumes, network interfaces, security groups, and key pairs as required, as long as the instance and volumes that are being created or used are tagged with `"Created By": "EC2 Image Builder"`\.
 
@@ -193,11 +193,11 @@ This policy includes the following permissions and is attached to the Image Buil
 + **AWS KMS** – Access is granted for Amazon EBS to encrypt, decrypt or re\-encrypt Amazon EBS volumes\. This is crucial to ensure that encrypted volumes work when Image Builder builds an image\.
 + **License Manager** – Access is granted for Image Builder to update License Manager specifications via `license-manager:UpdateLicenseSpecificationsForResource`\.
 + **Amazon SNS** – Write permissions are granted for any Amazon SNS topic in the account\.
-+ **SSM** – Access is granted for Image Builder to list SSM commands and their invocations, instance information, inventory entries and automation execution statuses\. Image Builder can also send automation signals, and stop automation exeuctions for any resource in your account\.
++ **Systems Manager** – Access is granted for Image Builder to list Systems Manager commands and their invocations, instance information, inventory entries and automation execution statuses\. Image Builder can also send automation signals, and stop automation exeuctions for any resource in your account\.
 
-  Image Builder is able to issue run command invocations to any instance that is tagged `"Created By": "EC2 Image Builder"` for the following script files: `AWS-RunPowerShellScript`, `AWS-RunShellScript`, or `AWSEC2-RunSysprep`\. Image Builder is able to start an SSM automation execution in your account for automation documents where the name starts with `ImageBuilder`\.
+  Image Builder is able to issue run command invocations to any instance that is tagged `"Created By": "EC2 Image Builder"` for the following script files: `AWS-RunPowerShellScript`, `AWS-RunShellScript`, or `AWSEC2-RunSysprep`\. Image Builder is able to start an Systems Manager automation execution in your account for automation documents where the name starts with `ImageBuilder`\.
 
-  Image Builder is also able to create or delete State Manager associations for any instance in your account, as long as the association document is `AWS-GatherSoftwareInventory`, and to create the SSM service\-linked role in your account\. For more information about the Image Builder service\-linked role, see [Using service\-linked roles for EC2 Image Builder](image-builder-service-linked-role.md)\.
+  Image Builder is also able to create or delete State Manager associations for any instance in your account, as long as the association document is `AWS-GatherSoftwareInventory`, and to create the Systems Manager service\-linked role in your account\. For more information about the Image Builder service\-linked role, see [Using service\-linked roles for EC2 Image Builder](image-builder-service-linked-role.md)\.
 + **AWS STS** – Access is granted for Image Builder to assume roles named **EC2ImageBuilderDistributionCrossAccountRole** from your account to any account where the Trust policy on the role permits it\. This is used for cross\-account image distribution\.
 
 ### Policy example<a name="sec-iam-manpol-AWSServiceRoleForImageBuilder-policy"></a>
@@ -338,7 +338,8 @@ The following is an example of the AWSServiceRoleForImageBuilder policy\.
                 "ssm:StopAutomationExecution",
                 "ssm:ListInventoryEntries",
                 "ssm:SendAutomationSignal",
-                "ssm:DescribeInstanceAssociationsStatus"
+                "ssm:DescribeInstanceAssociationsStatus",
+                "ssm:DescribeAssociationExecutions"
             ],
             "Resource": "*"
         },
@@ -498,7 +499,7 @@ The following is an example of the Ec2ImageBuilderCrossAccountDistributionAccess
 
 ## EC2InstanceProfileForImageBuilder policy<a name="sec-iam-manpol-EC2InstanceProfileForImageBuilder"></a>
 
-The **EC2InstanceProfileForImageBuilder** policy grants the minimum permissions required for an Amazon EC2 instance to work with Image Builder\. This does not include permissions required to use the SSM Agent\.
+The **EC2InstanceProfileForImageBuilder** policy grants the minimum permissions required for an Amazon EC2 instance to work with Image Builder\. This does not include permissions required to use the Systems Manager Agent\.
 
 ### Permissions details<a name="sec-iam-manpol-EC2InstanceProfileForImageBuilder-details"></a>
 
@@ -560,7 +561,7 @@ The following is an example of the EC2InstanceProfileForImageBuilder policy\.
 
 ## EC2InstanceProfileForImageBuilderECRContainerBuilds policy<a name="sec-iam-manpol-EC2InstanceProfileForImageBuilderECRContainerBuilds"></a>
 
-The **EC2InstanceProfileForImageBuilderECRContainerBuilds** policy grants the minimum permissions required for an Amazon EC2 instance when working with Image Builder to build Docker images and then register and store the images in an Amazon ECR container repository\. This does not include permissions required to use the SSM Agent\.
+The **EC2InstanceProfileForImageBuilderECRContainerBuilds** policy grants the minimum permissions required for an Amazon EC2 instance when working with Image Builder to build Docker images and then register and store the images in an Amazon ECR container repository\. This does not include permissions required to use the Systems Manager Agent\.
 
 ### Permissions details<a name="sec-iam-manpol-EC2InstanceProfileForImageBuilderECRContainerBuilds-details"></a>
 
@@ -639,5 +640,6 @@ This section provides information about updates to AWS managed policies for EC2 
 
 | Change | Description | Date | 
 | --- | --- | --- | 
+|  [AWSServiceRoleForImageBuilder](#sec-iam-manpol-AWSServiceRoleForImageBuilder) – Update to an existing policy  |  Image Builder added new permissions to fix issues where more than one inventory association causes the image build to get stuck\.  | August 11, 2021 | 
 |  [AWSImageBuilderFullAccess](#sec-iam-manpol-AWSImageBuilderFullAccess) – Update to an existing policy  |  Image Builder added permissions to allow `ec2:DescribeInstanceTypeOffereings`\. Added permissions to call `ec2:DescribeInstanceTypeOffereings` to enable the Image Builder console to accurately reflect the instance types that are available in the account\.  | April 13, 2021 | 
 |  EC2 Image Builder started tracking changes  |  Image Builder started tracking changes for its AWS managed policies\.  | April 02, 2021 | 

@@ -27,7 +27,7 @@ How often your pipeline builds a new image to incorporate any pending updates fr
            "timeoutMinutes": 60
        },
        "schedule": {
-           "scheduleExpression": "cron(0 0 * * SUN)",
+           "scheduleExpression": "cron(0 0 * * SUN *)",
            "pipelineExecutionStartCondition": "EXPRESSION_MATCH_AND_DEPENDENCY_UPDATES_AVAILABLE"
        },
        "status": "ENABLED"

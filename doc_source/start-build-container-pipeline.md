@@ -62,7 +62,7 @@ This setting ensures that your pipeline uses semantic versioning for the source 
 **Note**  
 This setting ensures that your pipeline uses semantic versioning for the selected component, to detect dependency updates for automatically scheduled jobs\.
 
-      If you had selected a component that has input parameters, you would also see the parameters in this area\. Parameters are not covered in this tutorial\. To learn more about using input parameters in your components, and setting them in your recipes, see [Manage AWS TOE component parameters with EC2 Image Builder](manage-component-parameters.md)\.
+      If you had selected a component that has input parameters, you would also see the parameters in this area\. Parameters are not covered in this tutorial\. For more information about using input parameters in your components, and setting them in your recipes, see [Manage AWSTOE component parameters with EC2 Image Builder](manage-component-parameters.md)\.
 
 **Reorder components \(optional\)**  
 If you have chosen more than one component to include in your image, you can use the drag\-and\-drop action to rearrange them into the order in which they should run during the build process\.
