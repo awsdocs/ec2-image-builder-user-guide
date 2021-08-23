@@ -28,11 +28,8 @@ To develop components locally, download and install the AWSTOE application\.
 
    The steps for verifying your download depend on the server platform where you run the AWSTOE application after you install it\. To verify your download on a Linux server, see [Verify the signature on Linux](awstoe-verify-sig.md#awstoe-verify-sig-linux)\. To verify your download on a Windows server, see [Verify the signature on Windows](awstoe-verify-sig.md#awstoe-verify-sig-win)\.
 
-1. 
-
-**Install AWSTOE**
-
-   Install the download using the method that applies to your download location\.
+**Note**  
+AWSTOE is invoked directly from its download location\. There is no need for a separate install step\.
 
 ## Step 2: Set AWS credentials<a name="toe-start-credentials"></a>
 

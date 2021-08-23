@@ -24,7 +24,7 @@ Enhanced metadata collection is turned on by default\. To ensure compatibility b
 
    For **Dependency update settings**, choose the **Run pipeline at the scheduled time if there are dependency updates** option\. This setting causes your pipeline to check for updates before starting the build\. If there are no updates, it skips the scheduled pipeline build\.
 **Note**  
-To ensure that your pipeline recognizes dependency updates and builds as expected, you must use semantic versioning \(x\.x\.x\) for your source image and components\. For more information about how to use this versioning, see the notes in Step 2: Choose recipe\.
+To ensure that your pipeline recognizes dependency updates and builds as expected, you must use semantic versioning \(x\.x\.x\) for your source image and components\. To learn more about semantic versioning for Image Builder resources, see [Semantic versioning](ibhow-semantic-versioning.md)\.
 
 1. Choose **Next** to proceed to the next step\.
 
@@ -44,7 +44,7 @@ To ensure that your pipeline recognizes dependency updates and builds as expecte
 
    1. Keep the default for **Auto\-versioning options** \(**Use latest available OS version**\)\.
 **Note**  
-This setting ensures that your pipeline uses semantic versioning for the source image, to detect dependency updates for automatically scheduled jobs\.
+This setting ensures that your pipeline uses semantic versioning for the source image, to detect dependency updates for automatically scheduled jobs\. To learn more about semantic versioning for Image Builder resources, see [Semantic versioning](ibhow-semantic-versioning.md)\.
 
 1. In the **Components** section, you must choose at least one build component\.
 
@@ -60,7 +60,7 @@ This setting ensures that your pipeline uses semantic versioning for the source 
 
    1. Keep the default for **Versioning options** \(**Use latest available component version**\)\.
 **Note**  
-This setting ensures that your pipeline uses semantic versioning for the selected component, to detect dependency updates for automatically scheduled jobs\.
+This setting ensures that your pipeline uses semantic versioning for the selected component, to detect dependency updates for automatically scheduled jobs\. To learn more about semantic versioning for Image Builder resources, see [Semantic versioning](ibhow-semantic-versioning.md)\.
 
       If you had selected a component that has input parameters, you would also see the parameters in this area\. Parameters are not covered in this tutorial\. For more information about using input parameters in your components, and setting them in your recipes, see [Manage AWSTOE component parameters with EC2 Image Builder](manage-component-parameters.md)\.
 

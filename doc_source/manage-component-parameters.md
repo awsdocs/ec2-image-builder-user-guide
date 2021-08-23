@@ -15,7 +15,7 @@ To create a YAML application component document that uses parameters and runs co
 #### [ Linux ]
 
 **Create a YAML component document**  
-Use your favorite file editing tool to create a file named `component.yaml`, that has the following content:
+Use your favorite file editing tool to create a file named `hello-world-test.yaml`, that has the following content:
 
 ```
 # Document Start
@@ -62,7 +62,7 @@ Use a tool like this online [YAML Validator](https://jsonformatter.org/yaml-vali
 #### [ Windows ]
 
 **Create a YAML component document**  
-Use your favorite file editing tool to create a file named `component.yaml`, that has the following content:
+Use your favorite file editing tool to create a file named `hello-world-test.yaml`, that has the following content:
 
 ```
 # Document Start
@@ -112,7 +112,7 @@ For more information about the phases, steps, and syntax for AWSTOE YAML applica
 **Create a component from the YAML component document**  
 Whatever method you use to create an AWSTOE component, the YAML application component document is always required as a baseline\.
 + To use the Image Builder console to create a component directly from your YAML document, see [Create a component using the Image Builder console](create-component-console.md)\.
-+ To use Image Builder commands in the AWS CLI to create your component, see [Create AWSTOE components using Image Builder \(AWS CLI\)](create-components-cli.md#create-component-cli)\.
++ To use Image Builder commands in the AWS CLI to create your component, see [Create AWSTOE components using Image Builder \(AWS CLI\)](create-components-cli.md#create-component-cli)\. Replace the YAML document name in those examples with the name of your Hello World YAML document \(`hello-world-test.yaml`\)\.
 
 ## Set component parameters in an Image Builder recipe \(console\)<a name="recipe-set-component-params"></a>
 

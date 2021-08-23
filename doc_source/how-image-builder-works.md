@@ -15,81 +15,49 @@ Components are the building blocks that are consumed by an image recipe or a con
 The images that you build from your custom base image are in your AWS account\. You can configure your image pipeline to produce updated and patched versions of your image by entering a build schedule\. When the build is complete, you can receive notification through [Amazon Simple Notification Service \(SNS\)](https://docs.aws.amazon.com/sns/latest/dg/welcome.html)\. In addition to producing a final image, the Image Builder console wizard generates a recipe that can be used with existing version control systems and continuous integration/continuous deployment \(CI/CD\) pipelines for repeatable automation\. You can share and create new versions of your recipe\.
 
 **Topics**
-+ [AMI components](#ami-image-components)
++ [AMI elements](#ami-image-elements)
 + [Default quotas](#image-builder-default-limits)
 + [AWS Regions and Endpoints](#image-builder-regions)
-+ [Logs](#image-builder-logs)
-+ [Component manager](#image-builder-component-management)
++ [Image Builder service integrations](ibhow-integrations.md)
++ [Component management](#ibhow-component-management)
++ [Semantic versioning](ibhow-semantic-versioning.md)
 + [Resources created](#image-builder-resources)
-+ [Testing](#image-builder-testing)
 + [Distribution](#image-builder-distribution)
-+ [Sharing Resources](#image-builder-distribution)
-+ [Compliance](#image-builder-compliance)
++ [Sharing Resources](#ibhow-sharing)
++ [Compliance](#ibhow-compliance)
 
-## AMI components<a name="ami-image-components"></a>
+## AMI elements<a name="ami-image-elements"></a>
 
-An Amazon Machine Image \(AMI\) is a preconfigured Virtual Machine \(VM\) image that contains the OS and software to deploy EC2 instances\.
+An Amazon Machine Image \(AMI\) is a preconfigured virtual machine \(VM\) image that contains the OS and software to deploy Amazon EC2 instances\.
 
-An AMI includes the following components:
-+ A template for the root volume of the VM\. When you launch an EC2 VM, the root device volume contains the image to boot the instance\. When instance store is used, the root device is an instance store volume created from a template in Amazon S3\. For more information, see [Amazon EC2 Root Device Volume](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/RootDeviceStorage.html)\. 
+An AMI includes the following elements:
++ A template for the root volume of the VM\. When you launch an Amazon EC2 VM, the root device volume contains the image to boot the instance\. When instance store is used, the root device is an instance store volume created from a template in Amazon S3\. For more information, see [Amazon EC2 Root Device Volume](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/RootDeviceStorage.html)\. 
 + When Amazon EBS is used, the root device is an EBS volume created from an [EBS snapshot](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSSnapshots.html)\.
 + Launch permissions that determine the AWS accounts that can launch VMs with the AMI\.
 + [Block device mapping](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html) data that specifies the volumes to attach to the instance after launch\.
-+ A unique [resource identifier](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/resource-ids.html) per Region per account\.
-+ [Metadata ](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html)payloads such as tags, and properties such as Region, operating system, architecture, root device type, provider, launch permissions, storage for the root device, and signing status\.
-+ An AMI signature to protect against unauthorized tampering\. For more information, see [Instance Identity Documents](https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/instance-identity-documents.html)\.
++ A unique [resource identifier](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/resource-ids.html) for each Region, for each account\.
++ [Metadata ](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html)payloads such as tags, and properties, such as Region, operating system, architecture, root device type, provider, launch permissions, storage for the root device, and signing status\.
++ An AMI signature for Windows images to protect against unauthorized tampering\. For more information, see [Instance Identity Documents](https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/instance-identity-documents.html)\.
 
 ## Default quotas<a name="image-builder-default-limits"></a>
 
-To view the default quotas for EC2 Image Builder, see [EC2 Image Builder Endpoints and Quotas](https://docs.aws.amazon.com/general/latest/gr/imagebuilder.html)\. 
+To view the default quotas for Image Builder, see [Image Builder Endpoints and Quotas](https://docs.aws.amazon.com/general/latest/gr/imagebuilder.html)\. 
 
 ## AWS Regions and Endpoints<a name="image-builder-regions"></a>
 
-To view the service endpoints for EC2 Image Builder, see [EC2 Image Builder Endpoints and Quotas](https://docs.aws.amazon.com/general/latest/gr/imagebuilder.html)\.
+To view the service endpoints for Image Builder, see [Image Builder Endpoints and Quotas](https://docs.aws.amazon.com/general/latest/gr/imagebuilder.html)\.
 
-## Logs<a name="image-builder-logs"></a>
+## Component management<a name="ibhow-component-management"></a>
 
-EC2 Image Builder integrates with AWS services for monitoring to help you troubleshoot image build issues\. Image Builder tracks and displays the progress for each step in the image building process\. You can configure the image\-building application to send logs to CloudWatch as well as to an S3 location that you provide\. For more information about CloudWatch Logs, see [What Is Amazon CloudWatch Logs?](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html)
+EC2 Image Builder uses a component management application AWS Task Orchestrator and Executor \(AWSTOE\) that helps you orchestrate complex workflows, modify system configurations, and test your systems with YAML\-based script components\. Because AWSTOE is a standalone application, it does not require any additional setup\. It can run on any cloud infrastructure and on premises\. To get started using AWSTOE as a standalone application, see [Get started with AWSTOE](toe-get-started.md)\.
 
-CloudWatch logging support is enabled by default\. Logs are retained on the instance and streamed to CloudWatch\. As part of the AMI creation process, logs are removed from the instance\. The logs are streamed to the following LogStream:
-+ LogGroup: `"/aws/imagebuilder/<ImageName>`
-+ LogStream: `<ImageVersion>/<ImageBuildVersion>["x.x.x/x"]`
+Image Builder uses AWSTOE to perform all on\-instance activities\. These include building and validating your image before taking a snapshot, and testing the snapshot to ensure that it functions as expected before creating the final image\. For more information about how Image Builder uses AWSTOE to manage its components, see [Manage components with AWSTOE](manage-components.md)\. For more information about creating components with AWSTOE, see [AWS Task Orchestrator and Executor component manager](toe-component-manager.md)\.
 
-You can opt out of CloudWatch streaming by removing the following permissions associated with the instance profile\.
+### Image testing<a name="ibhow-testing"></a>
 
-```
-"Statement": [
-    {
-        "Effect": "Allow",
-        "Action": [
-            "logs:CreateLogStream",
-            "logs:CreateLogGroup",
-            "logs:PutLogEvents"
-        ],
-        "Resource": "arn:aws:logs:*:*:log-group:/aws/imagebuilder/*"
-    }
-]
-```
+You can use AWSTOE test components to validate your image, and ensure that it functions as expected, prior to creating the final image\.
 
-For advanced troubleshooting, you can run predefined commands and scripts using [AWS Systems Manager Run Command](https://docs.aws.amazon.com/systems-manager/latest/userguide/execute-remote-commands.html)\. For more information, see [Troubleshoot EC2 Image Builder](image-builder-troubleshooting.md)\.
-
-## Component manager<a name="image-builder-component-management"></a>
-
-EC2 Image Builder uses a component management application \(AWSTOE\) that helps you orchestrate complex workflows, modify system configurations, and test your systems without writing code\. This application uses a declarative document schema\. Because it is a standalone application, it does not require additional server setup\. It can run on any cloud infrastructure and on premises\. To download the component management application \(AWSTOE\) as a standalone application, see [Get started with AWSTOE](toe-get-started.md)\.
-
-Image Builder uses this application to perform all on\-instance activities, such as build, validation, and test\. You define a document that describes how to build, validate, and test your image\. Image Builder sends the component to your instance and the application interprets and applies it to your instance by executing the defined phases, steps, and actions\. When complete, the application sends a summary to Image Builder\. It also sends detailed execution outputs to Amazon S3 if you specified an S3 bucket in your pipeline configuration\. Image Builder then cleans up the application and removes it from the instance using [AWS best practices for hardening and cleaning the image](https://aws.amazon.com/articles/public-ami-publishing-hardening-and-clean-up-requirements)\. 
-+ **Build phase**\. The image is modified\. For example, you can configure your image to install an application or to modify the operating system firewall settings\. The validate phase is executed as part of the build phase, prior to the creation of the image\. 
-+ **Test phase**\. Tests are executed against your new image after it is created\.
-
-Image Builder uses the component management application as follows\.
-
-1. You define an Image Builder component, which is a document that describes how to build, validate, and test your image\.
-
-1. Image Builder dispatches the work to be performed by copying the document and application to your instance\.
-
-1. The application executes the phases, steps, and actions defined in the document\. 
-
-For more information about the Component Manager used by Image Builder to orchestrate workflows, including information about documents, supported action modules, and STIGs, see [AWS Task Orchestrator and Executor component manager](toe-component-manager.md)\.
+Generally, each test component consists of a YAML document that contains a test script, a test binary, and test metadata\. The test script contains the orchestration commands to start the test binary, which can be written in any language supported by the OS\. Exit status codes indicate the test outcome\. Test metadata describes the test and its behavior; for example, the name, description, paths to test binary, and expected duration\.
 
 ## Resources created<a name="image-builder-resources"></a>
 
@@ -114,10 +82,6 @@ The following resources are created during the image build process:
 
 After the image has been created, all of the temporary resources are deleted\.
 
-## Testing<a name="image-builder-testing"></a>
-
-Generally, each test consists of a test script, a test binary, and test metadata\. The test script contains the orchestration commands to start the test binary, which can be written in any language supported by the OS\. Exit status codes indicate the test outcome\. Test metadata describes the test and its behavior \(for example, the name, description, paths to test binary, and expected duration\)\.
-
 ## Distribution<a name="image-builder-distribution"></a>
 
 EC2 Image Builder can distribute AMIs or container images to any AWS Region\. The image is copied to each Region that you specify in the account used to build the image\.
@@ -128,10 +92,10 @@ You can also use your AWS Organizations account to enforce limitations on member
 
 To update your distribution settings using the Image Builder console, follow the steps to [Create a new image recipe version \(console\)](create-image-recipes.md#create-image-recipe-version-console), or [Create a new container recipe version \(console\)](create-container-recipes.md#create-container-recipe-version)\.
 
-## Sharing Resources<a name="image-builder-distribution"></a>
+## Sharing Resources<a name="ibhow-sharing"></a>
 
 To share components, recipes, or images with other accounts or within AWS Organizations, see [Share EC2 Image Builder resources](manage-shared-resources.md)\.
 
-## Compliance<a name="image-builder-compliance"></a>
+## Compliance<a name="ibhow-compliance"></a>
 
-For CIS, EC2 Image Builder uses Amazon Inspector to perform assessments for exposure, vulnerabilities, and deviations from best practices and compliance standards\. For example, it assesses unintended network accessibility, unpatched CVEs, public internet connectivity, and remote root login enablement\. Amazon Inspector is offered as a test component that you can choose to add to your image recipe\. For more information about Amazon Inspector, see the [Amazon Inspector](https://docs.aws.amazon.com/inspector/latest/userguide/inspector_introduction.html) User Guide\. For hardening, EC2 Image Builder validates using STIG\. For a complete list of STIG components available through Image Builder, see [EC2 Image Builder STIG components](toe-stig.md)\. For more information, see [Center for Internet Security \(CIS\) Benchmarks](https://docs.aws.amazon.com/inspector/latest/userguide/inspector_cis.html) and [Amazon EC2 Windows Server AMIs for STIG Compliance](https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/ami-windows-stig.html)\.
+For CIS, EC2 Image Builder uses Amazon Inspector to perform assessments for exposure, vulnerabilities, and deviations from best practices and compliance standards\. For example, it assesses unintended network accessibility, unpatched CVEs, public internet connectivity, and remote root login enablement\. Amazon Inspector is offered as a test component that you can choose to add to your image recipe\. For more information about Amazon Inspector, see the [Amazon Inspector](https://docs.aws.amazon.com/inspector/latest/userguide/inspector_introduction.html)User Guide\. For hardening, EC2 Image Builder validates using STIG\. For a complete list of STIG components available through Image Builder, see [EC2 Image Builder STIG components](toe-stig.md)\. For more information, see [Center for Internet Security \(CIS\) Benchmarks](https://docs.aws.amazon.com/inspector/latest/userguide/inspector_cis.html)\.

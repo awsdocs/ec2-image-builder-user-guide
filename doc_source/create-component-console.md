@@ -34,4 +34,4 @@ To create a new component version, follow these steps:
    + From the **Components** list page – Select the check box next to the component name, then select **Create new version** from the **Actions** menu\.
    + From the component detail page – Choose the **Create new version** button in the upper right corner of the heading\.
 
-1. The component information is already populated with the current values when the **Create Component** page displays\. Follow the create a component steps to update the component\. This ensures that you enter a unique semantic version in the **Component version**\.
+1. The component information is already populated with the current values when the **Create Component** page displays\. Follow the create a component steps to update the component\. This ensures that you enter a unique semantic version in the **Component version**\. To learn more about semantic versioning for Image Builder resources, see [Semantic versioning](ibhow-semantic-versioning.md)\.

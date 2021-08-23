@@ -5,6 +5,7 @@ The following table describes important changes to the documentation by date\. F
 
 | Change | Description | Date | 
 | --- |--- |--- |
+| [Feature release: Amazon EventBridge integration](#doc-history) | Added EventBridge support that enables you to connect Image Builder with events from related AWS services, and initiate events based on rules defined in EventBridge\. | August 18, 2021 | 
 | [Managed policy update: AWSServiceRoleForImageBuilder](https://https://docs.aws.amazon.com/imagebuilder/latest/userguide/security-iam-awsmanpol.html#sec-iam-manpol-AWSServiceRoleForImageBuilder) | Updated managed policy for service role\. | August 11, 2021 | 
 | [Document update: Reorder AWSTOE pages](#doc-history) | Rearranged AWSTOE pages for clarity\. | August 11, 2021 | 
 | [Feature release: Parameterized components and additional instance configuration](#doc-history) | Added support for specifying parameters to customize components for recipes\. Expanded configuration of the Amazon EC2 instances that are used for building and testing images, including the ability to specify commands to run on launch, and more control over installation and removal of the Systems Manager agent\. | July 7, 2021 | 

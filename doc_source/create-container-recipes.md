@@ -25,7 +25,7 @@ Creating a new version is virtually the same as creating a new recipe\. The diff
   + The **Image name** – Pre\-selected, based on the combination of source image choices you made for the existing recipe\. However, if you change the **Select image** option, you lose the pre\-selected **Image name**\.
   + **Auto\-versioning options** – does *not* match your base recipe\. This defaults to the **Use selected OS version** option\.
 **Important**  
-If you are using semantic versioning to kick off pipeline builds, make sure you change this value to **Use latest available OS version**\.
+If you are using semantic versioning to kick off pipeline builds, make sure you change this value to **Use latest available OS version**\. To learn more about semantic versioning for Image Builder resources, see [Semantic versioning](ibhow-semantic-versioning.md)\.
 
 ------
 #### [ ECR image ]
@@ -105,7 +105,7 @@ To use the example to create your own container recipe, you must replace the exa
    + **description** \(string\) – The description of the container recipe\.
    + **parentImage** \(string, required\) – The source \(parent\) image that the container recipe uses as its base environment\.
    + **platformOverride** \(string\) – Specifies the operating system platform when you use a custom source image\.
-   + **semanticVersion** \(string, required\) – The semantic version of the container recipe, which specifies the version in the following format, with numeric values in each position to indicate a specific version: <major>\.<minor>\.<patch>\. For example, `1.0.0`\.
+   + **semanticVersion** \(string, required\) – The semantic version of the container recipe, which specifies the version in the following format, with numeric values in each position to indicate a specific version: <major>\.<minor>\.<patch>\. For example, `1.0.0`\. To learn more about semantic versioning for Image Builder resources, see [Semantic versioning](ibhow-semantic-versioning.md)\.
    + **tags** \(string map\) – Tags that are attached to the container recipe\.
    + **instanceConfiguration** \(object\) – A group of options that can be used to configure an instance for building and testing container images\.
      + **image** \(string\) – The AMI ID to use as the base image for a container build and test instance\. If not specified, Image Builder will use the appropriate Amazon ECS\-optimized AMI as a base image\.

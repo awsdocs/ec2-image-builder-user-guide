@@ -24,6 +24,9 @@ The following example shows how to list image build versions with a specific sem
 aws imagebuilder list-image-build-versions --image-version-arn arn:aws:imagebuilder:us-west-2:123456789012:image/my-example-image/2019.12.03
 ```
 
+**Note**  
+To learn more about semantic versioning for Image Builder resources, see [Semantic versioning](ibhow-semantic-versioning.md)\.
+
 ## Get an AMI image \(AWS CLI\)<a name="cli-get-image"></a>
 
 To check the progress of your image, use the `get-image` operation\. `get-image` returns details about the image, metadata, current state, and output resources when they are available\. 

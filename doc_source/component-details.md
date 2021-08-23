@@ -10,7 +10,7 @@ This section describes how you can find information and view details for the AWS
 
 ## List components \(AWS CLI\)<a name="cli-list-components"></a>
 
-The following example shows how to use an imagebuilder CLI command to list all of the component semantic versions that you have access to\.
+The following example shows how to use an imagebuilder CLI command to list all of the component semantic versions that you have access to\. To learn more about semantic versioning for Image Builder resources, see [Semantic versioning](ibhow-semantic-versioning.md)\.
 
 ```
 aws imagebuilder list-components
@@ -32,7 +32,7 @@ aws imagebuilder list-components --owner Shared
 
 ## List component build versions \(AWS CLI\)<a name="cli-list-component-versions"></a>
 
-The following example shows how to use an imagebuilder CLI command to list component build versions that have a specific semantic version\.
+The following example shows how to use an imagebuilder CLI command to list component build versions that have a specific semantic version\. To learn more about semantic versioning for Image Builder resources, see [Semantic versioning](ibhow-semantic-versioning.md)\.
 
 ```
 aws imagebuilder list-component-build-versions --component-version-arn arn:aws:imagebuilder:us-west-2:123456789012:component/my-example-component/2019.12.03

@@ -16,6 +16,8 @@ Amazon's trademarks and trade dress may not be used in
 ## Contents
 + [What is EC2 Image Builder?](what-is-image-builder.md)
 + [How EC2 Image Builder works](how-image-builder-works.md)
+   + [Image Builder service integrations](ibhow-integrations.md)
+   + [Semantic versioning](ibhow-semantic-versioning.md)
 + [Get started with EC2 Image Builder](getting-started-image-builder.md)
    + [Prerequisites](image-builder-setting-up.md)
    + [Access EC2 Image Builder](image-builder-accessing-prereq.md)

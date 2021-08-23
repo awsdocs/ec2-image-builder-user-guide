@@ -23,7 +23,7 @@ Creating a new version is virtually the same as creating a new recipe\. The diff
   + **Image name** – Pre\-selected, based on the combination of source image choices you made for the existing recipe\. However, if you change the **Select image** option, you lose the pre\-selected **Image name**\.
   + **Auto\-versioning options** – does *not* match your base recipe\. This defaults to the **Use selected OS version** option\.
 **Important**  
-If you are using semantic versioning to kick off pipeline builds, make sure you change this value to **Use latest available OS version**\.
+If you are using semantic versioning to kick off pipeline builds, make sure you change this value to **Use latest available OS version**\. To learn more about semantic versioning for Image Builder resources, see [Semantic versioning](ibhow-semantic-versioning.md)\.
 
 ------
 #### [ Custom AMI ]
@@ -77,7 +77,7 @@ Do not use the naming convention that is specified for providing these datapoint
    + **parentImage** \(string, required\) – The source \(parent\) image that the image recipe uses as its base environment\. The value can be the parent image ARN or an Image Builder AMI ID\.
 **Note**  
 The Linux example uses an Image Builder AMI, and the Windows example uses an ARN\.
-   + **semanticVersion** \(string, required\) – The semantic version of the image recipe, which specifies the version in the following format, with numeric values in each position to indicate a specific version: <major>\.<minor>\.<patch>\. For example, `1.0.0`\.
+   + **semanticVersion** \(string, required\) – The semantic version of the image recipe, which specifies the version in the following format, with numeric values in each position to indicate a specific version: <major>\.<minor>\.<patch>\. For example, `1.0.0`\. To learn more about semantic versioning for Image Builder resources, see [Semantic versioning](ibhow-semantic-versioning.md)\.
    + **components** \(array, required\) – Contains an array of `ComponentConfiguration` objects\. At least one build component must be specified:
 **Important**  
 Components are installed in the order in which they are specified\.
@@ -151,6 +151,9 @@ The Linux example uses this encoded value\.
        ]
    }
    ```
+
+**Note**  
+To learn more about semantic versioning for Image Builder resources, see [Semantic versioning](ibhow-semantic-versioning.md)\.
 
 ------
 
