@@ -42,7 +42,7 @@ For a complete list of supported action modules, how they work, input/output val
 
 ## Component logging<a name="component-logging"></a>
 
-AWSTOE creates a new log folder on the Amazon EC2 instances that are used for building and testing a new image, each time your component runs\. For container images, the log folder is stored in the container\.
+AWSTOE creates a new log folder on the EC2 instances that are used for building and testing a new image, each time your component runs\. For container images, the log folder is stored in the container\.
 
 To assist with troubleshooting if something goes wrong during the image creation process, the input document and all of the output files AWSTOE creates while running the component are stored in the log folder\.
 

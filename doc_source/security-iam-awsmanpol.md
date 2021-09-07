@@ -182,7 +182,7 @@ The **AWSServiceRoleForImageBuilder** policy allows Image Builder to call AWS se
 
 This policy is attached to the Image Builder service\-linked role when the role is created through Systems Manager\. The policy includes the following permissions:
 + **CloudWatch Logs** – Access is granted to create and upload CloudWatch Logs to any log group whose name starts with `/aws/imagebuilder/`\.
-+ **Amazon EC2** – Access is granted for Image Builder to launch Amazon EC2 instances in your account, using related snapshots, volumes, network interfaces, security groups, and key pairs as required, as long as the instance and volumes that are being created or used are tagged with `"Created By": "EC2 Image Builder"`\.
++ **Amazon EC2** – Access is granted for Image Builder to launch EC2 instances in your account, using related snapshots, volumes, network interfaces, security groups, and key pairs as required, as long as the instance and volumes that are being created or used are tagged with `"Created By": "EC2 Image Builder"`\.
 
   Image Builder can get information about Amazon EC2 images, instance attributes, instance status, the instance types that are available to your account, launch templates, subnets, and tags on your Amazon EC2 resources\.
 
@@ -499,7 +499,7 @@ The following is an example of the Ec2ImageBuilderCrossAccountDistributionAccess
 
 ## EC2InstanceProfileForImageBuilder policy<a name="sec-iam-manpol-EC2InstanceProfileForImageBuilder"></a>
 
-The **EC2InstanceProfileForImageBuilder** policy grants the minimum permissions required for an Amazon EC2 instance to work with Image Builder\. This does not include permissions required to use the Systems Manager Agent\.
+The **EC2InstanceProfileForImageBuilder** policy grants the minimum permissions required for an EC2 instance to work with Image Builder\. This does not include permissions required to use the Systems Manager Agent\.
 
 ### Permissions details<a name="sec-iam-manpol-EC2InstanceProfileForImageBuilder-details"></a>
 
@@ -561,7 +561,7 @@ The following is an example of the EC2InstanceProfileForImageBuilder policy\.
 
 ## EC2InstanceProfileForImageBuilderECRContainerBuilds policy<a name="sec-iam-manpol-EC2InstanceProfileForImageBuilderECRContainerBuilds"></a>
 
-The **EC2InstanceProfileForImageBuilderECRContainerBuilds** policy grants the minimum permissions required for an Amazon EC2 instance when working with Image Builder to build Docker images and then register and store the images in an Amazon ECR container repository\. This does not include permissions required to use the Systems Manager Agent\.
+The **EC2InstanceProfileForImageBuilderECRContainerBuilds** policy grants the minimum permissions required for an EC2 instance when working with Image Builder to build Docker images and then register and store the images in an Amazon ECR container repository\. This does not include permissions required to use the Systems Manager Agent\.
 
 ### Permissions details<a name="sec-iam-manpol-EC2InstanceProfileForImageBuilderECRContainerBuilds-details"></a>
 

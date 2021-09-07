@@ -23,7 +23,7 @@ EC2 Image Builder uses a service\-linked role to grant permissions to other AWS 
 
   Image Builder does not install the Systems Manager Agent on Amazon EC2 Windows Server build instances\. If your source image did not come pre\-installed with the Systems Manager Agent, you must launch an instance from your source image, manually install Systems Manager on the instance, and create a new source image from your instance\.
 
-  To manually install the Systems Manager agent on your Amazon EC2 Windows Server instance, see [Manually install Systems Manager Agent on Amazon EC2 instances for Windows Server](https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-install-win.html) in the *AWS Systems Manager User Guide*\.
+  To manually install the Systems Manager agent on your Amazon EC2 Windows Server instance, see [Manually install Systems Manager Agent on EC2 instances for Windows Server](https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-install-win.html) in the *AWS Systems Manager User Guide*\.
 
 ------
 

@@ -8,7 +8,7 @@ When you use the EC2 Image Builder pipeline console wizard to create a custom im
 **Note**  
 Components are the building blocks that are consumed by an image recipe or a container recipe\. For example, packages for installation, security hardening steps, and tests\. The selected source image and components make up an image recipe\.
 
-1. **Define infrastructure configuration** – Image Builder launches Amazon EC2 instances in your account to customize images and run validation tests\. The Infrastructure configuration settings specify infrastructure details for the instances that will run in your AWS account during the build process\.
+1. **Define infrastructure configuration** – Image Builder launches EC2 instances in your account to customize images and run validation tests\. The Infrastructure configuration settings specify infrastructure details for the instances that will run in your AWS account during the build process\.
 
 1. **Define distribution settings** – Choose the AWS Regions to distribute your image to after the build is complete and has passed all its tests\. The pipeline automatically distributes your image to the Region where it runs the build, and you can add image distribution for other Regions\.
 
@@ -28,7 +28,7 @@ The images that you build from your custom base image are in your AWS account\. 
 
 ## AMI elements<a name="ami-image-elements"></a>
 
-An Amazon Machine Image \(AMI\) is a preconfigured virtual machine \(VM\) image that contains the OS and software to deploy Amazon EC2 instances\.
+An Amazon Machine Image \(AMI\) is a preconfigured virtual machine \(VM\) image that contains the OS and software to deploy EC2 instances\.
 
 An AMI includes the following elements:
 + A template for the root volume of the VM\. When you launch an Amazon EC2 VM, the root device volume contains the image to boot the instance\. When instance store is used, the root device is an instance store volume created from a template in Amazon S3\. For more information, see [Amazon EC2 Root Device Volume](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/RootDeviceStorage.html)\. 
@@ -69,14 +69,14 @@ When you create a pipeline, no resources external to Image Builder are created, 
 The following resources are created during the image build process:
 
 **AMI image pipelines**
-+ Amazon EC2 Instance \(*temporary*\)
-+ Systems Manager Inventory Association \(through Systems Manager State Manager\) `EnhancedImageMetadata` is Enabled\) on the Amazon EC2 instance
++ EC2 instance \(*temporary*\)
++ Systems Manager Inventory Association \(through Systems Manager State Manager\) `EnhancedImageMetadata` is Enabled\) on the EC2 instance
 + Amazon EC2 AMI
 + The Amazon EBS Snapshot associated with Amazon EC2 AMI
 
 **Container image pipelines**
-+ Docker container running on an Amazon EC2 instance \(*temporary*\)
-+ Systems Manager Inventory Association \(through Systems Manager State Manager\) `EnhancedImageMetadata` is Enabled\) on the Amazon EC2 instance
++ Docker container running on an EC2 instance \(*temporary*\)
++ Systems Manager Inventory Association \(through Systems Manager State Manager\) `EnhancedImageMetadata` is Enabled\) on the EC2 instance
 + Docker container image
 + Dockerfile
 
@@ -86,7 +86,7 @@ After the image has been created, all of the temporary resources are deleted\.
 
 EC2 Image Builder can distribute AMIs or container images to any AWS Region\. The image is copied to each Region that you specify in the account used to build the image\.
 
-For AMI output images, you can define AMI launch permissions to control which AWS accounts are permitted to launch Amazon EC2 instances with the created AMI\. For example, you can make the image private, public, or share with specific accounts\. If you both distribute the AMI to other Regions, and define launch permissions for other accounts, the launch permissions are propagated to the AMIs in all of the Regions in which the AMI is distributed\.
+For AMI output images, you can define AMI launch permissions to control which AWS accounts are permitted to launch EC2 instances with the created AMI\. For example, you can make the image private, public, or share with specific accounts\. If you both distribute the AMI to other Regions, and define launch permissions for other accounts, the launch permissions are propagated to the AMIs in all of the Regions in which the AMI is distributed\.
 
 You can also use your AWS Organizations account to enforce limitations on member accounts to launch instances only with approved and compliant AMIs\. For more information, see [Managing the AWS accounts in Your Organization](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts.html)\.
 

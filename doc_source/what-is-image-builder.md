@@ -73,7 +73,7 @@ For your custom AMI images, you can choose an existing AMI as a starting point\.
 The following terms and concepts are central to your understanding and use of EC2 Image Builder\.
 
 **AMI**  
-An Amazon Machine Image \(AMI\) is the basic unit of deployment in Amazon EC2, and is one of the types of images you can create with Image Builder\. An AMI is a pre\-configured virtual machine image that contains the operating system \(OS\) and preinstalled software to deploy Amazon EC2 instances\. For more information, see [Amazon Machine Images \(AMI\)](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html)\.
+An Amazon Machine Image \(AMI\) is the basic unit of deployment in Amazon EC2, and is one of the types of images you can create with Image Builder\. An AMI is a pre\-configured virtual machine image that contains the operating system \(OS\) and preinstalled software to deploy EC2 instances\. For more information, see [Amazon Machine Images \(AMI\)](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html)\.
 
 **Image pipeline**  
 An image pipeline provides an automation framework for building secure AMIs and container images on AWS\. The Image Builder image pipeline is associated with an image recipe or container recipe that defines the build, validation, and test phases for an image build lifecycle\.
@@ -120,7 +120,7 @@ The test stage has only one phase – test\. During this phase, an instance is l
 ## Pricing<a name="image-builder-pricing"></a>
 
 There is no cost to use EC2 Image Builder to create custom AMI or container images\. However, standard pricing applies for other services that are used in the process\. The following list includes the usage of some AWS services that can incur costs when you create, build, store, and distribute your custom AMI or container images, depending on your configuration\.
-+ Launching an Amazon EC2 instance
++ Launching an EC2 instance
 + Storing logs on Amazon S3
 + Validating images with Amazon Inspector
 + Storing Amazon EBS Snapshots for your AMIs
@@ -148,7 +148,7 @@ An AWS Systems Manager automation document defines the actions that AWS Systems 
 AWS Resource Access Manager \(AWS RAM\) lets you share your resources with any AWS account or through AWS Organizations\. If you have multiple AWS accounts, you can create resources centrally and use AWS RAM to share those resources with other accounts\. EC2 Image Builder allows sharing for the following resources: components, images, and image recipes\. For more information about AWS RAM, see the [AWS Resource Access Manager User Guide](https://docs.aws.amazon.com/ram/latest/userguide/what-is.html)\. For information about sharing Image Builder resources, see [Share EC2 Image Builder resources](manage-shared-resources.md)\.
 
 **Amazon CloudWatch Logs**  
-You can use Amazon CloudWatch Logs to monitor, store, and access your log files from Amazon EC2 instances, AWS CloudTrail, Amazon Route 53 , and other sources\.
+You can use Amazon CloudWatch Logs to monitor, store, and access your log files from EC2 instances, AWS CloudTrail, Amazon Route 53 , and other sources\.
 
 **Amazon Elastic Container Registry \(Amazon ECR\)**  
 Amazon ECR is a managed AWS container image registry service that is secure, scalable, and reliable\. Container images you create with Image Builder are stored in Amazon ECR in your default Region, and in any Regions where you distribute the container image\. For more information about Amazon ECR, see the [Amazon Elastic Container Registry User Guide](https://docs.aws.amazon.com/AmazonECR/latest/userguide/)\.

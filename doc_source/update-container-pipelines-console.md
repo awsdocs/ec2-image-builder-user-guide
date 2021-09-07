@@ -14,7 +14,7 @@ The list of image pipelines includes an indicator for the type of output image t
 
 1. To view details or edit a pipeline, choose the **Pipeline name** link\. This opens the detail view for the pipeline\.
 **Note**  
-You can also choose the check box next to the **Pipeline name**, then choose **View detail**\.
+You can also select the check box next to the **Pipeline name**, then choose **View detail**\.
 
 ## Pipeline details<a name="container-pipeline-details"></a>
 
@@ -28,6 +28,7 @@ The section at the top of the page summarizes key details for the pipeline that 
 + **Container recipe** – Shows recipe details\. After you create a recipe, you cannot edit it\. You must create a new version of the recipe from the **Container recipes** page\. For more information, see [Create container recipes and versions](create-container-recipes.md)\.
 + **Infrastructure configuration** – Shows editable information for configuring your build pipeline infrastructure\.
 + **Distribution settings** – Shows editable information for Docker image distribution\.
++ **EventBridge rules** – For the selected **Event Bus**, shows EventBridge rules that target the current pipeline\. Includes **Create event bus** and **Create rule** actions that link to the EventBridge console\. For more information about this tab, see [Use EventBridge rules](ev-rules-for-pipeline.md)\.
 
 ## Edit infrastructure configuration for your pipeline<a name="container-pipelines-edit-infra-config"></a>
 

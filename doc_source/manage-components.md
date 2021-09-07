@@ -15,7 +15,7 @@ The Image Builder workflow for building new images includes the following two di
 
    After this stage completes successfully, Image Builder creates a snapshot or container image that it uses for the test stage and beyond\.
 
-1. **Test stage** \(post\-snapshot\) – During the test stage, Image Builder launches an Amazon EC2 instance from the snapshot or container image that was created as the final step of the build stage\. The test stage components run on the new instance to validate settings and ensure that it's running as expected\.
+1. **Test stage** \(post\-snapshot\) – During the test stage, Image Builder launches an EC2 instance from the snapshot or container image that was created as the final step of the build stage\. The test stage components run on the new instance to validate settings and ensure that it's running as expected\.
 
    The following phase runs during the test stage:
    + test

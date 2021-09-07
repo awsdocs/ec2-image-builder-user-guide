@@ -107,7 +107,7 @@ You can use an S3 bucket as a repository for the YAML application component docu
   *If your document is smaller than 64 KB, you can skip this step\.* Documents that are 64 KB or larger in size must be stored in Amazon S3\.
 
   ```
-  aws s3 cp update-linux-os.yaml s3://my-s3-bucket/my-path/updateos.yaml
+  aws s3 cp update-linux-os.yaml s3://my-s3-bucket/my-path/update-linux-os.yaml
   ```
 
 **Create a component from the YAML document**
@@ -167,7 +167,7 @@ You can use an S3 bucket as a repository for the YAML application component docu
   *If your document is smaller than 64 KB, you can skip this step\.* Documents that are 64 KB or larger in size must be stored in Amazon S3\.
 
   ```
-  aws s3 cp update-windows-os.yaml s3://my-s3-bucket/my-path/updateos.yaml
+  aws s3 cp update-windows-os.yaml s3://my-s3-bucket/my-path/update-windows-os.yaml
   ```
 
 **Create a component from the YAML document**

@@ -48,7 +48,7 @@ aws imagebuilder create-infrastructure-configuration --cli-input-json file://cre
 
 ## Update an infrastructure configuration \(AWS CLI\)<a name="cli-update-infrastructure-configuration"></a>
 
-The following example shows an imageguilder update\-infrastructure\-configuration\.json command, followed by the AWS CLI command that allows you to update an infrastructure configuration that references the JSON file\. 
+The following example scenario consists of a JSON file, called `update-infrastructure-configuration.json`, followed by running the imagebuilder update\-infrastructure\-configuration command that uses the JSON file as input\. The JSON file contains infrastructure configuration details for the update\.
 
  The example `update-infrastructure-configuration.json` contents are as follows\. 
 

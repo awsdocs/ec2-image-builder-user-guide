@@ -18,9 +18,9 @@ Image Builder encrypts data in transit and at rest by default\. Custom component
 
 Custom components are encrypted with your KMS key or a KMS key owned by Image Builder\. Image Builder does not store any of your logs in the service\. All logs are saved on your Amazon EC2 instance that is used to build the image, or in your Systems Manager automation logs\. 
 
-You can manage your keys through AWS KMS\. You cannot manage the Image Builder AWS KMS key owned by Image Builder\. 
+You can manage your keys through AWS KMS\. You cannot manage the Image Builder KMS key owned by Image Builder\. 
 
-For more information about managing your AWS KMS keys with AWS Key Management Service, see [Getting Started](https://docs.aws.amazon.com/kms/latest/developerguide/getting-started.html) in the AWS Key Management Service Developer Guide\.
+For more information about managing your KMS keys with AWS Key Management Service, see [Getting Started](https://docs.aws.amazon.com/kms/latest/developerguide/getting-started.html) in the AWS Key Management Service Developer Guide\.
 
 ## Internetwork Traffic Privacy in EC2 Image Builder<a name="image-builder-internetwork"></a>
 
