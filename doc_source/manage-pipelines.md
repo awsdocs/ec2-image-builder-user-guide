@@ -1,9 +1,9 @@
 # Manage EC2 Image Builder pipelines using the console<a name="manage-pipelines"></a>
 
 Image Builder image pipelines provide an automation framework for creating and maintaining custom AMIs and container images\. Pipelines deliver the following functionality:
-+ Assemble the source image, components for building and testing, infrastructure configuration, and distribution settings\.
++ Assemble the base image, components for building and testing, infrastructure configuration, and distribution settings\.
 + Facilitate scheduling for automated maintenance processes using the `Schedule builder` in the console wizard, or entering cron expressions for recurring updates to your images\.
-+ Enable change detection for the source image and components, to automatically skip scheduled builds when there are no changes\.
++ Enable change detection for the base image and components, to automatically skip scheduled builds when there are no changes\.
 + Enable rule\-based automation through Amazon EventBridge\.
 **Note**  
 For more information about using the EventBridge API to view or change rules, see the [Amazon EventBridge API Reference](https://docs.aws.amazon.com/eventbridge/latest/APIReference/)\. For more information about using EventBridge events commands in the AWS CLI to view or change rules, see [events](https://docs.aws.amazon.com/cli/latest/reference/events/index.html) in the *AWS CLI Command Reference*\.

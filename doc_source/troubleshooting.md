@@ -34,7 +34,7 @@ This section lists the following detailed troubleshooting scenarios:
 + [Access denied – status code 403](#ts-access-denied)
 + [Build times out while verifying the Systems Manager Agent availability on the build instance](#ts-timeout-ssm-agent)
 + [Windows secondary disk is offline at launch](#ts-win-disk-offline)
-+ [Build fails with CIS hardened source image](#ts-cis-base)
++ [Build fails with CIS hardened base image](#ts-cis-base)
 
 To see the details of a scenario, choose the scenario title to expand it\. You can have multiple titles expanded at the same time\.
 
@@ -109,11 +109,11 @@ We recommend that you use the same system of instance types when building your W
 
 For more information about instances that are built on the Nitro system, see [Instances built on the Nitro System](https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/instance-types.html#ec2-nitro-instances) in the *Amazon EC2 User Guide for Windows Instances*\.
 
-### Build fails with CIS hardened source image<a name="ts-cis-base"></a>
+### Build fails with CIS hardened base image<a name="ts-cis-base"></a>
 
 #### Description<a name="ts-cis-base-descr"></a>
 
-You are using a CIS hardened source image and the build fails\.
+You are using a CIS hardened base image and the build fails\.
 
 #### Cause<a name="ts-cis-base-cause"></a>
 

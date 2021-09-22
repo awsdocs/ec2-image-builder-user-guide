@@ -1,7 +1,7 @@
 # Create and update AMI image pipelines<a name="ami-image-pipelines"></a>
 
 You can set up, configure, and manage AMI image pipelines using the Image Builder console, through the Image Builder API, or with imagebuilder commands in the AWS CLI\. The **Create image pipeline** console wizard provides starting artifacts, and guides you through steps to: 
-+ Select a source image from quick\-start managed images, or existing images in your account or that were shared with you from another account\.
++ Select a base image from quick\-start managed images, or existing images in your account or that were shared with you from another account\.
 + Add and remove software
 + Customize settings and scripts
 + Run selected tests

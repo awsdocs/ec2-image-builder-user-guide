@@ -81,16 +81,16 @@ An image pipeline provides an automation framework for building secure AMIs and 
 An image pipeline can be associated with an infrastructure configuration that defines where your image is built\. You can define attributes, such as instance type, subnets, security groups, logging, and other infrastructure\-related configurations\. You can also associate your image pipeline with a distribution configuration to define how you would like to deploy your image\. 
 
 **Managed image**  
-A managed image is a resource in Image Builder that consists of an AMI or container image, plus metadata, such as version and platform\. The managed image is used by Image Builder pipelines to determine which source image to use for the build\. In this guide, managed images are sometimes referred to as "images," however, an image is not the same as an AMI\.
+A managed image is a resource in Image Builder that consists of an AMI or container image, plus metadata, such as version and platform\. The managed image is used by Image Builder pipelines to determine which base image to use for the build\. In this guide, managed images are sometimes referred to as "images," however, an image is not the same as an AMI\.
 
 **Image recipe**  
-An Image Builder image recipe is a document that defines the source image and the components that are applied to the source image to produce the desired configuration for the output AMI image\. You can use an image recipe to duplicate builds\. Image Builder image recipes can be shared, branched, and edited using the console wizard, the AWS CLI, or the API\. You can use image recipes with your version control software to maintain shareable, versioned image recipes\.
+An Image Builder image recipe is a document that defines the base image and the components that are applied to the base image to produce the desired configuration for the output AMI image\. You can use an image recipe to duplicate builds\. Image Builder image recipes can be shared, branched, and edited using the console wizard, the AWS CLI, or the API\. You can use image recipes with your version control software to maintain shareable, versioned image recipes\.
 
 **Container recipe**  
-An Image Builder container recipe is a document that defines the source image and the components that are applied to the source image to produce the desired configuration for the output container image\. You can use a container recipe to duplicate builds\. You can share, branch, and edit Image Builder image recipes by using the console wizard, the AWS CLI, or the API\. You can use container recipes with your version control software to maintain shareable, versioned container recipes\.
+An Image Builder container recipe is a document that defines the base image and the components that are applied to the base image to produce the desired configuration for the output container image\. You can use a container recipe to duplicate builds\. You can share, branch, and edit Image Builder image recipes by using the console wizard, the AWS CLI, or the API\. You can use container recipes with your version control software to maintain shareable, versioned container recipes\.
 
-**Source image**  
-The source image is the selected image and operating system used in your image or container recipe document, along with the components\. The source image and the component definitions combined produce the desired configuration for the output image\.
+**Base image**  
+The base image is the selected image and operating system used in your image or container recipe document, along with the components\. The base image and the component definitions combined produce the desired configuration for the output image\.
 
 **Components**  
 A component defines the sequence of steps required to either customize an instance prior to image creation \(a **build component**\), or to test an instance that was launched from the created image \(a **test component**\)\.
@@ -109,7 +109,7 @@ EC2 Image Builder has two runtime stages: **build** and **test**\. Each runtime 
 The following list shows the phases that run during the **build** and **test** stages:*Build stage:*
 
 Build phase  
-An image pipeline begins with the build phase of the build stage when it runs\. The source image is downloaded, and configuration that is specified for the build phase of the component is applied to build and launch an instance\.
+An image pipeline begins with the build phase of the build stage when it runs\. The base image is downloaded, and configuration that is specified for the build phase of the component is applied to build and launch an instance\.
 
 Validate phase  
 After the instance is launched and all of the build phase customizations are applied, the validation phase begins\. During the validation phase, Image Builder validates that customizations are applied successfully, based on configuration that is specified for the validate phase of the component\. If the instance validation is successful, the instance is turned off, an image is created, and Image Builder continues to the test stage\.*Test stage:*
@@ -148,7 +148,7 @@ An AWS Systems Manager automation document defines the actions that AWS Systems 
 AWS Resource Access Manager \(AWS RAM\) lets you share your resources with any AWS account or through AWS Organizations\. If you have multiple AWS accounts, you can create resources centrally and use AWS RAM to share those resources with other accounts\. EC2 Image Builder allows sharing for the following resources: components, images, and image recipes\. For more information about AWS RAM, see the [AWS Resource Access Manager User Guide](https://docs.aws.amazon.com/ram/latest/userguide/what-is.html)\. For information about sharing Image Builder resources, see [Share EC2 Image Builder resources](manage-shared-resources.md)\.
 
 **Amazon CloudWatch Logs**  
-You can use Amazon CloudWatch Logs to monitor, store, and access your log files from EC2 instances, AWS CloudTrail, Amazon Route 53 , and other sources\.
+You can use Amazon CloudWatch Logs to monitor, store, and access your log files from EC2 instances, AWS CloudTrail, Amazon Route 53 , and other sources\.
 
 **Amazon Elastic Container Registry \(Amazon ECR\)**  
 Amazon ECR is a managed AWS container image registry service that is secure, scalable, and reliable\. Container images you create with Image Builder are stored in Amazon ECR in your default Region, and in any Regions where you distribute the container image\. For more information about Amazon ECR, see the [Amazon Elastic Container Registry User Guide](https://docs.aws.amazon.com/AmazonECR/latest/userguide/)\.

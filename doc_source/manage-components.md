@@ -7,7 +7,7 @@ Image Builder uses AWSTOE to perform all on\-instance activities\. There is no a
 **Workflow stages for building a new image**  
 The Image Builder workflow for building new images includes the following two distinct stages\. The components that it runs fall into one stage or the other – never both\.
 
-1. **Build stage** \(pre\-snapshot\) – During the build stage, you make changes to the Amazon EC2 build instance that's running your source image, to create the baseline for your new image\. For example, your image or container recipe can include components that install an application, or modify the operating system firewall settings\.
+1. **Build stage** \(pre\-snapshot\) – During the build stage, you make changes to the Amazon EC2 build instance that's running your base image, to create the baseline for your new image\. For example, your image or container recipe can include components that install an application, or modify the operating system firewall settings\.
 
    The following phases run during the build stage:
    + build
@@ -23,7 +23,8 @@ The Image Builder workflow for building new images includes the following two di
    After this stage completes successfully, Image Builder can create and distribute your final image from the snapshot or the container image\.
 
 **Note**  
-While AWSTOE allows you to define many phases in a component document, Image Builder has strict rules about what phases it runs, and during which stages it runs them\. For a component to run during the build stage, the component document must define at least one of these phases: `build` or `validate`\. For a component to run during the test stage, the component document must define the `test` phase\.
+While AWSTOE allows you to define many phases in a component document, Image Builder has strict rules about what phases it runs, and during which stages it runs them\. For a component to run during the build stage, the component document must define at least one of these phases: `build` or `validate`\. For a component to run during the test stage, the component document must define the `test` phase\.  
+Since Image Builder runs the stages independently, chaining references in AWSTOE documents cannot cross stage boundaries\. You cannot chain a value from a phase that runs in the build stage to a phase that runs in the test stage\. You can, however, define input parameters to the intended target, and pass in values through the command line\. For more information about setting component parameters in your Image Builder recipes, see [Manage AWSTOE component parameters with EC2 Image Builder](manage-component-parameters.md)\.
 
 To assist with troubleshooting on your build or test instance AWSTOE creates a log folder that contains the input document and log files to track what's happening each time a component runs\. If you configured an Amazon S3 bucket in your pipeline configuration, the logs are also written there\. For more information about YAML documents and log output, see [Use component documents in AWSTOE](toe-use-documents.md)\.
 

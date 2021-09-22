@@ -18,13 +18,13 @@ This tutorial walks you through creating an automated pipeline to build and main
 
 1. In the **General** section, enter your **Pipeline name** \(*required*\)\.
 **Tip**  
-Enhanced metadata collection is turned on by default\. To ensure compatibility between components and source images, keep it on\.
+Enhanced metadata collection is turned on by default\. To ensure compatibility between components and base images, keep it turned on\.
 
 1. In the **Build schedule** section, you can keep the defaults for the **Schedule options**\. Note that the **Time zone** shown for the default schedule is Universal Coordinated Time \(UTC\)\. For more information about UTC time, and to find the offset for your time zone, see [Time Zone Abbreviations – Worldwide List](https://www.timeanddate.com/time/zones/)\.
 
    For **Dependency update settings**, choose the **Run pipeline at the scheduled time if there are dependency updates** option\. This setting causes your pipeline to check for updates before starting the build\. If there are no updates, it skips the scheduled pipeline build\.
 **Note**  
-To ensure that your pipeline recognizes dependency updates and builds as expected, you must use semantic versioning \(x\.x\.x\) for your source image and components\. To learn more about semantic versioning for Image Builder resources, see [Semantic versioning](ibhow-semantic-versioning.md)\.
+To ensure that your pipeline recognizes dependency updates and builds as expected, you must use semantic versioning \(x\.x\.x\) for your base image and components\. To learn more about semantic versioning for Image Builder resources, see [Semantic versioning](ibhow-semantic-versioning.md)\.
 
 1. Choose **Next** to proceed to the next step\.
 
@@ -38,21 +38,21 @@ To ensure that your pipeline recognizes dependency updates and builds as expecte
    + **Name** – your recipe name
    + **Version** – your recipe version \(use the format *<major>\.<minor>\.<patch>*, where major, minor, and patch are integer values\)\. New recipes generally start with `1.0.0`\.
 
-1. In the **Source image** section, keep the default values for **Select image**, **Image Operating System \(OS\)**, and **Image origin**\. This results in a list of Amazon Linux 2 AMIs, managed by Amazon, for you to choose from for your source image\.
+1. In the **Source image** section, keep the default values for **Select image**, **Image Operating System \(OS\)**, and **Image origin**\. This results in a list of Amazon Linux 2 AMIs, managed by Amazon, for you to choose from for your base image\.
 
    1. From the **Image name** dropdown, choose an image\.
 
    1. Keep the default for **Auto\-versioning options** \(**Use latest available OS version**\)\.
 **Note**  
-This setting ensures that your pipeline uses semantic versioning for the source image, to detect dependency updates for automatically scheduled jobs\. To learn more about semantic versioning for Image Builder resources, see [Semantic versioning](ibhow-semantic-versioning.md)\.
+This setting ensures that your pipeline uses semantic versioning for the base image, to detect dependency updates for automatically scheduled jobs\. To learn more about semantic versioning for Image Builder resources, see [Semantic versioning](ibhow-semantic-versioning.md)\.
 
 1. In the **Instance configuration** section, keep the default values for the **Systems Manager agent**\. This results in Image Builder removing the Systems Manager agent after the build and tests are complete, before creating the new image\.
 
-   Keep **User data** blank for this tutorial\. You can use this area at other times to provide commands, or a command script to run when you launch your build instance\. However, it replaces any commands that Image Builder might have added to ensure that Systems Manager is installed\. When you do use it, make sure that the Systems Manager agent is pre\-installed on your source image, or that you include the install in your user data\.
+   Keep **User data** blank for this tutorial\. You can use this area at other times to provide commands, or a command script to run when you launch your build instance\. However, it replaces any commands that Image Builder might have added to ensure that Systems Manager is installed\. When you do use it, make sure that the Systems Manager agent is preinstalled on your base image, or that you include the install in your user data\.
 
 1. In the **Components** section, you must choose at least one build component\.
 
-   In the **Build components – Amazon Linux** panel, you can browse through the components listed on the page\. Use the pagination control in the upper right corner to navigate through additional components that are available for your source image OS\. You can also search for specific components, or create your own build component using the Component manager\.
+   In the **Build components – Amazon Linux** panel, you can browse through the components listed on the page\. Use the pagination control in the upper right corner to navigate through additional components that are available for your base image OS\. You can also search for specific components, or create your own build component using the Component manager\.
 
    For this tutorial, choose a component that updates Linux with the latest security updates, as follows:
 

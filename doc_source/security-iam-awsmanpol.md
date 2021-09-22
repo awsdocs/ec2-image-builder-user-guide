@@ -4,7 +4,7 @@ To add permissions to users, groups, and roles, it is easier to use AWS managed 
 
 AWS services maintain and update AWS managed policies\. You can't change the permissions in AWS managed policies\. Services occasionally add additional permissions to an AWS managed policy to support new features\. This type of update affects all identities \(users, groups, and roles\) where the policy is attached\. Services are most likely to update an AWS managed policy when a new feature is launched or when new operations become available\. Services do not remove permissions from an AWS managed policy, so policy updates won't break your existing permissions\.
 
-Additionally, AWS supports managed policies for job functions that span multiple services\. For example, the **ReadOnlyAccess** AWS managed policy provides read\-only access to all AWS services and resources\. When a service launches a new feature, AWS adds read\-only permissions for new operations and resources\. For a list and descriptions of job function policies, see [AWS managed policies for job functions](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_job-functions.html) in the *IAM User Guide*\.
+Additionally, AWS supports managed policies for job functions that span multiple services\. For example, the **ViewOnlyAccess** AWS managed policy provides read\-only access to many AWS services and resources\. When a service launches a new feature, AWS adds read\-only permissions for new operations and resources\. For a list and descriptions of job function policies, see [AWS managed policies for job functions](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_job-functions.html) in the *IAM User Guide*\.
 
 ## AWSImageBuilderFullAccess policy<a name="sec-iam-manpol-AWSImageBuilderFullAccess"></a>
 
@@ -631,9 +631,9 @@ The following is an example of the EC2InstanceProfileForImageBuilderECRContainer
 }
 ```
 
-## EC2 Image Builder updates to AWS managed policies<a name="security-iam-awsmanpol-updates"></a>
+## Image Builder updates to AWS managed policies<a name="security-iam-awsmanpol-updates"></a>
 
-This section provides information about updates to AWS managed policies for EC2 Image Builder since this service began tracking these changes\. For automatic alerts about changes to this page, subscribe to the RSS feed on the Image Builder [document history](doc-history.md) page\.
+This section provides information about updates to AWS managed policies for Image Builder since this service began tracking these changes\. For automatic alerts about changes to this page, subscribe to the RSS feed on the Image Builder [document history](doc-history.md) page\.
 
 
 
@@ -642,4 +642,4 @@ This section provides information about updates to AWS managed policies for EC2 
 | --- | --- | --- | 
 |  [AWSServiceRoleForImageBuilder](#sec-iam-manpol-AWSServiceRoleForImageBuilder) – Update to an existing policy  |  Image Builder added new permissions to fix issues where more than one inventory association causes the image build to get stuck\.  | August 11, 2021 | 
 |  [AWSImageBuilderFullAccess](#sec-iam-manpol-AWSImageBuilderFullAccess) – Update to an existing policy  |  Image Builder added permissions to allow `ec2:DescribeInstanceTypeOffereings`\. Added permissions to call `ec2:DescribeInstanceTypeOffereings` to enable the Image Builder console to accurately reflect the instance types that are available in the account\.  | April 13, 2021 | 
-|  EC2 Image Builder started tracking changes  |  Image Builder started tracking changes for its AWS managed policies\.  | April 02, 2021 | 
+|  Image Builder started tracking changes  |  Image Builder started tracking changes for its AWS managed policies\.  | April 02, 2021 | 

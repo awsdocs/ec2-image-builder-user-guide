@@ -18,7 +18,7 @@ Semantic versioning is included in each object's Amazon Resource Name \(ARN\), a
 
 **Patterns:** You can use any numeric pattern that adheres to the assignment requirements for the nodes that you can assign\. For example, you might choose a software version pattern, such as 1\.0\.0, or a date, such as 2021\.01\.01\.
 
-**Selection:** With semantic versioning, you have the flexibility to use wildcards \(x\) to specify the most recent versions or nodes when selecting the source image or components for your recipe\. When you use a wildcard in any node, all nodes to the right of the first wildcard must also be wildcards\.
+**Selection:** With semantic versioning, you have the flexibility to use wildcards \(x\) to specify the most recent versions or nodes when selecting the base image or components for your recipe\. When you use a wildcard in any node, all nodes to the right of the first wildcard must also be wildcards\.
 
 For example, given the following recent versions: 2\.2\.4, 1\.7\.8, and 1\.6\.8, version selection using wildcards produces the following results:
 + `x.x.x` = 2\.2\.4

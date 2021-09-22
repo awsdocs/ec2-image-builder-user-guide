@@ -14,7 +14,7 @@ Creating a new version is virtually the same as creating a new recipe\. The diff
 + **Name** – *not editable*\.
 + **Version** – Required\. It is not pre\-filled with the current version or any kind of a sequence\. Enter the version number you want to create, using the format *major\.minor\.patch*\. If the version already exists, you will encounter an error\.
 
-**Source image**
+**Base image**
 + The **Select image** option – Pre\-selected, but editable\. If you change your choice for the source of your base image, you might lose other details that depend on the original option you chose\.
 
   To see details that are associated with your base image selection, choose the tab that matches your selection\.
@@ -22,7 +22,7 @@ Creating a new version is virtually the same as creating a new recipe\. The diff
 ------
 #### [ Managed images ]
   + **Image Operating System \(OS\)** – *not editable*\.
-  + The **Image name** – Pre\-selected, based on the combination of source image choices you made for the existing recipe\. However, if you change the **Select image** option, you lose the pre\-selected **Image name**\.
+  + The **Image name** – Pre\-selected, based on the combination of base image choices you made for the existing recipe\. However, if you change the **Select image** option, you lose the pre\-selected **Image name**\.
   + **Auto\-versioning options** – does *not* match your base recipe\. This defaults to the **Use selected OS version** option\.
 **Important**  
 If you are using semantic versioning to kick off pipeline builds, make sure you change this value to **Use latest available OS version**\. To learn more about semantic versioning for Image Builder resources, see [Semantic versioning](ibhow-semantic-versioning.md)\.
@@ -104,7 +104,7 @@ To use the example to create your own container recipe, you must replace the exa
    + **name** \(string, required\) – The name of the container recipe\.
    + **description** \(string\) – The description of the container recipe\.
    + **parentImage** \(string, required\) – The source \(parent\) image that the container recipe uses as its base environment\.
-   + **platformOverride** \(string\) – Specifies the operating system platform when you use a custom source image\.
+   + **platformOverride** \(string\) – Specifies the operating system platform when you use a custom base image\.
    + **semanticVersion** \(string, required\) – The semantic version of the container recipe, which specifies the version in the following format, with numeric values in each position to indicate a specific version: <major>\.<minor>\.<patch>\. For example, `1.0.0`\. To learn more about semantic versioning for Image Builder resources, see [Semantic versioning](ibhow-semantic-versioning.md)\.
    + **tags** \(string map\) – Tags that are attached to the container recipe\.
    + **instanceConfiguration** \(object\) – A group of options that can be used to configure an instance for building and testing container images\.

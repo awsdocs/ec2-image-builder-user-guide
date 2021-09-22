@@ -6,8 +6,15 @@ In this section, we'll cover creating AWSTOE components by using Image Builder c
 
 To build a component, you must provide a YAML application component document, which represents the phases and steps to create the component\.
 
-**Create a YAML component document**  
-To create a YAML application component document for a sample application, follow the steps that are shown in the tab that matches your image operating system\. The example document calls the `UpdateOS` action module in the AWSTOE component management application to update the operating system\. For more information about the `UpdateOS` action module, see [UpdateOS](toe-action-modules.md#action-modules-updateos)\.
+The examples that we use in this section create a build component that calls the `UpdateOS` action module in the AWSTOE component management application to update the operating system\. For more information about the `UpdateOS` action module, see [UpdateOS](toe-action-modules.md#action-modules-updateos)\.
+
+**Note**  
+Component types in Image Builder are based on the pipeline workflow, corresponding to the *build* and *test* stages in the build process\. Image Builder determines the component type by the phase name in your component document, as follows:  
+**Build** – This component type includes phases that are named `build` and `validate`\.
+**Test** – This component type includes one phase, named `test`\. If your component document includes multiple phases, and one is named `test`, the imagebuilder create\-component command will fail\.
+For more information about how Image Builder uses stages and phases to manage component workflow in its build process, see [Manage components with AWSTOE](manage-components.md)\.
+
+To create a YAML application component document for a sample application, follow the steps that are shown in the tab that matches your image operating system\. 
 
 ------
 #### [ Linux ]

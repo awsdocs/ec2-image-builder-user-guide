@@ -30,6 +30,7 @@ When the component runs, the associated commands for each phase are applied in t
   + **build** – generally used during the *build stage*\.
   + **validate** – generally used during the *build stage*\.
   + **test** – generally used during the *test stage*\.
++ Phases always run in the order that they are defined in the document\. The order in which they are specified for AWSTOE commands in the AWS CLI has no effect\.
 
 **Steps**  
 Steps are individual units of work that define the workflow within each phase\. Steps run in sequential order\. However, input or output for one step can also feed into a subsequent step as input\. This is called "chaining"\.
@@ -37,8 +38,8 @@ Steps are individual units of work that define the workflow within each phase\. 
 **Rules for steps**
 + The step name must be unique for the phase\.
 + The step must use a supported action \(action module\) that returns an exit code\.
-**Note**  
-For a complete list of supported action modules, how they work, input/output values, and examples, see [Action modules supported by AWSTOE component manager](toe-action-modules.md)\.
+
+  For a complete list of supported action modules, how they work, input/output values, and examples, see [Action modules supported by AWSTOE component manager](toe-action-modules.md)\.
 
 ## Component logging<a name="component-logging"></a>
 
@@ -86,14 +87,14 @@ or
 
 The chaining feature allows you to recycle code and improve the maintainability of the document\.
 
-The usage requirements of chaining are as follows:
+**Rules for chaining**
 + Chaining expressions can be used only in the inputs section of each step\.
 + Statements with chaining expressions must be enclosed in quotes\. For example:
   + **Invalid expression**: `echo {{ phase.step.inputs.variable }}`
   + **Valid expression**: `"echo {{ phase.step.inputs.variable }}"`
   + **Valid expression**: `'echo {{ phase.step.inputs.variable }}'`
-+ Chaining expressions can reference variables from other steps and phases in the same document\. 
-+ Indexes in chaining expressions follow 0\-based indexing \(first index is 0\)\.
++ Chaining expressions can reference variables from other steps and phases in the same document\. However, the calling service might have rules that require chaining expressions to operate only within the context of a single stage\. For example, Image Builder does not support chaining from the *build stage* to the *test stage*, as it runs each stage independently\.
++ Indexes in chaining expressions follow zero\-based indexing\. The index starts with zero \(0\) to reference the first element\.
 
 **Examples**
 

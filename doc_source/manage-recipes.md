@@ -1,6 +1,6 @@
 # Manage recipes<a name="manage-recipes"></a>
 
-An EC2 Image Builder recipe defines the source image to use as your starting point to create a new image, along with the set of components that you add to customize your image and verify that everything is working as expected\. Automatic version choices are provided for each component\. A maximum of 20 components, which include build and test, can be applied to a recipe\.
+An EC2 Image Builder recipe defines the base image to use as your starting point to create a new image, along with the set of components that you add to customize your image and verify that everything is working as expected\. Automatic version choices are provided for each component\. A maximum of 20 components, which include build and test, can be applied to a recipe\.
 
 After you create an image recipe, or a container recipe, you cannot modify or replace the recipe\. To update components after a recipe is created, you must create a new recipe or recipe version\. You can, however, always apply tags to your recipe\. For more information about tagging your resources using Image Builder commands in the AWS CLI, see the [Tag resources](tag-resources.md) section of this guide\.
 

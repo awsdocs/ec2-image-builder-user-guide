@@ -4,9 +4,9 @@ When you use the EC2 Image Builder pipeline console wizard to create a custom im
 
 1. **Specify pipeline details** – Enter information about your pipeline, such as a name, description, tags, and a schedule to run automated builds\. You can choose manual builds, if you prefer\.
 
-1. **Choose recipe** – Choose between building an AMI, or building a container image\. For both types of output images, you enter a name and version for your recipe, select a source image, and choose components to add for building and testing\. You can also choose automatic versioning, to ensure that you always use the latest available Operating System \(OS\) version for your source image\. Container recipes additionally define Dockerfiles, and the target Amazon ECR repository for your output Docker container image\.
+1. **Choose recipe** – Choose between building an AMI, or building a container image\. For both types of output images, you enter a name and version for your recipe, select a base image, and choose components to add for building and testing\. You can also choose automatic versioning, to ensure that you always use the latest available Operating System \(OS\) version for your base image\. Container recipes additionally define Dockerfiles, and the target Amazon ECR repository for your output Docker container image\.
 **Note**  
-Components are the building blocks that are consumed by an image recipe or a container recipe\. For example, packages for installation, security hardening steps, and tests\. The selected source image and components make up an image recipe\.
+Components are the building blocks that are consumed by an image recipe or a container recipe\. For example, packages for installation, security hardening steps, and tests\. The selected base image and components make up an image recipe\.
 
 1. **Define infrastructure configuration** – Image Builder launches EC2 instances in your account to customize images and run validation tests\. The Infrastructure configuration settings specify infrastructure details for the instances that will run in your AWS account during the build process\.
 

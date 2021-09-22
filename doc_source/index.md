@@ -72,6 +72,8 @@ Amazon's trademarks and trade dress may not be used in
       + [Run your container image pipeline](container-pipelines-run.md)
    + [Use cron expressions in EC2 Image Builder](cron-expressions.md)
    + [Use EventBridge rules with Image Builder pipelines](ev-rules-for-pipeline.md)
++ [Monitor events and logs in EC2 Image Builder](monitor.md)
+   + [Logging EC2 Image Builder API calls using AWS CloudTrail](log-cloudtrail.md)
 + [Security in EC2 Image Builder](image-builder-security.md)
    + [EC2 Image Builder and interface VPC endpoints (AWS PrivateLink)](vpc-interface-endpoints.md)
    + [Data protection in EC2 Image Builder](data-protection.md)
