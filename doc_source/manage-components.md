@@ -5,7 +5,7 @@ Image Builder uses the AWS Task Orchestrator and Executor \(AWSTOE\) component m
 Image Builder uses AWSTOE to perform all on\-instance activities\. There is no additional setup required to interact with AWSTOE when you run Image Builder commands or use the Image Builder console\.
 
 **Workflow stages for building a new image**  
-The Image Builder workflow for building new images includes the following two distinct stages\. The components that it runs fall into one stage or the other – never both\.
+The Image Builder workflow for building new images includes the following two distinct stages\.
 
 1. **Build stage** \(pre\-snapshot\) – During the build stage, you make changes to the Amazon EC2 build instance that's running your base image, to create the baseline for your new image\. For example, your image or container recipe can include components that install an application, or modify the operating system firewall settings\.
 
@@ -15,12 +15,12 @@ The Image Builder workflow for building new images includes the following two di
 
    After this stage completes successfully, Image Builder creates a snapshot or container image that it uses for the test stage and beyond\.
 
-1. **Test stage** \(post\-snapshot\) – During the test stage, Image Builder launches an EC2 instance from the snapshot or container image that was created as the final step of the build stage\. The test stage components run on the new instance to validate settings and ensure that it's running as expected\.
+1. **Test stage** \(post\-snapshot\) – During the test stage, Image Builder launches an EC2 instance from the snapshot or container image that was created as the final step of the build stage\. Tests run on the new instance to validate settings and ensure that the instance is functioning as expected\.
 
-   The following phase runs during the test stage:
+   The following phase runs for every component that is included in the recipe during the test stage: 
    + test
 
-   After this stage completes successfully, Image Builder can create and distribute your final image from the snapshot or the container image\.
+   This phase applies to both Build and Test component types\. After this stage completes successfully, Image Builder can create and distribute your final image from the snapshot or the container image\.
 
 **Note**  
 While AWSTOE allows you to define many phases in a component document, Image Builder has strict rules about what phases it runs, and during which stages it runs them\. For a component to run during the build stage, the component document must define at least one of these phases: `build` or `validate`\. For a component to run during the test stage, the component document must define the `test` phase\.  

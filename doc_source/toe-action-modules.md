@@ -12,6 +12,7 @@ All action modules are run by using the same account as the Systems Manager agen
 + [File download and upload modules](#action-modules-download-upload)
 + [File system operation modules](#action-modules-file-system-operations)
 + [System action modules](#action-modules-file-system-actions)
++ [Software installation actions](#action-modules-software-install-actions)
 
 ## General execution modules<a name="action-modules-general-execution"></a>
 
@@ -1853,3 +1854,157 @@ inputs:
 **Output**
 
 None\. 
+
+## Software installation actions<a name="action-modules-software-install-actions"></a>
+
+The following section contains details for action modules that \.\.\.
+
+**Topics**
++ [InstallMSI](#action-modules-install-msi)
++ [UninstallMSI](#action-modules-uninstall-msi)
+
+### InstallMSI<a name="action-modules-install-msi"></a>
+
+
+
+
+**Input**  
+
+| Primitive | Description | Type | Required | Default value | Acceptable values | 
+| --- | --- | --- | --- | --- | --- | 
+| \.\.\. name |  Description\.\.\. [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/imagebuilder/latest/userguide/toe-action-modules.html)   | \.\.\. type | \.\.\. required | \.\.\. default value | \.\.\. acceptable values | 
+
+**Input example: remove web path installation**
+
+```
+name: local-path-uninstall
+  steps:
+    - name: LocalPathUninstaller
+      action: UninstallMSI
+      inputs:
+        path: C:\sample.msi
+        logFile: C:\msilogs\local-path-uninstall.log
+        logOptions: '*VX'
+        reboot: Allow
+        properties:
+          COMPANYNAME: '"Amazon Web Services"'
+        ignoreAuthenticodeSignatureErrors: true
+        allowUnsignedInstaller: true
+```
+
+**Output**
+
+
+
+### UninstallMSI<a name="action-modules-uninstall-msi"></a>
+
+The `UninstallMSI` action module allows you to remove a Windows application using an MSI file\. You can specify the MSI file location using a local file path, an S3 object URI, or a web URL\. The reboot option configures the reboot behavior of the system\.
+
+AWSTOE generates the msiexec command based on the input parameters for the action module\. The MSI file location \(`path`\) and log file location \(logFile\) are explicitly enclosed in double quotes \(`"`\) while generating the msiexec command\.
+
+The AWSTOE treats the following MSI exit codes as success:
++ 0 \(Success\)
++ 1605 \(ERROR\_UNKNOWN\_PRODUCT\)
++ 1614 \(ERROR\_PRODUCT\_UNINSTALLED\)
++ 1641 \(Reboot Initiated\)
++ 3010 \(Reboot Required\)
+
+**Complex MSI Inputs**  
+If your input strings contain double quote characters \(`"`\), you must use one of the following methods to ensure that they are interpreted correctly:
++ You can use single quotes \(`'`\) on the outside of your string, to contain it, and double quotes \(`"`\) inside of your string, as shown in the following example\.
+
+  ```
+  properties:
+    COMPANYNAME: '"Acme ""Widgets"" and ""Gizmos."""'
+  ```
+
+  In this case, if you need to use an apostrophe inside of your string, you must escape it, using another single quote \(`'`\) before the apostrophe\.
++ You can use double quotes \(`"`\) on the outside of your string, to contain it, and escape any double quotes inside of your string, using the backslash character \(`\`\), as shown in the following example\.
+
+  ```
+  properties:
+    COMPANYNAME: "\"Acme \"\"Widgets\"\" and \"\"Gizmos.\"\"\""
+  ```
+
+Both of these methods pass the value `COMPANYNAME="Acme ""Widgets"" and ""Gizmos."""` to the msiexec command\.
+
+
+**Input**  
+
+| Primitive | Description | Type | Required | Default value | Acceptable values | 
+| --- | --- | --- | --- | --- | --- | 
+| path |  Specify the MSI file location using one of the following: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/imagebuilder/latest/userguide/toe-action-modules.html) Chaining expressions are allowed\.  | String | Yes | N/A | N/A | 
+| reboot |  Configures the system reboot behavior that follows a successful run of the action module\. [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/imagebuilder/latest/userguide/toe-action-modules.html)  | String | No | Allow | Allow, Force, Skip | 
+| logOptions |  Specify the options to use for MSI installation logging\. Specified flags are passed to the MSI installer, along with the `/L` command line parameter to enable logging\. If no flags are specified, AWSTOE uses the default value\. For more information about log options for MSI, see [Command Line Options](https://docs.microsoft.com/en-us/windows/win32/msi/command-line-options) in the Microsoft *Windows Installer* product documentation\.  | String | No | \*VX | i,w,e,a,r,u,c,m,o,p,v,x,\+,\!,\* | 
+| logFile |  An absolute or relative path to the log file location\. If the log file path does not exist, it is created\. If the log file path is not provided, AWSTOE does not store the MSI installation log\.  | String | No | N/A | N/A | 
+| properties |  MSI logging property key/value pairs, for example: `TARGETDIR: "C:\target\location"`   Note: Modification of following properties is not allowed: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/imagebuilder/latest/userguide/toe-action-modules.html)  | Map\[String\]String | No | N/A | N/A | 
+| ignoreAuthenticodeSignatureErrors |  Flag to ignore authenticode signature validation errors for the installer specified in path\. The Get\-AuthenticodeSignature command is used to validate installers\. [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/imagebuilder/latest/userguide/toe-action-modules.html)  | Boolean | No | false | true, false | 
+| allowUnsignedInstaller |  Flag to allow running the unsigned installer specified in the path\. The Get\-AuthenticodeSignature command is used to validate installers\. [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/imagebuilder/latest/userguide/toe-action-modules.html)  | Boolean | No | false | true, false | 
+
+**Examples**  
+The following examples show variations of the input section for your component document, depending on your installation path\.
+
+**Input example: remove local document path installation**
+
+```
+# Document Start
+- name: local-path-uninstall
+  steps:
+    - name: LocalPathUninstaller
+      action: UninstallMSI
+      inputs:
+        path: C:\sample.msi
+        logFile: C:\msilogs\local-path-uninstall.log
+        logOptions: '*VX'
+        reboot: Allow
+        properties:
+          COMPANYNAME: '"Amazon Web Services"'
+        ignoreAuthenticodeSignatureErrors: true
+        allowUnsignedInstaller: true
+# Document End
+```
+
+**Input example: remove Amazon S3 path installation**
+
+```
+# Document Start
+- name: s3-path-uninstall
+  steps:
+    - name: S3PathUninstaller
+      action: UninstallMSI
+      inputs:
+        path: s3://<bucket-name>/sample.msi
+        logFile: s3-path-uninstall.log
+        reboot: Force
+        ignoreAuthenticodeSignatureErrors: false
+        allowUnsignedInstaller: true
+# Document End
+```
+
+**Input example: remove web path installation**
+
+```
+# Document Start
+- name: web-path-uninstall
+  steps:
+    - name: WebPathUninstaller
+      action: UninstallMSI
+      inputs:
+        path: https://<some-path>/sample.msi
+        logFile: web-path-uninstall.log
+        reboot: Skip
+        ignoreAuthenticodeSignatureErrors: true
+        allowUnsignedInstaller: false
+# Document End
+```
+
+**Output**  
+The following is an example of the output from the UninstallMSI action module\.
+
+```
+{
+  "logFile": "web-path-uninstall.log",
+  "msiExitCode": 0,
+  "stdout": ""
+}
+```

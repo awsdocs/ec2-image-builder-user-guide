@@ -9,12 +9,12 @@ To build a component, you must provide a YAML application component document, wh
 The examples that we use in this section create a build component that calls the `UpdateOS` action module in the AWSTOE component management application to update the operating system\. For more information about the `UpdateOS` action module, see [UpdateOS](toe-action-modules.md#action-modules-updateos)\.
 
 **Note**  
-Component types in Image Builder are based on the pipeline workflow, corresponding to the *build* and *test* stages in the build process\. Image Builder determines the component type by the phase name in your component document, as follows:  
-**Build** – This component type includes phases that are named `build` and `validate`\.
-**Test** – This component type includes one phase, named `test`\. If your component document includes multiple phases, and one is named `test`, the imagebuilder create\-component command will fail\.
+Component types in Image Builder are based on the pipeline workflow\. This workflow corresponds to the *Build stage* and the *Test stage* in the build process\. Image Builder determines the component type as follows:  
+**Build** – This is the default component type\. Anything that is not classified as a test component, is a build component\. This type of component runs during the *Build stage*, and if it has a `test` phase defined, that phase runs during the *Test stage*\.
+**Test** – To be classified as a test component, the component document must include only one phase, named `test`\. For tests that are related to build component configurations, we recommend that you use the `test` phase in the associated build component, rather than creating a standalone test component\.
 For more information about how Image Builder uses stages and phases to manage component workflow in its build process, see [Manage components with AWSTOE](manage-components.md)\.
 
-To create a YAML application component document for a sample application, follow the steps that are shown in the tab that matches your image operating system\. 
+To create a YAML application component document for a sample application, follow the steps that are shown on the tab that matches your image operating system\. 
 
 ------
 #### [ Linux ]

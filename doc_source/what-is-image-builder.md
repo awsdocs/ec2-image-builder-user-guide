@@ -148,7 +148,7 @@ An AWS Systems Manager automation document defines the actions that AWS Systems 
 AWS Resource Access Manager \(AWS RAM\) lets you share your resources with any AWS account or through AWS Organizations\. If you have multiple AWS accounts, you can create resources centrally and use AWS RAM to share those resources with other accounts\. EC2 Image Builder allows sharing for the following resources: components, images, and image recipes\. For more information about AWS RAM, see the [AWS Resource Access Manager User Guide](https://docs.aws.amazon.com/ram/latest/userguide/what-is.html)\. For information about sharing Image Builder resources, see [Share EC2 Image Builder resources](manage-shared-resources.md)\.
 
 **Amazon CloudWatch Logs**  
-You can use Amazon CloudWatch Logs to monitor, store, and access your log files from EC2 instances, AWS CloudTrail, Amazon Route 53 , and other sources\.
+You can use Amazon CloudWatch Logs to monitor, store, and access your log files from EC2 instances, AWS CloudTrail, Amazon Route 53, and other sources\.
 
 **Amazon Elastic Container Registry \(Amazon ECR\)**  
 Amazon ECR is a managed AWS container image registry service that is secure, scalable, and reliable\. Container images you create with Image Builder are stored in Amazon ECR in your default Region, and in any Regions where you distribute the container image\. For more information about Amazon ECR, see the [Amazon Elastic Container Registry User Guide](https://docs.aws.amazon.com/AmazonECR/latest/userguide/)\.

@@ -27,7 +27,7 @@ Windows STIG components are designed for standalone servers and they apply Local
 
 The following list contains STIG settings that are applied to your image\. Some STIG settings are not automatically applied\. This can be due to technical limitations – for instance, the STIG setting might not be applicable for standalone servers\. Organization\-specific policies can also prevent automatic application of STIG settings, such as a requirement for administrators to review document settings\. For more details about which STIGs are applied to Windows AMIs, you can download our [spreadsheet](https://aws-windows-downloads-us-west-1.s3.us-west-1.amazonaws.com/STIG/Win+STIG.xlsx)\.
 
-For a complete list of Windows STIGs, see the [STIGs Document Library](https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=windows)\. For information about how to view the complete list, see [How to View SRGs and STIGs ](https://dl.dod.cyber.mil/wp-content/uploads/stigs/doc/HOW_TO_VIEW_SRGs_and_STIGs.doc)\.
+For a complete list of Windows STIGs, see the [STIGs Document Library](https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=windows)\. For information about how to view the complete list, see [SRG / STIG Tools](https://public.cyber.mil/stigs/srg-stig-tools/)\.
 + **Windows Server 2019 STIG Version 2 Release 2**
 
   V\-205691, V\-205819, V\-205858, V\-205859, V\-205860, V\-205870, V\-205871, and V\-205923
@@ -51,7 +51,7 @@ For a complete list of Windows STIGs, see the [STIGs Document Library](https://p
 
 The following list contains STIG settings that are applied to your image\. Some STIG settings are not automatically applied\. This can be due to technical limitations – for instance, the STIG setting might not be applicable for standalone servers\. Organization\-specific policies can also prevent automatic application of STIG settings, such as a requirement for administrators to review document settings\. For more details about which STIGs are applied to Windows AMIs, you can download our [spreadsheet](https://aws-windows-downloads-us-west-1.s3.us-west-1.amazonaws.com/STIG/Win+STIG.xlsx)\.
 
-For a complete list of Windows STIGs, see the [STIGs Document Library](https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=windows)\. For information about how to view the complete list, see [How to View SRGs and STIGs ](https://dl.dod.cyber.mil/wp-content/uploads/stigs/doc/HOW_TO_VIEW_SRGs_and_STIGs.doc)\.
+For a complete list of Windows STIGs, see the [STIGs Document Library](https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=windows)\. For information about how to view the complete list, see [SRG / STIG Tools](https://public.cyber.mil/stigs/srg-stig-tools/)\.
 
 **Note**  
 The STIG\-Build\-Windows\-Medium components include all STIG settings that Image Builder applies to STIG\-Build\-Windows\-Low components, in addition to the STIG settings that are applied specifically for Category II vulnerabilities\.
@@ -88,7 +88,7 @@ The STIG\-Build\-Windows\-Medium components include all STIG settings that Image
 
 The following list contains STIG settings that are applied to your image\. Some STIG settings are not automatically applied\. This can be due to technical limitations – for instance, the STIG setting might not be applicable for standalone servers\. Organization\-specific policies can also prevent automatic application of STIG settings, such as a requirement for administrators to review document settings\. For more details about which STIGs are applied to Windows AMIs, you can download our [spreadsheet](https://aws-windows-downloads-us-west-1.s3.us-west-1.amazonaws.com/STIG/Win+STIG.xlsx)\.
 
-For a complete list of Windows STIGs, see the [STIGs Document Library](https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=windows)\. For information about how to view the complete list, see [How to View SRGs and STIGs ](https://dl.dod.cyber.mil/wp-content/uploads/stigs/doc/HOW_TO_VIEW_SRGs_and_STIGs.doc)\.
+For a complete list of Windows STIGs, see the [STIGs Document Library](https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=windows)\. For information about how to view the complete list, see [SRG / STIG Tools](https://public.cyber.mil/stigs/srg-stig-tools/)\.
 
 **Note**  
 The STIG\-Build\-Windows\-High components include all STIG settings that Image Builder applies to STIG\-Build\-Windows\-Low and STIG\-Build\-Windows\-Medium components, in addition to the STIG settings that are applied specifically for Category I vulnerabilities\.
@@ -136,7 +136,7 @@ This section contains information about Linux STIG components\. If the Linux dis
 
 The following list contains STIG settings that are applied to your image\. Some STIG settings are not automatically applied\. This can be due to technical limitations – for instance, the STIG setting might not be applicable for standalone servers\. Organization\-specific policies can also prevent automatic application of STIG settings, such as a requirement for administrators to review document settings\. For more details about which STIGs are applied to Linux AMIs, you can download our [spreadsheet](https://aws-windows-downloads-us-west-1.s3.us-west-1.amazonaws.com/STIG/Linux+STIG.xlsx)\.
 
-For a complete list, see the [STIGs Document Library](https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=operating-systems%2Cunix-linux)\. For information about how to view the complete list, see [How to View SRGs and STIGs ](https://dl.dod.cyber.mil/wp-content/uploads/stigs/doc/HOW_TO_VIEW_SRGs_and_STIGs.doc)\.
+For a complete list, see the [STIGs Document Library](https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=operating-systems%2Cunix-linux)\. For information about how to view the complete list, see [SRG / STIG Tools](https://public.cyber.mil/stigs/srg-stig-tools/)\.
 
 **RHEL 7 STIG Version 3 Release 4**
 
@@ -155,7 +155,7 @@ V\-230241, V\-230253, V\-230269, V\-230270, V\-230281, V\-230285, V\-230346, V\-
 
 The following list contains STIG settings that are applied to your image\. Some STIG settings are not automatically applied\. This can be due to technical limitations – for instance, the STIG setting might not be applicable for standalone servers\. Organization\-specific policies can also prevent automatic application of STIG settings, such as a requirement for administrators to review document settings\. For more details about which STIGs are applied to Linux AMIs, you can download our [spreadsheet](https://aws-windows-downloads-us-west-1.s3.us-west-1.amazonaws.com/STIG/Linux+STIG.xlsx)\.
 
-For a complete list, see the [STIGs Document Library](https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=operating-systems%2Cunix-linux)\. For information about how to view the complete list, see [How to View SRGs and STIGs ](https://dl.dod.cyber.mil/wp-content/uploads/stigs/doc/HOW_TO_VIEW_SRGs_and_STIGs.doc)\.
+For a complete list, see the [STIGs Document Library](https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=operating-systems%2Cunix-linux)\. For information about how to view the complete list, see [SRG / STIG Tools](https://public.cyber.mil/stigs/srg-stig-tools/)\.
 
 **Note**  
 The STIG\-Build\-Linux\-Medium components include all STIG settings that Image Builder applies to STIG\-Build\-Linux\-Low components, in addition to the STIG settings that are applied specifically for Category II vulnerabilities\.
@@ -181,7 +181,7 @@ V\-230228, V\-230231, V\-230233, V\-230236, V\-230237, V\-230239, V\-230240, V\-
 
 The following list contains STIG settings that are applied to your image\. Some STIG settings are not automatically applied\. This can be due to technical limitations – for instance, the STIG setting might not be applicable for standalone servers\. Organization\-specific policies can also prevent automatic application of STIG settings, such as a requirement for administrators to review document settings\. For more details about which STIGs are applied to Linux AMIs, you can download our [spreadsheet](https://aws-windows-downloads-us-west-1.s3.us-west-1.amazonaws.com/STIG/Linux+STIG.xlsx)\.
 
-For a complete list, see the [STIGs Document Library](https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=operating-systems%2Cunix-linux)\. For information about how to view the complete list, see [How to View SRGs and STIGs ](https://dl.dod.cyber.mil/wp-content/uploads/stigs/doc/HOW_TO_VIEW_SRGs_and_STIGs.doc)\.
+For a complete list, see the [STIGs Document Library](https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=operating-systems%2Cunix-linux)\. For information about how to view the complete list, see [SRG / STIG Tools](https://public.cyber.mil/stigs/srg-stig-tools/)\.
 
 **Note**  
 The STIG\-Build\-Linux\-High components include all STIG settings that Image Builder applies to STIG\-Build\-Linux\-Low and STIG\-Build\-Linux\-Medium components, in addition to the STIG settings that are applied specifically for Category I vulnerabilities\.

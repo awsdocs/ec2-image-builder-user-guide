@@ -4,19 +4,94 @@ This section describes how you can configure distribution settings to deliver an
 
 The destination account can then launch or modify the AMI, as needed\.
 
+**Note**  
+AWS CLI command examples in this section assume that you have previously created image recipe and infrastructure configuration JSON files\. To create the JSON file for an image recipe, see [Create an image recipe \(AWS CLI\)](create-image-recipes.md#create-image-recipe-cli)\. To create the JSON file for an infrastructure configuration, see [Create an infrastructure configuration \(AWS CLI\)](create-infra-config.md#cli-create-infrastructure-configuration)\.
+
 ## Prerequisites<a name="cross-account-dist-prereqs"></a>
 
 To ensure that target accounts can successfully launch instances from your Image Builder image, you must configure the appropriate permissions for all destination accounts in all Regions\.
 
+If you encrypt your AMI using the AWS Key Management Service \(AWS KMS\), you must configure an AWS KMS key for your account that is used to encrypt the new image\.
+
+When Image Builder performs cross\-account distribution for encrypted AMIs, the image in the source account is decrypted and pushed to the target Region, where it is re\-encrypted using the designated key for that Region\. Because Image Builder acts on behalf of the target account, and uses an IAM role that you create in the destination Region, that account must have access to keys in both the source and destination Regions\.
+
+### Encryption keys<a name="cross-account-prereqs-encryption"></a>
+
+The following prerequisites are required if your image is encrypted using AWS KMS\. IAM prerequisites are covered in the next section\.
+
+**Source account requirements**
++ Create a KMS key in your account in all Regions where you build and distribute your AMI\. You can also use an existing key\.
++ Update the key policy for all of those keys to allow destination accounts to use your key\.
+
+**Destination account requirements**
++ Add an inline policy to `EC2ImageBuilderDistributionCrossAccountRole` that allows the role to perform the required actions to distribute an encrypted AMI\. For IAM configuration steps, see the [IAM policies](#cross-account-prereqs-iam) prerequisites section\.
+
+For more information about cross\-account access using AWS KMS, see [Allowing users in other accounts to use a KMS key](https://docs.aws.amazon.com/kms/latest/developerguide/key-policy-modifying-external-accounts.html) in the *AWS Key Management Service Developer Guide*\.
+
+Specify your encryption key in the image recipe, as follows:
++ If you are using the Image Builder console, choose your encryption key from the **Encryption \(KMS alias\)** dropdown list in the **Storage \(volumes\)** section of your recipe\.
++ If you are using the CreateImageRecipe API action, or the create\-image\-recipe command in the AWS CLI, configure your key in the `ebs` section under `blockDeviceMappings` in your JSON input\.
+
+  The following JSON snippet shows encryption settings for an image recipe\. In addition to providing your encryption, you must also set the `encrypted` flag to `true`\.
+
+  ```
+  {
+     ...
+     "blockDeviceMappings": [ 
+        { 
+           "deviceName": "Example root volume",
+           "ebs": { 
+              "deleteOnTermination": true,
+              "encrypted": true,
+              "iops": 100,
+              "kmsKeyId": "image-owner-key-id",
+              ...
+           },
+           ...
+        }
+     ],
+     ...
+  }
+  ```
+
+### IAM policies<a name="cross-account-prereqs-iam"></a>
+
 To configure cross\-account distribution permissions in AWS Identity and Access Management \(IAM\), follow these steps:
 
-1. Create a new IAM role in all of the destination accounts called `EC2ImageBuilderDistributionCrossAccountRole`\.
+1. To use Image Builder AMIs that are distributed across accounts, the destination account owner must create a new IAM role in their account called `EC2ImageBuilderDistributionCrossAccountRole`\.
 
-1. Attach the [Ec2ImageBuilderCrossAccountDistributionAccess policy](security-iam-awsmanpol.md#sec-iam-manpol-Ec2ImageBuilderCrossAccountDistributionAccess) to the role\. For more information about managed policies, see [Managed Policies and Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-vs-inline.html#aws-managed-policies) in the *AWS Identity and Access Management User Guide*\.
+1. They must attach the [Ec2ImageBuilderCrossAccountDistributionAccess policy](security-iam-awsmanpol.md#sec-iam-manpol-Ec2ImageBuilderCrossAccountDistributionAccess) to the role to enable cross\-account distribution\. For more information about managed policies, see [Managed Policies and Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-vs-inline.html#aws-managed-policies) in the *AWS Identity and Access Management User Guide*\.
 
 1. Verify that the source account ID is added to the trust policy attached to the IAM role of the destination account\. For more information about trust policies, see [Resource\-Based Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_resource-based) in the *AWS Identity and Access Management User Guide*\.
 
-1. If you are using `launchTemplateConfigurations` to specify an Amazon EC2 launch template, you must also add the following policy to your `EC2ImageBuilderDistributionCrossAccountRole` in each destination account and Region\.
+1. If the AMI you distribute is encrypted, the destination account owner must add the following inline policy to the `EC2ImageBuilderDistributionCrossAccountRole` in their account so that they can use your KMS keys\. The `Principal` section contains their account number\. This enables Image Builder to act on their behalf when it uses AWS KMS to encrypt and decrypt the AMI with the appropriate keys for each Region\.
+
+   ```
+   {
+       "Version": "2012-10-17",
+       "Statement": [
+       	{
+   	    	"Sid": "Allow the role to perform AWS KMS operations on behalf of the destination account",
+   		    "Effect": "Allow",
+   		    "Action": [
+   		        "kms:Encrypt",
+   		        "kms:Decrypt",
+   		        "kms:ReEncrypt*",
+   		        "kms:GenerateDataKey*",
+   		        "kms:DescribeKey",
+   		        "kms:CreateGrant",
+   		        "kms:ListGrants",
+   		        "kms:RevokeGrant"
+   		    ],
+   		    "Resource": "*"
+   		}
+   	]
+   }
+   ```
+
+   For more information about inline policies, see [Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-vs-inline.html#inline-policies) in the *AWS Identity and Access Management User Guide*\.
+
+1. If you are using `launchTemplateConfigurations` to specify an Amazon EC2 launch template, you must also add the following policy to your `EC2ImageBuilderDistributionCrossAccountRole` in each destination account\.
 
    ```
    {
@@ -57,9 +132,6 @@ To configure cross\-account distribution permissions in AWS Identity and Access 
        ]
    }
    ```
-
-**Note**  
-AWS CLI command examples in this section assume that you have previously created image recipe and infrastructure configuration JSON files\. To create the JSON file for an image recipe, see [Create an image recipe \(AWS CLI\)](create-image-recipes.md#create-image-recipe-cli)\. To create the JSON file for an infrastructure configuration, see [Create an infrastructure configuration \(AWS CLI\)](create-infra-config.md#cli-create-infrastructure-configuration)\.
 
 ## Limits for cross\-account distribution<a name="cross-account-dist-limits"></a>
 
