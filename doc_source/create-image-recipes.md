@@ -31,8 +31,8 @@ If you are using semantic versioning to kick off pipeline builds, make sure you 
 
 ------
 + **Instance configuration** – Settings are pre\-selected, but you can edit them\.
-  + **Systems Manager agent** – You can select or clear this check box to control installation of the Systems Manager agent on the new image\. The check box is cleared by default, to include the Systems Manager agent in your new image\. To remove the Systems Manager agent from the final image, so that it will not be included in your AMI, elect the check box\.
-  + **User data** – You can use this area to provide commands, or a command script to run when you launch your build instance\. However, it replaces any commands that Image Builder might have added to ensure that Systems Manager is installed\.
+  + **Systems Manager agent** – You can select or clear this check box to control installation of the Systems Manager agent on the new image\. The check box is cleared by default, to include the Systems Manager agent in your new image\. To remove the Systems Manager agent from the final image, so that it will not be included in your AMI, select the check box\.
+  + **User data** – You can use this area to provide commands, or a command script to run when you launch your build instance\. However, it replaces any commands that Image Builder might have added to ensure that Systems Manager is installed, including the clean\-up script that Image Builder normally runs for Linux images prior to creating the new image\.
 **Important**  
 If you enter user data, make sure that the Systems Manager agent is pre\-installed on your base image, or that you include the install in your user data\.
 + **Working directory** – Pre\-selected, but you can edit it\.

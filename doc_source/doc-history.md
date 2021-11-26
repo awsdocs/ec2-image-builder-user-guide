@@ -1,10 +1,11 @@
 # Document History for EC2 Image Builder User Guide<a name="doc-history"></a>
 
 The following table describes important changes to the documentation by date\. For notification about updates to this documentation, you can subscribe to an RSS feed\.
-+ **API version: 2021\-07\-06**
++ **API version: 2021\-11\-24**
 
 | Change | Description | Date | 
 | --- |--- |--- |
+| [Feature release: AMI sharing with AWS Organizations and organizational units \(OUs\)](#doc-history) | Added support for AMI sharing with AWS Organizations and OUs\. | November 24, 2021 | 
 | [Document update: Add CloudTrail integration content](#doc-history) | Added monitoring summary and CloudTrail integration content\. | September 17, 2021 | 
 | [New STIG Versions](https://docs.aws.amazon.com/imagebuilder/latest/userguide/toe-stig.html) | Updated STIG versions and applied STIGS for 2021 third quarter release\. | September 10, 2021 | 
 | [Feature release: Amazon EventBridge integration](#doc-history) | Added EventBridge support that enables you to connect Image Builder with events from related AWS services, and initiate events based on rules defined in EventBridge\. | August 18, 2021 | 

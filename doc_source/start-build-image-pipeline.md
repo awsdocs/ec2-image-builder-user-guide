@@ -46,7 +46,7 @@ To ensure that your pipeline recognizes dependency updates and builds as expecte
 **Note**  
 This setting ensures that your pipeline uses semantic versioning for the base image, to detect dependency updates for automatically scheduled jobs\. To learn more about semantic versioning for Image Builder resources, see [Semantic versioning](ibhow-semantic-versioning.md)\.
 
-1. In the **Instance configuration** section, keep the default values for the **Systems Manager agent**\. This results in Image Builder removing the Systems Manager agent after the build and tests are complete, before creating the new image\.
+1. In the **Instance configuration** section, keep the default values for the **Systems Manager agent**\. This results in Image Builder keeping the Systems Manager agent after the build and tests are complete, to include the Systems Manager agent in your new image\.
 
    Keep **User data** blank for this tutorial\. You can use this area at other times to provide commands, or a command script to run when you launch your build instance\. However, it replaces any commands that Image Builder might have added to ensure that Systems Manager is installed\. When you do use it, make sure that the Systems Manager agent is preinstalled on your base image, or that you include the install in your user data\.
 
@@ -96,7 +96,7 @@ In the **Infrastructure configuration** section, the **Configuration options** d
 
 ## Step 4: Define distribution settings \- optional<a name="start-build-image-step4"></a>
 
-Distribution settings include specific Region settings for encryption, launch permissions, accounts that can launch the output AMI, the output AMI name, and license configurations\.
+Distribution configurations include the output AMI name, specific Region settings for encryption, launch permissions, and AWS accounts, organizations, and organizational units \(OUs\) that can launch the output AMI, and license configurations\.
 
 In the **Distribution settings** section, the **Configuration options** default to `Create distribution settings using service defaults`\. This option will distribute the output AMI to the current Region\. For this tutorial, we are using the default settings\.
 + Choose **Next** to proceed to the next step\.
