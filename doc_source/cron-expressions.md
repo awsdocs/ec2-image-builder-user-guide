@@ -42,7 +42,7 @@ The following table describes how Image Builder uses wildcards for cron expressi
 | / | The / \(forward slash\) wildcard specifies increments\. For example, if you want your build to run every other day, enter \*/2 in the day field\. | 
 | L | The L wildcard in either of the day fields, specifies the last day: 28\-31 for the day of the month, depending on what the month is, or Sunday, for the day of the week\. | 
 | W | The W wildcard in the Day\-of\-month field specifies a weekday\. In the Day\-of\-month field, if you enter a number prior to the W, that means you want to target the weekday that is closest to that day\. For instance, if you specify 3W, you want your build to run on the weekday closest to the third day of the month\. | 
-| \# | The \# \(hash\) is allowed only for the day of the week field, and must be followed by a number between 1 and 5\. The number specifies which weeks in a given month apply for the build to run\. For example, if you want your build to run on the second Friday of each month, use fri\#2 for the day of the week field\. If you want your job to run twice a month, on the second and fourth Saturday of the month, you would use sat\#2,4 for the day of the week field\. | 
+| \# | The \# \(hash\) is allowed only for the day of the week field, and must be followed by a number between 1 and 5\. The number specifies which weeks in a given month apply for the build to run\. For example, if you want your build to run on the second Friday of each month, use fri\#2 for the day of the week field\. | 
 
 **Restrictions**
 + You can't specify the Day\-of\-month and Day\-of\-week fields in the same cron expression\. If you specify a value or `*` in one of these fields, you must use a `?` in the other\.

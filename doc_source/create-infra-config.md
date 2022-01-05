@@ -8,75 +8,89 @@ This section covers creating and updating EC2 Image Builder infrastructure confi
 
 ## Create an infrastructure configuration \(AWS CLI\)<a name="cli-create-infrastructure-configuration"></a>
 
-Infrastructure configurations allow you to specify the infrastructure within which to build and test your image\. In the infrastructure configuration, you can specify instance types, subnets, and security groups to associate with your instance\. You can also associate an Amazon EC2 key pair with the instance used to build your image\. This allows you to log on to your instance to troubleshoot if your build fails and you set `terminateInstanceOnFailure` to `false`\. If you configure logging, the instance profile specified in your infrastructure configuration must have `s3:PutObject` permissions for the target bucket \(`arn:aws:s3:::BucketName/*`\)\. 
+The following example shows how to use the create\-infrastructure\-configuration command to configure the infrastructure for your image, using the AWS CLI\.
 
-```
-{
-    "name": "MyExampleInfrastructure",
-    "description": "An example that will retain instances of failed builds",
-    "instanceTypes": [
-        "m5.large", "m5.xlarge"
-    ],
-    "instanceProfileName": "myIAMInstanceProfileName",
-    "securityGroupIds": [
-        "sg-12345678"
-    ],
-    "subnetId": "sub-12345678",
-    "logging": {
-        "s3Logs": {
-            "s3BucketName": "my-logging-bucket",
-            "s3KeyPrefix": "my-path"
-        }
-    },
-    "keyPair": "myKeyPairName",
-    "terminateInstanceOnFailure": false,
-    "snsTopicArn": "arn:aws:sns:us-west-2:123456789012:MyTopic"
-}
-```
+1. 
 
-The example infrastructure configuration is stored in a file called `create-infrastructure-configuration.json`\.
+**Create a CLI input JSON file**
 
-The example configuration specifies two instance types, `m5.large` and `m5.xlarge`\. We recommend specifying more than one instance type because this allows EC2 Image Builder to launch an instance from a pool with sufficient capacity\. This can reduce your transient build failures\. 
+   This infrastructure configuration example specifies two instance types, `m5.large` and `m5.xlarge`\. We recommend specifying more than one instance type because this allows Image Builder to launch an instance from a pool with sufficient capacity\. This can reduce your transient build failures\.
 
-The instance profile name is used to provide the instance with the permissions that are required to perform customization activities\. For example, if you have a component that retrieves resources from Amazon S3, the instance profile requires permissions to access those files\. This instance profile also requires a minimal set of permissions for EC2 Image Builder to successfully communicate with the instance\. For more information, see [Prerequisites](image-builder-setting-up.md)\.
+   The `instanceProfileName` specifies the instance profile that provides the instance with the permissions that are required to perform customization activities\. For example, if you have a component that retrieves resources from Amazon S3, the instance profile requires permissions to access those files\. The instance profile also requires a minimal set of permissions for EC2 Image Builder to successfully communicate with the instance\. For more information, see [Prerequisites](image-builder-setting-up.md)\.
 
-Use the JSON file to create the infrastructure configuration\.
+   Use your favorite file editing tool to create a JSON file with keys shown in the following example, plus values that are valid for your environment\. This example uses a file named `create-infrastructure-configuration.json`:
 
-```
-aws imagebuilder create-infrastructure-configuration --cli-input-json file://create-infrastructure-configuration.json
-```
+   ```
+   {
+       "name": "MyExampleInfrastructure",
+       "description": "An example that will retain instances of failed builds",
+       "instanceTypes": [
+           "m5.large", "m5.xlarge"
+       ],
+       "instanceProfileName": "myIAMInstanceProfileName",
+       "securityGroupIds": [
+           "sg-12345678"
+       ],
+       "subnetId": "sub-12345678",
+       "logging": {
+           "s3Logs": {
+               "s3BucketName": "my-logging-bucket",
+               "s3KeyPrefix": "my-path"
+           }
+       },
+       "keyPair": "myKeyPairName",
+       "terminateInstanceOnFailure": false,
+       "snsTopicArn": "arn:aws:sns:us-west-2:123456789012:MyTopic"
+   }
+   ```
+
+1. 
+
+**Run the following command, using the file you created as input\.**
+
+   ```
+   aws imagebuilder create-infrastructure-configuration --cli-input-json file://create-infrastructure-configuration.json
+   ```
 
 ## Update an infrastructure configuration \(AWS CLI\)<a name="cli-update-infrastructure-configuration"></a>
 
-The following example scenario consists of a JSON file, called `update-infrastructure-configuration.json`, followed by running the imagebuilder update\-infrastructure\-configuration command that uses the JSON file as input\. The JSON file contains infrastructure configuration details for the update\.
+The following example shows how to use the update\-infrastructure\-configuration command to update the infrastructure configuration for your image, using the AWS CLI\.
 
- The example `update-infrastructure-configuration.json` contents are as follows\. 
+1. 
 
-```
-{
-    "infrastructureConfigurationArn": "arn:aws:imagebuilder:us-west-2:123456789012:infrastructure-configuration/my-example-infrastructure-configuration",
-    "description": "An example that will terminate instances of failed builds",
-    "instanceTypes": [
-        "m5.large", "m5.2xlarge"
-    ],
-    "instanceProfileName": "myIAMInstanceProfileName",
-    "securityGroupIds": [
-        "sg-12345678"
-    ],
-    "subnetId": "sub-12345678",
-    "logging": {
-        "s3Logs": {
-            "s3BucketName": "my-logging-bucket",
-            "s3KeyPrefix": "my-path"
-        }
-    },
-    "terminateInstanceOnFailure": true,
-    "snsTopicArn": "arn:aws:sns:us-west-2:123456789012:MyTopic"
-}
-```
+**Create a CLI input JSON file**
 
-Run the following command, which references the preceding update\-infrastructure\-configuration\.json file\. 
+   This infrastructure configuration example uses the same settings as the create example, except that we have updated the `terminateInstanceOnFailure` setting to `false`\. After we run the update\-infrastructure\-configuration command, pipelines using this infrastructure configuration terminate the build and test instances when the build fails\.
 
-```
-aws imagebuilder update-infrastructure-configuration --cli-input-json file://update-infrastructure-configuration.json
-```
+   Use your favorite file editing tool to create a JSON file with keys shown in the following example, plus values that are valid for your environment\. This example uses a file named `update-infrastructure-configuration.json`:
+
+   ```
+   {
+       "infrastructureConfigurationArn": "arn:aws:imagebuilder:us-west-2:123456789012:infrastructure-configuration/my-example-infrastructure-configuration",
+       "description": "An example that will terminate instances of failed builds",
+       "instanceTypes": [
+           "m5.large", "m5.2xlarge"
+       ],
+       "instanceProfileName": "myIAMInstanceProfileName",
+       "securityGroupIds": [
+           "sg-12345678"
+       ],
+       "subnetId": "sub-12345678",
+       "logging": {
+           "s3Logs": {
+               "s3BucketName": "my-logging-bucket",
+               "s3KeyPrefix": "my-path"
+           }
+       },
+       "terminateInstanceOnFailure": true,
+       "snsTopicArn": "arn:aws:sns:us-west-2:123456789012:MyTopic"
+   }
+   ```
+
+1. 
+
+**Run the following command, using the file you created as input\.**
+
+   ```
+   aws imagebuilder update-infrastructure-configuration --cli-input-json file://update-infrastructure-configuration.json
+   ```

@@ -12,6 +12,7 @@ For more information about tagging your resources using Image Builder commands i
 + [Manage EC2 Image Builder images](manage-images.md)
 + [Manage EC2 Image Builder infrastructure configuration](manage-infra-config.md)
 + [Manage EC2 Image Builder distribution settings](manage-distribution-settings.md)
++ [Import and export virtual machine \(VM\) images with EC2 Image Builder](vm-import-export.md)
 + [Share EC2 Image Builder resources](manage-shared-resources.md)
 + [Tag EC2 Image Builder resources](tag-resources.md)
 + [Delete EC2 Image Builder resources](delete-resources.md)

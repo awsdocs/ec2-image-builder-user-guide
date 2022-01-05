@@ -122,7 +122,7 @@ You can use an S3 bucket as a repository for the YAML application component docu
 To streamline the imagebuilder create\-component command that is used in the AWS CLI, we create a JSON file that contains all of the component parameters that we want to pass into the command, including the location of the `update-linux-os.yaml` document created in the prior steps\. The `uri` key\-value pair contains the file reference\.
 **Note**  
 The naming convention for the data points in the JSON file follows the pattern that is specified for the Image Builder API command request parameters\. To review the API command request parameters, see the [CreateComponent](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_CreateComponent.html) command in the *EC2 Image Builder API Reference*\.  
-Do not use the naming convention that is specified for providing these datapoints directly to the imagebuilder create\-component command as options\.
+Do not use this naming convention for providing these datapoints directly to the imagebuilder create\-component command as options\.
 
 1. 
 
@@ -182,7 +182,7 @@ You can use an S3 bucket as a repository for the YAML application component docu
 To streamline the imagebuilder create\-component command that is used in the AWS CLI, we create a JSON file that contains all of the component parameters that we want to pass into the command, including the location of the `update-windows-os.yaml` document created in the prior steps\. The `uri` key\-value pair contains the file reference\.
 **Note**  
 The naming convention for the data points in the JSON file follows the pattern that is specified for the Image Builder API command request parameters\. To review the API command request parameters, see the [CreateComponent](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_CreateComponent.html) command in the *EC2 Image Builder API Reference*\.  
-Do not use the naming convention that is specified for providing these datapoints directly to the imagebuilder create\-component command as options\.
+Do not use this naming convention for providing these datapoints directly to the imagebuilder create\-component command as options\.
 
 1. 
 

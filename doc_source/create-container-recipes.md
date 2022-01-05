@@ -87,7 +87,7 @@ After you create your components, or if you are using existing components, take 
    To streamline the imagebuilder create\-container\-recipe command that is used in the AWS CLI, we create a JSON file that contains all of the recipe parameters that we want to pass into the command\. Save the file as `create-container-recipe.json`, to use in the imagebuilder create\-container\-recipe command\.
 **Note**  
 The naming convention for the data points in the JSON file follows the pattern that is specified for the Image Builder API command request parameters\. To review the API command request parameters, see the [CreateContainerRecipe](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_CreateContainerRecipe.html) command in the *EC2 Image Builder API Reference*\.  
-Do not use the naming convention that is specified for providing these datapoints directly to the imagebuilder create\-container\-recipe command as options\.
+Do not use this naming convention for providing these datapoints directly to the imagebuilder create\-container\-recipe command as options\.
 
    Here is a summary of the parameters that we specify in is example:
    + **components** \(array of objects, required\) – Contains an array of `ComponentConfiguration` objects\. At least one build component must be specified:

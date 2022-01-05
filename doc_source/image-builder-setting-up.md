@@ -31,7 +31,7 @@ EC2 Image Builder uses a service\-linked role to grant permissions to other AWS 
 
 For container image pipelines, the recipe defines the configuration for the Docker images that are produced and stored in the target container repository\. You must create the target repository before you create the container recipe for your Docker image\.
 
-The default target repository for Image Builder is Amazon ECR\. To create an Amazon ECR repository, follow the steps described in [Creating a repository](https://docs.aws.amazon.com/AmazonECR/latest/userguide/repository-create.html) in the *Amazon Elastic Container Registry User Guide*\.
+Image Builder uses Amazon ECR as its target repository for container images\. To create an Amazon ECR repository, follow the steps described in [Creating a repository](https://docs.aws.amazon.com/AmazonECR/latest/userguide/repository-create.html) in the *Amazon Elastic Container Registry User Guide*\.
 
 ## AWS Identity and Access Management \(IAM\)<a name="image-builder-IAM-prereq"></a>
 

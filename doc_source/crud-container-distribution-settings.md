@@ -1,4 +1,4 @@
-# Create and update distribution settings for container images<a name="cr-upd-container-distribution-settings"></a>
+# Create and update distribution settings for container images<a name="crud-container-distribution-settings"></a>
 
 This section covers creating and updating distribution settings for Image Builder container images\.
 
@@ -14,7 +14,7 @@ A distribution configuration enables you to specify the name and description of 
 
 **Create a CLI input JSON file**
 
-   Use your favorite file\-editing tool to create a JSON file with the keys shown in the following example, plus values that are valid for your environment\. This example uses a file named `create-container-distribution-configuration.json`:
+   Use your favorite file editing tool to create a JSON file with the keys shown in the following example, plus values that are valid for your environment\. This example uses a file named `create-container-distribution-configuration.json`:
 
    ```
    {
@@ -72,7 +72,7 @@ The following example shows how to use the update\-distribution\-configuration c
 
 **Create a CLI input JSON file**
 
-   Use your favorite file\-editing tool to create a JSON file with keys shown in the following example, plus values that are valid for your environment\. This example uses a file named `update-container-distribution-configuration.json`:
+   Use your favorite file editing tool to create a JSON file with keys shown in the following example, plus values that are valid for your environment\. This example uses a file named `update-container-distribution-configuration.json`:
 
    ```
    {

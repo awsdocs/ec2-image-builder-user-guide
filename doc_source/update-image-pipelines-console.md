@@ -50,7 +50,7 @@ To edit infrastructure configuration from the pipeline details page, follow thes
 ## Edit distribution settings for your pipeline<a name="pipelines-edit-dist-settings"></a>
 
 Distribution settings include the following details that you can edit after creating the pipeline:
-+ The **Description** for your distribution configuration\.
++ The **Description** for your distribution settings\.
 + **Region settings** for the Regions where you distribute your image\. Region 1 defaults to the Region where you created the pipeline\. You can add Regions for distribution with the **Add Region** button, and you can remove all Regions except Region 1\.
 
   **Region settings** include:

@@ -5,6 +5,7 @@ This section describes creating new image recipes and recipe versions\.
 **Topics**
 + [Create a new image recipe version \(console\)](#create-image-recipe-version-console)
 + [Create an image recipe \(AWS CLI\)](#create-image-recipe-cli)
++ [Import a VM as your base image \(console\)](#import-vm-recipes)
 
 ## Create a new image recipe version \(console\)<a name="create-image-recipe-version-console"></a>
 
@@ -35,6 +36,7 @@ If you are using semantic versioning to kick off pipeline builds, make sure you 
   + **User data** – You can use this area to provide commands, or a command script to run when you launch your build instance\. However, it replaces any commands that Image Builder might have added to ensure that Systems Manager is installed, including the clean\-up script that Image Builder normally runs for Linux images prior to creating the new image\.
 **Important**  
 If you enter user data, make sure that the Systems Manager agent is pre\-installed on your base image, or that you include the install in your user data\.
+For Linux images, ensure that clean\-up steps run by including a command to create an empty file named `perform_cleanup` in your user data script\. Image Builder detects this file, and runs the clean\-up script prior to creating the new image\. For more information and a sample script, see [Security best practices for EC2 Image Builder](security-best-practices.md)\.
 + **Working directory** – Pre\-selected, but you can edit it\.
 + **Components** – Components that are already included in the recipe are displayed in the **Selected components** section at the end of each of the component lists \(build and test\)\. You can remove or reorder the selected components to suit your needs\.
 
@@ -69,7 +71,7 @@ After you create your components, or if you are using existing components, take 
    To streamline the imagebuilder create\-image\-recipe command that is used in the AWS CLI, we create a JSON file that contains all of the recipe attributes that we want to pass into the command\.
 **Note**  
 The naming convention for the data points in the JSON file follows the pattern that is specified for the Image Builder API command request parameters\. To review the API command request parameters, see the [CreateImageRecipe](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_CreateImageRecipe.html) command in the *EC2 Image Builder API Reference*\.  
-Do not use the naming convention that is specified for providing these datapoints directly to the imagebuilder create\-image\-recipe command as options\.
+Do not use this naming convention for providing these datapoints directly to the imagebuilder create\-image\-recipe command as options\.
 
    Here is a summary of the parameters that we specify in these examples:
    + **name** \(string, required\) – The name of the image recipe\.
@@ -169,3 +171,65 @@ To learn more about semantic versioning for Image Builder resources, see [Semant
 **Note**  
 You must include the `file://` notation at the beginning of the JSON file path\.
 The path for the JSON file should follow the appropriate convention for the base operating system where you are running the command\. For example, Windows uses the backslash \(\\\) to refer to the directory path, and Linux uses the forward slash \(/\)\.
+
+## Import a VM as your base image \(console\)<a name="import-vm-recipes"></a>
+
+In this section, we focus on how to import a virtual machine \(VM\) as the base image for your image recipe\. We don't cover other steps involved with creating a recipe or recipe version here\. For additional steps to create a new image recipe with the pipeline creation wizard in the Image Builder console, see [Create an image pipeline \(AMI\)](start-build-image-pipeline.md)\. For additional steps to create a new image recipe or recipe version, see [Create image recipes and versions](#create-image-recipes)\.
+
+To import a VM as the base image for your image recipe using the Image Builder console, follow these steps, along with any other required steps to create your recipe or recipe version\.
+
+1. In the **Select image** section for the base image, select the **Import base image** option\.
+
+1. Choose the **Image Operating System \(OS\)** and **OS version**, as you normally would\.
+
+### VM import configuration<a name="import-vm-recipe-console-config"></a>
+
+When you export your VM from its virtualization environment, that process creates a set of one or more disk container files that act as snapshots of your VM’s environment, settings, and data\. You can use these files to import your VM as the base image for your image recipe\. For more information about importing VMs in Image Builder, see [Import and export VM images](vm-import-export.md)
+
+To specify the location of your import source, follow these steps:
+
+**Import source**  
+Specify the source for the first VM image disk container or snapshot to import in the **Disk container 1** section\.
+
+1. **Source** – This can be either an S3 bucket, or an EBS snapshot\.
+
+1. **Select S3 location of disk** – Enter the location in Amazon S3 where your disk images are stored\. To browse for the location, choose **Browse S3**\.
+
+1. To add a disk container, choose **Add disk container**\.
+
+**IAM role**  
+To associate an IAM role with your VM import configuration, select the role from the **IAM role** dropdown list, or choose **Create new role** to create a new one\. If you create a new role, the IAM Roles console page opens in a separate tab\.
+
+#### Advanced settings – *optional*<a name="import-vm-recipe-console-opt"></a>
+
+The following settings are optional\. With these settings, you can configure encryption, licensing, tags, and more for the base image that the import creates\.
+
+**General**
+
+1. Specify a unique **Name** for the base image\. If you do not enter a value, the base image inherits the recipe name\.
+
+1. Specify a **Version** for the base image\. Use the following format: `major.minor.patch`\. If you do not enter a value, the base image inherits the recipe version\.
+
+1. You can also enter a **Description** for the base image\.
+
+**Base image architecture**  
+To specify the architecture of your VM import source, select a value from the **Architecture** list\.
+
+**Encryption**  
+If your VM disk images are encrypted, you will need to provide a key to use for the import process\. To specify a KMS key for the import, select a value from the **Encryption \(KMS key\)** list\. The list contains KMS keys that your account has access to in the current Region\.
+
+**License management**  
+When you import a VM, the import process automatically detects the VM OS and applies the appropriate license to the base image\. Depending on your OS platform, the license types are as follows:
++ **License included** – An appropriate AWS license for your platform is applied to your base image\.
++ **Bring your own license \(BYOL\)** – Retains the license from your VM, if applicable\.
+
+To attach license configurations created with AWS License Manager to your base image, select from the **License configuration name** list\. For more information about License Manager, see [Working with AWS License Manager]()
+
+**Note**  
+License configurations contain licensing rules based on the terms of your enterprise agreements\.
+Linux only supports BYOL licenses\.
+
+**Tags \(base image\)**  
+Tags use key\-value pairs to assign searchable text to your Image Builder resource\. To specify tags for the imported base image, enter key\-value pairs using the **Key** and **Value** boxes\.
+
+To add a tag, choose **Add tag**\. To remove a tag, choose **Remove tag**\.

@@ -10,7 +10,16 @@ This section covers how to list, view, and create images\.
 **Topics**
 + [List and view image details](image-details.md)
 + [Create images](create-images.md)
++ [Cancel an image creation \(AWS CLI\)](#image-builder-cli-cancel-image-creation)
 + [Clean up resources](#images-cleanup)
+
+## Cancel an image creation \(AWS CLI\)<a name="image-builder-cli-cancel-image-creation"></a>
+
+To cancel an in\-progress image build, use the imagebuilder cancel\-image\-creation command\.
+
+```
+aws imagebuilder cancel-image-creation --image-build-version-arn arn:aws:imagebuilder:us-west-2:123456789012:image/my-example-recipe/2019.12.03/1
+```
 
 ## Clean up resources<a name="images-cleanup"></a>
 
