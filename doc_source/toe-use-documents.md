@@ -13,10 +13,10 @@ To build a component using AWS Task Orchestrator and Executor \(AWSTOE\), you mu
 
 ## Component document workflow<a name="component-doc-workflow"></a>
 
-The AWSTOE component document uses phases and steps to group related tasks, and organize those tasks into a logical workflow for the component\. Each component can contain phases that run during any stage in the image build process\.
+The AWSTOE component document uses phases and steps to group related tasks, and organize those tasks into a logical workflow for the component\.
 
 **Tip**  
-The service that uses your component to build an image might implement rules about what phases to use for their build process\. This is important to consider when you design your component\.
+The service that uses your component to build an image might implement rules about what phases to use for their build process, and when those phases are allowed to run\. This is important to consider when you design your component\.
 
 **Phases**  
 Phases represent the progression of your workflow through the image build process\. For example, the Image Builder service uses `build` and `validate` phases during its *build stage* for the images it produces\. It uses the `test` phase during its *test stage* to ensure that the image snapshot or container image produces the expected results before creating the final AMI or distributing the container image\.
@@ -27,9 +27,9 @@ When the component runs, the associated commands for each phase are applied in t
 + Each phase name must be unique within a document\.
 + You can define many phases in your document\.
 + You must include at least one of the following phases in your document:
-  + **build** – generally used during the *build stage*\.
-  + **validate** – generally used during the *build stage*\.
-  + **test** – generally used during the *test stage*\.
+  + **build** – for Image Builder, this phase is generally used during the *build stage*\.
+  + **validate** – for Image Builder, this phase is generally used during the *build stage*\.
+  + **test** – for Image Builder, this phase is generally used during the *test stage*\.
 + Phases always run in the order that they are defined in the document\. The order in which they are specified for AWSTOE commands in the AWS CLI has no effect\.
 
 **Steps**  

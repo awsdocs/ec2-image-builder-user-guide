@@ -1,10 +1,13 @@
 # Document History for EC2 Image Builder User Guide<a name="doc-history"></a>
 
 The following table describes important changes to the documentation by date\. For notification about updates to this documentation, you can subscribe to an RSS feed\.
-+ **API version: 2021\-07\-06**
++ **API version: 2022\-02\-21**
 
 | Change | Description | Date | 
 | --- |--- |--- |
+| [Feature release: Support for faster launching Windows AMI](#doc-history) | Added distribution configuration settings to support faster launching for Windows AMIs\. | February 21, 2022 | 
+| [Maintenance release: Update AWSTOE binary thumbprint](#doc-history) | Updated binary thumbprint for AWSTOE signer certificate\. | February 18, 2022 | 
+| [Feature release: Configure input for AWSTOE](#doc-history) | Added support for using a JSON configuration file as input for the AWSTOE run command\. | February 3, 2022 | 
 | [New STIG Versions](https://docs.aws.amazon.com/imagebuilder/latest/userguide/toe-stig.html) | Updated STIG versions and applied STIGS for 2021 fourth quarter release\. Also added a section for new SCAP Compliance Checker \(SCC\) components\. | December 22, 2021 | 
 | [Feature release: VM Import/Export \(VMIE\) integration](#doc-history) | Added support for VM import via all channels \(console, API/CLI, etc\.\), and for VM export via API/CLI\. VM export is not currently available from the Image Builder console\. | December 20, 2021 | 
 | [Feature release: AMI sharing for AWS Organizations and OUs](#doc-history) | Updated distribution configuration to add support for sharing output AMIs with AWS Organizations and OUs\. | November 24, 2021 | 

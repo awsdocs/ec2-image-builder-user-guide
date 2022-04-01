@@ -10,6 +10,7 @@ To install AWSTOE, choose the download link for your architecture and platform\.
 + [Get started with AWSTOE](toe-get-started.md)
 + [Use component documents in AWSTOE](toe-use-documents.md)
 + [Action modules supported by AWSTOE component manager](toe-action-modules.md)
++ [Configure input for the AWSTOE run command](toe-run-config-input.md)
 + [EC2 Image Builder STIG components](toe-stig.md)
 + [AWSTOE command reference](toe-commands.md)
 

@@ -102,7 +102,7 @@ You can use the `--parameters` option from the AWS CLI with a key\-value pair to
 #### Syntax<a name="vars-parameters-syntax"></a>
 
 ```
---parameters name1=value1,name12=value2...
+--parameters name1=value1,name2=value2...
 ```
 
 

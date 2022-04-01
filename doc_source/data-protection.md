@@ -12,7 +12,7 @@ For data protection purposes, we recommend that you protect AWS account credenti
 
 We strongly recommend that you never put confidential or sensitive information, such as your customers' email addresses, into tags or free\-form fields such as a **Name** field\. This includes when you work with Image Builder or other AWS services using the console, API, AWS CLI, or AWS SDKs\. Any data that you enter into tags or free\-form fields used for names may be used for billing or diagnostic logs\. If you provide a URL to an external server, we strongly recommend that you do not include credentials information in the URL to validate your request to that server\.
 
-## Encryption and key management in EC2 Image Builder<a name="image-builder-enrcyption"></a>
+## Encryption and key management in EC2 Image Builder<a name="image-builder-encryption"></a>
 
 Image Builder encrypts data in transit and at rest by default\. Custom components defined in the service can be added to your image pipelines and shared with other customer accounts\. You are not required to share your components to build images\. 
 
@@ -22,6 +22,6 @@ You can manage your keys through AWS KMS\. You cannot manage the Image Builder K
 
 For more information about managing your KMS keys with AWS Key Management Service, see [Getting Started](https://docs.aws.amazon.com/kms/latest/developerguide/getting-started.html) in the AWS Key Management Service Developer Guide\.
 
-## Internetwork Traffic Privacy in EC2 Image Builder<a name="image-builder-internetwork"></a>
+## Inter\-network Traffic Privacy in EC2 Image Builder<a name="image-builder-internetwork"></a>
 
 Connections are secured between Image Builder and on\-premises locations, between AZs within an AWS Region, and between AWS Regions through HTTPS\. There are no direct connections between accounts\.

@@ -71,7 +71,7 @@ To configure cross\-account distribution permissions in AWS Identity and Access 
        "Version": "2012-10-17",
        "Statement": [
        	{
-   	    	"Sid": "Allow the role to perform AWS KMS operations on behalf of the destination account",
+   	    	"Sid": "AllowRoleToPerformKMSOperationsOnBehalfOfTheDestinationAccount",
    		    "Effect": "Allow",
    		    "Action": [
    		        "kms:Encrypt",

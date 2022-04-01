@@ -4,12 +4,13 @@ This section covers creating and updating distribution settings for an Image Bui
 
 **Topics**
 + [Create distribution settings for output AMIs \(AWS CLI\)](#cli-create-ami-distribution-configuration)
++ [Create distribution settings for a faster launching Windows AMI \(AWS CLI\)](#cli-create-ami-dist-config-win-fast-launch)
 + [Create distribution settings for output VM disks \(AWS CLI\)](#cli-create-vm-dist-config)
 + [Update AMI distribution settings \(AWS CLI\)](#cli-update-ami-distribution-configuration)
 
 ## Create distribution settings for output AMIs \(AWS CLI\)<a name="cli-create-ami-distribution-configuration"></a>
 
-A distribution configuration allows you to specify the name and description of your output AMI, authorize other AWS accounts to launch the AMI, copy the AMI to other accounts, and replicate the AMI to other AWS Regions\. It also allows you to export the AMI to Amazon Simple Storage Service \(Amazon S3\)\. To make an AMI public, set the launch permission authorized accounts to `all`\. See the examples for making an AMI public at [EC2 ModifyImageAttribute](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_ModifyImageAttribute.html)\.
+A distribution configuration allows you to specify the name and description of your output AMI, authorize other AWS accounts to launch the AMI, copy the AMI to other accounts, and replicate the AMI to other AWS Regions\. It also allows you to export the AMI to Amazon Simple Storage Service \(Amazon S3\), or configure faster launching for output Windows AMIs\. To make an AMI public, set the launch permission authorized accounts to `all`\. See the examples for making an AMI public at [EC2 ModifyImageAttribute](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_ModifyImageAttribute.html)\.
 
 The following example shows how to use the create\-distribution\-configuration command to create distribution settings for your AMI, using the AWS CLI\.
 
@@ -63,6 +64,61 @@ The following example shows how to use the create\-distribution\-configuration c
 
    ```
    aws imagebuilder create-distribution-configuration --cli-input-json file://create-ami-distribution-configuration.json
+   ```
+**Note**  
+You must include the `file://` notation at the beginning of the JSON file path\.
+The path for the JSON file should follow the appropriate convention for the base operating system where you are running the command\. For example, Windows uses the backslash \(\\\) to refer to the directory path, and Linux uses the forward slash \(/\)\.
+
+   For more detailed information, see [create\-distribution\-configuration](https://docs.aws.amazon.com/cli/latest/reference/imagebuilder/create-distribution-configuration.html) in the *AWS CLI Command Reference*\.
+
+## Create distribution settings for a faster launching Windows AMI \(AWS CLI\)<a name="cli-create-ami-dist-config-win-fast-launch"></a>
+
+The following example shows how to use the create\-distribution\-configuration command to create distribution settings that have faster launching configured for your AMI, using the AWS CLI\.
+
+1. 
+
+**Create a CLI input JSON file**
+
+   Use your favorite file editing tool to create a JSON file with keys shown in the following example, plus values that are valid for your environment\. This example uses a file named `ami-dist-config-win-faster-launch.json`:
+
+   ```
+   {
+   "name": "WinFasterLaunchDistribution",
+   "description": "An example of Windows AMI faster launching settings in the distribution configuration.",
+   "distributions": [
+       {
+           "region": "us-west-2",
+           "amiDistributionConfiguration": {
+               "name": "Name {{imagebuilder:buildDate}}",
+               "description": "Includes Windows AMI faster launch settings with cross-account distribution.",
+               "amiTags": {
+                   "KeyName": "Some Value"
+               },
+               "fastLaunchConfigurations": [{
+                   "enabled": true,
+                   "snapshotConfiguration": {
+                       "targetResourceCount": 5
+                   },
+                   "maxParallelLaunches": 5,
+                   "launchTemplate": {
+                       "launchTemplateID": "lt-0ab1234c56d789012",
+                       "launchTemplateName": "Launch template for faster launching",
+                       "launchTemplateVersion": "1",
+                    }
+                    "accountId": "123456789012"
+               }]
+           }
+       }
+   ]
+   }
+   ```
+
+1. 
+
+**Run the following command, using the file you created as input\.**
+
+   ```
+   aws imagebuilder create-distribution-configuration --cli-input-json file://ami-dist-config-win-faster-launch.json
    ```
 **Note**  
 You must include the `file://` notation at the beginning of the JSON file path\.

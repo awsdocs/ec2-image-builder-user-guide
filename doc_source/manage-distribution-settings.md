@@ -4,7 +4,9 @@ After you create distribution settings with Image Builder, you can manage them u
 
 You can use your distribution settings in the following ways to deliver images to target Regions and accounts one time, or with every pipeline build:
 + To automatically deliver updated images to specified Regions and accounts, use distribution settings with an Image Builder pipeline that runs on a schedule\.
-+ To create a new image and deliver it to the specified Regions and accounts, use distribution settings with the []()create\-image command using the AWS CLI\.
++ To create a new image and deliver it to the specified Regions and accounts, use the distribution configuration as input to one of the following commands:
+  + The [create\-image](https://docs.aws.amazon.com/cli/latest/reference/imagebuilder/create-image.html) command in the AWS CLI\.
+  + The [CreateImage](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_CreateImage.html) action in the Image Builder API\.
 + To export virtual machine \(VM\) image disks to S3 buckets in target Regions as part of your regular image build process\.
 
 **Tip**  

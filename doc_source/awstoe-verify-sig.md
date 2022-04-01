@@ -166,6 +166,10 @@ If, after running the steps in this topic, you determine that the software for t
 
 To verify the validity of the downloaded awstoe binary on Windows\-based operating systems, make sure that the thumbprint of its Amazon Services LLC signer certificate is equal to this value:
 
+**B0 AD CE EF 62 92 D4 AA D1 B0 3E 32 FB C3 42 F4 A2 C0 D1 79**
+
+**Note**  
+We are currently rolling out a new binary\. If your signer certificate does not match the new thumbprint, verify that the thumbprint value is:   
 **16 67 49 A7 B8 CC 5B 8A 57 1D DF 4B 7A 37 9D B1 6A 5E 65 80**
 
 To verify this value, perform the following procedure: 
@@ -183,7 +187,10 @@ To verify this value, perform the following procedure:
 1. Scroll down until you see the **Thumbprint** field and then choose **Thumbprint**\. This displays the entire thumbprint value in the lower window\.
    + If the thumbprint value in the lower window is identical to the following value:
 
-     **16 67 49 A7 B8 CC 5B 8A 57 1D DF 4B 7A 37 9D B1 6A 5E 65 80**
+     **B0 AD CE EF 62 92 D4 AA D1 B0 3E 32 FB C3 42 F4 A2 C0 D1 79**
 
      then your downloaded AWSTOE binary is authentic and can be safely installed\.
+**Note**  
+We are currently rolling out a new binary\. If your signer certificate does not match the new thumbprint, verify that the thumbprint value is:   
+**16 67 49 A7 B8 CC 5B 8A 57 1D DF 4B 7A 37 9D B1 6A 5E 65 80**
    + If the thumbprint value in the lower details window is not identical to the previous value, do not run `awstoe.exe`\.

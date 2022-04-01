@@ -35,6 +35,7 @@ This section lists the following detailed troubleshooting scenarios:
 + [Build times out while verifying the Systems Manager Agent availability on the build instance](#ts-timeout-ssm-agent)
 + [Windows secondary disk is offline at launch](#ts-win-disk-offline)
 + [Build fails with CIS hardened base image](#ts-cis-base)
++ [AssertInventoryCollection fails \(Systems Manager Automation\)](#ts-ssm-mult-inventory)
 
 To see the details of a scenario, choose the scenario title to expand it\. You can have multiple titles expanded at the same time\.
 
@@ -122,3 +123,43 @@ When the `/tmp` directory is classified as `noexec`, it can cause Image Builder 
 #### Solution<a name="ts-cis-base-solution"></a>
 
 Choose a different location for your working directory in the `workingDirectory` field of the image recipe\. For more information, see the [ImageRecipe](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_ImageRecipe.html) data type description\.
+
+### AssertInventoryCollection fails \(Systems Manager Automation\)<a name="ts-ssm-mult-inventory"></a>
+
+#### Description<a name="ts-ssm-mult-inventory-descr"></a>
+
+Systems Manager Automation shows a failure in the `AssertInventoryCollection` automation step\.
+
+#### Cause<a name="ts-ssm-mult-inventory-cause"></a>
+
+You or your organization might have created a Systems Manager State Manager association that collects inventory information for EC2 instances\. If enhanced image metadata collection is enabled for your Image Builder pipeline \(this is the default\), Image Builder attempts to create a new inventory association for the build instance\. However, Systems Manager does not allow multiple inventory associations for managed instances, and prevents a new association if one already exists\. This causes the operation to fail, and results in a failed pipeline build\.
+
+#### Solution<a name="ts-ssm-mult-inventory-solution"></a>
+
+To resolve this issue, turn off enhanced image metadata collection, using one of the following methods:
++ Update your image pipeline in the console, to clear the **Enable enhanced metadata collection** check box\. Save your changes and run a pipeline build\.
+
+  For more information about updating your AMI image pipeline using the EC2 Image Builder console, see [](update-image-pipelines-console.md)\. For more information about updating your container image pipeline using the EC2 Image Builder console, see [](update-container-pipelines-console.md)\.
++ To update your image pipeline using the imagebuilder update\-image\-pipeline command in the AWS CLI, include the `EnhancedImageMetadataEnabled` property in your JSON file, set to `false`\. The following example shows the property set to `false`\.
+
+  ```
+  {
+      "name": "MyWindows2019Pipeline",
+      "description": "Builds Windows 2019 Images",
+      "enhancedImageMetadataEnabled": false,
+      "imageRecipeArn": "arn:aws:imagebuilder:us-west-2:123456789012:image-recipe/my-example-recipe/2020.12.03",
+      "infrastructureConfigurationArn": "arn:aws:imagebuilder:us-west-2:123456789012:infrastructure-configuration/my-example-infrastructure-configuration",
+      "distributionConfigurationArn": "arn:aws:imagebuilder:us-west-2:123456789012:distribution-configuration/my-example-distribution-configuration",
+      "imageTestsConfiguration": {
+          "imageTestsEnabled": true,
+          "timeoutMinutes": 60
+      },
+      "schedule": {
+          "scheduleExpression": "cron(0 0 * * SUN *)",
+          "pipelineExecutionStartCondition": "EXPRESSION_MATCH_AND_DEPENDENCY_UPDATES_AVAILABLE"
+      },
+      "status": "ENABLED"
+  }
+  ```
+
+To prevent this from happening for new pipelines, clear the **Enable enhanced metadata collection** check box when you create a new pipeline using the EC2 Image Builder console, or set the value of the `EnhancedImageMetadataEnabled` property in your JSON file to `false` when you create your pipeline using the AWS CLI\.

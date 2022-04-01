@@ -96,9 +96,9 @@ In the **Infrastructure configuration** section, the **Configuration options** d
 
 ## Step 4: Define distribution settings \- optional<a name="start-build-image-step4"></a>
 
-Distribution settings include specific Region settings for encryption, launch permissions, accounts that can launch the output AMI, the output AMI name, and license configurations\.
+Distribution settings include specific Region settings for encryption, launch permissions, accounts that can launch the output AMI, the output AMI name, license configurations, and Windows AMI faster launching configuration\.
 
-In the **Distribution settings** section, the **Configuration options** default to `Create distribution settings using service defaults`\. This option will distribute the output AMI to the current Region\. For this tutorial, we are using the default settings\.
+In the **Distribution settings** section, the **Configuration options** default to `Create distribution settings using service defaults`\. This option will distribute the output AMI to the current Region\. For this tutorial, we are using the default settings\. For more information about configuring your distribution settings, see [Manage EC2 Image Builder distribution settings](manage-distribution-settings.md)\.
 + Choose **Next** to proceed to the next step\.
 
 ## Step 5: Review<a name="start-build-image-step5"></a>

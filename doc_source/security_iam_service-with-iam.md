@@ -95,17 +95,35 @@ Image Builder provides service\-specific condition keys and supports using some 
 
 Works with [string operators](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html#Conditions_String)\.
 
-Use this key to filter access by the presence of tag keys in the request This allows you to manage the resources created by Image Builder through defined tags\.
+Use this key to filter access by the presence of tag keys in the request\. This allows you to manage the resources that Image Builder creates\.
 
-**Availability \-** This key is available to only the `CreateInfrastrucutreConfiguration` and `UpdateInfrastructureConfiguration` APIs\.
+**Availability** – This key is available to only the `CreateInfrastrucutreConfiguration` and `UpdateInfrastructureConfiguration` APIs\.
 
 #### imagebuilder:CreatedResourceTag/<key><a name="image-builder-security-createdresourcetag"></a>
 
 Works with [string operators](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html#Conditions_String)\.
 
-Use this key to filter access by the tag key\-value pairs attached to the resource created by Image Builder\. This allows you to manage the resources created by Image Builder through defined tags\.
+Use this key to filter access by the tag key\-value pairs that are attached to the resource that Image Builder created\. This allows you to manage Image Builder resources through defined tags\.
 
-**Availability \-** This key is available to only the `CreateInfrastrucutreConfiguration` and `UpdateInfrastructureConfiguration` APIs\.
+**Availability** – This key is available to only the `CreateInfrastrucutreConfiguration` and `UpdateInfrastructureConfiguration` APIs\.
+
+#### imagebuilder:Ec2MetadataHttpTokens<a name="image-builder-security-ec2metadatatokens"></a>
+
+Works with [string operators](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html#Conditions_String)\.
+
+Use this key to filter access by the EC2 Instance Metadata HTTP Token Requirement specified in the request\.
+
+This value for this key can be either `optional` or `required`\.
+
+**Availability** – This key is available to only the `CreateInfrastrucutreConfiguration` and `UpdateInfrastructureConfiguration` APIs\.
+
+#### imagebuilder:StatusTopicArn<a name="image-builder-security-statustopicarn"></a>
+
+Works with [string operators](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html#Conditions_String)\.
+
+Use this key to filter access by the SNS Topic ARN in the request to which terminal state notifications will be published\.
+
+**Availability** – This key is available to only the `CreateInfrastrucutreConfiguration` and `UpdateInfrastructureConfiguration` APIs\.
 
 ### Examples<a name="sec-iam-ib-id-based-policies-examples"></a>
 

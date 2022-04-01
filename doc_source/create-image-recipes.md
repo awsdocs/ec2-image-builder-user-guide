@@ -34,7 +34,7 @@ If you are using semantic versioning to kick off pipeline builds, make sure you 
 + **Instance configuration** – Settings are pre\-selected, but you can edit them\.
   + **Systems Manager agent** – You can select or clear this check box to control installation of the Systems Manager agent on the new image\. The check box is cleared by default, to include the Systems Manager agent in your new image\. To remove the Systems Manager agent from the final image, so that it will not be included in your AMI, select the check box\.
   + **User data** – You can use this area to provide commands, or a command script to run when you launch your build instance\. However, it replaces any commands that Image Builder might have added to ensure that Systems Manager is installed, including the clean\-up script that Image Builder normally runs for Linux images prior to creating the new image\.
-**Important**  
+**Note**  
 If you enter user data, make sure that the Systems Manager agent is pre\-installed on your base image, or that you include the install in your user data\.
 For Linux images, ensure that clean\-up steps run by including a command to create an empty file named `perform_cleanup` in your user data script\. Image Builder detects this file, and runs the clean\-up script prior to creating the new image\. For more information and a sample script, see [Security best practices for EC2 Image Builder](security-best-practices.md)\.
 + **Working directory** – Pre\-selected, but you can edit it\.
@@ -43,9 +43,13 @@ For Linux images, ensure that clean\-up steps run by including a command to crea
   You can configure the following settings for your selected component:
   + **Versioning options** – Pre\-selected, but you can change them\. We recommend that you choose the **Use latest available component version** option to ensure that your image builds always pick up the latest version of the component\. If you need to use a specific component version in your recipe, you can choose **Specify component version**, and enter the version in the **Component version** box that appears\.
   + **Input parameters** – Displays input parameters that the component accepts\. The **Value** is pre\-filled with the value from the prior version of the recipe\. If you are using this component for the first time in this recipe, and a default value was defined for the component, the default value appears in the **Value** box with greyed\-out text\. If no other value is entered, AWSTOE uses the default value\.
+**Important**  
+Component parameters are plain text values, and are logged in AWS CloudTrail\. We recommend that you use AWS Secrets Manager or the AWS Systems Manager Parameter Store to store your secrets\. For more information about Secrets Manager, see [What is Secrets Manager?](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html) in the *AWS Secrets Manager User Guide*\. For more information about AWS Systems Manager Parameter Store, see [AWS Systems Manager Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html) in the *AWS Systems Manager User Guide*\.
 
   To expand **Versioning options** or **Input parameters** settings, you can either choose the arrow next to the name of the setting, or you can toggle the **Expand all** switch off and on to expand all of the settings for all of the selected components\.
 + **Storage \(volumes\)** – are pre\-filled\. The root volume **Device name**, **Snapshot**, and **IOPS** selections are not editable\. However, you can change all of the remaining settings, such as the **Size**\. You can also add new volumes\.
+**Note**  
+If you specified a base AMI that was shared with you from another account, the snapshots for any secondary volumes that are specified must also be shared with your account\.
 
 **To create a new image recipe version:**
 
@@ -81,12 +85,14 @@ Do not use this naming convention for providing these datapoints directly to the
 The Linux example uses an Image Builder AMI, and the Windows example uses an ARN\.
    + **semanticVersion** \(string, required\) – The semantic version of the image recipe, which specifies the version in the following format, with numeric values in each position to indicate a specific version: <major>\.<minor>\.<patch>\. For example, `1.0.0`\. To learn more about semantic versioning for Image Builder resources, see [Semantic versioning](ibhow-semantic-versioning.md)\.
    + **components** \(array, required\) – Contains an array of `ComponentConfiguration` objects\. At least one build component must be specified:
-**Important**  
+**Note**  
 Components are installed in the order in which they are specified\.
      + **componentARN** \(string, required\) – The component ARN\.
-**Note**  
+**Tip**  
 To use one of the examples to create your own image recipe, you must replace the example ARNs with the ARNs for the components that you are using for your recipe, including the AWS Region, name, and version number for each\.
      + **parameters** \(array of objects\) – Contains an array of `ComponentParameter` objects\.
+**Important**  
+Component parameters are plain text values, and are logged in AWS CloudTrail\. We recommend that you use AWS Secrets Manager or the AWS Systems Manager Parameter Store to store your secrets\. For more information about Secrets Manager, see [What is Secrets Manager?](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html) in the *AWS Secrets Manager User Guide*\. For more information about AWS Systems Manager Parameter Store, see [AWS Systems Manager Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html) in the *AWS Systems Manager User Guide*\.
        + **name** \(string, required\) – The name of the component parameter to set\.
        + **value** \(array of strings, required\) – Contains an array of strings to set the value for the named component parameter\. If there is a default value defined for the component, and no other value is provided, AWSTOE uses the default value\.
    + **additionalInstanceConfiguration** \(object\) – Specify additional settings and launch scripts for your build instances\.

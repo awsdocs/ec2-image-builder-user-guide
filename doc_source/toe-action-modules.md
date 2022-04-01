@@ -1,11 +1,11 @@
 # Action modules supported by AWSTOE component manager<a name="toe-action-modules"></a>
 
-This section contains each action module that is supported by the AWSTOE component management application used by EC2 Image Builder to configure the instance that builds your image\. Also included are the corresponding functionality details and input/output values of each action module\.
+Image building services, such as EC2 Image Builder, use AWSTOE action modules to help configure the EC2 instances that are used for building and testing customized machine images\. This section describes the features of commonly used AWSTOE action modules, and how to configure them, including examples\.
 
 AWSTOE components are authored with plaintext YAML documents\. For more information about document syntax, see [Use component documents in AWSTOE](toe-use-documents.md)\.
 
 **Note**  
-All action modules are run by using the same account as the Systems Manager agent, which is `root` on Linux and `NT Authority\SYSTEM` on Windows\.
+All action modules use the same account as the Systems Manager agent when they run, which is `root` on Linux, and `NT Authority\SYSTEM` on Windows\.
 
 **Topics**
 + [General execution modules](#action-modules-general-execution)
@@ -21,11 +21,10 @@ The following section contains details for action modules that perform general e
 **Topics**
 + [ExecuteBash](#action-modules-executebash)
 + [ExecuteBinary](#action-modules-executebinary)
++ [ExecuteDocument](#action-modules-executedocument)
 + [ExecutePowerShell](#action-modules-executepowershell)
 
 ### ExecuteBash<a name="action-modules-executebash"></a>
-
- 
 
 The **ExecuteBash** action module allows you to run bash scripts with inline shell code/commands\. This module supports Linux\. 
 
@@ -137,6 +136,266 @@ inputs:
 }
 ```
 
+### ExecuteDocument<a name="action-modules-executedocument"></a>
+
+The **ExecuteDocument** action module adds support for nested component documents, running multiple component documents from one document\. AWSTOE validates the document that is passed in the input parameter at run time\.
+
+**Restrictions**
++ This action module runs one time, with no retries allowed, and no option to set timeout limits\. **ExecuteDocument** sets the following default values, and returns an error if you try to change them\.
+  + `timeoutSeconds`: \-1
+  + `maxAttempts`: 1
+**Note**  
+You can leave these values blank, and AWSTOE uses the default values\.
++ Document nesting is allowed, up to three levels deep, but no more than that\. Three levels of nesting translates to four document levels, as the top level isn't nested\. In this scenario, the lowest level document must not call any other documents\.
++ Cyclic execution of component documents is not allowed\. Any document that calls itself outside of a looping construct, or that calls another document higher up in the current chain of execution, initiates a cycle that can result in an endless loop\. When AWSTOE detects a cyclic execution, it stops the execution and records the failure\.
+
+![\[Nesting level restrictions for the ExecuteDocument action module.\]](http://docs.aws.amazon.com/imagebuilder/latest/userguide/images/toe-component-document-nesting.png)
+
+If a component document tries to run itself, or to run any of the component documents that are higher up in the current chain of execution, the execution fails\.
+
+**Input**
+
+
+| Primitive | Description | Type | Required | 
+| --- | --- | --- | --- | 
+| document |  Path of component document\. Valid options include: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/imagebuilder/latest/userguide/toe-action-modules.html)  | String | Yes | 
+| document\-s3\-bucket\-owner |  The account ID of the S3 bucket owner for the S3 bucket where component documents are stored\. *\(Recommended if you are using S3 URIs in your component document\.\)*  | String | No | 
+| phases |  Phases to run in the component document, expressed as a comma\-separated list\. If no phases are specified, then all phases run\.  | String | No | 
+| parameters |  Input parameters that are passed in to the component document at runtime as key value pairs\.  | Parameter Map List | No | 
+
+**Parameter map input**
+
+
+| Primitive | Description | Type | Required | 
+| --- | --- | --- | --- | 
+| name |  The name of the input parameter to pass to the component document that the **ExecuteDocument** action module is running\.  | String | Yes | 
+| value |  The value of the input parameter\.  | String | Yes | 
+
+**Input examples**  
+The following examples show variations of the inputs for your component document, depending on your installation path\.
+
+**Input example: Local document path**
+
+```
+# main.yaml
+schemaVersion: 1.0
+
+phases:
+  - name: build
+    steps:
+      - name: ExecuteNestedDocument
+        action: ExecuteDocument
+        inputs:
+          document: Sample-1.yaml
+          phases: build
+          parameters:
+            - name: parameter-1
+              value: value-1
+            - name: parameter-2
+              value: value-2
+```
+
+**Input example: S3 URI as a document path**
+
+```
+# main.yaml
+schemaVersion: 1.0
+
+phases:
+  - name: build
+    steps:
+      - name: ExecuteNestedDocument
+        action: ExecuteDocument
+        inputs:
+          document: s3://my-bucket/Sample-1.yaml
+          document-s3-bucket-owner: 123456789012
+          phases: build,validate
+          parameters:
+            - name: parameter-1
+              value: value-1
+            - name: parameter-2
+              value: value-2
+```
+
+**Input example: EC2 Image Builder component ARN as a document path**
+
+```
+# main.yaml
+schemaVersion: 1.0
+
+phases:
+  - name: build
+    steps:
+      - name: ExecuteNestedDocument
+        action: ExecuteDocument
+        inputs:
+          document: arn:aws:imagebuilder:us-west-2:aws:component/Sample-Test/1.0.0
+          phases: test
+          parameters:
+            - name: parameter-1
+              value: value-1
+            - name: parameter-2
+              value: value-2
+```
+
+**Using a ForEach loop to run documents**
+
+```
+# main.yaml
+schemaVersion: 1.0
+
+phases:
+  - name: build
+    steps:
+      - name: ExecuteNestedDocument
+        action: ExecuteDocument
+        loop:
+          name: 'myForEachLoop'
+          forEach:
+            - Sample-1.yaml
+            - Sample-2.yaml
+        inputs:
+          document: "{{myForEachLoop.value}}"
+          phases: test
+          parameters:
+            - name: parameter-1
+              value: value-1
+            - name: parameter-2
+              value: value-2
+```
+
+**Using a For loop to run documents**
+
+```
+# main.yaml
+schemaVersion: 1.0
+
+phases:
+  - name: build
+    steps:
+      - name: ExecuteNestedDocument
+        action: ExecuteDocument
+        loop:
+          name: 'myForLoop'
+          for:
+            start: 1
+            end: 2
+            updateBy: 1
+        inputs:
+          document: "Sample-{{myForLoop.value}}.yaml"
+          phases: test
+          parameters:
+            - name: parameter-1
+              value: value-1
+            - name: parameter-2
+              value: value-2
+```
+
+**Output**  
+AWSTOE creates an output file called `detailedoutput.json` every time it runs\. The file contains details about every phase and step of every component document that is invoked while it's running\. For the **ExecuteDocument** action module, you can find a brief runtime summary in the `outputs` field, and details about the phases, steps, and documents that it runs in the `detailedOutput`\.
+
+```
+"outputs": "[{\"executedStepCount\":1,\"executionId\":\"97054e22-06cc-11ec-9b14-acde48001122\",\"failedStepCount\":0,\"failureMessage\":\"\",\"ignoredFailedStepCount\":0,\"logUrl\":\"\",\"status\":\"success\"}]",
+```
+
+Each component document's output summary object contains the following details, as shown here, with sample values:
++ executedStepCount":1
++ "executionId":"12345a67\-89bc\-01de\-2f34\-abcd56789012"
++ "failedStepCount":0
++ "failureMessage":""
++ "ignoredFailedStepCount":0
++ "logUrl":""
++ "status":"success"
+
+**Output example**  
+The following example shows output from the **ExecuteDocument** action module when a nested execution occurs\. In this example, the `main.yaml` component document successfully runs the `Sample-1.yaml` component document\.
+
+```
+{
+    "executionId": "12345a67-89bc-01de-2f34-abcd56789012",
+    "status": "success",
+    "startTime": "2021-08-26T17:20:31-07:00",
+    "endTime": "2021-08-26T17:20:31-07:00",
+    "failureMessage": "",
+    "documents": [
+        {
+            "name": "",
+            "filePath": "main.yaml",
+            "status": "success",
+            "description": "",
+            "startTime": "2021-08-26T17:20:31-07:00",
+            "endTime": "2021-08-26T17:20:31-07:00",
+            "failureMessage": "",
+            "phases": [
+                {
+                    "name": "build",
+                    "status": "success",
+                    "startTime": "2021-08-26T17:20:31-07:00",
+                    "endTime": "2021-08-26T17:20:31-07:00",
+                    "failureMessage": "",
+                    "steps": [
+                        {
+                            "name": "ExecuteNestedDocument",
+                            "status": "success",
+                            "failureMessage": "",
+                            "timeoutSeconds": -1,
+                            "onFailure": "Abort",
+                            "maxAttempts": 1,
+                            "action": "ExecuteDocument",
+                            "startTime": "2021-08-26T17:20:31-07:00",
+                            "endTime": "2021-08-26T17:20:31-07:00",
+                            "inputs": "[{\"document\":\"Sample-1.yaml\",\"document-s3-bucket-owner\":\"\",\"phases\":\"\",\"parameters\":null}]",
+                            "outputs": "[{\"executedStepCount\":1,\"executionId\":\"98765f43-21ed-09cb-8a76-fedc54321098\",\"failedStepCount\":0,\"failureMessage\":\"\",\"ignoredFailedStepCount\":0,\"logUrl\":\"\",\"status\":\"success\"}]",
+                            "loop": null,
+                            "detailedOutput": [
+                                {
+                                    "executionId": "98765f43-21ed-09cb-8a76-fedc54321098",
+                                    "status": "success",
+                                    "startTime": "2021-08-26T17:20:31-07:00",
+                                    "endTime": "2021-08-26T17:20:31-07:00",
+                                    "failureMessage": "",
+                                    "documents": [
+                                        {
+                                            "name": "",
+                                            "filePath": "Sample-1.yaml",
+                                            "status": "success",
+                                            "description": "",
+                                            "startTime": "2021-08-26T17:20:31-07:00",
+                                            "endTime": "2021-08-26T17:20:31-07:00",
+                                            "failureMessage": "",
+                                            "phases": [
+                                                {
+                                                    "name": "build",
+                                                    "status": "success",
+                                                    "startTime": "2021-08-26T17:20:31-07:00",
+                                                    "endTime": "2021-08-26T17:20:31-07:00",
+                                                    "failureMessage": "",
+                                                    "steps": [
+                                                        {
+                                                            "name": "ExecuteBashStep",
+                                                            "status": "success",
+                                                            "failureMessage": "",
+                                                            "timeoutSeconds": 7200,
+                                                            "onFailure": "Abort",
+                                                            "maxAttempts": 1,
+                                                            "action": "ExecuteBash",
+                                                            "startTime": "2021-08-26T17:20:31-07:00",
+                                                            "endTime": "2021-08-26T17:20:31-07:00",
+                                                            "inputs": "[{\"commands\":[\"echo \\\"Hello World!\\\"\"]}]",
+                                                            "outputs": "[{\"stdout\":\"Hello World!\"}]",
+                                                            "loop": null,
+                                                            "detailedOutput": null
+                                                        }]
+                                                }]
+                                        }]
+                                }]
+                        }]
+                
+                }]
+        }]
+}
+```
+
 ### ExecutePowerShell<a name="action-modules-executepowershell"></a>
 
 The **ExecutePowerShell** action module allows you to run PowerShell scripts with inline shell code/commands\. This module supports the Windows platform and Windows PowerShell\.
@@ -226,7 +485,7 @@ The IAM role that you associate with your instance profile must have permissions
 |  Primitive  |  Description  |  Type  |  Required  |  Default  | 
 | --- | --- | --- | --- | --- | 
 |  `source`  |  The Amazon S3 bucket that is the source for your download\. You can specify a path to a specific object, or use a key prefix, that ends with a forward\-slash, followed by an asterisk wildcard \(`/*`\), to download a set of objects that match the key prefix\.   |  String  |  Yes  |  N/A  | 
-|  `destination`  |  The local path where the Amazon S3 objects are downloaded\.  |  String  |  Yes  |  N/A  | 
+|  `destination`  |  The local path where the Amazon S3 objects are downloaded\. To download a single file, you must specify the file name as part of the path\. For example, `/myfolder/package.zip`\.  |  String  |  Yes  |  N/A  | 
 |  `expectedBucketOwner`  |  Expected owner account ID of the bucket provided in the `source` path\. We recommend that you verify the ownership of the Amazon S3 bucket specified in the source\.  |  String  |  No  |  N/A  | 
 |  `overwrite`  |  When set to true, if a file of the same name already exists in the destination folder for the specified local path, the download file overwrites the local file\. When set to false, the existing file on the local system is protected from being overwritten, and the action module fails with a download error\. For example, `Error: S3Download: File already exists and "overwrite" property for "destination" file is set to false. Cannot download.`  |  Boolean  |  No  |  true  | 
 
