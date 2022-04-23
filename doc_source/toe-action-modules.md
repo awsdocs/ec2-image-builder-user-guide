@@ -1117,6 +1117,17 @@ inputs:
   - path: Sample1.txt
 ```
 
+**Input example: create an empty file to skip a section in the Linux housekeeping script**
+
+```
+name: CreateSkipCleanupfile
+action: CreateFile
+inputs:
+  - path: <skip section file name>
+```
+
+For more information, see [Override the Linux housekeeping script](security-best-practices.md#override-linux-housekeeping-script)
+
 **Output**  
 None\.
 

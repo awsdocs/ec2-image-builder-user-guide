@@ -69,4 +69,4 @@ The path for the JSON file should follow the appropriate convention for the base
 
 ## Distribute VM disks from your image build \(AWS CLI\)<a name="vmie-export"></a>
 
-You can set up distribution of supported VM disk format files to S3 buckets in target Regions as part of your regular image build process, using Image Builder distribution configurations in the AWS CLI\. For more information, see [Create distribution settings for output VM disks \(AWS CLI\)](crud-ami-distribution-settings.md#cli-create-vm-dist-config)\.
+You can set up distribution of supported VM disk format files to S3 buckets in target Regions as part of your regular image build process, using Image Builder distribution configurations in the AWS CLI\. For more information, see [Create distribution settings for output VM disks \(AWS CLI\)](cr-upd-ami-distribution-settings.md#cli-create-vm-dist-config)\.
