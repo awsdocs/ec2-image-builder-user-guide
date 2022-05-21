@@ -43,35 +43,29 @@ After system restart, the application runs the same step that initiated the rest
 | --- | --- | --- | --- | 
 | commands | Contains a list of instructions or commands to run as per bash syntax\. Multi\-line YAML is allowed\. | List | Yes | 
 
-**Input example: install and validate Corretto**
+**Input example: Before and after a reboot**
 
 ```
-name: InstallAndValidateCorretto
-action: ExecuteBash
-inputs:
-  commands:
-    - sudo yum install java-11-amazon-corretto-headless -y
-    - |
-      function fail_with_message() {
-          1>&2 echo $1
-          exit 1
-      }
-
-      ARCH=`/usr/bin/arch`
-
-      JAVA_PATH=/usr/lib/jvm/java-11-amazon-corretto.$ARCH/bin/java
-      if [ -x $JAVA_PATH ]; then
-          echo "Amazon Corretto 11 JRE is installed."
-      else
-          fail_with_message "Amazon Corretto 11 JRE is not installed. Failing."
-      fi
-
-      JAVAC_PATH=/usr/lib/jvm/java-11-amazon-corretto.$ARCH/bin/javac
-      if [ -x $JAVAC_PATH ]; then
-          echo "Amazon Corretto 11 JDK is installed."
-      else
-          fail_with_message "Amazon Corretto 11 JDK is not installed. Failing."
-      fi
+name: ExitCode194Example
+description: This shows how the exit code can be used to restart a system with ExecuteBash
+schemaVersion: 1.0
+phases:
+  - name: build
+    steps:
+      - name: RestartTrigger
+        action: ExecuteBash
+        inputs:
+          commands:
+            - |
+              REBOOT_INDICATOR=/var/tmp/reboot-indicator
+              if [ -f "${REBOOT_INDICATOR}" ]; then
+                echo 'The reboot file exists. Deleting it and exiting with success.'
+                rm "${REBOOT_INDICATOR}"
+                exit 0
+              fi
+              echo 'The reboot file does not exist. Creating it and triggering a restart.'
+              touch "${REBOOT_INDICATOR}"
+              exit 194
 ```
 
 
@@ -81,15 +75,23 @@ inputs:
 | --- | --- | --- | 
 | stdout | Standard output of command execution\. | string | 
 
-**Output example**
+If you start a reboot and return exit code `194` as part of the action module, the build will resume at the same action module step that initiated the reboot\. If you start a reboot without the exit code, the build process may fail\.
+
+**Output example: Before reboot \(first time through document\)**
 
 ```
 {
-    “stdout”: “This is the standard output from running the shell\n"
+    “stdout”: “The reboot file does not exist. Creating it and triggering a restart."
 }
 ```
 
-If you start a reboot and return exit code `194` as part of the action module, the build will resume at the same action module step that initiated the reboot\. If you start a reboot without the exit code, the build process may fail\.
+**Output example: After reboot, \(second time through document\)**
+
+```
+{
+    “stdout”: “The reboot file exists. Deleting it and exiting with success."
+}
+```
 
 ### ExecuteBinary<a name="action-modules-executebinary"></a>
 
@@ -416,20 +418,29 @@ After system restart, the application runs the same step that initiated the rest
 | commands | Contains a list of instructions or commands to run as per PowerShell syntax\. Multi\-line YAML is allowed\. | String List | Yes\. Must specify `commands` or `file`, not both\.  | 
 | file | Contains the path to a PowerShell script file\. PowerShell will run against this file using the \-file command line argument\. The path must point to a \.ps1 file\. | String | Yes\. Must specify `commands` or `file`, not both\.  | 
 
-**Input example: install software using PowerShell commands**
+**Input example: Before and after a reboot**
 
 ```
-name: InstallMySoftware
-action: ExecutePowerShell
-inputs:
-  commands: 
-      - Set-SomeConfiguration -Value 10
-      - Write-Host 'Successfully set the configuration.'
-      
-name: ExecuteMyScript
-action: ExecutePowerShell
-inputs:
-  file: 'C:\PathTo\MyScript.ps1'
+name: ExitCode3010Example
+description: This shows how the exit code can be used to restart a system with ExecutePowerShell
+schemaVersion: 1.0
+phases:
+  - name: build
+    steps:
+      - name: RestartTrigger
+        action: ExecutePowerShell
+        inputs:
+          commands:
+            - |
+              $rebootIndicator = Join-Path -Path $env:SystemDrive -ChildPath 'reboot-indicator'
+              if (Test-Path -Path $rebootIndicator) {
+                Write-Host 'The reboot file exists. Deleting it and exiting with success.'
+                Remove-Item -Path $rebootIndicator -Force | Out-Null
+                [System.Environment]::Exit(0)
+              }
+              Write-Host 'The reboot file does not exist. Creating it and triggering a restart.'
+              New-Item -Path $rebootIndicator -ItemType File | Out-Null
+              [System.Environment]::Exit(3010)
 ```
 
 
@@ -439,15 +450,23 @@ inputs:
 | --- | --- | --- | 
 | stdout | Standard output of command execution\. | string | 
 
-**Output example**
+If you run a reboot and return exit code `3010` as part of the action module, the build will resume at the same action module step that initiated the reboot\. If you run a reboot without the exit code, the build process may fail\.
+
+**Output example: Before reboot \(first time through document\)**
 
 ```
 {
-    “stdout”: “This is the standard output from the shell execution\n"
+    “stdout”: “The reboot file does not exist. Creating it and triggering a restart."
 }
 ```
 
-If you run a reboot and return exit code `3010` as part of the action module, the build will resume at the same action module step that initiated the reboot\. If you run a reboot without the exit code, the build process may fail\.
+**Output example: After reboot, \(second time through document\)**
+
+```
+{
+    “stdout”: “The reboot file exists. Deleting it and exiting with success."
+}
+```
 
 ## File download and upload modules<a name="action-modules-download-upload"></a>
 
@@ -2230,7 +2249,7 @@ inputs:
     delaySeconds: 60
 ```
 
-**Output **
+**Output**
 
 None\.
 
@@ -2331,4 +2350,4 @@ inputs:
 
 **Output**
 
-None\. 
+None\.

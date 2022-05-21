@@ -17,8 +17,6 @@ This tutorial walks you through creating an automated pipeline to build and main
 1. To begin creating your pipeline, choose **Create image pipeline**\.
 
 1. In the **General** section, enter your **Pipeline name** \(*required*\)\.
-**Tip**  
-Enhanced metadata collection is turned on by default\. To ensure compatibility between components and base images, keep it turned on\.
 
 1. In the **Build schedule** section, you can keep the defaults for the **Schedule options**\. Note that the **Time zone** shown for the default schedule is Universal Coordinated Time \(UTC\)\. For more information about UTC time, and to find the offset for your time zone, see [Time Zone Abbreviations – Worldwide List](https://www.timeanddate.com/time/zones/)\.
 
@@ -83,7 +81,7 @@ If you have chosen more than one component to include in your image, you can use
 
 1. In the **Dockerfile template** section, select the **Use example** option\. In the **Content** panel, notice the contextual variables where Image Builder places build information or scripts, based on your container image recipe\.
 
-1. In the **Target repository** section, you must specify the name of an existing Amazon ECR repository that you created as a prerequisite for this tutorial\.
+1. In the **Target repository** section, specify the name of the Amazon ECR repository that you created as a prerequisite for this tutorial\. This repository is used as the default setting for the distribution configuration in the Region where the pipeline runs \(Region 1\)\.
 **Note**  
 The target repository must exist in Amazon ECR for all target Regions prior to distribution\.
 
@@ -93,14 +91,18 @@ The target repository must exist in Amazon ECR for all target Regions prior to d
 
 Image Builder launches EC2 instances in your account to customize images and run validation tests\. The Infrastructure configuration settings specify infrastructure details for the instances that will run in your AWS account during the build process\.
 
-In the **Infrastructure configuration** section, the **Configuration options** default to `Create infrastructure configuration using service defaults`\. This creates an IAM role and associated instance profile that are used by build instances to configure your EC2 AMIs\. You can also create your own custom infrastructure configuration, or use settings that you have already created\. For this tutorial, we are using the default settings\.
+In the **Infrastructure configuration** section, the **Configuration options** default to `Create infrastructure configuration using service defaults`\. This creates an IAM role and associated instance profile that are used by build instances to configure your container images\. You can also create your own custom infrastructure configuration, or use settings that you have already created\. For more information about infrastructure configuration settings, see [CreateInfrastructureConfiguration](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_CreateInfrastructureConfiguration.html) in the *EC2 Image Builder API Reference*\.
+
+For this tutorial, we are using the default settings\.
 + Choose **Next** to proceed to the next step\.
 
 ## Step 4: Define distribution settings \- optional<a name="start-build-container-step4"></a>
 
 Distribution settings consist of the target Regions, and the target Amazon ECR repository name\. Output Docker images are deployed to the named Amazon ECR repository in each Region\.
 
-In the **Distribution settings** section, the **Configuration options** default to `Create distribution settings using service defaults`\. This option will distribute the output Docker image to the Amazon ECR repository in the current Region\. For this tutorial, we are using the default settings\.
+In the **Distribution settings** section, the **Configuration options** default to `Create distribution settings using service defaults`\. This option will distribute the output Docker image to the Amazon ECR repository specified in your container recipe for the Region where your pipeline runs \(Region 1\)\. If you choose `Create new distribution settings`, you can override the ECR repository for the current Region, and add more Regions for distribution\.
+
+For this tutorial, we are using the default settings\.
 + Choose **Next** to proceed to the next step\.
 
 ## Step 5: Review<a name="start-build-container-step5"></a>

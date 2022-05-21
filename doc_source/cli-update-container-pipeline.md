@@ -1,12 +1,15 @@
 # Update container image pipelines \(AWS CLI\)<a name="cli-update-container-pipeline"></a>
 
-You can update a container image pipeline using a JSON file as input to the imagebuilder update\-image\-pipeline command in the AWS CLI\. To configure the JSON file, you must have Amazon Resource Names \(ARNs\) to reference the following existing resources:
+You can update a container image pipeline using a JSON file as input to the [update\-image\-pipeline](https://docs.aws.amazon.com/cli/latest/reference/imagebuilder/update-image-pipeline.html) command in the AWS CLI\. To configure the JSON file, you must have Amazon Resource Names \(ARNs\) to reference the following existing resources:
 + Image pipeline to update
 + Container recipe
 + Infrastructure configuration
-+ Distribution settings
++ Distribution settings \(if included in the current pipeline\)
 
-Follow these steps to update a container image pipeline using the imagebuilder update\-image\-pipeline command in the AWS CLI:
+**Note**  
+If the distribution settings resource is included, then the ECR repository that's specified as the target repository in the distribution settings for the Region where the command runs \(Region 1\) takes precedence over the target repository that's specified in the container recipe\.
+
+Follow these steps to update a container image pipeline using the update\-image\-pipeline command in the AWS CLI:
 
 **Note**  
 UpdateImagePipeline does not support selective updates for the pipeline\. You must specify all of the required properties in the update request, not just the properties that have changed\.

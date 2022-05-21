@@ -65,7 +65,7 @@ Component parameters are plain text values, and are logged in AWS CloudTrail\. W
   To expand **Versioning options** or **Input parameters** settings, you can either choose the arrow next to the name of the setting, or you can toggle the **Expand all** switch off and on to expand all of the settings for all of the selected components\.
 
 **Target repository**
-+ **Target repository name** – Pre\-filled, but editable\.
++ **Target repository name** – The ECR repository where your output image is stored if there is no other repository specified in your pipeline's distribution configuration for the Region where the pipeline runs \(Region 1\)\.
 
 **To create a new container recipe version:**
 
@@ -93,7 +93,7 @@ After you create your components, or if you are using existing components, take 
 The naming convention for the data points in the JSON file follows the pattern that is specified for the Image Builder API command request parameters\. To review the API command request parameters, see the [CreateContainerRecipe](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_CreateContainerRecipe.html) command in the *EC2 Image Builder API Reference*\.  
 Do not use this naming convention for providing these datapoints directly to the imagebuilder create\-container\-recipe command as options\.
 
-   Here is a summary of the parameters that we specify in is example:
+   Here is a summary of the parameters that we specify in this example:
    + **components** \(array of objects, required\) – Contains an array of `ComponentConfiguration` objects\. At least one build component must be specified:
 **Note**  
 Components are installed in the order in which they are specified\.
@@ -122,7 +122,7 @@ Component parameters are plain text values, and are logged in AWS CloudTrail\. W
          + **encrypted** \(Boolean\) – Used to configure device encryption\.
          + **volumeSize** \(integer\) – Used to override the device's volume size\.
          + **volumeType** \(string\) – Used to override the device's volume type\.
-   + **targetRepository** \(object, required\) – The destination repository for the container image\.
+   + **targetRepository** \(object, required\) – The destination repository for the container image if there is no other repository specified in your pipeline's distribution configuration for the Region where the pipeline runs \(Region 1\)\.
      + **repositoryName** \(string, required\) – The name of the container repository where the output container image is stored\. This name is prefixed by the repository location\.
      + **service** \(string, required\) – Specifies the service in which this image was registered\.
    + **workingDirectory** \(string\) – The working directory for use during build and test workflows\.

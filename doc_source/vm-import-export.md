@@ -14,7 +14,7 @@ In the Image Builder console, you can import the image directly, and then use th
 
 ## Import a VM into Image Builder \(AWS CLI\)<a name="vmie-import"></a>
 
-Image Builder integrates with the Amazon EC2 VM Import/Export API to enable the import process to run asynchronously in the background\. The Image Builder import\-vm\-image command references the task ID from the VM import to track its progress, and creates an Image Builder image resource as output\. This allows you to reference the Image Builder image resource in your recipes before the VM import finishes\.
+Image Builder integrates with the Amazon EC2 VM Import/Export API to enable the import process to run asynchronously in the background\. The Image Builder [import\-vm\-image](https://docs.aws.amazon.com/cli/latest/reference/imagebuilder/import-vm-image.html) command references the task ID from the VM import to track its progress, and creates an Image Builder image resource as output\. This allows you to reference the Image Builder image resource in your recipes before the VM import finishes\.
 
 To import a VM from disks into an AMI and create an Image Builder image resource that you can reference right away, follow these steps:
 
@@ -24,10 +24,10 @@ To import a VM from disks into an AMI and create an Image Builder image resource
 
 **Create a CLI input JSON file**
 
-   To streamline the imagebuilder import\-vm\-image command that is used in the AWS CLI, we create a JSON file that contains all of the import configuration that we want to pass into the command\.
+   To streamline the Image Builder import\-vm\-image command that is used in the AWS CLI, we create a JSON file that contains all of the import configuration that we want to pass into the command\.
 **Note**  
 The naming convention for the data points in the JSON file follows the pattern that is specified for the Image Builder API command request parameters\. To review the API command request parameters, see the [ImportVmImage](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_ImportVmImage.html) command in the *EC2 Image Builder API Reference*\.  
-Do not use this naming convention for providing these datapoints directly to the imagebuilder import\-vm\-image command as options\.
+Do not use this naming convention for providing these datapoints directly to the Image Builder import\-vm\-image command as options\.
 
    Here is a summary of the parameters that we specify in this example:
    + **name** \(string, required\) – The name for the Image Builder image resource to create as output from the import\.
@@ -38,7 +38,7 @@ Do not use this naming convention for providing these datapoints directly to the
    + **clientToken** \(string, required\) – A unique, case\-sensitive identifier you provide to ensure idempotency of the request\. For more information, see [Ensuring idempotency](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html) in the *Amazon EC2 API Reference*\.
    + **tags** \(string map\) – Tags are key\-value pairs that are attached to the import resources\. Up to 50 key\-value pairs are allowed\.
 
-   Save the file as `import-vm-image.json`, to use in the imagebuilder import\-vm\-image command\.
+   Save the file as `import-vm-image.json`, to use in the Image Builder import\-vm\-image command\.
 
    ```
    {

@@ -182,9 +182,9 @@ The schema definitions for a step are as follows\.
 | Field | Description | Type | Required | Default value | 
 | --- | --- | --- | --- | --- | 
 | name | User\-defined name for the step\. | String |  |  | 
-| action | Keyword pertaining to the module that runs the step\. | String |    |  | 
-| timeoutSeconds |  Number of seconds that the step runs before failing or retrying\.  Also, supports \-1 value, which indicates infinite timeout\. 0 and other negative values are not allowed\.  | Integer |  Yes  | 7,200 sec \(120 mins\) | 
-| onFailure |  Specifies what the step should do in case of failure\. Valid values are as follows:  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/imagebuilder/latest/userguide/toe-use-documents.html)  |  String  |  Yes  | Abort | 
+| action | Keyword pertaining to the module that runs the step\. | String |  |  | 
+| timeoutSeconds |  Number of seconds that the step runs before failing or retrying\.  Also, supports \-1 value, which indicates infinite timeout\. 0 and other negative values are not allowed\.  | Integer |  No  | 7,200 sec \(120 mins\) | 
+| onFailure |  Specifies what the step should do in case of failure\. Valid values are as follows:  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/imagebuilder/latest/userguide/toe-use-documents.html)  |  String  |  No  | Abort | 
 | maxAttempts | Maximum number of attempts allowed before failing the step\. | Integer |  No  | 1 | 
 | inputs | Contains parameters required by the action module to run the step\. | Dict |  Yes  |  | 
 

@@ -63,7 +63,7 @@ To copy an image across accounts, you must create the `EC2ImageBuilderDistributi
 
 ## Create distribution settings for output AMIs \(AWS CLI\)<a name="cli-create-ami-distribution-configuration"></a>
 
-A distribution configuration allows you to specify the name and description of your output AMI, authorize other AWS accounts to launch the AMI, copy the AMI to other accounts, and replicate the AMI to other AWS Regions\. It also allows you to export the AMI to Amazon Simple Storage Service \(Amazon S3\), or configure faster launching for output Windows AMIs\. To make an AMI public, set the launch permission authorized accounts to `all`\. See the examples for making an AMI public at [EC2 ModifyImageAttribute](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_ModifyImageAttribute.html)\.
+A distribution configuration allows you to specify the name and description of your output AMI, authorize other AWS accounts to launch the AMI, copy the AMI to other accounts, and replicate the AMI to other AWS Regions\. It also allows you to export the AMI to Amazon Simple Storage Service \(Amazon S3\), or configure faster launching for output Windows AMIs\. To make an AMI public, set the launch permission authorized accounts to `all`\. See the examples for making an AMI public at EC2 [ModifyImageAttribute](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_ModifyImageAttribute.html)\.
 
 The following example shows how to use the create\-distribution\-configuration command to create a new distribution configuration for your AMI, using the AWS CLI\.
 
@@ -179,7 +179,7 @@ You can also select the check box next to the **Configuration name**, then choos
 
 ## Create distribution settings for a faster launching Windows AMI \(AWS CLI\)<a name="cli-create-ami-dist-config-win-fast-launch"></a>
 
-The following example shows how to use the create\-distribution\-configuration command to create distribution settings that have faster launching configured for your AMI, using the AWS CLI\.
+The following example shows how to use the [create\-distribution\-configuration](https://docs.aws.amazon.com/cli/latest/reference/imagebuilder/create-distribution-configuration.html) command to create distribution settings that have faster launching configured for your AMI, using the AWS CLI\.
 
 1. 
 
@@ -291,7 +291,7 @@ The path for the JSON file should follow the appropriate convention for the base
 
 ## Update AMI distribution settings \(AWS CLI\)<a name="cli-update-ami-distribution-configuration"></a>
 
-The following example shows how to use the update\-distribution\-configuration command to update distribution settings for your AMI, using the AWS CLI\.
+The following example shows how to use the [update\-distribution\-configuration](https://docs.aws.amazon.com/cli/latest/reference/imagebuilder/update-distribution-configuration.html) command to update distribution settings for your AMI, using the AWS CLI\.
 
 1. 
 

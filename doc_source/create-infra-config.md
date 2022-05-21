@@ -8,7 +8,7 @@ This section covers creating and updating EC2 Image Builder infrastructure confi
 
 ## Create an infrastructure configuration \(AWS CLI\)<a name="cli-create-infrastructure-configuration"></a>
 
-The following example shows how to use the create\-infrastructure\-configuration command to configure the infrastructure for your image, using the AWS CLI\.
+The following example shows how to use the [create\-infrastructure\-configuration](https://docs.aws.amazon.com/cli/latest/reference/imagebuilder/create-infrastructure-configuration.html) command to configure the infrastructure for your image, using the AWS CLI\.
 
 1. 
 
@@ -54,7 +54,7 @@ The following example shows how to use the create\-infrastructure\-configuration
 
 ## Update an infrastructure configuration \(AWS CLI\)<a name="cli-update-infrastructure-configuration"></a>
 
-The following example shows how to use the update\-infrastructure\-configuration command to update the infrastructure configuration for your image, using the AWS CLI\.
+The following example shows how to use the [update\-infrastructure\-configuration](https://docs.aws.amazon.com/cli/latest/reference/imagebuilder/update-infrastructure-configuration.html) command to update the infrastructure configuration for your image, using the AWS CLI\.
 
 1. 
 

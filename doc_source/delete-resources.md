@@ -2,6 +2,8 @@
 
 Your Image Builder environment, just like your home, needs regular maintenance to help you find what you need, and complete your tasks without wading through clutter\. Make sure to regularly clean up temporary resources that you created for testing\. Otherwise, you might forget about those resources, and then later, not remember what they were used for\. By then, it might not be clear if you can safely get rid of them\.
 
+Deleting resources does not delete any Amazon EC2 AMIs or Amazon ECR container images that are created during the image build process\. You must clean those up separately, using the appropriate Amazon EC2 or Amazon ECR console actions, or API or AWS CLI commands\.
+
 **Tip**  
 To prevent dependency errors when you delete resources, make sure to delete your resources in the following order:  
 Image pipeline

@@ -7,7 +7,7 @@ Verify the following prerequisites to create an image pipeline with EC2 Image Bu
 EC2 Image Builder uses a service\-linked role to grant permissions to other AWS services on your behalf\. You don't need to manually create a service\-linked role\. When you create your first Image Builder resource in the AWS Management Console, the AWS CLI, or the AWS API, Image Builder creates the service\-linked role for you\. For more information about the service\-linked role that Image Builder creates in your account, see [Using service\-linked roles for EC2 Image Builder](image-builder-service-linked-role.md)\. 
 
 ## Configuration requirements<a name="image-builder-config"></a>
-+ Image Builder supports [AWS PrivateLink](https://docs.aws.amazon.com/vpc/latest/userguide/endpoint-service.html)\.
++ Image Builder supports [AWS PrivateLink](https://docs.aws.amazon.com/vpc/latest/userguide/endpoint-service.html)\. For more information about configuring VPC endpoints for Image Builder, see [EC2 Image Builder and interface VPC endpoints \(AWS PrivateLink\)](vpc-interface-endpoints.md)\.
 + Image Builder supports EC2\-Classic\.
 + The instances that Image Builder uses to build images and run tests must have access to the Systems Manager service\. All build activity is orchestrated by Systems Manager Automation\. Installation requirements depend on your operating system\.
 

@@ -133,13 +133,13 @@ This section contains information about Linux STIG components\. If the Linux dis
 + RHEL 8
 + CentOS 8
 
-### STIG\-Build\-Linux\-Low version 3\.5\.1<a name="ib-linux-stig-low"></a>
+### STIG\-Build\-Linux\-Low version 3\.6<a name="ib-linux-stig-low"></a>
 
 The following list contains STIG settings that are applied to your image\. Some STIG settings are not automatically applied\. This can be due to technical limitations – for instance, the STIG setting might not be applicable for standalone servers\. Organization\-specific policies can also prevent automatic application of STIG settings, such as a requirement for administrators to review document settings\. For more details about which STIGs are applied to Linux AMIs, you can download our [spreadsheet](https://aws-windows-downloads-us-west-1.s3.us-west-1.amazonaws.com/STIG/Linux+STIG.xlsx)\.
 
 For a complete list, see the [STIGs Document Library](https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=operating-systems%2Cunix-linux)\. For information about STIG viewing tools and guidelines, see [SRG / STIG Tools](https://public.cyber.mil/stigs/srg-stig-tools/)\.
 
-**RHEL 7 STIG Version 3 Release 4**
+**RHEL 7 STIG Version 3 Release 6**
 
 **RHEL 7/CentOS 7**  
 V\-204452, V\-204576, and V\-204605
@@ -147,12 +147,12 @@ V\-204452, V\-204576, and V\-204605
 **AL2**  
 V\-204452, V\-204576, and V\-204605
 
-**RHEL 8 STIG Version 1 Release 3**
+**RHEL 8 STIG Version 1 Release 5**
 
 **RHEL 8/CentOS 8**  
-V\-230241, V\-230253, V\-230269, V\-230270, V\-230281, V\-230285, V\-230346, V\-230381, V\-230395, V\-230468, V\-230469, V\-230485, V\-230486, V\-230491, V\-230494, V\-230495, V\-230496, V\-230497, V\-230498, and V\-230499
+V\-230241, V\-230253, V\-230269, V\-230270, V\-230281, V\-230285, V\-230346, V\-230381, V\-230395, V\-230468, V\-230469, V\-230485, V\-230486, V\-230491, V\-230494, V\-230495, V\-230496, V\-230497, V\-230498, V\-230499, and V\-244527
 
-### STIG\-Build\-Linux\-Medium version 3\.5\.1<a name="ib-linux-stig-medium"></a>
+### STIG\-Build\-Linux\-Medium version 3\.6<a name="ib-linux-stig-medium"></a>
 
 The following list contains STIG settings that are applied to your image\. Some STIG settings are not automatically applied\. This can be due to technical limitations – for instance, the STIG setting might not be applicable for standalone servers\. Organization\-specific policies can also prevent automatic application of STIG settings, such as a requirement for administrators to review document settings\. For more details about which STIGs are applied to Linux AMIs, you can download our [spreadsheet](https://aws-windows-downloads-us-west-1.s3.us-west-1.amazonaws.com/STIG/Linux+STIG.xlsx)\.
 
@@ -161,24 +161,24 @@ For a complete list, see the [STIGs Document Library](https://public.cyber.mil/s
 **Note**  
 The STIG\-Build\-Linux\-Medium components include all STIG settings that Image Builder applies to STIG\-Build\-Linux\-Low components, in addition to the STIG settings that are applied specifically for Category II vulnerabilities\.
 
-**RHEL 7 STIG Version 3 Release 4**
+**RHEL 7 STIG Version 3 Release 6**
 
 Includes all STIG settings that Image Builder applies for Category III \(Low\) vulnerabilities, plus:
 
 **RHEL 7/CentOS 7**  
-V\-204405, V\-204406, V\-204407, V\-204408, V\-204409, V\-204410, V\-204411, V\-204412, V\-204413, V\-204414, V\-204415, V\-204416, V\-204417, V\-204418, V\-204422, V\-204423, V\-204426, V\-204427, V\-204428, V\-204431, V\-204435, V\-204437, V\-204449, V\-204450, V\-204451, V\-204457, V\-204466, V\-204503, V\-204516, V\-204517, V\-204518, V\-204519, V\-204520, V\-204521, V\-204522, V\-204523, V\-204524, V\-204525, V\-204526, V\-204527, V\-204528, V\-204529, V\-204530, V\-204531, V\-204532, V\-204533, V\-204534, V\-204535, V\-204536, V\-204537, V\-204538, V\-204539, V\-204540, V\-204541, V\-204542, V\-204543, V\-204544, V\-204545, V\-204546, V\-204547, V\-204548, V\-204549, V\-204550, V\-204551, V\-204552, V\-204553, V\-204554, V\-204555, V\-204556, V\-204557, V\-204558, V\-204559, V\-204560, V\-204561, V\-204562, V\-204563, V\-204564, V\-204565, V\-204566, V\-204567, V\-204568, V\-204569, V\-204570, V\-204571, V\-204572, V\-204573, V\-204579, V\-204584, V\-204585, V\-204586, V\-204587, V\-204589, V\-204590, V\-204591, V\-204592, V\-204593, V\-204598, V\-204599, V\-204600, V\-204601, V\-204602, V\-204609, V\-204610, V\-204611, V\-204612, V\-204613, V\-204614, V\-204615, V\-204616, V\-204617, V\-204619, V\-204622, V\-204624, V\-204625, V\-204630, V\-204631, V\-204633, V\-233307, V\-237634, and V\-237635
+V\-204405, V\-204406, V\-204407, V\-204408, V\-204409, V\-204410, V\-204411, V\-204412, V\-204413, V\-204414, V\-204415, V\-204416, V\-204417, V\-204418, V\-204422, V\-204423, V\-204426, V\-204427, V\-204428, V\-204431, V\-204435, V\-204437, V\-204449, V\-204450, V\-204451, V\-204457, V\-204466, V\-204503, V\-204516, V\-204517, V\-204521, V\-204524, V\-204531, V\-204536, V\-204537, V\-204538, V\-204539, V\-204540, V\-204541, V\-204542, V\-204543, V\-204544, V\-204545, V\-204546, V\-204547, V\-204548, V\-204549, V\-204550, V\-204551, V\-204552, V\-204553, V\-204554, V\-204555, V\-204556, V\-204557, V\-204558, V\-204559, V\-204560, V\-204562, V\-204563, V\-204564, V\-204565, V\-204566, V\-204567, V\-204568, V\-204572, V\-204579, V\-204584, V\-204585, V\-204586, V\-204587, V\-204589, V\-204590, V\-204591, V\-204592, V\-204593, V\-204598, V\-204599, V\-204600, V\-204601, V\-204602, V\-204609, V\-204610, V\-204611, V\-204612, V\-204613, V\-204614, V\-204615, V\-204616, V\-204617, V\-204619, V\-204622, V\-204624, V\-204625, V\-204630, V\-204631, V\-204633, V\-233307, V\-237634, V\-237635, and V\-251703
 
 **AL2:**  
-V\-204405, V\-204406, V\-204407, V\-204408, V\-204409, V\-204410, V\-204411, V\-204412, V\-204413, V\-204414, V\-204415, V\-204416, V\-204417, V\-204418, V\-204422, V\-204423, V\-204426, V\-204427, V\-204428, V\-204431, V\-204435, V\-204437, V\-204449, V\-204450, V\-204451, V\-204457, V\-204466, V\-204503, V\-204516, V\-204517, V\-204518, V\-204519, V\-204520, V\-204521, V\-204522, V\-204523, V\-204524, V\-204525, V\-204526, V\-204527, V\-204528, V\-204529, V\-204530, V\-204531, V\-204532, V\-204533, V\-204534, V\-204535, V\-204536, V\-204537, V\-204538, V\-204539, V\-204540, V\-204541, V\-204542, V\-204543, V\-204544, V\-204545, V\-204546, V\-204547, V\-204548, V\-204549, V\-204550, V\-204551, V\-204552, V\-204553, V\-204554, V\-204555, V\-204556, V\-204557, V\-204558, V\-204559, V\-204560, V\-204561, V\-204562, V\-204563, V\-204564, V\-204565, V\-204566, V\-204567, V\-204568, V\-204569, V\-204570, V\-204571, V\-204572, V\-204573, V\-204578, V\-204579, V\-204584, V\-204585, V\-204586, V\-204587, V\-204589, V\-204590, V\-204591, V\-204592, V\-204593, V\-204595, V\-204598, V\-204599, V\-204600, V\-204601, V\-204602, V\-204609, V\-204610, V\-204611, V\-204612, V\-204613, V\-204614, V\-204615, V\-204616, V\-204617, V\-204619, V\-204622, V\-204624, V\-204625, V\-204630, V\-204631, V\-204633, V\-233307, V\-237634, and V\-237635
+V\-204405, V\-204406, V\-204407, V\-204408, V\-204409, V\-204410, V\-204411, V\-204412, V\-204413, V\-204414, V\-204415, V\-204416, V\-204417, V\-204418, V\-204422, V\-204423, V\-204426, V\-204427, V\-204428, V\-204431, V\-204435, V\-204437, V\-204449, V\-204450, V\-204451, V\-204457, V\-204466, V\-204503, V\-204516, V\-204517, V\-204521, V\-204524, V\-204531, V\-204536, V\-204537, V\-204538, V\-204539, V\-204540, V\-204541, V\-204542, V\-204543, V\-204544, V\-204545, V\-204546, V\-204547, V\-204548, V\-204549, V\-204550, V\-204551, V\-204552, V\-204553, V\-204554, V\-204555, V\-204556, V\-204557, V\-204558, V\-204559, V\-204560, V\-204562, V\-204563, V\-204564, V\-204565, V\-204566, V\-204567, V\-204568, V\-204572, V\-204578, V\-204579, V\-204584, V\-204585, V\-204586, V\-204587, V\-204589, V\-204590, V\-204591, V\-204592, V\-204593, V\-204595, V\-204598, V\-204599, V\-204600, V\-204601, V\-204602, V\-204609, V\-204610, V\-204611, V\-204612, V\-204613, V\-204614, V\-204615, V\-204616, V\-204617, V\-204619, V\-204622, V\-204624, V\-204625, V\-204630, V\-204631, V\-204633, V\-233307, V\-237634, V\-237635, and V\-251703
 
-**RHEL 8 STIG Version 1 Release 3**
+**RHEL 8 STIG Version 1 Release 5**
 
 Includes all STIG settings that Image Builder applies for Category III \(Low\) vulnerabilities, plus:
 
 **RHEL 8/CentOS 8**  
-V\-230228, V\-230231, V\-230233, V\-230236, V\-230237, V\-230239, V\-230240, V\-230244, V\-230255, V\-230266, V\-230267, V\-230268, V\-230273, V\-230275, V\-230277, V\-230278, V\-230279, V\-230280, V\-230282, V\-230288, V\-230289, V\-230290, V\-230291, V\-230296, V\-230297, V\-230298, V\-230310, V\-230311, V\-230312, V\-230313, V\-230314, V\-230315, V\-230324, V\-230330, V\-230332, V\-230333, V\-230334, V\-230335, V\-230336, V\-230337, V\-230338, V\-230339, V\-230340, V\-230341, V\-230342, V\-230343, V\-230344, V\-230345, V\-230348, V\-230349, V\-230353, V\-230356, V\-230357, V\-230358, V\-230359, V\-230360, V\-230361, V\-230362, V\-230363, V\-230365, V\-230368, V\-230369, V\-230370, V\-230375, V\-230377, V\-230378, V\-230382, V\-230383, V\-230386, V\-230387, V\-230390, V\-230392, V\-230402, V\-230403, V\-230404, V\-230405, V\-230406, V\-230407, V\-230408, V\-230409, V\-230410, V\-230411, V\-230412, V\-230413, V\-230414, V\-230415, V\-230416, V\-230417, V\-230418, V\-230419, V\-230420, V\-230421, V\-230422, V\-230423, V\-230424, V\-230425, V\-230426, V\-230427, V\-230428, V\-230429, V\-230430, V\-230431, V\-230432, V\-230433, V\-230434, V\-230435, V\-230436, V\-230437, V\-230438, V\-230439, V\-230440, V\-230441, V\-230442, V\-230443, V\-230444, V\-230445, V\-230446, V\-230447, V\-230448, V\-230449, V\-230450, V\-230451, V\-230452, V\-230453, V\-230454, V\-230455, V\-230456, V\-230457, V\-230458, V\-230459, V\-230460, V\-230461, V\-230462, V\-230463, V\-230464, V\-230465, V\-230466, V\-230467, V\-230478, V\-230480, V\-230488, V\-230489, V\-230502, V\-230503, V\-230526, V\-230527, V\-230528, V\-230532, V\-230535, V\-230536, V\-230537, V\-230538, V\-230539, V\-230540, V\-230541, V\-230542, V\-230543, V\-230544, V\-230545, V\-230546, V\-230547, V\-230548, V\-230549, V\-230555, V\-230556, V\-230559, V\-230560, V\-230561, V\-237640, V\-237642, V\-237643, V\-244520, V\-244523, V\-244524, V\-244525, V\-244526, V\-244528, V\-244533, V\-244534, V\-244537, V\-244542, V\-244549, V\-244550, V\-244551, V\-244552, V\-244553, V\-244554, and V\-250317
+V\-230228, V\-230231, V\-230233, V\-230236, V\-230237, V\-230239, V\-230240, V\-230244, V\-230255, V\-230266, V\-230267, V\-230268, V\-230273, V\-230275, V\-230277, V\-230278, V\-230279, V\-230280, V\-230282, V\-230288, V\-230289, V\-230290, V\-230291, V\-230296, V\-230298, V\-230310, V\-230311, V\-230312, V\-230313, V\-230314, V\-230315, V\-230324, V\-230330, V\-230332, V\-230333, V\-230334, V\-230335, V\-230336, V\-230337, V\-230338, V\-230339, V\-230340, V\-230341, V\-230342, V\-230343, V\-230344, V\-230345, V\-230348, V\-230349, V\-230353, V\-230356, V\-230357, V\-230358, V\-230359, V\-230360, V\-230361, V\-230362, V\-230363, V\-230365, V\-230368, V\-230369, V\-230370, V\-230375, V\-230377, V\-230378, V\-230382, V\-230383, V\-230386, V\-230387, V\-230390, V\-230392, V\-230402, V\-230403, V\-230404, V\-230405, V\-230406, V\-230407, V\-230408, V\-230409, V\-230410, V\-230411, V\-230412, V\-230413, V\-230418, V\-230419, V\-230421, V\-230422, V\-230423, V\-230424, V\-230425, V\-230426, V\-230427, V\-230428, V\-230429, V\-230430, V\-230431, V\-230432, V\-230433, V\-230434, V\-230435, V\-230436, V\-230437, V\-230438, V\-230439, V\-230444, V\-230446, V\-230447, V\-230448, V\-230449, V\-230455, V\-230456, V\-230462, V\-230463, V\-230464, V\-230465, V\-230466, V\-230467, V\-230478, V\-230480, V\-230488, V\-230489, V\-230502, V\-230503, V\-230526, V\-230527, V\-230532, V\-230535, V\-230536, V\-230537, V\-230538, V\-230539, V\-230540, V\-230541, V\-230542, V\-230543, V\-230544, V\-230545, V\-230546, V\-230547, V\-230548, V\-230549, V\-230555, V\-230556, V\-230559, V\-230560, V\-230561, V\-237640, V\-237642, V\-237643, V\-244523, V\-244524, V\-244525, V\-244526, V\-244528, V\-244533, V\-244534, V\-244537, V\-244542, V\-244549, V\-244550, V\-244551, V\-244552, V\-244553, V\-244554, V\-250317, V\-251711, V\-251714, V\-251715, V\-251716, V\-251717, and V\-251718
 
-### STIG\-Build\-Linux\-High version 3\.5\.1<a name="ib-linux-stig-high"></a>
+### STIG\-Build\-Linux\-High version 3\.6<a name="ib-linux-stig-high"></a>
 
 The following list contains STIG settings that are applied to your image\. Some STIG settings are not automatically applied\. This can be due to technical limitations – for instance, the STIG setting might not be applicable for standalone servers\. Organization\-specific policies can also prevent automatic application of STIG settings, such as a requirement for administrators to review document settings\. For more details about which STIGs are applied to Linux AMIs, you can download our [spreadsheet](https://aws-windows-downloads-us-west-1.s3.us-west-1.amazonaws.com/STIG/Linux+STIG.xlsx)\.
 
@@ -187,7 +187,7 @@ For a complete list, see the [STIGs Document Library](https://public.cyber.mil/s
 **Note**  
 The STIG\-Build\-Linux\-High components include all STIG settings that Image Builder applies to STIG\-Build\-Linux\-Low and STIG\-Build\-Linux\-Medium components, in addition to the STIG settings that are applied specifically for Category I vulnerabilities\.
 
-**RHEL 7 STIG Version 3 Release 4**
+**RHEL 7 STIG Version 3 Release 6**
 
 Includes all STIG settings that Image Builder applies for Categories II and III \(Medium and Low\) vulnerabilities, plus:
 
@@ -197,7 +197,7 @@ V\-204425, V\-204442, V\-204443, V\-204447, V\-204448, V\-204455, V\-204502, V\-
 **AL2:**  
 V\-204425, V\-204442, V\-204443, V\-204447, V\-204448, V\-204455, V\-204502, V\-204620, and V\-204621
 
-**RHEL 8 STIG Version 1 Release 3**
+**RHEL 8 STIG Version 1 Release 5**
 
 Includes all STIG settings that Image Builder applies for Category III \(Low\) vulnerabilities, plus:
 

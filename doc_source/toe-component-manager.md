@@ -2,7 +2,7 @@
 
 EC2 Image Builder uses the AWS Task Orchestrator and Executor \(AWSTOE\) application to orchestrate complex workflows, modify system configurations, and test your systems without writing code\. This application uses a declarative document schema\. Because it is a standalone application, it does not require additional server setup\. It can run on any cloud infrastructure and on premises\. 
 
-To install AWSTOE, choose the download link for your architecture and platform\.
+To install AWSTOE, choose the download link for your architecture and platform\. If you attach to a VPC endpoint for your service \(Image Builder, for example\), it must have a custom endpoint policy attached that includes access to the S3 bucket for AWSTOE downloads\. Otherwise, your build and test instances will not be able to download the bootstrap script \(`bootstrap.sh`\) and install the AWSTOE application\. For more information see [Create a VPC endpoint policy for Image Builder](vpc-interface-endpoints.md#vpc-endpoint-policy)\.
 
 **Topics**
 + [AWSTOE downloads](#toe-downloads)

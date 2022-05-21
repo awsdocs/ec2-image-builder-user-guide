@@ -1,12 +1,18 @@
 # Create a container image pipeline \(AWS CLI\)<a name="cli-create-container-pipeline"></a>
 
-You can create a container image pipeline using a JSON file as input to the imagebuilder create\-image\-pipeline command in the AWS CLI\.
+You can create a container image pipeline using a JSON file as input to the [create\-image\-pipeline](https://docs.aws.amazon.com/cli/latest/reference/imagebuilder/create-image-pipeline.html) command in the AWS CLI\.
 
 How often your pipeline builds a new image to incorporate any pending updates from your base image and components depends on the `schedule` that you have configured\. A `schedule` has the following attributes:
 + `scheduleExpression` – Sets the schedule for when your pipeline runs to evaluate the `pipelineExecutionStartCondition` and determine if it should start a build\. The schedule is configured with cron expressions\. For more information on how to format a cron expression in Image Builder, see [Use cron expressions in EC2 Image Builder](cron-expressions.md)\.
 + `pipelineExecutionStartCondition` – Determines if your pipeline should start the build\. Valid values include:
   + `EXPRESSION_MATCH_ONLY` – your pipeline will build a new image every time the cron expression matches the current time\. 
   + `EXPRESSION_MATCH_AND_DEPENDENCY_UPDATES_AVAILABLE` – your pipeline will not start a new image build unless there are pending changes to your base image or components\.
+
+When you run the create\-image\-pipeline command in the AWS CLI, many of the configuration resources are optional\. However, some of the resources have conditional requirements, depending on what type of image the pipeline creates\. The following resources are required for container image pipelines:
++ Container recipe ARN
++ Infrastructure configuration ARN
+
+If you do not include a distribution configuration resource when you run the create\-image\-pipeline command, the output image is stored in the ECR repository that you specify as the target repository in your container recipe in the Region where you run the command\. If you include a distribution configuration resource for your pipeline, the target repository that you have specified for the first Region in the distribution is used\.
 
 1. 
 

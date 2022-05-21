@@ -182,11 +182,11 @@ The **AWSServiceRoleForImageBuilder** policy allows Image Builder to call AWS se
 
 This policy is attached to the Image Builder service\-linked role when the role is created through Systems Manager\. The policy includes the following permissions:
 + **CloudWatch Logs** – Access is granted to create and upload CloudWatch Logs to any log group whose name starts with `/aws/imagebuilder/`\.
-+ **Amazon EC2** – Access is granted for Image Builder to create images and launch EC2 instances in your account, using related snapshots, volumes, network interfaces, security groups, and key pairs as required, as long as the image, instance, and volumes that are being created or used are tagged with `Created By: EC2 Image Builder` or `Created By: EC2 Fast Launch`\.
++ **Amazon EC2** – Access is granted for Image Builder to create images and launch EC2 instances in your account, using related snapshots, volumes, network interfaces, security groups, and key pairs as required, as long as the image, instance, and volumes that are being created or used are tagged with `CreatedBy: EC2 Image Builder` or `CreatedBy: EC2 Fast Launch`\.
 
   Image Builder can get information about Amazon EC2 images, instance attributes, instance status, the instance types that are available to your account, launch templates, subnets, and tags on your Amazon EC2 resources\.
 
-  Image Builder can update image settings to enable or disable faster launching of Windows instances in your account, where the image is tagged with `Created By: EC2 Image Builder`\.
+  Image Builder can update image settings to enable or disable faster launching of Windows instances in your account, where the image is tagged with `CreatedBy: EC2 Image Builder`\.
 
   Additionally, Image Builder can start, stop, and terminate instances that are running in your account, share Amazon EBS snapshots, create and update images and launch templates, de\-register existing images, add tags, and replicate images across accounts that you have granted permissions to via the **Ec2ImageBuilderCrossAccountDistributionAccess** policy\. Image Builder tagging is required for all of these actions, as described previously\.
 
@@ -197,7 +197,7 @@ This policy is attached to the Image Builder service\-linked role when the role 
 + **Amazon SNS** – Write permissions are granted for any Amazon SNS topic in the account\.
 + **Systems Manager** – Access is granted for Image Builder to list Systems Manager commands and their invocations, instance information, inventory entries and automation execution statuses\. Image Builder can also send automation signals, and stop automation exeuctions for any resource in your account\.
 
-  Image Builder is able to issue run command invocations to any instance that is tagged `"Created By": "EC2 Image Builder"` for the following script files: `AWS-RunPowerShellScript`, `AWS-RunShellScript`, or `AWSEC2-RunSysprep`\. Image Builder is able to start an Systems Manager automation execution in your account for automation documents where the name starts with `ImageBuilder`\.
+  Image Builder is able to issue run command invocations to any instance that is tagged `"CreatedBy": "EC2 Image Builder"` for the following script files: `AWS-RunPowerShellScript`, `AWS-RunShellScript`, or `AWSEC2-RunSysprep`\. Image Builder is able to start an Systems Manager automation execution in your account for automation documents where the name starts with `ImageBuilder`\.
 
   Image Builder is also able to create or delete State Manager associations for any instance in your account, as long as the association document is `AWS-GatherSoftwareInventory`, and to create the Systems Manager service\-linked role in your account\. For more information about the Image Builder service\-linked role, see [Using service\-linked roles for EC2 Image Builder](image-builder-service-linked-role.md)\.
 + **AWS STS** – Access is granted for Image Builder to assume roles named **EC2ImageBuilderDistributionCrossAccountRole** from your account to any account where the Trust policy on the role permits it\. This is used for cross\-account image distribution\.

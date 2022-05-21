@@ -57,7 +57,7 @@ For more information, see [Share EC2 Image Builder resources](manage-shared-reso
 
 Image Builder supports the following operating systems:
 + Amazon Linux 2
-+ Windows Server 2019/2016/2012 R2
++ Windows Server 2022/2019/2016/2012 R2
 + Windows Server version 2004, and 20H2
 + Red Hat Enterprise Linux \(RHEL\) 8 and 7
 + CentOS 8 and 7

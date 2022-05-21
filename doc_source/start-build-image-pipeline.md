@@ -91,14 +91,21 @@ If you have chosen more than one component to include in your image, you can use
 
 Image Builder launches EC2 instances in your account to customize images and run validation tests\. The Infrastructure configuration settings specify infrastructure details for the instances that will run in your AWS account during the build process\.
 
-In the **Infrastructure configuration** section, the **Configuration options** default to `Create infrastructure configuration using service defaults`\. This creates an IAM role and associated instance profile that are used by build instances to configure your EC2 AMIs\. You can also create your own custom infrastructure configuration, or use settings that you have already created\. For this tutorial, we are using the default settings\.
+In the **Infrastructure configuration** section, the **Configuration options** default to `Create infrastructure configuration using service defaults`\. This creates an IAM role and associated instance profile for the EC2 build and test instances that are used to configure your image\. For more information about infrastructure configuration settings, see [CreateInfrastructureConfiguration](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_CreateInfrastructureConfiguration.html) in the *EC2 Image Builder API Reference*\.
+
+For this tutorial, we are using the default settings\.
+
+**Note**  
+To specify a subnet to use for a private VPC, you can create your own custom infrastructure configuration, or use settings that you have already created\.
 + Choose **Next** to proceed to the next step\.
 
 ## Step 4: Define distribution settings \- optional<a name="start-build-image-step4"></a>
 
 Distribution configurations include the output AMI name, specific Region settings for encryption, launch permissions, and AWS accounts, organizations, and organizational units \(OUs\) that can launch the output AMI, and license configurations\.
 
-In the **Distribution settings** section, the **Configuration options** default to `Create distribution settings using service defaults`\. This option will distribute the output AMI to the current Region\. For this tutorial, we are using the default settings\. For more information about configuring your distribution settings, see [Manage EC2 Image Builder distribution settings](manage-distribution-settings.md)\.
+In the **Distribution settings** section, the **Configuration options** default to `Create distribution settings using service defaults`\. This option will distribute the output AMI to the current Region\. For more information about configuring your distribution settings, see [Manage EC2 Image Builder distribution settings](manage-distribution-settings.md)\.
+
+For this tutorial, we are using the default settings\.
 + Choose **Next** to proceed to the next step\.
 
 ## Step 5: Review<a name="start-build-image-step5"></a>

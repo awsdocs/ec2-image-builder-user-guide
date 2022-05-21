@@ -66,7 +66,7 @@ The path for the JSON file should follow the appropriate convention for the base
 
 ## Update distribution settings for your container image \(AWS CLI\)<a name="cli-update-container-distribution-configuration"></a>
 
-The following example shows how to use the update\-distribution\-configuration command to update distribution settings for your container image, using the AWS CLI\. You can also update tags for the container images within each Region\.
+The following example shows how to use the [update\-distribution\-configuration](https://docs.aws.amazon.com/cli/latest/reference/imagebuilder/update-distribution-configuration.html) command to update distribution settings for your container image, using the AWS CLI\. You can also update tags for the container images within each Region\.
 
 1. 
 

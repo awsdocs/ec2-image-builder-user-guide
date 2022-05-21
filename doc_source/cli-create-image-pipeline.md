@@ -8,6 +8,10 @@ How often your pipeline builds a new image to incorporate any pending updates fr
   + `EXPRESSION_MATCH_ONLY` – your pipeline will build a new image every time the cron expression matches the current time\. 
   + `EXPRESSION_MATCH_AND_DEPENDENCY_UPDATES_AVAILABLE` – your pipeline will not start a new image build unless there are pending changes to your base image or components\.
 
+When you run the create\-image\-pipeline command in the AWS CLI, many of the configuration resources are optional\. However, some of the resources have conditional requirements, depending on what type of image the pipeline creates\. The following resources are required for AMI image pipelines:
++ Image recipe ARN
++ Infrastructure configuration ARN
+
 1. 
 
 **Create a CLI input JSON file**
