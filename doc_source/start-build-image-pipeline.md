@@ -77,7 +77,7 @@ If you have chosen more than one component to include in your image, you can use
 
    1. Scroll down to the **Selected components** list, to see that there are at least two results\.
 
-   1. Newly added components might not have their versioning or input parameter settings expanded\. To expand **Versioning options** or **Input parameters** settings, you can either choose the arrow next to the name of the setting, or you can toggle the **Expand all** switch off and on to expand all of the settings for all of the selected components\.
+   1. Newly added components might not have their versioning or input parameter settings expanded\. To expand settings for **Versioning options** or **Input parameters**, you can choose the arrow next to the name of the setting\. To expand all of the settings for all selected components, you can toggle the **Expand all** switch off and on\.
 
    1. Choose one of the components, and drag it up or down to change the order in which the components will run\.
 

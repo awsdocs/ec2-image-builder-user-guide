@@ -195,7 +195,7 @@ This policy is attached to the Image Builder service\-linked role when the role 
 + **AWS KMS** – Access is granted for Amazon EBS to encrypt, decrypt, or re\-encrypt Amazon EBS volumes\. This is crucial to ensure that encrypted volumes work when Image Builder builds an image\.
 + **License Manager** – Access is granted for Image Builder to update License Manager specifications via `license-manager:UpdateLicenseSpecificationsForResource`\.
 + **Amazon SNS** – Write permissions are granted for any Amazon SNS topic in the account\.
-+ **Systems Manager** – Access is granted for Image Builder to list Systems Manager commands and their invocations, instance information, inventory entries and automation execution statuses\. Image Builder can also send automation signals, and stop automation exeuctions for any resource in your account\.
++ **Systems Manager** – Access is granted for Image Builder to list Systems Manager commands and their invocations, instance information, inventory entries and automation execution statuses\. Image Builder can also send automation signals, and stop automation executions for any resource in your account\.
 
   Image Builder is able to issue run command invocations to any instance that is tagged `"CreatedBy": "EC2 Image Builder"` for the following script files: `AWS-RunPowerShellScript`, `AWS-RunShellScript`, or `AWSEC2-RunSysprep`\. Image Builder is able to start an Systems Manager automation execution in your account for automation documents where the name starts with `ImageBuilder`\.
 

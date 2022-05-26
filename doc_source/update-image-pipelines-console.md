@@ -33,7 +33,7 @@ The section at the top of the page summarizes key details for the pipeline that 
 ## Edit infrastructure configuration for your pipeline<a name="pipelines-edit-infra-config"></a>
 
 Infrastructure configuration includes the following details that you can edit after creating the pipeline:
-+ The **Description** for your infrastruction configuration\.
++ The **Description** for your infrastructure configuration\.
 + The **IAM role** to associate with the instance profile\.
 + **AWS infrastructure**, including the **Instance type** and an **SNS topic** for notifications\.
 + **VPC, subnet, and security groups**\.

@@ -14,9 +14,9 @@ Image Builder supports making calls to all of its API actions from your VPC\.
 
 ## Create an interface VPC endpoint for Image Builder<a name="vpc-endpoint-create"></a>
 
-You can create a VPC endpoint for the Image Builder service using either the Amazon VPC console or the AWS Command Line Interface \(AWS CLI\)\. For more information, see [Creating an interface endpoint](https://docs.aws.amazon.com/vpc/latest/userguide/vpce-interface.html#create-interface-endpoint) in the *Amazon VPC User Guide*\.
+To create a VPC endpoint for the Image Builder service, you can use either the Amazon VPC console or the AWS Command Line Interface \(AWS CLI\)\. For more information, see [Creating an interface endpoint](https://docs.aws.amazon.com/vpc/latest/userguide/vpce-interface.html#create-interface-endpoint) in the *Amazon VPC User Guide*\.
 
-Create a VPC endpoint for Image Builder using the following service name:
+Create a VPC endpoint for Image Builder using the following service name: 
 + com\.amazonaws\.*region*\.imagebuilder
 
 If you enable private DNS for the endpoint, you can make API requests to Image Builder using its default DNS name for the Region, for example: `imagebuilder.us-east-1.amazonaws.com`\. To look up the endpoint that applies to your target Region, see [EC2 Image Builder endpoints and quotas](https://docs.aws.amazon.com/general/latest/gr/imagebuilder.html#imagebuilder_region) in the *Amazon Web Services General Reference*\.
@@ -35,7 +35,7 @@ When a non\-default policy is applied to an interface VPC endpoint for EC2 Image
 
 For more information, see [Controlling access to services with VPC endpoints](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-endpoints-access.html) in the *Amazon VPC User Guide*\.
 
-### Custom policies for S3 bucket access<a name="w72aac23c15c13c11"></a>
+### Custom policies for S3 bucket access<a name="w62aac17c16c19c13c11"></a>
 
 Image Builder uses a publicly available S3 bucket to access managed resources, such as components\. It also accesses the S3 bucket for AWSTOE, where downloads are stored\. If you use a VPC endpoint for Image Builder, you'll need a custom policy that includes access to the following S3 buckets\. The bucket names are unique per AWS Region \(*region*\) and the pipeline environment it's running in \(*environment*\) variables\.
 + The AWSTOE component manager bucket:
@@ -53,7 +53,7 @@ Image Builder uses a publicly available S3 bucket to access managed resources, s
 
   **Example:** s3://ec2imagebuilder\-managed\-resources\-us\-west\-2\-prod/components/\*
 
-### VPC endpoint policy examples<a name="w72aac23c15c13c13"></a>
+### VPC endpoint policy examples<a name="w62aac17c16c19c13c13"></a>
 
 This section includes examples of custom VPC endpoint policies\.
 

@@ -46,7 +46,7 @@ For Linux images, ensure that clean\-up steps run by including a command to crea
 **Important**  
 Component parameters are plain text values, and are logged in AWS CloudTrail\. We recommend that you use AWS Secrets Manager or the AWS Systems Manager Parameter Store to store your secrets\. For more information about Secrets Manager, see [What is Secrets Manager?](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html) in the *AWS Secrets Manager User Guide*\. For more information about AWS Systems Manager Parameter Store, see [AWS Systems Manager Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html) in the *AWS Systems Manager User Guide*\.
 
-  To expand **Versioning options** or **Input parameters** settings, you can either choose the arrow next to the name of the setting, or you can toggle the **Expand all** switch off and on to expand all of the settings for all of the selected components\.
+  To expand settings for **Versioning options** or **Input parameters**, you can choose the arrow next to the name of the setting\. To expand all of the settings for all selected components, you can toggle the **Expand all** switch off and on\.
 + **Storage \(volumes\)** – are pre\-filled\. The root volume **Device name**, **Snapshot**, and **IOPS** selections are not editable\. However, you can change all of the remaining settings, such as the **Size**\. You can also add new volumes\.
 **Note**  
 If you specified a base AMI that was shared with you from another account, the snapshots for any secondary volumes that are specified must also be shared with your account\.

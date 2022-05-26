@@ -24,7 +24,7 @@ By default, Image Builder shuts down the Amazon EC2 build or test instance that 
 
 To change the instance settings in the console, you must clear the **Terminate instance on failure** check box located in the **Troubleshooting settings** section of your infrastructure configuration resource\.
 
-To change the instance settings using the imagebuilder update\-infrastructure\-configuration command in the AWS CLI, set the `terminateInstanceOnFailure` value to `false` in the JSON file that the command references with the `--cli-input-json` parameter\. For details, see [Update an infrastructure configuration \(AWS CLI\)](create-infra-config.md#cli-update-infrastructure-configuration)\.
+To change the instance settings using the imagebuilder update\-infrastructure\-configuration command in the AWS CLI, set the `terminateInstanceOnFailure` value to `false` in the JSON file that the command references with the `--cli-input-json` parameter\. For details, see [Update an infrastructure configuration](update-infra-config.md)\.
 
 The logs that you send to your S3 bucket show the steps and error messages for activity on the EC2 instance during the image build process\. The logs include log outputs from the component manager, the definitions of the components that were run, and the detailed output \(in JSON\) of all of the steps taken on the instance\. If you encounter an issue, you should review these files, starting with the `application.log`, to diagnose the cause of the problem on the instance\. 
 

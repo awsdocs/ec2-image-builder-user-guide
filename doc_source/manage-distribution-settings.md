@@ -8,8 +8,8 @@ After you create distribution settings with Image Builder, you can manage them u
 **Note**  
 To make an AMI public, set the launch permission authorized accounts to `all`\. See the examples for making an AMI public at EC2 [ModifyImageAttribute](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_ModifyImageAttribute.html)\.
 + Create a copy of the output AMI for each of the specified target accounts, organizations, and OUs in the destination Region\. The target accounts, organizations, and OUs own their AMI copies, and are billed for any associated charges\. For more information about distributing your AMI to AWS Organizations and OUs, see [Share an AMI with organizations or OUs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/share-amis-with-organizations-and-OUs.html)\.
-+ Replicate the AMI to the owner's account in other AWS Regions\.
-+ Export the AMI to Amazon Simple Storage Service \(Amazon S3\)\.
++ Copy the AMI to the owner's account in other AWS Regions\.
++ Export VM image disks to Amazon Simple Storage Service \(Amazon S3\)\. For more information, see [Create distribution settings for output VM disks \(AWS CLI\)](cr-upd-ami-distribution-settings.md#cli-create-vm-dist-config)\.
 
 **Container image distribution**
 + Specify the ECR repository where Image Builder stores the output image in the distribution Region\.

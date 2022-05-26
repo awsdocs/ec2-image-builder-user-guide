@@ -5,7 +5,7 @@ This section describes how you can configure distribution settings to deliver an
 The destination account can then launch or modify the AMI, as needed\.
 
 **Note**  
-AWS CLI command examples in this section assume that you have previously created image recipe and infrastructure configuration JSON files\. To create the JSON file for an image recipe, see [Create an image recipe \(AWS CLI\)](create-image-recipes.md#create-image-recipe-cli)\. To create the JSON file for an infrastructure configuration, see [Create an infrastructure configuration \(AWS CLI\)](create-infra-config.md#cli-create-infrastructure-configuration)\.
+AWS CLI command examples in this section assume that you have previously created image recipe and infrastructure configuration JSON files\. To create the JSON file for an image recipe, see [Create an image recipe \(AWS CLI\)](create-image-recipes.md#create-image-recipe-cli)\. To create the JSON file for an infrastructure configuration, see [Create an infrastructure configuration](create-infra-config.md)\.
 
 ## Prerequisites<a name="cross-account-dist-prereqs"></a>
 
