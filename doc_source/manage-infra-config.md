@@ -9,6 +9,7 @@ You can use infrastructure configurations to specify the Amazon EC2 infrastructu
 + An SNS topic to which Image Builder sends event notifications\.
 **Note**  
 If your SNS topic is encrypted, the key that is used to encrypt the SNS topic must reside in the account that the Image Builder service runs under\. Image Builder is unable to send notifications to SNS topics that are encrypted using keys from other accounts\.
+Image Builder requires the permissions `kms:Decrypt` and `kms:GenerateDataKey` to be granted for the service-linked role [AWSServiceRoleForImageBuilder](image-builder-service-linked-role.md) via the KMS key policy. For more information, see [Enable compatibility between event sources from AWS services and encrypted topics](https://docs.aws.amazon.com/sns/latest/dg/sns-key-management.html#compatibility-with-aws-services)
 
 You can create and manage infrastructure configurations using the Image Builder console, through the Image Builder API, or with imagebuilder commands in the AWS CLI\.
 
