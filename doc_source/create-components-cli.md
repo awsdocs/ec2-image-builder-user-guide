@@ -1,112 +1,22 @@
 # Create a component \(AWS CLI\)<a name="create-components-cli"></a>
 
-In this section, we'll cover creating AWSTOE components by using Image Builder commands in the AWS CLI\.
-
-## Create a YAML component document<a name="create-component-yaml"></a>
-
-To build a component, you must provide a YAML application component document, which represents the phases and steps to create the component\.
-
-The examples that we use in this section create a build component that calls the `UpdateOS` action module in the AWSTOE component management application to update the operating system\. For more information about the `UpdateOS` action module, see [UpdateOS](toe-action-modules.md#action-modules-updateos)\.
-
-**Note**  
-Component types in Image Builder are based on the pipeline workflow\. This workflow corresponds to the *Build stage* and the *Test stage* in the build process\. Image Builder determines the component type as follows:  
-**Build** – This is the default component type\. Anything that is not classified as a test component, is a build component\. This type of component runs during the *Build stage*, and if it has a `test` phase defined, that phase runs during the *Test stage*\.
-**Test** – To be classified as a test component, the component document must include only one phase, named `test`\. For tests that are related to build component configurations, we recommend that you use the `test` phase in the associated build component, rather than creating a standalone test component\.
-For more information about how Image Builder uses stages and phases to manage component workflow in its build process, see [Manage components with AWSTOE](manage-components.md)\.
-
-To create a YAML application component document for a sample application, follow the steps that are shown on the tab that matches your image operating system\. 
-
-------
-#### [ Linux ]
-
-**Create a YAML component file**  
-Use your favorite file editing tool to create a file named `update-linux-os.yaml`, that has the following content:
-
-```
-# Copyright 2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX-License-Identifier: MIT-0
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy of this
-# software and associated documentation files (the "Software"), to deal in the Software
-# without restriction, including without limitation the rights to use, copy, modify,
-# merge, publish, distribute, sublicense, and/or sell copies of the Software, and to
-# permit persons to whom the Software is furnished to do so.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
-# INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
-# PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
-# HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-# OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-# SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-name: update-linux-os
-description: Updates Linux with the latest security updates.
-schemaVersion: 1
-phases:
-  - name: build
-    steps:
-    - name: UpdateOS
-      action: UpdateOS
-# Document End
-```
-
-**Tip**  
-Use a tool like this online [YAML Validator](https://jsonformatter.org/yaml-validator), or a YAML lint extension in your code environment to verify that your YAML is well\-formed\.
-
-------
-#### [ Windows ]
-
-**Create a YAML component file**  
-Use your favorite file editing tool to create a file named `update-windows-os.yaml`, that has the following content:
-
-```
-# Copyright 2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX-License-Identifier: MIT-0
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy of this
-# software and associated documentation files (the "Software"), to deal in the Software
-# without restriction, including without limitation the rights to use, copy, modify,
-# merge, publish, distribute, sublicense, and/or sell copies of the Software, and to
-# permit persons to whom the Software is furnished to do so.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
-# INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
-# PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
-# HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-# OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-# SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-name: update-windows-os
-description: Updates Windows with the latest security updates.
-schemaVersion: 1.0
-phases:
-  - name: build
-    steps:
-      - name: UpdateOS
-        action: UpdateOS
-# Document End
-```
-
-**Tip**  
-Use a tool like this online [YAML Validator](https://jsonformatter.org/yaml-validator), or a YAML lint extension in your code environment to verify that your YAML is well\-formed\.
-
-------
-
-For more information about the phases, steps, and syntax for AWSTOE YAML application component documents, see [Use documents in AWSTOE](https://docs.aws.amazon.com/imagebuilder/latest/userguide/toe-use-documents.html)\.
+This section describes how to use Image Builder commands to create AWSTOE components from the AWS CLI\. To build a component, you must provide a YAML application component document, which represents the phases and steps to create the component\. To create a new YAML component document, see [Create a YAML component document](create-component-yaml.md)\.
 
 ## Create AWSTOE components using Image Builder \(AWS CLI\)<a name="create-component-cli"></a>
 
-This section walks you through the following steps to create an AWSTOE application component, using imagebuilder commands in the AWS CLI:
+In this section, you'll learn how to set up and use Image Builder commands in the AWS CLI to create an AWSTOE application component, as follows\.
 + Upload your YAML component document to an S3 bucket that you can reference from the command line\.
-+ Create the AWSTOE application component using the imagebuilder create\-component command\.
-+ List component versions using the imagebuilder list\-components command with a name filter to determine the next version for updates\.
++ Create the AWSTOE application component with the create\-component command\.
++ List component versions with the list\-components command and a name filter to determine the next version for updates\.
 
-To create an AWSTOE application component from the YAML document that you created in the prior section, follow the steps that match your image operating system\.
+To create an AWSTOE application component from an input YAML document, follow the steps that match your image operating system platform\.
 
 ------
 #### [ Linux ]
 
 **Store your application component document in Amazon S3**
 
-You can use an S3 bucket as a repository for the YAML application component document you created in a prior section\. Follow these steps to store your AWSTOE application component source document:
+You can use an S3 bucket as a repository for your AWSTOE application component source document\. To store your component document, follow these steps:
 + 
 
 **Upload the document to Amazon S3**
@@ -119,16 +29,16 @@ You can use an S3 bucket as a repository for the YAML application component docu
 
 **Create a component from the YAML document**
 
-To streamline the imagebuilder create\-component command that is used in the AWS CLI, we create a JSON file that contains all of the component parameters that we want to pass into the command, including the location of the `update-linux-os.yaml` document created in the prior steps\. The `uri` key\-value pair contains the file reference\.
+To streamline the create\-component command that you use in the AWS CLI, create a JSON file that contains all of the component parameters that you want to pass into the command\. Include the location of the `update-linux-os.yaml` document that you created in the prior steps\. The `uri` key\-value pair contains the file reference\.
 **Note**  
 The naming convention for the data points in the JSON file follows the pattern that is specified for the Image Builder API command request parameters\. To review the API command request parameters, see the [CreateComponent](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_CreateComponent.html) command in the *EC2 Image Builder API Reference*\.  
-Do not use this naming convention for providing these datapoints directly to the imagebuilder create\-component command as options\.
+Do not use this naming convention for providing these datapoints directly to the create\-component command as options\.
 
 1. 
 
 **Create a CLI input JSON file**
 
-   Use your favorite file editing tool to create a file named `create-update-linux-os-component.json`, that has the following content:
+   Use a file editing tool to create a file named `create-update-linux-os-component.json`\. Include the following content:
 
    ```
    {
@@ -166,7 +76,7 @@ The path for the JSON file should follow the appropriate convention for the base
 
 **Store your application component document in Amazon S3**
 
-You can use an S3 bucket as a repository for the YAML application component document you created in a prior section\. Follow these steps to store your AWSTOE application component source document:
+You can use an S3 bucket as a repository for your AWSTOE application component source document\. To store your component document, follow these steps:
 + 
 
 **Upload the document to Amazon S3**
@@ -179,16 +89,16 @@ You can use an S3 bucket as a repository for the YAML application component docu
 
 **Create a component from the YAML document**
 
-To streamline the imagebuilder create\-component command that is used in the AWS CLI, we create a JSON file that contains all of the component parameters that we want to pass into the command, including the location of the `update-windows-os.yaml` document created in the prior steps\. The `uri` key\-value pair contains the file reference\.
+To streamline the create\-component command that you use in the AWS CLI, create a JSON file that contains all of the component parameters that you want to pass into the command\. Include the location of the `update-windows-os.yaml` document that you created in the prior steps\. The `uri` key\-value pair contains the file reference\.
 **Note**  
 The naming convention for the data points in the JSON file follows the pattern that is specified for the Image Builder API command request parameters\. To review the API command request parameters, see the [CreateComponent](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_CreateComponent.html) command in the *EC2 Image Builder API Reference*\.  
-Do not use this naming convention for providing these datapoints directly to the imagebuilder create\-component command as options\.
+Do not use this naming convention for providing these datapoints directly to the create\-component command as options\.
 
 1. 
 
 **Create a CLI input JSON file**
 
-   Use your favorite file editing tool to create a file named `create-update-windows-os-component.json`, that has the following content:
+   Use a file editing tool to create a file named `create-update-windows-os-component.json`\. Include the following content:
 
    ```
    {
@@ -227,9 +137,9 @@ The path for the JSON file should follow the appropriate convention for the base
 
 AWSTOE component names and versions are embedded in the component's Amazon Resource Name \(ARN\), after the component prefix\. Each new version of a component has its own unique ARN\. The steps to create a new version are exactly the same as the steps to create a new component, as long as the semantic version is unique for that component name\. To learn more about semantic versioning for Image Builder resources, see [Semantic versioning](ibhow-semantic-versioning.md)\.
 
-To ensure that you assign the next logical version, first get a list of the existing versions for the component that you want to change, using the imagebuilder list\-components, command in the AWS CLI, and filtering on the name\.
+To ensure that you assign the next logical version, first get a list of the existing versions for the component that you want to change with the list\-components command in the AWS CLI\. Filter on the name\.
 
-For this example, we are filtering on the name of the component that was created in the prior Linux examples\. To list the component that you created, use the value of the `name` parameter from the JSON file you used in the imagebuilder create\-component command\.
+In this example, you filter on the name of the component that you created in the prior Linux examples\. To list the component that you created, use the value of the `name` parameter from the JSON file that you used in the create\-component command\.
 
 ```
 aws imagebuilder list-components --filters name="name",values="update-linux-os"	

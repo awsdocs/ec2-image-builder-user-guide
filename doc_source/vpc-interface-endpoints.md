@@ -35,7 +35,7 @@ When a non\-default policy is applied to an interface VPC endpoint for EC2 Image
 
 For more information, see [Controlling access to services with VPC endpoints](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-endpoints-access.html) in the *Amazon VPC User Guide*\.
 
-### Custom policies for S3 bucket access<a name="w62aac17c16c19c13c11"></a>
+### Custom policies for S3 bucket access<a name="w62aac17c18c19c13c11"></a>
 
 Image Builder uses a publicly available S3 bucket to access managed resources, such as components\. It also accesses the S3 bucket for AWSTOE, where downloads are stored\. If you use a VPC endpoint for Image Builder, you'll need a custom policy that includes access to the following S3 buckets\. The bucket names are unique per AWS Region \(*region*\) and the pipeline environment it's running in \(*environment*\) variables\.
 + The AWSTOE component manager bucket:
@@ -53,7 +53,7 @@ Image Builder uses a publicly available S3 bucket to access managed resources, s
 
   **Example:** s3://ec2imagebuilder\-managed\-resources\-us\-west\-2\-prod/components/\*
 
-### VPC endpoint policy examples<a name="w62aac17c16c19c13c13"></a>
+### VPC endpoint policy examples<a name="w62aac17c18c19c13c13"></a>
 
 This section includes examples of custom VPC endpoint policies\.
 

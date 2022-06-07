@@ -1,6 +1,6 @@
 # Create an AMI image pipeline \(AWS CLI\)<a name="cli-create-image-pipeline"></a>
 
-You can create an AMI image pipeline using a JSON file as input to the imagebuilder create\-image\-pipeline command in the AWS CLI\.
+You can create an AMI image pipeline and usea JSON file as input to the create\-image\-pipeline command in the AWS CLI\.
 
 How often your pipeline builds a new image to incorporate any pending updates from your base image and components depends on the `schedule` that you have configured\. A `schedule` has the following attributes:
 + `scheduleExpression` – Sets the schedule for when your pipeline runs to evaluate the `pipelineExecutionStartCondition` and determine if it should start a build\. The schedule is configured with cron expressions\. For more information on how to format a cron expression in Image Builder, see [Use cron expressions in EC2 Image Builder](cron-expressions.md)\.

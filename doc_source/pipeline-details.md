@@ -8,7 +8,7 @@ This section describes the various ways that you can find information and view d
 
 ## List image pipelines \(AWS CLI\)<a name="cli-list-image-pipelines"></a>
 
-The following example shows how to use the imagebuilder list\-image\-pipelines command in the AWS CLI to list all of your image pipelines\.
+The following example shows how to use the list\-image\-pipelines command in the AWS CLI to list all of your image pipelines\.
 
 ```
 aws imagebuilder list-image-pipelines
@@ -16,7 +16,7 @@ aws imagebuilder list-image-pipelines
 
 ## Get image pipeline details \(AWS CLI\)<a name="cli-get-image-pipeline-details"></a>
 
-The following example shows how to use the imagebuilder get\-image\-pipeline command in the AWS CLI to get the details of an image pipeline by specifying its ARN\.
+The following example shows how to use the get\-image\-pipeline command in the AWS CLI to get the details about an image pipeline through its ARN\.
 
 ```
 aws imagebuilder get-image-pipeline --image-pipeline-arn arn:aws:imagebuilder:us-west-2:123456789012:image-pipeline/my-example-pipeline

@@ -1,6 +1,6 @@
 # Create a component using the Image Builder console<a name="create-component-console"></a>
 
-To create an AWSTOE application component using the Image Builder console, follow these steps:
+To create an AWSTOE application component from the Image Builder console, follow these steps:
 
 1. Open the EC2 Image Builder console at [https://console\.aws\.amazon\.com/imagebuilder/](https://console.aws.amazon.com/imagebuilder/)\.
 
@@ -20,9 +20,11 @@ To create an AWSTOE application component using the Image Builder console, follo
 
    1. **Change description**\. Provide an optional description to help you understand the changes made to this version of the component\.
 
-1. Under **Definition document**, which is the document that defines the actions that Image Builder performs on the build and test instances to create your image, enter the document content in YAML format in the provided box\. You can optionally use the example provided by AWS \(auto\-filled when you select **Use example**\) and edit the content inline\. For more information about the phases, steps, and syntax for AWSTOE YAML application component documents, see [Use documents in AWSTOE](https://docs.aws.amazon.com/imagebuilder/latest/userguide/toe-use-documents.html)\.
+1. In the **Definition document** section, the default option is **Define document content**\. The component document defines the actions that Image Builder performs on the build and test instances to create your image\.
 
-1. After you have entered the component details, select **Create component**\.
+   In the **Content** box, enter your YAML component document content\. To start with a *Hello World* example for Linux, choose the **Use example** option\. To learn more about how to create a YAML component document, or to copy and paste the *UpdateOS* example from that page, see [Create a YAML component document](create-component-yaml.md)\.
+
+1. After you enter the component details, select **Create component**\.
 **Note**  
 To see your new component when you create or update a recipe, apply the **Owned by me** filter to the build or test component list\. The filter is located at the top of the component list, next to the search box\.
 

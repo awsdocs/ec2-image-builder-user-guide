@@ -14,7 +14,7 @@ To run your pipeline from the pipeline details page in the Image Builder console
 ------
 #### [ AWS CLI ]
 
-The following example shows how to use the imagebuilder start\-image\-pipeline\-execution command in the AWS CLI to manually start an image pipeline\. Running this command results in the pipeline creating a new image on demand\.
+The following example shows how to use the start\-image\-pipeline\-execution command in the AWS CLI to start an image pipeline manually\. When you run this command in the pipeline, you create a new image on demand\.
 
 ```
 aws imagebuilder start-image-pipeline-execution --image-pipeline-arn arn:aws:imagebuilder:us-west-2:123456789012:image-pipeline/my-example-pipeline

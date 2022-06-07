@@ -9,7 +9,7 @@ This section covers creating AMI and container images\.
 
 ## Create an image \(AWS CLI\)<a name="cli-create-image"></a>
 
-When you have a basic recipe and an infrastructure configuration, you can create an image using the imagebuilder create\-image command\.
+When you have a basic recipe and an infrastructure configuration, you can use the create\-image command to create an image\.
 
 ```
 aws imagebuilder create-image --image-recipe-arn arn:aws:imagebuilder:us-west-2:123456789012:image-recipe/my-example-recipe/2019.12.03 --infrastructure-configuration-arn arn:aws:imagebuilder:us-west-2123456789012:infrastructure-configuration/myexampleinfrastructure

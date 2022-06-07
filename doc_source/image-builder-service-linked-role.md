@@ -4,7 +4,7 @@ EC2 Image Builder uses AWS Identity and Access Management \(IAM\) [service\-link
 
 A service\-linked role makes setting up Image Builder more efficient, because you don’t have to add the necessary permissions manually\. Image Builder defines the permissions of its service\-linked roles, and unless defined otherwise, only Image Builder can assume its roles\. The defined permissions include the trust policy and the permissions policy\. The permissions policy cannot be attached to any other IAM entity\. 
 
-For information about other services that support service\-linked roles, see [AWS Services That Work with IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html) and look for the services that have **Yes** in the **Service\-Linked Role** column\. Choose a **Yes** with a link to view the service\-linked role documentation for that service\.
+For information about other services that support service\-linked roles, see [AWS services That Work with IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html) and look for the services that have **Yes** in the **Service\-Linked Role** column\. Choose a **Yes** with a link to view the service\-linked role documentation for that service\.
 
 ## Service\-linked role permissions for Image Builder<a name="image-builder-slr-permissions"></a>
 

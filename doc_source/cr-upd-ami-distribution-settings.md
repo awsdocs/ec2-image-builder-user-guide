@@ -240,10 +240,10 @@ The following example shows how to use the create\-distribution\-configuration c
 
 **Create a CLI input JSON file**
 
-   To streamline the imagebuilder create\-distribution\-configuration command that is used in the AWS CLI, we create a JSON file that contains all of the export configuration that we want to pass into the command\.
+   You can streamline the create\-distribution\-configuration command that you use in the AWS CLI\. To do this, create a JSON file that contains all of the export configuration that you want to pass into the command\.
 **Note**  
 The naming convention for the data points in the JSON file follows the pattern that is specified for the Image Builder API command request parameters\. To review the API command request parameters, see the [CreateDistributionConfiguration](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_CreateDistributionConfiguration.html) command in the *EC2 Image Builder API Reference*\.  
-Do not use this naming convention for providing these datapoints directly to the imagebuilder create\-distribution\-configuration command as options\.
+Do not use this naming convention for providing these datapoints directly to the create\-distribution\-configuration command as options\.
 
    Here is a summary of the parameters that we specify in the `s3ExportConfiguration` JSON object for this example:
    + **roleName** \(string, required\) – The name of the role that grants VM Import/Export permission to export images to your S3 bucket\.
@@ -253,7 +253,7 @@ Do not use this naming convention for providing these datapoints directly to the
      + **Raw** – Raw format\.
    + **s3Bucket** \(string, required\) – The S3 bucket in which to store the output disk images for your VM\.
 
-   Save the file as `export-vm-disks.json`, to use in the imagebuilder create\-distribution\-configuration command\.
+   Save the file as `export-vm-disks.json`\. Use the file name in the create\-distribution\-configuration command\.
 
    ```
    {

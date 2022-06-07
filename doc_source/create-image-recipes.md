@@ -72,10 +72,10 @@ After you create your components, or if you are using existing components, take 
 
 **Create a CLI input JSON file**
 
-   To streamline the imagebuilder create\-image\-recipe command that is used in the AWS CLI, we create a JSON file that contains all of the recipe attributes that we want to pass into the command\.
+   Streamline the create\-image\-recipe command that you use in the AWS CLI\. To do this, create a JSON file that contains all of the recipe attributes that we want to pass into the command\.
 **Note**  
 The naming convention for the data points in the JSON file follows the pattern that is specified for the Image Builder API command request parameters\. To review the API command request parameters, see the [CreateImageRecipe](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_CreateImageRecipe.html) command in the *EC2 Image Builder API Reference*\.  
-Do not use this naming convention for providing these datapoints directly to the imagebuilder create\-image\-recipe command as options\.
+Do not use this naming convention for providing these datapoints directly to the create\-image\-recipe command as options\.
 
    Here is a summary of the parameters that we specify in these examples:
    + **name** \(string, required\) – The name of the image recipe\.
@@ -116,7 +116,7 @@ The Linux example uses this encoded value\.
 ------
 #### [ Linux ]
 
-   The source \(parent\) image in this example is an Image Builder AMI\. When you use an Image Builder AMI, you must have access to the AMI, and the AMI must be in the same Region in which you are using Image Builder\. Save the file as `create-image-recipe.json`, to use in the imagebuilder create\-image\-recipe command\.
+   The source \(parent\) image in this example is an Image Builder AMI\. When you use an Image Builder AMI, you must have access to the AMI, and the AMI must be in the same Region where you are using Image Builder\. Save the file as `create-image-recipe.json`and use it in the create\-image\-recipe command\.
 
    ```
    {

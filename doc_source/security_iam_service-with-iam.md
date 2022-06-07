@@ -1,6 +1,6 @@
 # How EC2 Image Builder works with IAM<a name="security_iam_service-with-iam"></a>
 
-Before you use IAM to manage access to Image Builder, you should understand what IAM features are available to use with Image Builder\. To get a high\-level view of how Image Builder and other AWS services work with IAM, see [AWS Services That Work with IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html) in the *IAM User Guide*\.
+Before you use IAM to manage access to Image Builder, you should understand what IAM features are available to use with Image Builder\. To get a high\-level view of how Image Builder and other AWS services work with IAM, see [AWS services That Work with IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html) in the *IAM User Guide*\.
 
 **Topics**
 + [Image Builder identity\-based policies](#security_iam_id-based-policy-examples)
@@ -30,7 +30,7 @@ You can specify multiple actions using wildcards \(\*\)\. For example, to specif
 "Action": "imagebuilder:List*"
 ```
 
-To see a list of Image Builder actions, see [Actions, Resources, and Condition Keys for AWS Services](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_actions-resources-contextkeys.html) in the *IAM User Guide*\.
+To see a list of Image Builder actions, see [Actions, Resources, and Condition Keys for AWS services](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_actions-resources-contextkeys.html) in the *IAM User Guide*\.
 
 ### Managing access using policies<a name="security-iam-manage-access"></a>
 

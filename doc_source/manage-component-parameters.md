@@ -15,7 +15,7 @@ To create a YAML application component document that uses parameters and runs co
 #### [ Linux ]
 
 **Create a YAML component document**  
-Use your favorite file editing tool to create a file named `hello-world-test.yaml`, that has the following content:
+Use a file editing tool to create a file named `hello-world-test.yaml`\. Include the following content:
 
 ```
 # Document Start
@@ -62,7 +62,7 @@ Use a tool like this online [YAML Validator](https://jsonformatter.org/yaml-vali
 #### [ Windows ]
 
 **Create a YAML component document**  
-Use your favorite file editing tool to create a file named `hello-world-test.yaml`, that has the following content:
+Use a file editing tool to create a file named `hello-world-test.yaml`\. Include the following content:
 
 ```
 # Document Start

@@ -24,7 +24,7 @@ By default, Image Builder shuts down the Amazon EC2 build or test instance that 
 
 To change the instance settings in the console, you must clear the **Terminate instance on failure** check box located in the **Troubleshooting settings** section of your infrastructure configuration resource\.
 
-To change the instance settings using the imagebuilder update\-infrastructure\-configuration command in the AWS CLI, set the `terminateInstanceOnFailure` value to `false` in the JSON file that the command references with the `--cli-input-json` parameter\. For details, see [Update an infrastructure configuration](update-infra-config.md)\.
+You can also change the instance settings with the update\-infrastructure\-configuration command in the AWS CLI\. Set the `terminateInstanceOnFailure` value to `false` in the JSON file that the command references with the `--cli-input-json` parameter\. For details, see [Update an infrastructure configuration](update-infra-config.md)\.
 
 The logs that you send to your S3 bucket show the steps and error messages for activity on the EC2 instance during the image build process\. The logs include log outputs from the component manager, the definitions of the components that were run, and the detailed output \(in JSON\) of all of the steps taken on the instance\. If you encounter an issue, you should review these files, starting with the `application.log`, to diagnose the cause of the problem on the instance\. 
 
@@ -140,7 +140,7 @@ To resolve this issue, turn off enhanced image metadata collection, using one of
 + Update your image pipeline in the console, to clear the **Enable enhanced metadata collection** check box\. Save your changes and run a pipeline build\.
 
   For more information about updating your AMI image pipeline using the EC2 Image Builder console, see [](update-image-pipelines-console.md)\. For more information about updating your container image pipeline using the EC2 Image Builder console, see [](update-container-pipelines-console.md)\.
-+ To update your image pipeline using the imagebuilder update\-image\-pipeline command in the AWS CLI, include the `EnhancedImageMetadataEnabled` property in your JSON file, set to `false`\. The following example shows the property set to `false`\.
++ You can also update your image pipeline with the update\-image\-pipeline command in the AWS CLI\. To do this, include the `EnhancedImageMetadataEnabled` property in your JSON file, set to `false`\. The following example shows the property set to `false`\.
 
   ```
   {

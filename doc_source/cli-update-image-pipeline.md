@@ -1,12 +1,12 @@
 # Update AMI image pipelines \(AWS CLI\)<a name="cli-update-image-pipeline"></a>
 
-You can update an AMI image pipeline using a JSON file as input to the imagebuilder update\-image\-pipeline command in the AWS CLI\. To configure the JSON file, you must have Amazon Resource Names \(ARNs\) to reference the following existing resources:
+You can update an AMI image pipeline using a JSON file as input to the update\-image\-pipeline command in the AWS CLI\. To configure the JSON file, you must have Amazon Resource Names \(ARNs\) to reference the following existing resources:
 + Image pipeline to update
 + Image recipe
 + Infrastructure configuration
 + Distribution settings
 
-Follow these steps to update an AMI image pipeline using the imagebuilder update\-image\-pipeline command in the AWS CLI:
+You can update an AMI image pipeline with the update\-image\-pipeline command in the AWS CLI as follows:
 
 **Note**  
 UpdateImagePipeline does not support selective updates for the pipeline\. You must specify all of the required properties in the update request, not just the properties that have changed\.

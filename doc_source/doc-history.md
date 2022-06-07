@@ -1,10 +1,11 @@
-# Document History for EC2 Image Builder User Guide<a name="doc-history"></a>
+# Document history for EC2 Image Builder user guide<a name="doc-history"></a>
 
 The following table describes important changes to the documentation by date\. For notification about updates to this documentation, you can subscribe to an RSS feed\.
 + **API version: 2022\-02\-21**
 
 | Change | Description | Date | 
 | --- |--- |--- |
+| [Document update: Navigation for Create YAML component document page](#doc-history) | Moved the Create YAML component document content to its own page, and updated other pages to reference it\. | June 7, 2022 | 
 | [New STIG Versions](https://docs.aws.amazon.com/imagebuilder/latest/userguide/toe-stig.html) | Updated STIG versions and applied STIGS for 2022 first quarter release\. | April 25, 2022 | 
 | [Added ExecuteDocument action module](https://docs.aws.amazon.com/imagebuilder/latest/userguide/toe-action-modules.html) | Added documentation for the `ExecuteDocument` action module under `General execution`\. | March 28, 2022 | 
 | [Feature release: Support for faster launching Windows AMI](#doc-history) | Added distribution configuration settings to support faster launching for Windows AMIs\. | February 21, 2022 | 
