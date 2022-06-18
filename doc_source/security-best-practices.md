@@ -18,7 +18,7 @@ For more information about Image Builder infrastructure configuration, see [Mana
 
 ## Required post\-build clean up<a name="post-build-cleanup"></a>
 
-After Image Buildercompletes all of the build steps for your custom image, Image Builder prepares the build instance for testing and image creation\. Before shutting down the build instance to create the snapshot, Image Builder performs the following clean up to ensure the security of your image:
+After Image Builder completes all of the build steps for your custom image, Image Builder prepares the build instance for testing and image creation\. Before shutting down the build instance to create the snapshot, Image Builder performs the following clean up to ensure the security of your image:
 
 ------
 #### [ Linux ]
