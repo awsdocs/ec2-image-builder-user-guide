@@ -11,6 +11,6 @@ For more information and a step\-by\-step tutorial about using the **Create imag
 
 **Topics**
 + [Create an AMI image pipeline \(AWS CLI\)](cli-create-image-pipeline.md)
-+ [Update AMI image pipelines \(console\)](update-image-pipelines-console.md)
++ [Update AMI image pipelines \(console\)](update-image-pipeline-console.md)
 + [Update AMI image pipelines \(AWS CLI\)](cli-update-image-pipeline.md)
 + [Run your AMI image pipeline](pipelines-run.md)

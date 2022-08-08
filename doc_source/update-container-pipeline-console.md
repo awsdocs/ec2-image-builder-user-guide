@@ -1,4 +1,4 @@
-# Update a container image pipeline \(console\)<a name="update-container-pipelines-console"></a>
+# Update a container image pipeline \(console\)<a name="update-container-pipeline-console"></a>
 
 After you have created an Image Builder container image pipeline for your Docker image, you can make changes to the infrastructure configuration and distribution settings from the Image Builder console\.
 

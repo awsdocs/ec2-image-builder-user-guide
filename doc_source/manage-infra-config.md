@@ -6,10 +6,9 @@ You can use infrastructure configurations to specify the Amazon EC2 infrastructu
 + The VPC, subnet, and security groups for your pipeline's build and test instances\.
 + The Amazon S3 location where Image Builder stores application logs from your build and testing\. If you configure logging, the instance profile specified in your infrastructure configuration must have `s3:PutObject` permissions for the target bucket \(`arn:aws:s3:::BucketName/*`\)\.
 + An Amazon EC2 key pair that allows you to log on to your instance to troubleshoot if your build fails and you set `terminateInstanceOnFailure` to `false`\.
-+ An SNS topic to which Image Builder sends event notifications\.
++ An SNS topic where Image Builder sends event notifications\. For more information about how Image Builder integrates with Amazon SNS, see [Amazon Simple Notification Service](ibhow-integrations.md#integ-sns)\.
 **Note**  
-If your SNS topic is encrypted, the key that is used to encrypt the SNS topic must reside in the account that the Image Builder service runs under\. Image Builder is unable to send notifications to SNS topics that are encrypted using keys from other accounts\.
-Image Builder requires the permissions `kms:Decrypt` and `kms:GenerateDataKey` to be granted for the service-linked role [AWSServiceRoleForImageBuilder](image-builder-service-linked-role.md) via the KMS key policy. For more information, see [Enable compatibility between event sources from AWS services and encrypted topics](https://docs.aws.amazon.com/sns/latest/dg/sns-key-management.html#compatibility-with-aws-services)
+If your SNS topic is encrypted, the key that encrypts this topic must reside in the account where the Image Builder service runs\. Image Builder can't send notifications to SNS topics that are encrypted with keys from other accounts\.
 
 You can create and manage infrastructure configurations using the Image Builder console, through the Image Builder API, or with imagebuilder commands in the AWS CLI\.
 

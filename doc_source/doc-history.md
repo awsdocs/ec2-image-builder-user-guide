@@ -5,22 +5,23 @@ The following table describes important changes to the documentation by date\. F
 
 | Change | Description | Date | 
 | --- |--- |--- |
+| [New STIG Versions](https://docs.aws.amazon.com/imagebuilder/latest/userguide/toe-stig.html) | Introduced Ubuntu support, updated STIG versions, and applied STIGS for 2022 second quarter release\. | July 20, 2022 | 
 | [Document update: Navigation for Create YAML component document page](#doc-history) | Moved the Create YAML component document content to its own page, and updated other pages to reference it\. | June 7, 2022 | 
-| [New STIG Versions](https://docs.aws.amazon.com/imagebuilder/latest/userguide/toe-stig.html) | Updated STIG versions and applied STIGS for 2022 first quarter release\. | April 25, 2022 | 
+| [New STIG Versions](toe-stig.md) | Updated STIG versions and applied STIGS for 2022 first quarter release\. | April 25, 2022 | 
 | [Added ExecuteDocument action module](https://docs.aws.amazon.com/imagebuilder/latest/userguide/toe-action-modules.html) | Added documentation for the `ExecuteDocument` action module under `General execution`\. | March 28, 2022 | 
 | [Feature release: Support for faster launching Windows AMI](#doc-history) | Added distribution configuration settings to support faster launching for Windows AMIs\. | February 21, 2022 | 
 | [Maintenance release: Update AWSTOE binary thumbprint](#doc-history) | Updated binary thumbprint for AWSTOE signer certificate\. | February 18, 2022 | 
 | [Feature release: Configure input for AWSTOE](#doc-history) | Added support for using a JSON configuration file as input for the AWSTOE run command\. | February 3, 2022 | 
-| [New STIG Versions](https://docs.aws.amazon.com/imagebuilder/latest/userguide/toe-stig.html) | Updated STIG versions and applied STIGS for 2021 fourth quarter release\. Also added a section for new SCAP Compliance Checker \(SCC\) components\. | December 22, 2021 | 
+| [New STIG Versions](toe-stig.md) | Updated STIG versions and applied STIGS for 2021 fourth quarter release\. Also added a section for new SCAP Compliance Checker \(SCC\) components\. | December 22, 2021 | 
 | [Feature release: VM Import/Export \(VMIE\) integration](#doc-history) | Added support for VM import via all channels \(console, API/CLI, etc\.\), and for VM export via API/CLI\. VM export is not currently available from the Image Builder console\. | December 20, 2021 | 
 | [Feature release: AMI sharing for AWS Organizations and OUs](#doc-history) | Updated distribution configuration to add support for sharing output AMIs with AWS Organizations and OUs\. | November 24, 2021 | 
 | [Document update: Update component stages and phases](#doc-history) | Expanded content for component stages in Image Builder, and how those interact with AWSTOE component phases\. | September 22, 2021 | 
 | [Document update: Add CloudTrail integration content](#doc-history) | Added monitoring summary and CloudTrail integration content\. | September 17, 2021 | 
-| [New STIG Versions](https://docs.aws.amazon.com/imagebuilder/latest/userguide/toe-stig.html) | Updated STIG versions and applied STIGS for 2021 third quarter release\. | September 10, 2021 | 
+| [New STIG Versions](toe-stig.md) | Updated STIG versions and applied STIGS for 2021 third quarter release\. | September 10, 2021 | 
 | [Feature release: Amazon EventBridge integration](#doc-history) | Added EventBridge support that enables you to connect Image Builder with events from related AWS services, and initiate events based on rules defined in EventBridge\. | August 18, 2021 | 
 | [Document update: Reorder AWSTOE pages](#doc-history) | Rearranged AWSTOE pages for clarity\. | August 11, 2021 | 
 | [Feature release: Parameterized components and additional instance configuration](#doc-history) | Added support for specifying parameters to customize components for recipes\. Expanded configuration of the EC2 instances that are used for building and testing images, including the ability to specify commands to run on launch, and more control over installation and removal of the Systems Manager agent\. | July 7, 2021 | 
-| [New STIG versions](https://docs.aws.amazon.com/imagebuilder/latest/userguide/toe-stig.html) | Updated STIG versions and applied STIGS for 2021 second quarter release\. | June 30, 2021 | 
+| [New STIG versions](toe-stig.md) | Updated STIG versions and applied STIGS for 2021 second quarter release\. | June 30, 2021 | 
 | [Enhancement: Tagging enhancements](#doc-history) | Improved messaging around resource tagging\. | June 25, 2021 | 
 | [Feature release: Launch template integration](#doc-history) | Added support for using Amazon EC2 launch templates for AMI distribution in the Distribution settings\. | April 7, 2021 | 
 | [Feature release: Container build enhancements](#doc-history) | Added support for configuring block device mappings and specifying AMIs to use as the base image for container builds\. | April 7, 2021 | 

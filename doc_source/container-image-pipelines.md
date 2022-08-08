@@ -12,6 +12,6 @@ For more information and a step\-by\-step tutorial about using the **Create imag
 
 **Topics**
 + [Create a container image pipeline \(AWS CLI\)](cli-create-container-pipeline.md)
-+ [Update a container image pipeline \(console\)](update-container-pipelines-console.md)
++ [Update a container image pipeline \(console\)](update-container-pipeline-console.md)
 + [Update container image pipelines \(AWS CLI\)](cli-update-container-pipeline.md)
 + [Run your container image pipeline](container-pipelines-run.md)

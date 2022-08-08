@@ -1,4 +1,4 @@
-# Update AMI image pipelines \(console\)<a name="update-image-pipelines-console"></a>
+# Update AMI image pipelines \(console\)<a name="update-image-pipeline-console"></a>
 
 After you have created an Image Builder image pipeline for your AMI image, you can make changes to the infrastructure configuration and distribution settings from the Image Builder console\.
 

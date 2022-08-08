@@ -139,7 +139,7 @@ You or your organization might have created a Systems Manager State Manager asso
 To resolve this issue, turn off enhanced image metadata collection, using one of the following methods:
 + Update your image pipeline in the console, to clear the **Enable enhanced metadata collection** check box\. Save your changes and run a pipeline build\.
 
-  For more information about updating your AMI image pipeline using the EC2 Image Builder console, see [](update-image-pipelines-console.md)\. For more information about updating your container image pipeline using the EC2 Image Builder console, see [](update-container-pipelines-console.md)\.
+  For more information about updating your AMI image pipeline using the EC2 Image Builder console, see [Update AMI image pipelines \(console\)](update-image-pipeline-console.md)\. For more information about updating your container image pipeline using the EC2 Image Builder console, see [Update a container image pipeline \(console\)](update-container-pipeline-console.md)\.
 + You can also update your image pipeline with the update\-image\-pipeline command in the AWS CLI\. To do this, include the `EnhancedImageMetadataEnabled` property in your JSON file, set to `false`\. The following example shows the property set to `false`\.
 
   ```

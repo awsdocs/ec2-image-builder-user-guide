@@ -197,85 +197,78 @@ name: RunConfig_UpdateWindows
 description: 'This document will install all available Windows updates and run a config script. It will then validate the changes before an AMI is created. Then after AMI creation, it will test all the changes.'
 schemaVersion: 1.0
 phases:
-  -
-    name: build
+  - name: build
     steps:
-      -
-        name: DownloadConfigScript
+      - name: DownloadConfigScript
         action: S3Download
         timeoutSeconds: 60
         onFailure: Abort
         maxAttempts: 3
         inputs:
-          -
-            source: 's3://customer-bucket/config.ps1'
+          - source: 's3://customer-bucket/config.ps1'
             destination: 'C:\config.ps1'
-      -
-        name: RunConfigScript
+
+      - name: RunConfigScript
         action: ExecutePowerShell
         timeoutSeconds: 120
         onFailure: Abort
         maxAttempts: 3
         inputs:
           file: '{{build.DownloadConfigScript.inputs[0].destination}}'
-      -
-        name: Cleanup
+
+      - name: Cleanup
         action: DeleteFile
         onFailure: Abort
         maxAttempts: 3
         inputs:
           - path: '{{build.DownloadConfigScript.inputs[0].destination}}'
-      -
-        name: RebootAfterConfigApplied
+
+      - name: RebootAfterConfigApplied
         action: Reboot
         inputs:
           delaySeconds: 60
-      -
-        name: InstallWindowsUpdates
+
+      - name: InstallWindowsUpdates
         action: UpdateOS
-  -
-    name: validate
+
+  - name: validate
     steps:
-      -
-        name: DownloadTestConfigScript
+      - name: DownloadTestConfigScript
         action: S3Download
         timeoutSeconds: 60
         onFailure: Abort
         maxAttempts: 3
         inputs:
-          -
-            source: 's3://customer-bucket/testConfig.ps1'
+          - source: 's3://customer-bucket/testConfig.ps1'
             destination: 'C:\testConfig.ps1'
-      -
-        name: ValidateConfigScript
+
+      - name: ValidateConfigScript
         action: ExecutePowerShell
         timeoutSeconds: 120
         onFailure: Abort
         maxAttempts: 3
         inputs:
           file: '{{validate.DownloadTestConfigScript.inputs[0].destination}}'
-      -
-        name: Cleanup
+
+      - name: Cleanup
         action: DeleteFile
         onFailure: Abort
         maxAttempts: 3
         inputs:
           - path: '{{validate.DownloadTestConfigScript.inputs[0].destination}}'
-  -
-    name: test
+
+  - name: test
     steps:
-      -
-        name: DownloadTestConfigScript
+      - name: DownloadTestConfigScript
         action: S3Download
         timeoutSeconds: 60
         onFailure: Abort
         maxAttempts: 3
         inputs:
-          -
-            source: 's3://customer-bucket/testConfig.ps1'
+          - source: 's3://customer-bucket/testConfig.ps1'
             destination: 'C:\testConfig.ps1'
-      -
-        name: ValidateConfigScript
+
+      - name: ValidateConfigScript
         action: ExecutePowerShell
         timeoutSeconds: 120
         onFailure: Abort
@@ -296,8 +289,8 @@ phases:
       - name: Download
         action: S3Download
         inputs:
-          - source: s3://mybucket/myapplication
-            destination: /tmp/myapplication
+          - source: s3://<replaceable>mybucket</replaceable>/<replaceable>myapplication</replaceable>
+            destination: /tmp/<replaceable>myapplication</replaceable>
       - name: Enable
         action: ExecuteBash
         onFailure: Continue
@@ -317,11 +310,11 @@ phases:
           - path: '{{ build.Download.inputs[0].destination }}'
 ```
 
-The following is an example document schema to install the AWS CLI using the setup file\.
+The following is an example document schema to install the AWS CLI on a Windows instance, using the setup file\.
 
 ```
 name: InstallCLISetUp
-description: Install AWS CLI using the setup file
+description: Install &CLI; using the setup file
 schemaVersion: 1.0
 phases:
   - name: build
@@ -350,7 +343,7 @@ The following is an example document schema to install the AWS CLI using the MSI
 
 ```
 name: InstallCLIMSI
-description: Install AWS CLI using the MSI installer
+description: Install &CLI; using the MSI installer
 schemaVersion: 1.0
 phases:
   - name: build
