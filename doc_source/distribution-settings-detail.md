@@ -30,7 +30,7 @@ On the distribution detail page, you can:
 
 ## List distributions \(AWS CLI\)<a name="cli-list-distributions"></a>
 
-The following example shows how to use the [list\-distribution\-configurations](https://docs.aws.amazon.com/cli/latest/reference/imagebuilder/list-distribution-configurations.html) command in the AWS CLI to list all of your distributions\.
+The following example shows how to use the [list\-distribution\-configurations](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/imagebuilder/list-distribution-configurations.html) command in the AWS CLI to list all of your distributions\.
 
 ```
 aws imagebuilder list-distribution-configurations
@@ -38,7 +38,7 @@ aws imagebuilder list-distribution-configurations
 
 ## Get distribution configuration detail \(AWS CLI\)<a name="cli-get-distribution-configuration"></a>
 
-The following example shows how to use the [get\-distribution\-configuration](https://docs.aws.amazon.com/cli/latest/reference/imagebuilder/get-distribution-configuration.html) command in the AWS CLI to get the details of a distribution configuration by specifying its Amazon Resource Name \(ARN\)\.
+The following example shows how to use the [get\-distribution\-configuration](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/imagebuilder/get-distribution-configuration.html) command in the AWS CLI to get the details of a distribution configuration by specifying its Amazon Resource Name \(ARN\)\.
 
 ```
 aws imagebuilder get-distribution-configuration --distribution-configuration-arn arn:aws:imagebuilder:us-west-2:123456789012:distribution-configuration/my-example-distribution-configuration

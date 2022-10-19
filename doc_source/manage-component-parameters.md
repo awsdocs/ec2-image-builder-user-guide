@@ -2,6 +2,9 @@
 
 You can manage AWSTOE components, including creating and setting component parameters, directly from the EC2 Image Builder console, or by using AWS CLI commands, or one of the Image Builder SDKs\. In this section, we'll cover creating and using parameters in your component, and setting component parameters through the Image Builder console and AWS CLI commands\.
 
+**Important**  
+Component parameters are plain text values, and are logged in AWS CloudTrail\. We recommend that you use AWS Secrets Manager or the AWS Systems Manager Parameter Store to store your secrets\. For more information about Secrets Manager, see [What is Secrets Manager?](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html) in the *AWS Secrets Manager User Guide*\. For more information about AWS Systems Manager Parameter Store, see [AWS Systems Manager Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html) in the *AWS Systems Manager User Guide*\.
+
 ## Use parameters in your YAML component document<a name="component-params-yaml"></a>
 
 To build a component, you must provide a YAML application component document, which represents the phases and steps to create the component\. The recipe that references the component can set the parameters to customize the values at runtime, with default values that take effect if the parameter is not set to a specific value\.

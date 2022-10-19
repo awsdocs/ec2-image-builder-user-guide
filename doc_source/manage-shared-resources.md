@@ -162,19 +162,19 @@ Use the [disassociate\-resource\-share](https://docs.aws.amazon.com/cli/latest/r
 Owners and consumers can identify shared components, images, and image recipes using Image Builder commands in the AWS CLI\.
 
 **Identify a shared component**  
-Run the [list\-components](https://docs.aws.amazon.com/cli/latest/reference/imagebuilder/list-components.html) command to get a list of the components that you own and the components that are shared with you\. The [get\-component](https://docs.aws.amazon.com/cli/latest/reference/imagebuilder/get-component.html) command shows the AWS account ID of the component owner\.
+Run the [list\-components](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/imagebuilder/list-components.html) command to get a list of the components that you own and the components that are shared with you\. The [get\-component](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/imagebuilder/get-component.html) command shows the AWS account ID of the component owner\.
 
 **Identify a shared image**  
-Run the [list\-images](https://docs.aws.amazon.com/cli/latest/reference/imagebuilder/list-images.html) command to get a list of the images that you own and images that are shared with you\. The [get\-image ](https://docs.aws.amazon.com/cli/latest/reference/imagebuilder/get-image.html) command shows the AWS account ID of the image owner\.
+Run the [list\-images](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/imagebuilder/list-images.html) command to get a list of the images that you own and images that are shared with you\. The [get\-image ](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/imagebuilder/get-image.html) command shows the AWS account ID of the image owner\.
 
 **Identify a shared container image**  
-Run the [list\-images](https://docs.aws.amazon.com/cli/latest/reference/imagebuilder/list-images.html) command to get a list of the images that you own and images that are shared with you\. The [get\-image ](https://docs.aws.amazon.com/cli/latest/reference/imagebuilder/get-image.html) command shows the AWS account ID of the image owner\.
+Run the [list\-images](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/imagebuilder/list-images.html) command to get a list of the images that you own and images that are shared with you\. The [get\-image ](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/imagebuilder/get-image.html) command shows the AWS account ID of the image owner\.
 
 **Identify a shared image recipe**  
-Run the [list\-image\-recipes](https://docs.aws.amazon.com/cli/latest/reference/imagebuilder/list-image-recipes.html) command to get a list of the image recipes that you own and image recipes that are shared with you\. The [get\-image\-recipe](https://docs.aws.amazon.com/cli/latest/reference/imagebuilder/get-image-recipe.html) command shows the AWS account ID of the image recipe owner\.
+Run the [list\-image\-recipes](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/imagebuilder/list-image-recipes.html) command to get a list of the image recipes that you own and image recipes that are shared with you\. The [get\-image\-recipe](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/imagebuilder/get-image-recipe.html) command shows the AWS account ID of the image recipe owner\.
 
 **Identify a shared container recipe**  
-Run the [list\-container\-recipes](https://docs.aws.amazon.com/cli/latest/reference/imagebuilder/list-container-recipes.html) command to get a list of the container recipes that you own and container recipes that are shared with you\. The [get\-container\-recipe](https://docs.aws.amazon.com/cli/latest/reference/imagebuilder/get-container-recipe.html) command shows the AWS account ID of the container recipe owner\.
+Run the [list\-container\-recipes](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/imagebuilder/list-container-recipes.html) command to get a list of the container recipes that you own and container recipes that are shared with you\. The [get\-container\-recipe](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/imagebuilder/get-container-recipe.html) command shows the AWS account ID of the container recipe owner\.
 
 ## Shared component, image, and recipe permissions<a name="manage-shared-resources-perms"></a>
 

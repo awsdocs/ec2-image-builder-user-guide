@@ -31,8 +31,8 @@ You can use an S3 bucket as a repository for your AWSTOE application component s
 
 To streamline the create\-component command that you use in the AWS CLI, create a JSON file that contains all of the component parameters that you want to pass into the command\. Include the location of the `update-linux-os.yaml` document that you created in the prior steps\. The `uri` key\-value pair contains the file reference\.
 **Note**  
-The naming convention for the data points in the JSON file follows the pattern that is specified for the Image Builder API command request parameters\. To review the API command request parameters, see the [CreateComponent](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_CreateComponent.html) command in the *EC2 Image Builder API Reference*\.  
-Do not use this naming convention for providing these datapoints directly to the create\-component command as options\.
+The naming convention for the data points in the JSON file follows the pattern that is specified for the Image Builder API action request parameters\. To review the API command request parameters, see the [CreateComponent](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_CreateComponent.html) command in the *EC2 Image Builder API Reference*\.  
+To use inline parameters directly in the AWS CLI command, refer to the parameter names specified in the *AWS CLI Command Reference*\. to the create\-component command as options\.
 
 1. 
 
@@ -91,8 +91,8 @@ You can use an S3 bucket as a repository for your AWSTOE application component s
 
 To streamline the create\-component command that you use in the AWS CLI, create a JSON file that contains all of the component parameters that you want to pass into the command\. Include the location of the `update-windows-os.yaml` document that you created in the prior steps\. The `uri` key\-value pair contains the file reference\.
 **Note**  
-The naming convention for the data points in the JSON file follows the pattern that is specified for the Image Builder API command request parameters\. To review the API command request parameters, see the [CreateComponent](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_CreateComponent.html) command in the *EC2 Image Builder API Reference*\.  
-Do not use this naming convention for providing these datapoints directly to the create\-component command as options\.
+The naming convention for the data points in the JSON file follows the pattern that is specified for the Image Builder API action request parameters\. To review the API command request parameters, see the [CreateComponent](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_CreateComponent.html) command in the *EC2 Image Builder API Reference*\.  
+To use inline parameters directly in the AWS CLI command, refer to the parameter names specified in the *AWS CLI Command Reference*\. to the create\-component command as options\.
 
 1. 
 

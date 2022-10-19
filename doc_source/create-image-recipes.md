@@ -61,10 +61,10 @@ For more information about creating an image recipe, within the context of creat
 
 ## Create an image recipe \(AWS CLI\)<a name="create-image-recipe-cli"></a>
 
-To create an Image Builder image recipe, using the `imagebuilder create-image-recipe` command in the AWS CLI, follow these steps:
+To create an image recipe with the Image Builder `create-image-recipe` command in the AWS CLI, follow these steps:
 
 **Prerequisites**  
-Before you run the Image Builder commands in this section to create an image recipe using the AWS CLI, you must have created the components that the recipe will use\. The image recipe example in the following step refers to example components that are created in the [Create a component \(AWS CLI\)](create-components-cli.md) section of this guide\.
+Before you run the Image Builder commands in this section to create an image recipe from the AWS CLI, you must have created the components that the recipe uses\. The image recipe example in the following step refers to example components that are created in the [Create a component \(AWS CLI\)](create-components-cli.md) section of this guide\.
 
 After you create your components, or if you are using existing components, take note of the ARNs that you want to include in the recipe\.
 
@@ -72,15 +72,15 @@ After you create your components, or if you are using existing components, take 
 
 **Create a CLI input JSON file**
 
-   Streamline the create\-image\-recipe command that you use in the AWS CLI\. To do this, create a JSON file that contains all of the recipe attributes that we want to pass into the command\.
+   You can provide all of the input for the create\-image\-recipe command with inline command parameters\. However, the resulting command can be quite long\. To streamline the command, you can provide a JSON file that contains all of the recipe settings, instead\.
 **Note**  
-The naming convention for the data points in the JSON file follows the pattern that is specified for the Image Builder API command request parameters\. To review the API command request parameters, see the [CreateImageRecipe](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_CreateImageRecipe.html) command in the *EC2 Image Builder API Reference*\.  
-Do not use this naming convention for providing these datapoints directly to the create\-image\-recipe command as options\.
+The naming convention for the data points in the JSON file follows the pattern that is specified for the Image Builder API action request parameters\. To review the API command request parameters, see the [CreateImageRecipe](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_CreateImageRecipe.html) command in the *EC2 Image Builder API Reference*\.  
+To use inline parameters directly in the AWS CLI command, refer to the parameter names specified in the *AWS CLI Command Reference*\.
 
    Here is a summary of the parameters that we specify in these examples:
    + **name** \(string, required\) – The name of the image recipe\.
    + **description** \(string\) – The description of the image recipe\.
-   + **parentImage** \(string, required\) – The source \(parent\) image that the image recipe uses as its base environment\. The value can be the parent image ARN or an Image Builder AMI ID\.
+   + **parentImage** \(string, required\) – The image recipe uses this image as a base from which to build your customized image\. The value can be the base image ARN or an AMI ID\.
 **Note**  
 The Linux example uses an Image Builder AMI, and the Windows example uses an ARN\.
    + **semanticVersion** \(string, required\) – The semantic version of the image recipe, which specifies the version in the following format, with numeric values in each position to indicate a specific version: <major>\.<minor>\.<patch>\. For example, `1.0.0`\. To learn more about semantic versioning for Image Builder resources, see [Semantic versioning](ibhow-semantic-versioning.md)\.
@@ -101,10 +101,10 @@ Component parameters are plain text values, and are logged in AWS CloudTrail\. W
 **Note**  
 If the `uninstallAfterBuild` attribute is not included in the JSON file, and the following conditions are true, then Image Builder removes the Systems Manager agent from the final image, so that it is not available in the AMI:  
 The `userDataOverride` is empty, or has been left out of the JSON file\.
-Image Builder automatically installed the Systems Manager agent on the build instance for an operating system that did not have the agent pre\-installed on the source \(parent\) image\.
+Image Builder automatically installed the Systems Manager agent on the build instance for an operating system that did not have the agent pre\-installed on the base image\.
      + **userDataOverride** \(string\) – Provide commands or a command script to run when you launch your build instance\.
 **Note**  
-The user data is always base 64 encoded\. For example, the following commands are encoded as `IyEvYmluL2Jhc2gKbWtkaXIgLXAgL3Zhci9iYi8KdG91Y2ggL3Zhci$`:  
+The user data is always base 64 encoded\. For example, the following commands are encoded as `IyEvYmluL2Jhc2gKbWtkaXIgLXAgL3Zhci9iYi8KdG91Y2ggL3Zhcg==`:  
 
        ```
        #!/bin/bash
@@ -116,7 +116,7 @@ The Linux example uses this encoded value\.
 ------
 #### [ Linux ]
 
-   The source \(parent\) image in this example is an Image Builder AMI\. When you use an Image Builder AMI, you must have access to the AMI, and the AMI must be in the same Region where you are using Image Builder\. Save the file as `create-image-recipe.json`and use it in the create\-image\-recipe command\.
+   The base image \(`parentImage` property\) in this example is an AMI\. When you use an AMI, you must have access to the AMI, and the AMI must be in the same Region where Image Builder runs the command\. Save the file as `create-image-recipe.json`, and use it in the create\-image\-recipe command\.
 
    ```
    {
@@ -133,7 +133,7 @@ The Linux example uses this encoded value\.
    	    "systemsManagerAgent": {
    	     	"uninstallAfterBuild": true
    	    },
-       	"userDataOverride": "IyEvYmluL2Jhc2gKbWtkaXIgLXAgL3Zhci9iYi8KdG91Y2ggL3Zhci$
+       	"userDataOverride": "IyEvYmluL2Jhc2gKbWtkaXIgLXAgL3Zhci9iYi8KdG91Y2ggL3Zhcg=="
        }
    }
    ```
@@ -169,7 +169,7 @@ To learn more about semantic versioning for Image Builder resources, see [Semant
 
 **Create the recipe**
 
-   Use the following command to create the recipe, referencing the file name for the JSON file that you created in the prior step:
+   Use the following command to create the recipe\. Provide the name of the JSON file that you created in the prior step in the `--cli-input-json` parameter:
 
    ```
    aws imagebuilder create-image-recipe --cli-input-json file://create-image-recipe.json

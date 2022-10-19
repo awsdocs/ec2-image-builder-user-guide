@@ -1,19 +1,28 @@
 # What is EC2 Image Builder?<a name="what-is-image-builder"></a>
 
-EC2 Image Builder is a fully managed AWS service that makes it easier to automate the creation, management, and deployment of customized, secure, and up\-to\-date server images that are pre\-installed and pre\-configured with software and settings to meet specific IT standards\. 
+EC2 Image Builder is a fully managed AWS service that helps you to automate the creation, management, and deployment of customized, secure, and up\-to\-date server images\. You can use the AWS Management Console, AWS Command Line Interface, or APIs to create custom images in your AWS account\.
 
-You can use the AWS Management Console, AWS CLI, or APIs to create custom images in your AWS account\. When you use the AWS Management Console, the Image Builder wizard guides you through steps to:
-+ Provide starting artifacts
-+ Add and remove software
-+ Customize settings and scripts
-+ Run selected tests
-+ Distribute images to AWS Regions
+You own the customized images that Image Builder creates in your account\. You can configure pipelines to automate updates and system patching for the images that you own\. You can also run a stand\-alone command to create an image with the configuration resources that you've defined\.
 
-The images you build are created in your account and you can configure them for operating system patches on an ongoing basis\. 
+The Image Builder pipeline wizard can guide you through the steps to create a custom image, as follows:
 
-For troubleshooting and debugging your image deployment, you can configure build logs to be added to your Amazon Simple Storage Service \(Amazon S3\) bucket\. You can also configure the instance\-building application to send logs to CloudWatch\. To receive notifications of image build status, and associate an Amazon Elastic Compute Cloud \(Amazon EC2\) key pair with your instance to perform manual debugging and inspection, you can configure an SNS topic\.
+1. Choose a base image for your customizations\.
 
-Along with a final image, Image Builder creates an image recipe, which is a combination of the source image and components for building and testing\. You can use the image recipe with existing source code version control systems and continuous integration/continuous deployment pipelines for repeatable automation\. 
+1. Add to or remove software from your base image\.
+
+1. Customize settings and scripts with build components\.
+
+1. Run selected tests or create custom test components\.
+
+1. Distribute AMIs to AWS Regions and AWS accounts\.
+
+1. If your Image Builder pipeline creates a custom Amazon Machine Image \(AMI\) for distribution, you can authorize other AWS accounts, organizations, and OUs to launch it from your account\. Your account is billed for charges that are associated with the AMI\.
+
+Image Builder integrates with the following AWS services to provide detailed event metrics, logging, and monitoring\. This information helps you track your activity, troubleshoot image build issues, and create automations based on event notifications\.
++ **Amazon CloudWatch Logs** – Monitor, store, and access your Image Builder log files\. Optionally, you can save your logs to an S3 bucket\. For more information about CloudWatch Logs, see [What is Amazon CloudWatch Logs?](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html) in the *Amazon CloudWatch Logs User Guide*\.
++ **Amazon EventBridge** – Connect to a stream of real\-time event data from Image Builder activities in your account\. For more information about EventBridge, see [What Is Amazon EventBridge?](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-what-is.html) in the *Amazon EventBridge User Guide*\.
++ **AWS CloudTrail** – Monitor Image Builder events that are sent to CloudTrail\. For more information about CloudTrail, see [What Is AWS CloudTrail?](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html) in the *AWS CloudTrail User Guide*\.
++ **Amazon Simple Notification Service \(Amazon SNS\)** – If configured, publish detailed messages about your image status to an SNS topic that you subscribe to\. For more information about Amazon SNS, see [What is Amazon SNS?](https://docs.aws.amazon.com/sns/latest/dg/welcome.html) in the *Amazon Simple Notification Service Developer Guide*\.
 
 **Topics**
 + [Features of EC2 Image Builder](#image-builder-features)
@@ -33,7 +42,7 @@ Image Builder reduces the amount of work involved in creating and managing image
 
 **Increase service uptime**
 
-Image Builder allows you to test your images before deployment with both AWS\-provided and customized tests\. AWS will distribute your image only if all of the configured tests have succeeded\.
+Image Builder provides access to test components that you can use to test your images before deployment\. You can also create custom test components with AWS Task Orchestrator and Executor \(AWSTOE\), and use those\. Image Builder distributes your image only if all of the configured tests have succeeded\.
 
 **Raise the security bar for deployments**
 
@@ -112,10 +121,13 @@ Build phase
 An image pipeline begins with the build phase of the build stage when it runs\. The base image is downloaded, and configuration that is specified for the build phase of the component is applied to build and launch an instance\.
 
 Validate phase  
-After the instance is launched and all of the build phase customizations are applied, the validation phase begins\. During the validation phase, Image Builder validates that customizations are applied successfully, based on configuration that is specified for the validate phase of the component\. If the instance validation is successful, the instance is turned off, an image is created, and Image Builder continues to the test stage\.*Test stage:*
+After Image Builder launches the instance and applies all of the build phase customizations, the validation phase begins\. During this phase, Image Builder ensures that all of the customizations work as expected, based on the configuration that the component specifies for the validate phase\. If the instance validation succeeds, Image Builder stops the instance, creates an image, and then continues to the test stage\.*Test stage:*
 
 Test phase  
-The test stage has only one phase – test\. During this phase, an instance is launched from the image that was created after the validation phase completed successfully\. Image Builder runs test components during this phase to verify that the instance is healthy, and is functioning as expected\.
+During this phase, Image Builder launches an instance from the image that it created after the validation phase completed successfully\. Image Builder runs test components during this phase to verify that the instance is healthy and functions as expected\.
+
+Container host test phase  
+After Image Builder runs the test phase for all of the components that you selected in the container recipe, Image Builder runs this phase for container workflows\. The container host test phase can run additional tests that validate container management and custom runtime configurations\.
 
 ## Pricing<a name="image-builder-pricing"></a>
 

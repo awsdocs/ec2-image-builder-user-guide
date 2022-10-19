@@ -157,7 +157,7 @@ The following example shows how to use the create\-distribution\-configuration c
 You must include the `file://` notation at the beginning of the JSON file path\.
 The path for the JSON file should follow the appropriate convention for the base operating system where you are running the command\. For example, Windows uses the backslash \(\\\) to refer to the directory path, and Linux uses the forward slash \(/\)\.
 
-   For more detailed information, see [create\-distribution\-configuration](https://docs.aws.amazon.com/cli/latest/reference/imagebuilder/create-distribution-configuration.html) in the *AWS CLI Command Reference*\.
+   For more detailed information, see [create\-distribution\-configuration](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/imagebuilder/create-distribution-configuration.html) in the *AWS CLI Command Reference*\.
 
 ## Update AMI distribution settings \(console\)<a name="update-ami-distribution-config-console"></a>
 
@@ -179,7 +179,7 @@ You can also select the check box next to the **Configuration name**, then choos
 
 ## Create distribution settings for a faster launching Windows AMI \(AWS CLI\)<a name="cli-create-ami-dist-config-win-fast-launch"></a>
 
-The following example shows how to use the [create\-distribution\-configuration](https://docs.aws.amazon.com/cli/latest/reference/imagebuilder/create-distribution-configuration.html) command to create distribution settings that have faster launching configured for your AMI, using the AWS CLI\.
+The following example shows how to use the [create\-distribution\-configuration](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/imagebuilder/create-distribution-configuration.html) command to create distribution settings that have faster launching configured for your AMI, using the AWS CLI\.
 
 1. 
 
@@ -230,7 +230,7 @@ The following example shows how to use the [create\-distribution\-configuration]
 You must include the `file://` notation at the beginning of the JSON file path\.
 The path for the JSON file should follow the appropriate convention for the base operating system where you are running the command\. For example, Windows uses the backslash \(\\\) to refer to the directory path, and Linux uses the forward slash \(/\)\.
 
-   For more detailed information, see [create\-distribution\-configuration](https://docs.aws.amazon.com/cli/latest/reference/imagebuilder/create-distribution-configuration.html) in the *AWS CLI Command Reference*\.
+   For more detailed information, see [create\-distribution\-configuration](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/imagebuilder/create-distribution-configuration.html) in the *AWS CLI Command Reference*\.
 
 ## Create distribution settings for output VM disks \(AWS CLI\)<a name="cli-create-vm-dist-config"></a>
 
@@ -242,8 +242,8 @@ The following example shows how to use the create\-distribution\-configuration c
 
    You can streamline the create\-distribution\-configuration command that you use in the AWS CLI\. To do this, create a JSON file that contains all of the export configuration that you want to pass into the command\.
 **Note**  
-The naming convention for the data points in the JSON file follows the pattern that is specified for the Image Builder API command request parameters\. To review the API command request parameters, see the [CreateDistributionConfiguration](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_CreateDistributionConfiguration.html) command in the *EC2 Image Builder API Reference*\.  
-Do not use this naming convention for providing these datapoints directly to the create\-distribution\-configuration command as options\.
+The naming convention for the data points in the JSON file follows the pattern that is specified for the Image Builder API action request parameters\. To review the API command request parameters, see the [CreateDistributionConfiguration](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_CreateDistributionConfiguration.html) command in the *EC2 Image Builder API Reference*\.  
+To use inline parameters directly in the AWS CLI command, refer to the parameter names specified in the *AWS CLI Command Reference*\. to the create\-distribution\-configuration command as options\.
 
    Here is a summary of the parameters that we specify in the `s3ExportConfiguration` JSON object for this example:
    + **roleName** \(string, required\) – The name of the role that grants VM Import/Export permission to export images to your S3 bucket\.
@@ -287,11 +287,11 @@ Do not use this naming convention for providing these datapoints directly to the
 You must include the `file://` notation at the beginning of the JSON file path\.
 The path for the JSON file should follow the appropriate convention for the base operating system where you are running the command\. For example, Windows uses the backslash \(\\\) to refer to the directory path, and Linux uses the forward slash \(/\)\.
 
-   For more detailed information, see [create\-distribution\-configuration](https://docs.aws.amazon.com/cli/latest/reference/imagebuilder/create-distribution-configuration.html) in the *AWS CLI Command Reference*\.
+   For more detailed information, see [create\-distribution\-configuration](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/imagebuilder/create-distribution-configuration.html) in the *AWS CLI Command Reference*\.
 
 ## Update AMI distribution settings \(AWS CLI\)<a name="cli-update-ami-distribution-configuration"></a>
 
-The following example shows how to use the [update\-distribution\-configuration](https://docs.aws.amazon.com/cli/latest/reference/imagebuilder/update-distribution-configuration.html) command to update distribution settings for your AMI, using the AWS CLI\.
+The following example shows how to use the [update\-distribution\-configuration](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/imagebuilder/update-distribution-configuration.html) command to update distribution settings for your AMI, using the AWS CLI\.
 
 1. 
 
@@ -345,4 +345,4 @@ The following example shows how to use the [update\-distribution\-configuration]
 You must include the `file://` notation at the beginning of the JSON file path\.
 The path for the JSON file should follow the appropriate convention for the base operating system where you are running the command\. For example, Windows uses the backslash \(\\\) to refer to the directory path, and Linux uses the forward slash \(/\)\.
 
-   For more detailed information, see [update\-distribution\-configuration](https://docs.aws.amazon.com/cli/latest/reference/imagebuilder/update-distribution-configuration.html) in the *AWS CLI Command Reference*\. To update tags for your distribution configuration resource, see the [Tag resources](tag-resources.md) section\.
+   For more detailed information, see [update\-distribution\-configuration](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/imagebuilder/update-distribution-configuration.html) in the *AWS CLI Command Reference*\. To update tags for your distribution configuration resource, see the [Tag resources](tag-resources.md) section\.

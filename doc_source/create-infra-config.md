@@ -37,7 +37,7 @@ We recommend that you configure all EC2 instances that Image Builder launches fr
 ------
 #### [ AWS CLI ]
 
-The following example shows how to configure the infrastructure for your image with the Image Builder[create\-infrastructure\-configuration](https://docs.aws.amazon.com/cli/latest/reference/imagebuilder/create-infrastructure-configuration.html) command in the AWS CLI\.
+The following example shows how to configure the infrastructure for your image with the Image Builder[create\-infrastructure\-configuration](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/imagebuilder/create-infrastructure-configuration.html) command in the AWS CLI\.
 
 1. 
 

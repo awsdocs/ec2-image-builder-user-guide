@@ -88,10 +88,10 @@ After you create your components, or if you are using existing components, take 
 
 **Create a CLI input JSON file**
 
-   Streamline the create\-container\-recipe command that you use in the AWS CLI\. To do this, create a JSON file that contains all of the recipe parameters that you want to pass into the command\. Save the file as `create-container-recipe.json` and use it in the create\-container\-recipe command\.
+   You can provide all of the input for the create\-container\-recipe command with inline command parameters\. However, the resulting command can be quite long\. To streamline the command, you can provide a JSON file that contains all of the container recipe settings, instead\.
 **Note**  
-The naming convention for the data points in the JSON file follows the pattern that is specified for the Image Builder API command request parameters\. To review the API command request parameters, see the [CreateContainerRecipe](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_CreateContainerRecipe.html) command in the *EC2 Image Builder API Reference*\.  
-Do not use this naming convention for providing these datapoints directly to the create\-container\-recipe command as options\.
+The naming convention for the data points in the JSON file follows the pattern that is specified for the Image Builder API action request parameters\. To review the API command request parameters, see the [CreateContainerRecipe](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_CreateContainerRecipe.html) command in the *EC2 Image Builder API Reference*\.  
+To use inline parameters directly in the AWS CLI command, refer to the parameter names specified in the *AWS CLI Command Reference*\.
 
    Here is a summary of the parameters that we specify in this example:
    + **components** \(array of objects, required\) – Contains an array of `ComponentConfiguration` objects\. At least one build component must be specified:
@@ -109,7 +109,7 @@ Component parameters are plain text values, and are logged in AWS CloudTrail\. W
    + **dockerfileTemplateData** \(string\) – The Dockerfile template that is used to build your image, as an inline data blob\.
    + **name** \(string, required\) – The name of the container recipe\.
    + **description** \(string\) – The description of the container recipe\.
-   + **parentImage** \(string, required\) – The source \(parent\) image that the container recipe uses as its base environment\.
+   + **parentImage** \(string, required\) – The container recipe uses this image as a base from which to build your customized image\. The value can be the base image ARN or an AMI ID\.
    + **platformOverride** \(string\) – Specifies the operating system platform when you use a custom base image\.
    + **semanticVersion** \(string, required\) – The semantic version of the container recipe, which specifies the version in the following format, with numeric values in each position to indicate a specific version: <major>\.<minor>\.<patch>\. For example, `1.0.0`\. To learn more about semantic versioning for Image Builder resources, see [Semantic versioning](ibhow-semantic-versioning.md)\.
    + **tags** \(string map\) – Tags that are attached to the container recipe\.
@@ -170,7 +170,7 @@ Component parameters are plain text values, and are logged in AWS CloudTrail\. W
 
 **Create the recipe**
 
-   Use the following command to create the recipe, referencing the file name for the JSON file that you created in the prior step:
+   Use the following command to create the recipe\. Provide the name of the JSON file that you created in the prior step in the `--cli-input-json` parameter:
 
    ```
    aws imagebuilder create-container-recipe --cli-input-json file://create-container-recipe.json

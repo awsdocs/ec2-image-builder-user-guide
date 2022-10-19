@@ -99,6 +99,9 @@ You can use the `--parameters` option from the AWS CLI with a key\-value pair to
 + Parameter names that are not found in the YAML component document are ignored\.
 + The parameter name and value are both required\.
 
+**Important**  
+Component parameters are plain text values, and are logged in AWS CloudTrail\. We recommend that you use AWS Secrets Manager or the AWS Systems Manager Parameter Store to store your secrets\. For more information about Secrets Manager, see [What is Secrets Manager?](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html) in the *AWS Secrets Manager User Guide*\. For more information about AWS Systems Manager Parameter Store, see [AWS Systems Manager Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html) in the *AWS Systems Manager User Guide*\.
+
 #### Syntax<a name="vars-parameters-syntax"></a>
 
 ```

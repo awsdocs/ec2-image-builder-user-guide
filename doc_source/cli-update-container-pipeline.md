@@ -1,6 +1,6 @@
 # Update container image pipelines \(AWS CLI\)<a name="cli-update-container-pipeline"></a>
 
-You can update a container image pipeline using a JSON file as input to the [update\-image\-pipeline](https://docs.aws.amazon.com/cli/latest/reference/imagebuilder/update-image-pipeline.html) command in the AWS CLI\. To configure the JSON file, you must have Amazon Resource Names \(ARNs\) to reference the following existing resources:
+You can update a container image pipeline using a JSON file as input to the [update\-image\-pipeline](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/imagebuilder/update-image-pipeline.html) command in the AWS CLI\. To configure the JSON file, you must have Amazon Resource Names \(ARNs\) to reference the following existing resources:
 + Image pipeline to update
 + Container recipe
 + Infrastructure configuration

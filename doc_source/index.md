@@ -4,13 +4,13 @@
 *****Copyright &copy; Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
 
 -----
-Amazon's trademarks and trade dress may not be used in 
-     connection with any product or service that is not Amazon's, 
-     in any manner that is likely to cause confusion among customers, 
-     or in any manner that disparages or discredits Amazon. All other 
-     trademarks not owned by Amazon are the property of their respective
-     owners, who may or may not be affiliated with, connected to, or 
-     sponsored by Amazon.
+Amazon's trademarks and trade dress may not be used in
+connection with any product or service that is not Amazon's,
+in any manner that is likely to cause confusion among customers,
+or in any manner that disparages or discredits Amazon. All other
+trademarks not owned by Amazon are the property of their respective
+owners, who may or may not be affiliated with, connected to, or
+sponsored by Amazon.
 
 -----
 ## Contents
@@ -91,9 +91,8 @@ Amazon's trademarks and trade dress may not be used in
       + [Troubleshooting EC2 Image Builder identity and access](security_iam_troubleshoot.md)
    + [Compliance validation for EC2 Image Builder](compliance.md)
    + [Resilience in EC2 Image Builder](disaster-recovery-resiliency.md)
-   + [Infrastructure security in EC2 Image Builder](infrastructure-security.md)
+   + [Infrastructure security in Image Builder](infrastructure-security.md)
    + [Patch Management in EC2 Image Builder](vulnerability-analysis-and-management.md)
    + [Security best practices for EC2 Image Builder](security-best-practices.md)
 + [Troubleshoot EC2 Image Builder](troubleshooting.md)
 + [Document history for EC2 Image Builder user guide](doc-history.md)
-+ [AWS glossary](glossary.md)

@@ -19,7 +19,7 @@ The AWSTOE component document uses phases and steps to group related tasks, and 
 The service that uses your component to build an image might implement rules about what phases to use for their build process, and when those phases are allowed to run\. This is important to consider when you design your component\.
 
 **Phases**  
-Phases represent the progression of your workflow through the image build process\. For example, the Image Builder service uses `build` and `validate` phases during its *build stage* for the images it produces\. It uses the `test` phase during its *test stage* to ensure that the image snapshot or container image produces the expected results before creating the final AMI or distributing the container image\.
+Phases represent the progression of your workflow through the image build process\. For example, the Image Builder service uses `build` and `validate` phases during its *build stage* for the images it produces\. It uses the `test` and `container-host-test` phases during its *test stage* to ensure that the image snapshot or container image produces the expected results before creating the final AMI or distributing the container image\.
 
 When the component runs, the associated commands for each phase are applied in the order that they appear in the component document\.
 

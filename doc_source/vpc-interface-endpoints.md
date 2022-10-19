@@ -2,9 +2,12 @@
 
 You can establish a private connection between your VPC and EC2 Image Builder by creating an *interface VPC endpoint*\. Interface endpoints are powered by [AWS PrivateLink](http://aws.amazon.com/privatelink), a technology that enables you to privately access Image Builder APIs without an internet gateway, NAT device, VPN connection, or AWS Direct Connect connection\. Instances in your VPC don't need public IP addresses to communicate with Image Builder APIs\. Traffic between your VPC and Image Builder does not leave the Amazon network\.
 
-Each interface endpoint is represented by one or more [Elastic Network Interfaces](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html) in your subnets\.
+Each interface endpoint is represented by one or more [Elastic Network Interfaces](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html) in your subnets\. When you create a new image, you can specify the VPC subnet\-id in your infrastructure configuration\.
 
-For more information, see [Interface VPC endpoints \(AWS PrivateLink\)](https://docs.aws.amazon.com/vpc/latest/userguide/vpce-interface.html) in the *Amazon VPC User Guide*\.
+**Note**  
+Each service that you access from within a VPC has its own interface endpoint, with its own endpoint policy\. Image Builder downloads the AWSTOE component manager application and accesses managed resources from S3 buckets to create custom images\. To grant access to those buckets, you must update the S3 endpoint policy to allow it\. For more information, see [Custom policies for S3 bucket access](#vpc-endpoint-policy-s3)\.
+
+For more information about VPC endpoints, see [Interface VPC endpoints \(AWS PrivateLink\)](https://docs.aws.amazon.com/vpc/latest/userguide/vpce-interface.html) in the *Amazon VPC User Guide*\.
 
 ## Considerations for Image Builder VPC endpoints<a name="vpc-endpoint-considerations"></a>
 
@@ -30,14 +33,18 @@ You can attach an endpoint policy to your VPC endpoint that controls access to I
 + The actions that can be performed\.
 + The resources on which actions can be performed\.
 
+If you are using Amazon\-managed components in your recipe, the VPC endpoint for Image Builder must allow access to the following serviced\-owned component library:
+
+`arn:aws:imagebuilder:region:aws:component/*`
+
 **Important**  
 When a non\-default policy is applied to an interface VPC endpoint for EC2 Image Builder, certain failed API requests, such as those failing from `RequestLimitExceeded`, might not be logged to AWS CloudTrail or Amazon CloudWatch\.
 
 For more information, see [Controlling access to services with VPC endpoints](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-endpoints-access.html) in the *Amazon VPC User Guide*\.
 
-### Custom policies for S3 bucket access<a name="w62aac17c18c19c13c11"></a>
+### Custom policies for S3 bucket access<a name="vpc-endpoint-policy-s3"></a>
 
-Image Builder uses a publicly available S3 bucket to access managed resources, such as components\. It also accesses the S3 bucket for AWSTOE, where downloads are stored\. If you use a VPC endpoint for Image Builder, you'll need a custom policy that includes access to the following S3 buckets\. The bucket names are unique per AWS Region \(*region*\) and the pipeline environment it's running in \(*environment*\) variables\.
+Image Builder uses a publicly available S3 bucket to store and access managed resources, such as components\. It also downloads the AWSTOE component management application from a separate S3 bucket\. If you use a VPC endpoint for Amazon S3 in your environment, you’ll need to ensure that your S3 VPC endpoint policy allows Image Builder to access the following S3 buckets\. The bucket names are unique per AWS Region \(*region*\) and the application environment \(*environment*\)\. Image Builder and AWSTOE support the following application environments: `prod`, `preprod`, and `beta`\.
 + The AWSTOE component manager bucket:
 
   ```
@@ -53,11 +60,11 @@ Image Builder uses a publicly available S3 bucket to access managed resources, s
 
   **Example:** s3://ec2imagebuilder\-managed\-resources\-us\-west\-2\-prod/components/\*
 
-### VPC endpoint policy examples<a name="w62aac17c18c19c13c13"></a>
+### VPC endpoint policy examples<a name="vpc-endpoint-policy-examples"></a>
 
 This section includes examples of custom VPC endpoint policies\.
 
-**VPC endpoint policy for Image Builder actions**  
+**General VPC endpoint policy for Image Builder actions**  
 The following example endpoint policy for Image Builder denies permission to delete Image Builder images and components\. The example policy also grants permission to perform all other EC2 Image Builder actions\.
 
 ```
@@ -83,5 +90,69 @@ The following example endpoint policy for Image Builder denies permission to del
         "Effect": "Deny",
         "Resource": "*",
     }]
+}
+```
+
+**Restrict access by organization, allow managed component access**  
+The following example endpoint policy shows how to restrict access to identities and resources that belong to your organization and provide access to the Amazon\-managed AWSTOE components\. Replace *region*, *principal\-org\-id*, and *resource\-org\-id* with your organization's values\.
+
+```
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowRequestsByOrgsIdentitiesToOrgsResources",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "*"
+      },
+      "Action": "*",
+      "Resource": "*",
+      "Condition": {
+        "StringEquals": {
+          "aws:PrincipalOrgID": "principal-org-id",
+          "aws:ResourceOrgID": "resource-org-id"
+        }
+      }
+    },
+    {
+      "Sid": "AllowAccessToEC2ImageBuilderComponents",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "*"
+      },
+      "Action": [
+        "imagebuilder:GetComponent"
+      ],
+      "Resource": [
+        "arn:aws:imagebuilder:region:aws:component/*"
+      ]
+    }
+  ]
+}
+```
+
+**VPC endpoint policy for Amazon S3 bucket access**  
+The following S3 endpoint policy example shows how to provide access to the S3 buckets that Image Builder uses to build custom images\. Replace *region* and *environment* with your organization's values\. Add any other required permissions to the policy based on your application requirements\.
+
+```
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowImageBuilderAccessToAppAndComponentBuckets",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "*"
+      },
+      "Action": [
+        "s3:GetObject"
+      ],
+      "Resource": [
+        "arn:aws:s3:::ec2imagebuilder-toe-region-environment/*",
+        "arn:aws:s3:::ec2imagebuilder-managed-resources-region-environment/components/*"
+      ]
+    }
+  ]
 }
 ```

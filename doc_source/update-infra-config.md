@@ -31,7 +31,7 @@ You can also select the check box next to the **Configuration name**, then choos
 ------
 #### [ AWS CLI ]
 
-The following example shows how to update the infrastructure configuration for your image with the Image Builder[update\-infrastructure\-configuration](https://docs.aws.amazon.com/cli/latest/reference/imagebuilder/update-infrastructure-configuration.html) command in the AWS CLI\.
+The following example shows how to update the infrastructure configuration for your image with the Image Builder[update\-infrastructure\-configuration](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/imagebuilder/update-infrastructure-configuration.html) command in the AWS CLI\.
 
 1. 
 
