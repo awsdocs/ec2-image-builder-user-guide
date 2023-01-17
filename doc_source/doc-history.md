@@ -1,10 +1,12 @@
 # Document history for EC2 Image Builder user guide<a name="doc-history"></a>
 
 The following table describes important changes to the documentation by date\. For notification about updates to this documentation, you can subscribe to an RSS feed\.
-+ **API version: 2022\-02\-21**
++ **API version: 2023\-01\-17**
 
 | Change | Description | Date | 
 | --- |--- |--- |
+| [Feature release: AWS Marketplace integration and CIS hardening](#doc-history) | Added AWS Marketplace integration to easily find and use a subscribed image as the baseline for a new custom image, including CIS Hardened Images and a new CIS Hardening component from the Center for Internet Security\. | January 17, 2023 | 
+| [CIS hardening components](toe-component-manager.md) | Added CIS hardening components that are owned and maintained by CIS\. | January 17, 2023 | 
 | [New STIG Versions](https://docs.aws.amazon.com/imagebuilder/latest/userguide/toe-stig.html) | Introduced Ubuntu support, updated STIG versions, and applied STIGS for 2022 second quarter release\. | July 20, 2022 | 
 | [Document update: Navigation for Create YAML component document page](#doc-history) | Moved the Create YAML component document content to its own page, and updated other pages to reference it\. | June 7, 2022 | 
 | [New STIG Versions](toe-stig.md) | Updated STIG versions and applied STIGS for 2022 first quarter release\. | April 25, 2022 | 
@@ -38,4 +40,4 @@ The following table describes important changes to the documentation by date\. F
 | [Support for connectivity through AWS PrivateLink](#doc-history) | You can establish a private connection between your VPC and EC2 Image Builder by creating an interface VPC endpoint\. Interface endpoints are powered by AWS PrivateLink, a technology that enables you to privately access Image Builder APIs without an internet gateway, NAT device, VPN connection, or AWS Direct Connect connection\. Instances in your VPC don't need public IP addresses to communicate with Image Builder APIs\. Traffic between your VPC and Image Builder does not leave the Amazon network\. | June 10, 2020 | 
 | [New STIG versions](toe-stig.md) | Updated STIG versions and applied STIGS\. | January 23, 2020 | 
 | [Troubleshooting](#doc-history) | Added general troubleshooting scenarios\. | January 22, 2020 | 
-| [STIG Components](toe-stig.md) | You can create STIG\-compliant images with Image Builder STIG components\. | January 22, 2020 | 
+| [STIG Components](toe-stig.md) | You can create STIG\-compliant images with AWSTOE STIG components\. | January 22, 2020 | 

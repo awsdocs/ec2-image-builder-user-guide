@@ -19,9 +19,10 @@ The Image Builder pipeline wizard can guide you through the steps to create a cu
 1. If your Image Builder pipeline creates a custom Amazon Machine Image \(AMI\) for distribution, you can authorize other AWS accounts, organizations, and OUs to launch it from your account\. Your account is billed for charges that are associated with the AMI\.
 
 Image Builder integrates with the following AWS services to provide detailed event metrics, logging, and monitoring\. This information helps you track your activity, troubleshoot image build issues, and create automations based on event notifications\.
++ **AWS CloudTrail** – Monitor Image Builder events that are sent to CloudTrail\. For more information about CloudTrail, see [What Is AWS CloudTrail?](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html) in the *AWS CloudTrail User Guide*\.
 + **Amazon CloudWatch Logs** – Monitor, store, and access your Image Builder log files\. Optionally, you can save your logs to an S3 bucket\. For more information about CloudWatch Logs, see [What is Amazon CloudWatch Logs?](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html) in the *Amazon CloudWatch Logs User Guide*\.
 + **Amazon EventBridge** – Connect to a stream of real\-time event data from Image Builder activities in your account\. For more information about EventBridge, see [What Is Amazon EventBridge?](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-what-is.html) in the *Amazon EventBridge User Guide*\.
-+ **AWS CloudTrail** – Monitor Image Builder events that are sent to CloudTrail\. For more information about CloudTrail, see [What Is AWS CloudTrail?](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html) in the *AWS CloudTrail User Guide*\.
++ **AWS Marketplace** – See a list of your current AWS Marketplace product subscriptions, and search for image products directly from Image Builder\. You can also use an image product that you’ve subscribed to as the base image for an Image Builder recipe\. For more information about managing AWS Marketplace subscriptions, see the [AWS Marketplace Buyer Guide](https://docs.aws.amazon.com/marketplace/latest/buyerguide)\.
 + **Amazon Simple Notification Service \(Amazon SNS\)** – If configured, publish detailed messages about your image status to an SNS topic that you subscribe to\. For more information about Amazon SNS, see [What is Amazon SNS?](https://docs.aws.amazon.com/sns/latest/dg/welcome.html) in the *Amazon Simple Notification Service Developer Guide*\.
 
 **Topics**
@@ -46,7 +47,7 @@ Image Builder provides access to test components that you can use to test your i
 
 **Raise the security bar for deployments**
 
-Image Builder allows you to create images that remove unnecessary exposure to component security vulnerabilities\. You can apply AWS security settings to create secure, out\-of\-the\-box images that meet industry and internal security criteria\. Image Builder also provides collections of settings for companies in regulated industries\. You can use these settings to help you quickly and easily build compliant images for STIG standards\. For a complete list of STIG components available through Image Builder, see [EC2 Image Builder STIG components](toe-stig.md)\.
+Image Builder allows you to create images that remove unnecessary exposure to component security vulnerabilities\. You can apply AWS security settings to create secure, out\-of\-the\-box images that meet industry and internal security criteria\. Image Builder also provides collections of settings for companies in regulated industries\. You can use these settings to help you quickly and easily build compliant images for STIG standards\. For a complete list of STIG components available through Image Builder, see [AWS Task Orchestrator and Executor STIG components](toe-stig.md)\.
 
 **Centralized enforcement and lineage tracking**
 

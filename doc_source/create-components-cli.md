@@ -1,13 +1,13 @@
-# Create a component \(AWS CLI\)<a name="create-components-cli"></a>
+# Create a component with the AWS CLI<a name="create-components-cli"></a>
 
-This section describes how to use Image Builder commands to create AWSTOE components from the AWS CLI\. To build a component, you must provide a YAML application component document, which represents the phases and steps to create the component\. To create a new YAML component document, see [Create a YAML component document](create-component-yaml.md)\.
+This section describes how to use Image Builder commands to create AWS Task Orchestrator and Executor \(AWSTOE\) components from the AWS Command Line Interface\. To build a component, provide a YAML application component document\. This represents the phases and steps that you need to create the component\. To create a new YAML component document, see [Create a YAML component document](create-component-yaml.md)\.
 
-## Create AWSTOE components using Image Builder \(AWS CLI\)<a name="create-component-cli"></a>
+## Create AWSTOE components with Image Builder with the AWS CLI<a name="create-component-cli"></a>
 
 In this section, you'll learn how to set up and use Image Builder commands in the AWS CLI to create an AWSTOE application component, as follows\.
 + Upload your YAML component document to an S3 bucket that you can reference from the command line\.
 + Create the AWSTOE application component with the create\-component command\.
-+ List component versions with the list\-components command and a name filter to determine the next version for updates\.
++ List component versions with the list\-components command and a name filter to see what versions already exist\. You can use the output to determine what the next version should be for updates\.
 
 To create an AWSTOE application component from an input YAML document, follow the steps that match your image operating system platform\.
 
@@ -31,8 +31,8 @@ You can use an S3 bucket as a repository for your AWSTOE application component s
 
 To streamline the create\-component command that you use in the AWS CLI, create a JSON file that contains all of the component parameters that you want to pass into the command\. Include the location of the `update-linux-os.yaml` document that you created in the prior steps\. The `uri` key\-value pair contains the file reference\.
 **Note**  
-The naming convention for the data points in the JSON file follows the pattern that is specified for the Image Builder API action request parameters\. To review the API command request parameters, see the [CreateComponent](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_CreateComponent.html) command in the *EC2 Image Builder API Reference*\.  
-To use inline parameters directly in the AWS CLI command, refer to the parameter names specified in the *AWS CLI Command Reference*\. to the create\-component command as options\.
+The naming convention for the data values in the JSON file follows the pattern that is specified for the Image Builder API action request parameters\. To review the API command request parameters, see the [CreateComponent](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_CreateComponent.html) command in the *EC2 Image Builder API Reference*\.  
+To provide the data values as command line parameters, refer to the parameter names specified in the *AWS CLI Command Reference*\.
 
 1. 
 
@@ -91,8 +91,8 @@ You can use an S3 bucket as a repository for your AWSTOE application component s
 
 To streamline the create\-component command that you use in the AWS CLI, create a JSON file that contains all of the component parameters that you want to pass into the command\. Include the location of the `update-windows-os.yaml` document that you created in the prior steps\. The `uri` key\-value pair contains the file reference\.
 **Note**  
-The naming convention for the data points in the JSON file follows the pattern that is specified for the Image Builder API action request parameters\. To review the API command request parameters, see the [CreateComponent](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_CreateComponent.html) command in the *EC2 Image Builder API Reference*\.  
-To use inline parameters directly in the AWS CLI command, refer to the parameter names specified in the *AWS CLI Command Reference*\. to the create\-component command as options\.
+The naming convention for the data values in the JSON file follows the pattern that is specified for the Image Builder API action request parameters\. To review the API command request parameters, see the [CreateComponent](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_CreateComponent.html) command in the *EC2 Image Builder API Reference*\.  
+To provide the data values as command line parameters, refer to the parameter names specified in the *AWS CLI Command Reference*\.\.
 
 1. 
 
@@ -137,7 +137,7 @@ The path for the JSON file should follow the appropriate convention for the base
 
 AWSTOE component names and versions are embedded in the component's Amazon Resource Name \(ARN\), after the component prefix\. Each new version of a component has its own unique ARN\. The steps to create a new version are exactly the same as the steps to create a new component, as long as the semantic version is unique for that component name\. To learn more about semantic versioning for Image Builder resources, see [Semantic versioning](ibhow-semantic-versioning.md)\.
 
-To ensure that you assign the next logical version, first get a list of the existing versions for the component that you want to change with the list\-components command in the AWS CLI\. Filter on the name\.
+To ensure that you assign the next logical version, first get a list of the existing versions for the component that you want to change\. Use the list\-components command with the AWS CLI, and filter on the name\.
 
 In this example, you filter on the name of the component that you created in the prior Linux examples\. To list the component that you created, use the value of the `name` parameter from the JSON file that you used in the create\-component command\.
 

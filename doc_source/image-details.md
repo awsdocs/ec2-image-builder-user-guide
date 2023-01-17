@@ -5,7 +5,7 @@ This section describes the various ways that you can find information and view d
 **Topics**
 + [List images \(AWS CLI\)](#cli-list-images)
 + [List image build versions \(AWS CLI\)](#cli-list-image-build-versions)
-+ [Get an AMI image \(AWS CLI\)](#cli-get-image)
++ [Get an AMI image resource \(AWS CLI\)](#cli-get-image)
 + [Get image policy details \(AWS CLI\)](#cli-get-image-policy-details)
 
 ## List images \(AWS CLI\)<a name="cli-list-images"></a>
@@ -27,7 +27,7 @@ aws imagebuilder list-image-build-versions --image-version-arn arn:aws:imagebuil
 **Note**  
 To learn more about semantic versioning for Image Builder resources, see [Semantic versioning](ibhow-semantic-versioning.md)\.
 
-## Get an AMI image \(AWS CLI\)<a name="cli-get-image"></a>
+## Get an AMI image resource \(AWS CLI\)<a name="cli-get-image"></a>
 
 To check the progress of your image, use the `get-image` operation\. `get-image` returns details about the image, metadata, current state, and output resources when they are available\. 
 

@@ -11,7 +11,8 @@ To install AWSTOE, choose the download link for your architecture and platform\.
 + [Use component documents in AWSTOE](toe-use-documents.md)
 + [Action modules supported by AWSTOE component manager](toe-action-modules.md)
 + [Configure input for the AWSTOE run command](toe-run-config-input.md)
-+ [EC2 Image Builder STIG components](toe-stig.md)
++ [CIS hardening components](toe-cis.md)
++ [AWS Task Orchestrator and Executor STIG components](toe-stig.md)
 + [AWSTOE command reference](toe-commands.md)
 
 ## AWSTOE downloads<a name="toe-downloads"></a>

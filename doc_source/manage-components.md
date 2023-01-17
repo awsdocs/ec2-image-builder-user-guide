@@ -34,14 +34,14 @@ To assist with troubleshooting on your build or test instance AWSTOE creates a l
 **Tip**  
 When you have many components to keep track of, tagging helps you to identify a specific component or version based on the tags you've assigned to it\. For more information about tagging your resources using Image Builder commands in the AWS CLI, see the [Tag resources](tag-resources.md) section of this guide\.
 
-This section covers how to list, view, create, and import AWSTOE components, using the Image Builder console, and commands in the AWS CLI\.
+This section covers how to list, view, create, and import AWSTOE components, using the Image Builder console or commands in the AWS CLI\.
 
 **Topics**
 + [Create a YAML component document](create-component-yaml.md)
 + [Manage AWSTOE component parameters with EC2 Image Builder](manage-component-parameters.md)
 + [List and view component details](component-details.md)
 + [Create a component using the Image Builder console](create-component-console.md)
-+ [Create a component \(AWS CLI\)](create-components-cli.md)
++ [Create a component with the AWS CLI](create-components-cli.md)
 + [Import a component \(AWS CLI\)](#import-component-cli)
 + [Clean up resources](#component-cleanup)
 

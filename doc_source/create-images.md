@@ -91,8 +91,8 @@ To import a VM from disks into an AMI and create an Image Builder image resource
 
    To streamline the Image Builder import\-vm\-image command that is used in the AWS CLI, we create a JSON file that contains all of the import configuration that we want to pass into the command\.
 **Note**  
-The naming convention for the data points in the JSON file follows the pattern that is specified for the Image Builder API action request parameters\. To review the API command request parameters, see the [ImportVmImage](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_ImportVmImage.html) command in the *EC2 Image Builder API Reference*\.  
-To use inline parameters directly in the AWS CLI command, refer to the parameter names specified in the *AWS CLI Command Reference*\. to the Image Builder import\-vm\-image command as options\.
+The naming convention for the data values in the JSON file follows the pattern that is specified for the Image Builder API action request parameters\. To review the API command request parameters, see the [ImportVmImage](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_ImportVmImage.html) command in the *EC2 Image Builder API Reference*\.  
+To provide the data values as command line parameters, refer to the parameter names specified in the *AWS CLI Command Reference*\. to the Image Builder import\-vm\-image command as options\.
 
    Here is a summary of the parameters that we specify in this example:
    + **name** \(string, required\) – The name for the Image Builder image resource to create as output from the import\.

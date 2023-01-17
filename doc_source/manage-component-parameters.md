@@ -7,7 +7,7 @@ Component parameters are plain text values, and are logged in AWS CloudTrail\. W
 
 ## Use parameters in your YAML component document<a name="component-params-yaml"></a>
 
-To build a component, you must provide a YAML application component document, which represents the phases and steps to create the component\. The recipe that references the component can set the parameters to customize the values at runtime, with default values that take effect if the parameter is not set to a specific value\.
+To build a component, provide a YAML application component document\. This represents the phases and steps that you need to create the component\. The recipe that references the component can set the parameters to customize the values at runtime, with default values that take effect if the parameter is not set to a specific value\.
 
 **Create a component document with input parameters**  
 This section shows you how to define and use input parameters in your YAML component document\.
@@ -115,7 +115,7 @@ For more information about the phases, steps, and syntax for AWSTOE YAML applica
 **Create a component from the YAML component document**  
 Whatever method you use to create an AWSTOE component, the YAML application component document is always required as a baseline\.
 + To use the Image Builder console to create a component directly from your YAML document, see [Create a component using the Image Builder console](create-component-console.md)\.
-+ To use Image Builder commands in the AWS CLI to create your component, see [Create AWSTOE components using Image Builder \(AWS CLI\)](create-components-cli.md#create-component-cli)\. Replace the YAML document name in those examples with the name of your Hello World YAML document \(`hello-world-test.yaml`\)\.
++ To use Image Builder commands in the AWS CLI to create your component, see [Create AWSTOE components with Image Builder with the AWS CLI](create-components-cli.md#create-component-cli)\. Replace the YAML document name in those examples with the name of your Hello World YAML document \(`hello-world-test.yaml`\)\.
 
 ## Set component parameters in an Image Builder recipe \(console\)<a name="recipe-set-component-params"></a>
 

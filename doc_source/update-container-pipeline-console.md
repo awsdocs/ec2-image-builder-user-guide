@@ -25,7 +25,7 @@ The section at the top of the page summarizes key details for the pipeline that 
 
 **Detail tabs**
 + **Output images** – Shows output images that the pipeline has produced\.
-+ **Container recipe** – Shows recipe details\. After you create a recipe, you cannot edit it\. You must create a new version of the recipe from the **Container recipes** page\. For more information, see [Create container recipes and versions](create-container-recipes.md)\.
++ **Container recipe** – Shows recipe details\. After you create a recipe, you cannot edit it\. You must create a new version of the recipe from the **Container recipes** page\. For more information, see [Create a new version of a container recipe](create-container-recipes.md)\.
 + **Infrastructure configuration** – Shows editable information for configuring your build pipeline infrastructure\.
 + **Distribution settings** – Shows editable information for Docker image distribution\.
 + **EventBridge rules** – For the selected **Event Bus**, shows EventBridge rules that target the current pipeline\. Includes **Create event bus** and **Create rule** actions that link to the EventBridge console\. For more information about this tab, see [Use EventBridge rules](ev-rules-for-pipeline.md)\.

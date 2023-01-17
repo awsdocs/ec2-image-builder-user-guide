@@ -1,4 +1,4 @@
-# EC2 Image Builder STIG components<a name="toe-stig"></a>
+# AWS Task Orchestrator and Executor STIG components<a name="toe-stig"></a>
 
 Security Technical Implementation Guides \(STIGs\) are the configuration standards created by the Defense Information Systems Agency \(DISA\) to secure information systems and software\. To make your systems compliant with STIG standards, you must install, configure, and test a variety of security settings\.
 

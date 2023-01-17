@@ -242,8 +242,8 @@ The following example shows how to use the create\-distribution\-configuration c
 
    You can streamline the create\-distribution\-configuration command that you use in the AWS CLI\. To do this, create a JSON file that contains all of the export configuration that you want to pass into the command\.
 **Note**  
-The naming convention for the data points in the JSON file follows the pattern that is specified for the Image Builder API action request parameters\. To review the API command request parameters, see the [CreateDistributionConfiguration](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_CreateDistributionConfiguration.html) command in the *EC2 Image Builder API Reference*\.  
-To use inline parameters directly in the AWS CLI command, refer to the parameter names specified in the *AWS CLI Command Reference*\. to the create\-distribution\-configuration command as options\.
+The naming convention for the data values in the JSON file follows the pattern that is specified for the Image Builder API action request parameters\. To review the API command request parameters, see the [CreateDistributionConfiguration](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_CreateDistributionConfiguration.html) command in the *EC2 Image Builder API Reference*\.  
+To provide the data values as command line parameters, refer to the parameter names specified in the *AWS CLI Command Reference*\. to the create\-distribution\-configuration command as options\.
 
    Here is a summary of the parameters that we specify in the `s3ExportConfiguration` JSON object for this example:
    + **roleName** \(string, required\) – The name of the role that grants VM Import/Export permission to export images to your S3 bucket\.

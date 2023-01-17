@@ -1,6 +1,6 @@
 # Create a YAML component document<a name="create-component-yaml"></a>
 
-To build a component, you must provide a YAML application component document, which represents the phases and steps to create the component\.
+To build a component, provide a YAML application component document\. This represents the phases and steps that you need to create the component\.
 
 The examples in this section create a build component that calls the `UpdateOS` action module in the AWSTOE component management application\. The module updates the operating system\. For more information about the `UpdateOS` action module, see [UpdateOS](toe-action-modules.md#action-modules-updateos)\. For more information about the phases, steps, and syntax for AWSTOE YAML application component documents, see [Use documents in AWSTOE](https://docs.aws.amazon.com/imagebuilder/latest/userguide/toe-use-documents.html)\.
 

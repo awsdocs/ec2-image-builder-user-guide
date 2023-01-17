@@ -6,7 +6,7 @@ You can use infrastructure configurations to specify the Amazon EC2 infrastructu
 + The VPC, subnet, and security groups for your pipeline's build and test instances\.
 + The Amazon S3 location where Image Builder stores application logs from your build and testing\. If you configure logging, the instance profile specified in your infrastructure configuration must have `s3:PutObject` permissions for the target bucket \(`arn:aws:s3:::BucketName/*`\)\.
 + An Amazon EC2 key pair that allows you to log on to your instance to troubleshoot if your build fails and you set `terminateInstanceOnFailure` to `false`\.
-+ An SNS topic where Image Builder sends event notifications\. For more information about how Image Builder integrates with Amazon SNS, see [Amazon Simple Notification Service](ibhow-integrations.md#integ-sns)\.
++ An SNS topic where Image Builder sends event notifications\. For more information about how Image Builder integrates with Amazon SNS, see [Amazon SNS integration in Image Builder](integ-sns.md)\.
 **Note**  
 If your SNS topic is encrypted, the key that encrypts this topic must reside in the account where the Image Builder service runs\. Image Builder can't send notifications to SNS topics that are encrypted with keys from other accounts\.
 
