@@ -10,7 +10,7 @@ EC2 Image Builder uses a service\-linked role to grant permissions to other AWS 
 + Image Builder supports [AWS PrivateLink](https://docs.aws.amazon.com/vpc/latest/userguide/endpoint-service.html)\. For more information about configuring VPC endpoints for Image Builder, see [EC2 Image Builder and interface VPC endpoints \(AWS PrivateLink\)](vpc-interface-endpoints.md)\.
 + Image Builder supports EC2\-Classic\.
 + The instances that Image Builder uses to build container images must have internet access to download the AWS CLI from Amazon S3, and to download a base image from the Docker Hub repository, if applicable\. Image Builder uses the AWS CLI to get the Dockerfile from the container recipe, where it is stored as data\.
-+ The instances that Image Builder uses to build images and run tests must have access to the Systems Manager service\. All build activity is orchestrated by Systems Manager Automation\. Installation requirements depend on your operating system\.
++ The instances that Image Builder uses to build images and run tests must have access to the Systems Manager service\. Installation requirements depend on your operating system\.
 
   To see the installation requirements for your base image, choose the tab that matches your base image operating system\.
 

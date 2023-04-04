@@ -14,5 +14,5 @@ This documentation helps you understand how to apply the shared responsibility m
 + [Compliance validation for EC2 Image Builder](compliance.md)
 + [Resilience in EC2 Image Builder](disaster-recovery-resiliency.md)
 + [Infrastructure security in Image Builder](infrastructure-security.md)
-+ [Patch Management in EC2 Image Builder](vulnerability-analysis-and-management.md)
++ [Patch Management inEC2 Image Builder](security-patch-management.md)
 + [Security best practices for EC2 Image Builder](security-best-practices.md)

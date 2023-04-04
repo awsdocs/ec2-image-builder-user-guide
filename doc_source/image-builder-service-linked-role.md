@@ -42,7 +42,7 @@ If the Image Builder service is using the role when you try to delete the resour
 1. Change all pipeline schedules to use a manual build process, or delete them if you won't be using them again\. For more information about deleting resources, see [Delete EC2 Image Builder resources](delete-resources.md)\.
 
 **Delete the service\-linked role using IAM**  
-You can use the IAM console, the AWS CLI, or the AWS API to delete the `AWSServiceRoleForImageBuilder` role from your account\. For more information, see [ Deleting a Service\-Linked Role](https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html#delete-service-linked-role)in the *IAM User Guide*\.
+You can use the IAM console, the AWS CLI, or the AWS API to delete the `AWSServiceRoleForImageBuilder` role from your account\. For more information, see [ Deleting a Service\-Linked Role](https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html#delete-service-linked-role) in the *IAM User Guide*\.
 
 ## Supported Regions for EC2 Image Builder service\-linked roles<a name="image-builder-slr-regions"></a>
 

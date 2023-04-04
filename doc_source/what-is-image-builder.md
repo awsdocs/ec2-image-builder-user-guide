@@ -19,11 +19,6 @@ The Image Builder pipeline wizard can guide you through the steps to create a cu
 1. If your Image Builder pipeline creates a custom Amazon Machine Image \(AMI\) for distribution, you can authorize other AWS accounts, organizations, and OUs to launch it from your account\. Your account is billed for charges that are associated with the AMI\.
 
 Image Builder integrates with the following AWS services to provide detailed event metrics, logging, and monitoring\. This information helps you track your activity, troubleshoot image build issues, and create automations based on event notifications\.
-+ **AWS CloudTrail** – Monitor Image Builder events that are sent to CloudTrail\. For more information about CloudTrail, see [What Is AWS CloudTrail?](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html) in the *AWS CloudTrail User Guide*\.
-+ **Amazon CloudWatch Logs** – Monitor, store, and access your Image Builder log files\. Optionally, you can save your logs to an S3 bucket\. For more information about CloudWatch Logs, see [What is Amazon CloudWatch Logs?](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html) in the *Amazon CloudWatch Logs User Guide*\.
-+ **Amazon EventBridge** – Connect to a stream of real\-time event data from Image Builder activities in your account\. For more information about EventBridge, see [What Is Amazon EventBridge?](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-what-is.html) in the *Amazon EventBridge User Guide*\.
-+ **AWS Marketplace** – See a list of your current AWS Marketplace product subscriptions, and search for image products directly from Image Builder\. You can also use an image product that you’ve subscribed to as the base image for an Image Builder recipe\. For more information about managing AWS Marketplace subscriptions, see the [AWS Marketplace Buyer Guide](https://docs.aws.amazon.com/marketplace/latest/buyerguide)\.
-+ **Amazon Simple Notification Service \(Amazon SNS\)** – If configured, publish detailed messages about your image status to an SNS topic that you subscribe to\. For more information about Amazon SNS, see [What is Amazon SNS?](https://docs.aws.amazon.com/sns/latest/dg/welcome.html) in the *Amazon Simple Notification Service Developer Guide*\.
 
 **Topics**
 + [Features of EC2 Image Builder](#image-builder-features)
@@ -65,14 +60,17 @@ For more information, see [Share EC2 Image Builder resources](manage-shared-reso
 
 ## Supported operating systems<a name="image-builder-os"></a>
 
-Image Builder supports the following operating systems:
-+ Amazon Linux 2
-+ Windows Server 2022/2019/2016/2012 R2
-+ Windows Server version 2004, and 20H2
-+ Red Hat Enterprise Linux \(RHEL\) 8 and 7
-+ CentOS 8 and 7
-+ Ubuntu 20, 18, and 16
-+ SUSE Linux Enterprise Server \(SUSE\) 15
+Image Builder supports the following operating system versions:
+
+
+| Operating system/distribution | Supported versions | 
+| --- | --- | 
+|  Amazon Linux  |  2 and 2023  | 
+|  CentOS  |  7 and 8  | 
+|  Red Hat Enterprise Linux \(RHEL\)  |  7 and 8  | 
+|  SUSE Linux Enterprise Server \(SUSE\)  |  12 and 15  | 
+|  Ubuntu  |  18\.04 LTS, 20\.04 LTS, and 22\.04 LTS  | 
+|  Windows Server |  2012 R2, 2016, 2019, and 2022 2004 and 20H2  | 
 
 ## Supported image formats<a name="image-builder-image-formats"></a>
 
@@ -130,6 +128,18 @@ During this phase, Image Builder launches an instance from the image that it cre
 Container host test phase  
 After Image Builder runs the test phase for all of the components that you selected in the container recipe, Image Builder runs this phase for container workflows\. The container host test phase can run additional tests that validate container management and custom runtime configurations\.
 
+**Workflow**  
+Workflows define the sequence of steps that Image Builder performs when it creates a new image\. All images have build and test workflows\. Containers have an additional workflow for distribution\.*Workflow types*
+
+`BUILD`  
+Covers build stage configuration for every image created\.
+
+`TEST`  
+Covers test stage configuration for every image created\.
+
+`DISTRIBUTION`  
+Covers distribution workflow for container images\.
+
 ## Pricing<a name="image-builder-pricing"></a>
 
 There is no cost to use EC2 Image Builder to create custom AMI or container images\. However, standard pricing applies for other services that are used in the process\. The following list includes the usage of some AWS services that can incur costs when you create, build, store, and distribute your custom AMI or container images, depending on your configuration\.
@@ -153,9 +163,6 @@ AWS Organizations allows you to apply Service Control Policies \(SCP\) on accoun
 
 **Amazon Inspector**  
 Image Builder uses Amazon Inspector as the default vulnerability scanning agent to establish security baselines for Amazon Linux 2, Windows Server 2012, and Windows Server 2016\. For more information, see [What is Amazon Inspector?](https://docs.aws.amazon.com/inspector/latest/userguide/inspector_introduction.html)
-
-**AWS Systems Manager Automation**  
-An AWS Systems Manager automation document defines the actions that AWS Systems Manager performs on your managed instances and AWS resources\. Systems Manager documents use JSON or YAML and include steps and parameters that you specify\. The steps you specify run in sequential order\. Automation documents are AWS Systems Manager documents of type Automation, as opposed to Command and Policy documents\. For more information, see [AWS Systems Manager Automation](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation.html)\.
 
 **AWS Resource Access Manager**  
 AWS Resource Access Manager \(AWS RAM\) lets you share your resources with any AWS account or through AWS Organizations\. If you have multiple AWS accounts, you can create resources centrally and use AWS RAM to share those resources with other accounts\. EC2 Image Builder allows sharing for the following resources: components, images, and image recipes\. For more information about AWS RAM, see the [AWS Resource Access Manager User Guide](https://docs.aws.amazon.com/ram/latest/userguide/what-is.html)\. For information about sharing Image Builder resources, see [Share EC2 Image Builder resources](manage-shared-resources.md)\.

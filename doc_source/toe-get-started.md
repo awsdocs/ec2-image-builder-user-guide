@@ -21,6 +21,8 @@ To develop components locally, download and install the AWSTOE application\.
 **Download the AWSTOE application**
 
    To install AWSTOE, choose the appropriate download link for your architecture and platform\. For the full list of application download links, see [AWSTOE downloads](toe-component-manager.md#toe-downloads)
+**Important**  
+AWS is phasing out support for TLS versions 1\.0 and 1\.1\. To access the S3 bucket for AWSTOE downloads, you must update your client software to use TLS version 1\.2 or later by March 31, 2023\. For more information, see this [AWS Security Blog post](http://aws.amazon.com/blogs/security/tls-1-2-required-for-aws-endpoints/)\.
 
 1. 
 

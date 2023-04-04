@@ -1,4 +1,4 @@
-# Patch Management in EC2 Image Builder<a name="vulnerability-analysis-and-management"></a>
+# Patch Management inEC2 Image Builder<a name="security-patch-management"></a>
 
 EC2 Image Builder provides the latest Amazon Linux 2, Red Hat Enterprise Linux \(RHEL\), CentOS, Ubuntu, SUSE Linux Enterprise Server, and Windows 2012 R2 and later AMIs as managed image sources\. You maintain the Amazon EC2 system patching responsibility, per the [shared responsibility model](http://aws.amazon.com/compliance/shared-responsibility-model/)\. If the EC2 instances in your application workload can be easily replaced, then it might be more efficient to update the base AMI and redeploy all compute nodes based on this image\. 
 

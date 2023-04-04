@@ -10,23 +10,43 @@ For advanced troubleshooting, you can run predefined commands and scripts using 
 
 ## Troubleshoot pipeline builds<a name="troubleshooting-pipelines"></a>
 
-If an Image Builder pipeline build fails, Image Builder returns an error message that describes the failure\. Image Builder also returns a Systems Manager execution ID in the failure message, such as the one in the following example\.
+If an Image Builder pipeline build fails, Image Builder returns an error message that describes the failure\. Image Builder also returns a `workflow execution ID` in the failure message, such as the one in the following example output
 
 ```
-Systems Manager execution 'aaaaaaaa-bbbb-cccc-dddd-example12345' failed with status…
+Workflow Execution ID: wf-12345abc-6789-0123-abc4-567890123abc failed with reason: …
 ```
 
-Image Builder uses AWS Systems Manager Automation to orchestrate image build actions\. To review additional details to help troubleshoot a build failure, search the Systems Manager Automation console for the execution ID provided by Image Builder and review the Automation execution\.
+Image Builder arranges and directs image build actions through a series of steps that are defined for the runtime stages in its standard image creation process\. The build and test stages of the process each have an associated workflow\. When Image Builder runs a workflow to build or test a new image, it generates a workflow metadata resource that keeps track of runtime details\.
 
-All build activity is also logged in AWS CloudTrail if it is enabled in your account\. Filter CloudTrail events by the source `imagebuilder.amazonaws.com`, or search for the Amazon EC2 instance ID that is returned in the execution log to see more details about the pipeline execution\.
+Container images have an additional workflow that runs during distribution\.
+
+**Research details for runtime instance failures for your workflow**  
+To troubleshoot a runtime failure for your workflow, you can call the [GetWorkflowExecution](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_GetWorkflowExecution.html) and [ListWorkflowStepExecutions](https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_GetWorkflowExecution.html) API actions with your `workflow execution ID`\.
+
+**Review workflow runtime logs**
++ **Amazon CloudWatch Logs**
+
+  Image Builder publishes detailed workflow execution logs to the following Image Builder CloudWatch Logs group and stream:
+  + LogGroup: `"/aws/imagebuilder/<ImageName>`
+  + LogStream: `<ImageVersion>/<ImageBuildVersion>["x.x.x/x"]`
+
+  With CloudWatch Logs, you can search log data with filter patterns\. For more information, see [Search log data using filter patterns](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/SearchDataFilterPattern.html) in the *Amazon CloudWatch Logs User Guide*\.
++ **AWS CloudTrail**
+
+  All build activity is also logged in CloudTrail if it's enabled in your account\. You can filter CloudTrail events by the source `imagebuilder.amazonaws.com`, or search for the Amazon EC2 instance ID that is returned in the execution log to see more details about the pipeline execution\.
++ **Amazon Simple Storage Service \(S3\)**
+
+  If you've specified an S3 bucket name and key prefix in your infrastructure configuration, the workflow step runtime log path follows this pattern \(no spaces\):
+
+  `S3://<S3BucketName>/<KeyPrefix>/<ImageName>/<ImageVersion>/<ImageBuildVersion>/<StepName>`
+
+  The logs that you send to your S3 bucket show the steps and error messages for activity on the EC2 instance during the image build process\. The logs include log outputs from the component manager, the definitions of the components that were run, and the detailed output \(in JSON\) of all of the steps taken on the instance\. If you encounter an issue, you should review these files, starting with the `application.log`, to diagnose the cause of the problem on the instance\.
 
 By default, Image Builder shuts down the Amazon EC2 build or test instance that is running when the pipeline fails\. You can change the instance settings for the infrastructure configuration resource that your pipeline uses, to retain your build or test instance for troubleshooting\.
 
 To change the instance settings in the console, you must clear the **Terminate instance on failure** check box located in the **Troubleshooting settings** section of your infrastructure configuration resource\.
 
 You can also change the instance settings with the update\-infrastructure\-configuration command in the AWS CLI\. Set the `terminateInstanceOnFailure` value to `false` in the JSON file that the command references with the `--cli-input-json` parameter\. For details, see [Update an infrastructure configuration](update-infra-config.md)\.
-
-The logs that you send to your S3 bucket show the steps and error messages for activity on the EC2 instance during the image build process\. The logs include log outputs from the component manager, the definitions of the components that were run, and the detailed output \(in JSON\) of all of the steps taken on the instance\. If you encounter an issue, you should review these files, starting with the `application.log`, to diagnose the cause of the problem on the instance\. 
 
 ## Troubleshooting scenarios<a name="image-builder-troubleshooting-scenarios"></a>
 

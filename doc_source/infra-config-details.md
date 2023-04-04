@@ -16,7 +16,7 @@ aws imagebuilder list-infrastructure-configurations
 
 ## Get infrastructure configuration details \(AWS CLI\)<a name="cli-get-infrastructure-configuration-details"></a>
 
-The following example shows how use the [get\-infrastructure\-configurations](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/imagebuilder/get-infrastructure-configurations.html) command in the AWS CLI to get the details of an infrastructure configuration by specifying its Amazon Resource Name \(ARN\)\.
+The following example shows how use the [get\-infrastructure\-configuration](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/imagebuilder/get-infrastructure-configuration.html) command in the AWS CLI to get the details of an infrastructure configuration by specifying its Amazon Resource Name \(ARN\)\.
 
 ```
 aws imagebuilder get-infrastructure-configuration --infrastructure-configuration-arn arn:aws:imagebuilder:us-west-2:123456789012:infrastructure-configuration/my-example-infrastructure-configuration

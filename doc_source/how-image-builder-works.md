@@ -69,7 +69,7 @@ The following resources are created during the image build process:
 
 **AMI image pipelines**
 + EC2 instance \(*temporary*\)
-+ Systems Manager Inventory Association \(through Systems Manager State Manager\) `EnhancedImageMetadata` is Enabled\) on the EC2 instance
++ Systems Manager Inventory Association \(through Systems Manager State Manager if `EnhancedImageMetadata` is Enabled\) on the EC2 instance
 + Amazon EC2 AMI
 + The Amazon EBS Snapshot associated with Amazon EC2 AMI
 

@@ -10,15 +10,13 @@ Image Builder supports the following file formats for your VM disk containers:
 
 The import uses the disks to create an Amazon Machine Image \(AMI\) and an Image Builder image resource, either of which can serve as the base image for your custom image recipe\. The VM disks must be stored in S3 buckets for the import\. Alternatively, you can import from an existing EBS snapshot\.
 
-In the Image Builder console, you can import the image directly, and then use the output image or AMI in your recipes, or you can specify import parameters when you are creating your recipe or recipe version\. For more information about importing directly, see [Import a VM \(console\)](create-images.md#import-image-console)\. For more information about importing as part of your image recipe, see [VM import configuration](create-image-recipes.md#import-vm-recipe-console-config)\.
+In the Image Builder console, you can import the image directly, and then use the output image or AMI in your recipes, or you can specify import parameters when you are creating your recipe or recipe version\. For more information about importing directly, see [Import a VM \(console\)](import-vm-image.md#import-image-console)\. For more information about importing as part of your image recipe, see [VM import configuration](create-image-recipes.md#import-vm-recipe-console-config)\.
 
 ## Import a VM into Image Builder \(AWS CLI\)<a name="vmie-import"></a>
 
-Image Builder integrates with the Amazon EC2 VM Import/Export API to enable the import process to run asynchronously in the background\. The Image Builder [import\-vm\-image](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/imagebuilder/import-vm-image.html) command references the task ID from the VM import to track its progress, and creates an Image Builder image resource as output\. This allows you to reference the Image Builder image resource in your recipes before the VM import finishes\.
+To import a VM from disks into an AMI and create an Image Builder image resource that you can reference right away, follow these steps from the AWS CLI:
 
-To import a VM from disks into an AMI and create an Image Builder image resource that you can reference right away, follow these steps:
-
-1. Initiate a VM import, using the Amazon EC2 VM Import/Export import\-image command in the AWS CLI\. Make note of the task ID that is returned in the command response\. You'll need it for the next step\. For more information, see [Importing a VM as an image using VM Import/Export](https://docs.aws.amazon.com/vm-import/latest/userguide/vmimport-image-import.html) in the *VM Import/Export User Guide*\.
+1. Initiate a VM import, with the Amazon EC2 VM Import/Export import\-image command in the AWS CLI\. Make note of the task ID that is returned in the command response\. You'll need it for the next step\. For more information, see [Importing a VM as an image using VM Import/Export](https://docs.aws.amazon.com/vm-import/latest/userguide/vmimport-image-import.html) in the *VM Import/Export User Guide*\.
 
 1. 
 
@@ -58,7 +56,7 @@ To provide the data values as command line parameters, refer to the parameter na
 
 **Import the image**
 
-   Run the following command, using the file that you created as input:
+   Run the [import\-vm\-image](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/imagebuilder/import-vm-image.html) command, with the file that you created as input:
 
    ```
    aws imagebuilder import-vm-image --cli-input-json file://import-vm-image.json

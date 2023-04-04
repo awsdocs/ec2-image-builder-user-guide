@@ -36,7 +36,7 @@ A component, image, or recipe owner can share these resources with:
 To share an Image Builder component, image, or recipe:
 + You must own the component, image, or recipe in your AWS account\. You cannot share resources that have been shared with you\.
 + The AWS Key Management Service \(AWS KMS\) key associated with encrypted resources must be explicitly shared with the target accounts, organizations, or OUs\.
-+ In order to share your Image Builder resources with AWS Organizations and OUs using AWS RAM, you must enable sharing\. For more information, see [Enable Sharing with AWS Organizations](https://docs.aws.amazon.com/ram/latest/userguide/getting-started-sharing.html) in the *AWS Resource Access Manager User Guide*\.
++ In order to share your Image Builder resources with AWS Organizations and OUs using AWS RAM, you must enable sharing\. For more information, see [Enable Sharing with AWS Organizations](https://docs.aws.amazon.com/ram/latest/userguide/getting-started-sharing.html) in the *AWS RAM User Guide*\.
 + If you distribute an image encrypted with AWS KMS across accounts in different Regions, you must create a KMS key and alias in each target Region\. Additionally, the people who will be launching instances in those Regions will need access to the KMS key specified via the Key Policy\.
 
 The following resources that Image Builder creates from your pipeline build are not considered Image Builder resources – rather, they are external resources that Image Builder distributes in your account, and to the AWS Regions, accounts, and organizations or organizational units \(OUs\) that you specify in your distribution configuration\.
@@ -72,7 +72,7 @@ When you create a RAM resource share, you can share a component, image, or recip
 + 
 
 **Console**  
-To create your resource share using the AWS RAM console, see [Creating a Resource Share in the AWS Resource Access Manager User Guide](https://docs.aws.amazon.com/ram/latest/userguide/working-with-sharing.html#working-with-sharing-create)\.
+To create your resource share using the AWS RAM console, see [Share AWS resources owned by you](https://docs.aws.amazon.com/ram/latest/userguide/working-with-sharing.html#working-with-sharing-create) in the *AWS RAM User Guide*\.
 + 
 
 **AWS CLI**  
@@ -152,7 +152,7 @@ To unshare a shared component, image, or recipe that you own, you must remove it
 To unshare a component, image, or recipe, the consumer cannot have any dependencies on them\. The consumer must remove any dependencies on the shared resources before the owner can unshare them\.
 
 **To unshare a shared component, image, or recipe that you own using the AWS Resource Access Manager console**  
-See [Updating a Resource Share](https://docs.aws.amazon.com/ram/latest/userguide/working-with-sharing.html#working-with-sharing-update) in the AWS Resource Access Manager User Guide\.
+See [Updating a Resource Share](https://docs.aws.amazon.com/ram/latest/userguide/working-with-sharing.html#working-with-sharing-update) in the *AWS RAM User Guide*\.
 
 **To unshare a shared component, image, or recipe that you own using the AWS CLI**  
 Use the [disassociate\-resource\-share](https://docs.aws.amazon.com/cli/latest/reference/ram/disassociate-resource-share.html) command to stop sharing the resource\.
